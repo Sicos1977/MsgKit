@@ -53,7 +53,7 @@
     <Compile Include="Email.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertiesStream.cs" />
-    <Compile Include="Property.cs" />
+    <Compile Include="FixedLengthProperty.cs" />
     <Compile Include="Recipient.cs" />
   </ItemGroup>
   <ItemGroup>

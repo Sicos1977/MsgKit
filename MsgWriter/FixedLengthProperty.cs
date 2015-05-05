@@ -4,7 +4,7 @@ namespace MsgWriter
 {
     #region PropertyFlags
     /// <summary>
-    ///     Flags used to set on a <see cref="Property" />
+    ///     Flags used to set on a <see cref="FixedLengthProperty" />
     /// </summary>
     internal enum PropertyFlags
     {
@@ -246,9 +246,9 @@ namespace MsgWriter
     #endregion
 
     /// <summary>
-    ///     A property inside the <see cref="PropertiesStream" />
+    ///     A property with a fixed 16 byte size
     /// </summary>
-    internal class Property
+    internal class FixedLengthProperty
     {
         #region Constructor
         /// <summary>
@@ -257,7 +257,7 @@ namespace MsgWriter
         /// <param name="name">The name of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">The <see cref="PropertyFlags" /></param>
-        internal Property(string name, PropertyType type, PropertyFlags flags)
+        internal FixedLengthProperty(string name, PropertyType type, PropertyFlags flags)
         {
             Name = name;
             Type = type;
