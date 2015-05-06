@@ -235,7 +235,6 @@ namespace MsgWriter
         {
             for (var i = 0; i<attachments.Count(); i++)
             {
-
             }
         }
 

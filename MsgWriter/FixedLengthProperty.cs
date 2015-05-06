@@ -1,4 +1,5 @@
-﻿using MsgWriter.Helpers;
+﻿using System;
+using MsgWriter.Helpers;
 
 namespace MsgWriter
 {
@@ -6,6 +7,7 @@ namespace MsgWriter
     /// <summary>
     ///     Flags used to set on a <see cref="FixedLengthProperty" />
     /// </summary>
+    [Flags]
     internal enum PropertyFlags
     {
         // ReSharper disable InconsistentNaming

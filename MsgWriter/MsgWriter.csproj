@@ -51,8 +51,11 @@
     <Compile Include="MapiTags.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="PropertiesStream\AttachmentOrRecipient.cs" />
+    <Compile Include="PropertiesStream\EmbeddedMessage.cs" />
+    <Compile Include="PropertiesStream\TopLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertiesStream.cs" />
+    <Compile Include="PropertiesStream\Properties.cs" />
     <Compile Include="FixedLengthProperty.cs" />
     <Compile Include="Recipient.cs" />
   </ItemGroup>
