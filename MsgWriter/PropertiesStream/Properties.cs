@@ -29,6 +29,27 @@ namespace MsgWriter.PropertiesStream
         }
         #endregion
 
+        #region ReadProperties
+        /// <summary>
+        ///     Reads all the <see cref="FixedLengthProperty" /> objects from the given <paramref name="binaryReader" />
+        /// </summary>
+        /// <param name="binaryReader"></param>
+        internal void ReadProperties(BinaryReader binaryReader)
+        {
+            // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
+            // each represented by one entry, can be determined by first measuring the size of the property stream (1), 
+            // then subtracting the size of the header from it, and then dividing the result by the size of one entry.
+            // The structure of each entry, representing one property, depends on whether the property is a fixed length 
+            // property or not.
+
+            //foreach (var property in this)
+            //{
+            //    // TODO: Write all properties
+            //    binaryWriter.Write(property.Name);
+            //}
+        }
+        #endregion
+
         #region WriteProperties
         /// <summary>
         ///     Writes all the <see cref="FixedLengthProperty" /> objects to the given <paramref name="binaryWriter" />

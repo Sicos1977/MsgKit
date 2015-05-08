@@ -7,6 +7,23 @@ namespace MsgWriter.PropertiesStream
     /// </summary>
     internal sealed class AttachmentOrRecipient : Properties
     {
+        #region FromByteArray
+        /// <summary>
+        ///     Reads the property stream contained inside an Attachment object storage or a Recipient 
+        ///     object storage
+        /// </summary>
+        /// <param name="byteArray"></param>
+        internal void FromByteArray(byte[] byteArray)
+        {
+            using (var memoryStream = new MemoryStream(byteArray))
+            using (var binaryReader = new BinaryReader(memoryStream))
+            {
+                binaryReader.ReadBytes(8);
+                ReadProperties(binaryReader);
+            }
+        }
+        #endregion
+
         #region ToByteArray
         /// <summary>
         ///     Returns the property stream contained inside an Attachment object storage or a Recipient 

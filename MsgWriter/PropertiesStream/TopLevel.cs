@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace MsgWriter.PropertiesStream
 {
@@ -52,6 +53,26 @@ namespace MsgWriter.PropertiesStream
             NextAttachmentId = nextAttachmentId;
             RecipientCount = recipientCount;
             AttachmentCount = attachmentCount;
+        }
+        #endregion
+
+        #region FromByteArray
+        /// <summary>
+        ///     Reads the Top level property stream from a byte array
+        /// </summary>
+        /// <param name="byteArray"></param>
+        internal void FromByteArray(byte[] byteArray)
+        {
+            using (var memoryStream = new MemoryStream(byteArray))
+            using (var binaryReader = new BinaryReader(memoryStream))
+            {
+                binaryReader.ReadBytes(8);
+                NextRecipientId = Convert.ToInt32(binaryReader.ReadUInt32());
+                NextAttachmentId = Convert.ToInt32(binaryReader.ReadUInt32());
+                RecipientCount = Convert.ToInt32(binaryReader.ReadUInt32());
+                AttachmentCount = Convert.ToInt32(binaryReader.ReadUInt32());
+                ReadProperties(binaryReader);
+            }
         }
         #endregion
 
