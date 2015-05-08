@@ -1146,8 +1146,7 @@ namespace MsgWriter
 
         [StringValue("300D")]
         PR_PROVIDER_ORDINAL = 0x300D,
-
-
+        
         /*
          *  MAPI Form properties
          */
@@ -2462,26 +2461,29 @@ namespace MsgWriter
         PROP_ID_SECURE_MIN = 0x67F0,
 
         [StringValue("67FF")]
-        PROP_ID_SECURE_MAX = 0x67FF
+        PROP_ID_SECURE_MAX = 0x67FF,
         /* MAPITAGS_H */
         #endregion
-    }
+    
         #region Flag constants
         /// <summary>
         ///     E-mail follow up flag (named property)
         /// </summary>
+        [StringValue("8530")]
         FlagRequest = 0x8530,
 
         /// <summary>
         ///     Specifies the flag state of the message object; Not present, 1 = Completed, 2 = Flagged.
         ///     Only available from Outlook 2007 and up.
         /// </summary>
+        [StringValue("1090")]
         PR_FLAG_STATUS = 0x1090,
 
         /// <summary>
         ///     Contains the date when the task was completed. Only filled when <see cref="TaskComplete" /> is true.
         ///     Only available from Outlook 2007 and up.
         /// </summary>
+        [StringValue("1091")]
         PR_FLAG_COMPLETE_TIME = 0x1091,
         #endregion
 
@@ -2489,61 +2491,73 @@ namespace MsgWriter
         /// <summary>
         ///     <see cref="TaskStatus" /> of the task (named property)
         /// </summary>
+        [StringValue("8101")]
         TaskStatus = 0x8101,
 
         /// <summary>
         ///     Start date of the task (named property)
         /// </summary>
+        [StringValue("8104")]
         TaskStartDate = 0x8104,
 
         /// <summary>
         ///     Due date of the task (named property)
         /// </summary>
+        [StringValue("8105")]
         TaskDueDate = 0x8105,
 
         /// <summary>
         ///     True when the task is complete (named property)
         /// </summary>
+        [StringValue("811C")]
         TaskComplete = 0x811C,
 
         /// <summary>
         ///     The actual task effort in minutes (named property)
         /// </summary>
+        [StringValue("8110")]
         TaskActualEffort = 0x8110,
 
         /// <summary>
         ///     The estimated task effort in minutes (named property)
         /// </summary>
+        [StringValue("8111")]
         TaskEstimatedEffort = 0x8111,
 
         /// <summary>
         ///     The complete percentage of the task (named property)
         /// </summary>
+        [StringValue("8102")]
         PercentComplete = 0x8102,
 
         /// <summary>
         ///     The contacts of the task (named property)
         /// </summary>
+        [StringValue("853A")]
         Contacts = 0x853A,
 
         /// <summary>
         ///     The companies for the task (named property)
         /// </summary>
+        [StringValue("8539")]
         Companies = 0x8539,
 
         /// <summary>
         ///     The task billing information (named property)
         /// </summary>
+        [StringValue("8535")]
         Billing = 0x8535,
 
         /// <summary>
         ///     The task mileage information (named property)
         /// </summary>
+        [StringValue("8534")]
         Mileage = 0x8534,
 
         /// <summary>
         ///     The task owner (named property)
         /// </summary>
+        [StringValue("811F")]
         Owner = 0x811F,
         #endregion
 
@@ -2551,103 +2565,123 @@ namespace MsgWriter
         /// <summary>
         ///     Appointment location (named property)
         /// </summary>
+        [StringValue("8208")]
         Location = 0x8208,
 
         /// <summary>
         ///     Appointment reccurence type (named property)
         /// </summary>
+        [StringValue("8231")]
         ReccurrenceType = 0x8231,
 
         /// <summary>
         ///     Appointment reccurence pattern (named property)
         /// </summary>
+        [StringValue("8232")]
         ReccurrencePattern = 0x8232,
 
         /// <summary>
         ///     Appointment start time (greenwich time) (named property)
         /// </summary>
+        [StringValue("820D")]
         AppointmentStartWhole = 0x820D,
 
         /// <summary>
         ///     Appointment end time (greenwich time) (named property)
         /// </summary>
+        [StringValue("820E")]
         AppointmentEndWhole = 0x820E,
 
         /// <summary>
         ///     Appointment all attendees string (named property)
         /// </summary>
+        [StringValue("8238")]
         AppointmentAllAttendees = 0x8238,
 
         /// <summary>
         ///     Appointment to attendees string (named property)
         /// </summary>
+        [StringValue("823B")]
         AppointmentToAttendees = 0x823B,
 
         /// <summary>
         ///     Appointment cc attendees string (named property)
         /// </summary>
+        [StringValue("823C")]
         AppointmentCCAttendees = 0x823C,
 
         /// <summary>
         ///     The PidLidClientIntent property ([MS-OXPROPS] section 2.58) indicates what actions a user has taken on a Meeting object
         /// </summary>
-        PidLidClientIntent = 0x15,
+        [StringValue("0015")]
+        PidLidClientIntent = 0x0015,
         #endregion
 
         #region Contact constants
         /// <summary>
         /// Instant messaging address (named property)    
         /// </summary>
+        [StringValue("8062")]
         InstantMessagingAddress = 0x8062,
 
         /// <summary>
         /// Home address (named property)
         /// </summary>
+        [StringValue("801A")]
         HomeAddress = 0x801A,
 
         /// <summary>
         /// Work address (named property)
         /// </summary>
+        [StringValue("801B")]
         WorkAddress = 0x801B,
 
         /// <summary>
         /// Other address (named property)
         /// </summary>
+        [StringValue("801C")]
         OtherAddress = 0x801C,
 
         /// <summary>
         /// E-mail 1 address (named property)
         /// </summary>
+        [StringValue("8083")]
         Email1EmailAddress = 0x8083,
 
         /// <summary>
         /// E-mail 1 display name (named property
         /// </summary>
+        [StringValue("8080")]
         Email1DisplayName = 0x8080,
 
         /// <summary>
         /// E-mail 2 address (named property)
         /// </summary>
+        [StringValue("8093")]
         Email2EmailAddress = 0x8093,
 
         /// <summary>
         /// E-mail 2 display name (named property
         /// </summary>
+        [StringValue("8090")]
         Email2DisplayName = 0x8090,
 
         /// <summary>
         /// E-mail 3 address (named property)
         /// </summary>
+        [StringValue("80A3")]
         Email3EmailAddress = 0x80A3,
 
         /// <summary>
         /// E-mail 3 display name (named property)
         /// </summary>
+        [StringValue("80A0")]
         Email3DisplayName = 0x80A0,
 
         /// <summary>
         /// Html (named property)
         /// </summary>
+        [StringValue("802B")]
         Html = 0x802B,
         #endregion
 
