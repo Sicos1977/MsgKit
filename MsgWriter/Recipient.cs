@@ -19,6 +19,39 @@ using MsgWriter.Helpers;
 
 namespace MsgWriter
 {
+    #region Enum RecipientType
+    /// <summary>
+    /// The recipient type
+    /// </summary>
+    internal enum RecipientType : uint
+    {
+        /// <summary>
+        ///     The recipient is an TO E-mail address
+        /// </summary>
+        To = 0x0001,
+
+        /// <summary>
+        ///     The recipient is a CC E-mail address
+        /// </summary>
+        Cc = 0x0002,
+
+        /// <summary>
+        ///     The recipient is a BCC E-mail address
+        /// </summary>
+        Bcc = 0x0003,
+
+        /// <summary>
+        ///     The recipient is a resource (e.g. a room)
+        /// </summary>
+        Resource = 0x0004,
+
+        /// <summary>
+        ///     The recipient is a room (uses PR_RECIPIENT_TYPE_EXE) needs Exchange 2007 or higher
+        /// </summary>
+        Room = 0x0007
+    }
+    #endregion
+
     /// <summary>
     /// This class represents an Outlook recipient
     /// </summary>

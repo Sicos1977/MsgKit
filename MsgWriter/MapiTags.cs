@@ -2465,7 +2465,7 @@ namespace MsgWriter
         /* MAPITAGS_H */
         #endregion
     
-        #region Flag constants
+        #region Flag
         /// <summary>
         ///     E-mail follow up flag (named property)
         /// </summary>
@@ -2487,7 +2487,7 @@ namespace MsgWriter
         PR_FLAG_COMPLETE_TIME = 0x1091,
         #endregion
 
-        #region Task constants
+        #region Task
         /// <summary>
         ///     <see cref="TaskStatus" /> of the task (named property)
         /// </summary>
@@ -2561,7 +2561,7 @@ namespace MsgWriter
         Owner = 0x811F,
         #endregion
 
-        #region Appointment constants
+        #region Appointment
         /// <summary>
         ///     Appointment location (named property)
         /// </summary>
@@ -2617,7 +2617,7 @@ namespace MsgWriter
         PidLidClientIntent = 0x0015,
         #endregion
 
-        #region Contact constants
+        #region Contact
         /// <summary>
         /// Instant messaging address (named property)    
         /// </summary>
@@ -2699,7 +2699,7 @@ namespace MsgWriter
         PR_SENT_REPRESENTING_SMTP_ADDRESS = 0x5D02,
 
         /// <summary>
-        /// Contains the name of the last user (or creator) to change the Message object 
+        /// Contains the name of the last user (or creator) that changed the Message object 
         /// </summary>
         [StringValue("3FFA")]
         PR_LAST_MODIFIER_NAME_W = 0x3FFA,
@@ -2739,6 +2739,5 @@ namespace MsgWriter
         /// </summary>
         [StringValue("1035")]
         PR_INTERNET_MESSAGE_ID = 0x1035,
-        // ReSharper restore InconsistentNaming
     }
 }

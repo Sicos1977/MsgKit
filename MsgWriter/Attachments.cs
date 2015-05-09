@@ -1,14 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using CompoundFileStorage;
 using MsgWriter.Exceptions;
+using MsgWriter.Helpers;
 
 namespace MsgWriter
 {
+    #region Enum AttachmentType
+    /// <summary>
+    /// The type of the attachment
+    /// </summary>
+    internal enum AttachmentType : uint
+    {
+        /// <summary>
+        ///     There is no attachment
+        /// </summary>
+        NoAttachment = 0x0000,
+        
+        /// <summary>
+        ///     The PR_ATTACH_DATA_BIN property contains the attachment data
+        /// </summary>
+        AttachByValue = 0x0001,
+
+        /// <summary>
+        ///     The PR_ATTACH_PATHNAME or PR_ATTACH_LONG_PATHNAME property contains a fully qualified path 
+        ///     identifying the attachment to recipients with access to a common file server
+        /// </summary>
+        AttachByReference = 0x0002,
+
+        /// <summary>
+        ///     The PR_ATTACH_PATHNAME or PR_ATTACH_LONG_PATHNAME property contains a fully qualified path identifying the attachment
+        /// </summary>
+        AttachByRefResolve = 0x0003,
+
+        /// <summary>
+        ///     The PR_ATTACH_PATHNAME or PR_ATTACH_LONG_PATHNAME property contains a fully qualified path identifying the attachment
+        /// </summary>
+        AttachByRefOnly = 0x0004,
+
+        /// <summary>
+        ///     The attachment is a msg file
+        /// </summary>
+        AttachEmbeddedMsg = 0x0005,
+
+        /// <summary>
+        ///     The attachment in an OLE object
+        /// </summary>
+        AttachOle = 0x0006
+    }
+    #endregion
+
     /// <summary>
     /// Contains a list of <see cref="Attachment"/> objects that are added to a message
     /// </summary>
@@ -76,6 +120,24 @@ namespace MsgWriter
                                contentId));
         }
         #endregion
+        
+        /// <summary>
+        /// This method add's the attachment object to the given <paramref name="rootStorage"/>
+        /// and it will set all the needed properties
+        /// </summary>
+        /// <param name="rootStorage"></param>
+        internal void AddToStorage(CFStorage rootStorage)
+        {
+            for (var i = 0; i < Count; i++)
+            {
+                var attachment = this[i];
+                var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString("X8").ToUpper());
+                var stream = storage.AddStream("__substg1.0_3001001F");
+                stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
+                stream = storage.AddStream("__substg1.0_37010102");
+                stream.SetData(attachment.Stream.ToByteArray());
+            }
+        }
     }
 
     /// <summary>
@@ -145,20 +207,6 @@ namespace MsgWriter
                 throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
         }
         #endregion
-
-        /// <summary>
-        /// This method add's the attachment object to the given <paramref name="rootStorage"/>
-        /// and it will set all the needed properties
-        /// </summary>
-        /// <param name="rootStorage"></param>
-        internal void AddToStorage(CFStorage rootStorage)
-        {
-            var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString().PadLeft(8, '0'));
-            var stream = storage.AddStream("__substg1.0_3001001F");
-            stream.SetData(Encoding.UTF8.GetBytes(attachment.FileName));
-            stream = storage.AddStream("__substg1.0_37010102");
-            stream.SetData(attachment.Stream.ToByteArray());
-        }
     }
 }
 

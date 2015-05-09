@@ -15,17 +15,17 @@ namespace MsgWriter.PropertiesStream
         /// <summary>
         ///     Adds a property to the property stream
         /// </summary>
-        /// <param name="name">The name of the property</param>
+        /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">
         ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE"/> 
         ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE"/>
         /// </param>
-        internal void AddProperty(string name, 
+        internal void AddProperty(string id, 
                                   PropertyType type, 
                                   PropertyFlags flags = PropertyFlags.PROPATTR_READABLE & PropertyFlags.PROPATTR_WRITABLE)
         {
-            Add(new FixedLengthProperty(name, type, flags));
+            Add(new FixedLengthProperty(id, type, flags));
         }
         #endregion
 
@@ -42,11 +42,13 @@ namespace MsgWriter.PropertiesStream
             // The structure of each entry, representing one property, depends on whether the property is a fixed length 
             // property or not.
 
-            //foreach (var property in this)
-            //{
-            //    // TODO: Write all properties
-            //    binaryWriter.Write(property.Name);
-            //}
+            while (binaryReader.)
+            {
+                // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
+                // represent the property type. The high-order 16 bits represent the property ID.
+                var id = binaryReader.Read()
+                binaryWriter.Write(property.Name);
+            }
         }
         #endregion
 
