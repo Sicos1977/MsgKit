@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Attachments.cs" />
     <Compile Include="Exceptions\MWAttachmentExists.cs" />
+    <Compile Include="Exceptions\MWInvalidProperty.cs" />
     <Compile Include="Helpers\EmailAddress.cs" />
     <Compile Include="Helpers\ExceptionHelpers.cs" />
     <Compile Include="Helpers\StreamHelpers.cs" />

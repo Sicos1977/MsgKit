@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MsgWriter
 {
@@ -7,7 +9,7 @@ namespace MsgWriter
     ///     Flags used to set on a <see cref="FixedLengthProperty" />
     /// </summary>
     [Flags]
-    internal enum PropertyFlags
+    internal enum PropertyFlag : uint
     {
         // ReSharper disable InconsistentNaming
         /// <summary>
@@ -40,7 +42,7 @@ namespace MsgWriter
     /// <summary>
     ///     The type of a property in the properties stream
     /// </summary>
-    internal enum PropertyType : uint
+    internal enum PropertyType : ushort
     {
         /// <summary>
         /// 2 bytes; a 16-bit integer (PT_SHORT, PT_I2, i2, ui2)
@@ -222,7 +224,7 @@ namespace MsgWriter
         /// <summary>
         ///     The id of the property
         /// </summary>
-        internal string Id { get; private set; }
+        internal UInt16 Id { get; private set; }
 
         /// <summary>
         ///     The <see cref="PropertyType" />
@@ -230,9 +232,38 @@ namespace MsgWriter
         internal PropertyType Type { get; private set; }
 
         /// <summary>
-        ///     The <see cref="PropertyFlags" />
+        ///     The <see cref="PropertyFlag" >property flags</see> that have been set
+        ///     in its <see cref="uint"/> raw form
         /// </summary>
-        internal PropertyFlags Flags { get; private set; }
+        internal uint Flags { get; private set; }
+
+        /// <summary>
+        ///     The <see cref="PropertyFlag" >property flags</see> that have been set
+        ///     as a readonly collection
+        /// </summary>
+        internal ReadOnlyCollection<PropertyFlag> FlagsCollection 
+        {
+            get
+            {
+                var result = new List<PropertyFlag>();
+
+                if ((Flags & Convert.ToUInt32(PropertyFlag.PROPATTR_MANDATORY)) != 0)
+                    result.Add(PropertyFlag.PROPATTR_MANDATORY);
+
+                if ((Flags & Convert.ToUInt32(PropertyFlag.PROPATTR_READABLE)) != 0)
+                    result.Add(PropertyFlag.PROPATTR_READABLE);
+
+                if ((Flags & Convert.ToUInt32(PropertyFlag.PROPATTR_WRITABLE)) != 0)
+                    result.Add(PropertyFlag.PROPATTR_WRITABLE);
+
+                return result.AsReadOnly();
+            } 
+        }
+
+        /// <summary>
+        ///     The property data
+        /// </summary>
+        internal byte[] Data { get; private set; }
         #endregion
 
         #region Constructor
@@ -241,12 +272,29 @@ namespace MsgWriter
         /// </summary>
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
-        /// <param name="flags">The <see cref="PropertyFlags" /></param>
-        internal FixedLengthProperty(string id, PropertyType type, PropertyFlags flags)
+        /// <param name="flags">The <see cref="PropertyFlag" /></param>
+        /// <param name="data">The property data</param>
+        internal FixedLengthProperty(ushort id, PropertyType type, PropertyFlag flags, byte[] data)
+        {
+            Id = id;
+            Type = type;
+            Flags = Convert.ToUInt32(flags);
+            Data = data;
+        }
+
+        /// <summary>
+        ///     Creates this object and sets all its propertues
+        /// </summary>
+        /// <param name="id">The id of the property</param>
+        /// <param name="type">The <see cref="PropertyType" /></param>
+        /// <param name="flags">The <see cref="PropertyFlag" /></param>
+        /// <param name="data">The property data</param>
+        internal FixedLengthProperty(ushort id, PropertyType type, uint flags, byte[] data)
         {
             Id = id;
             Type = type;
             Flags = flags;
+            Data = data;
         }
         #endregion
     }

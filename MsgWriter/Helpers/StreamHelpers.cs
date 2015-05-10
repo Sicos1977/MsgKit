@@ -5,6 +5,7 @@ namespace MsgWriter.Helpers
 {
     internal static class StreamHelpers
     {
+        #region ToByteArray
         /// <summary>
         /// Returns the stream as an byte array
         /// </summary>
@@ -18,5 +19,25 @@ namespace MsgWriter.Helpers
                 return memoryStream.ToArray();
             }
         }
+        #endregion
+
+        #region Eof
+        /// <summary>
+        /// Returns true when the end of the <see cref="BinaryReader.BaseStream"/> has been reached
+        /// </summary>
+        /// <param name="binaryReader"></param>
+        /// <returns></returns>
+        internal static bool Eof(this BinaryReader binaryReader)
+        {
+            try
+            {
+                return binaryReader.BaseStream.Position >= binaryReader.BaseStream.Length;
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+        }
+        #endregion
     }
 }
