@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace MsgWriter
 {
+
     #region PropertyFlags
     /// <summary>
     ///     Flags used to set on a <see cref="FixedLengthProperty" />
@@ -45,22 +46,22 @@ namespace MsgWriter
     internal enum PropertyType : ushort
     {
         /// <summary>
-        /// 2 bytes; a 16-bit integer (PT_SHORT, PT_I2, i2, ui2)
+        ///     2 bytes; a 16-bit integer (PT_SHORT, PT_I2, i2, ui2)
         /// </summary>
         PtypInteger16 = 0x0002,
 
         /// <summary>
-        /// 4 bytes; a 32-bit integer (PT_LONG, PT_I4, int, ui4)
+        ///     4 bytes; a 32-bit integer (PT_LONG, PT_I4, int, ui4)
         /// </summary>
         PtypInteger32 = 0x0003,
 
         /// <summary>
-        /// 4 bytes; a 32-bit floating point number (PT_FLOAT, PT_R4, float, r4)
+        ///     4 bytes; a 32-bit floating point number (PT_FLOAT, PT_R4, float, r4)
         /// </summary>
         PtypFloating32 = 0x0004,
 
         /// <summary>
-        /// 8 bytes; a 64-bit floating point number (PT_DOUBLE, PT_R8, r8)
+        ///     8 bytes; a 64-bit floating point number (PT_DOUBLE, PT_R8, r8)
         /// </summary>
         PtypFloating64 = 0x0005,
 
@@ -77,17 +78,17 @@ namespace MsgWriter
         PtypFloatingTime = 0x0007,
 
         /// <summary>
-        /// 4 bytes; a 32-bit integer encoding error information as specified in section 2.4.1. (PT_ERROR)
+        ///     4 bytes; a 32-bit integer encoding error information as specified in section 2.4.1. (PT_ERROR)
         /// </summary>
         PtypErrorCode = 0x000A,
 
         /// <summary>
-        /// 1 byte; restricted to 1 or 0 (PT_BOOLEAN. bool)
+        ///     1 byte; restricted to 1 or 0 (PT_BOOLEAN. bool)
         /// </summary>
         PtypBoolean = 0x000B,
 
         /// <summary>
-        /// 8 bytes; a 64-bit integer (PT_LONGLONG, PT_I8, i8, ui8)
+        ///     8 bytes; a 64-bit integer (PT_LONGLONG, PT_I8, i8, ui8)
         /// </summary>
         PtypInteger64 = 0x0014,
 
@@ -110,12 +111,12 @@ namespace MsgWriter
         PtypTime = 0x0040,
 
         /// <summary>
-        /// 16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
+        ///     16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
         /// </summary>
         PtypGuid = 0x0048,
 
         /// <summary>
-        /// Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
+        ///     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
         /// </summary>
         PtypServerId = 0x00FB,
 
@@ -132,67 +133,67 @@ namespace MsgWriter
         PtypRuleAction = 0x00FE,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many bytes. (PT_BINARY)
+        ///     Variable size; a COUNT field followed by that many bytes. (PT_BINARY)
         /// </summary>
         PtypBinary = 0x0102,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypInteger16 values. (PT_MV_SHORT, PT_MV_I2, mv.i2)
+        ///     Variable size; a COUNT field followed by that many PtypInteger16 values. (PT_MV_SHORT, PT_MV_I2, mv.i2)
         /// </summary>
         PtypMultipleInteger16 = 0x1002,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypInteger32 values. (PT_MV_LONG, PT_MV_I4, mv.i4)
+        ///     Variable size; a COUNT field followed by that many PtypInteger32 values. (PT_MV_LONG, PT_MV_I4, mv.i4)
         /// </summary>
         PtypMultipleInteger32 = 0x1003,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypFloating32 values. (PT_MV_FLOAT, PT_MV_R4, mv.float)
+        ///     Variable size; a COUNT field followed by that many PtypFloating32 values. (PT_MV_FLOAT, PT_MV_R4, mv.float)
         /// </summary>
         PtypMultipleFloating32 = 0x1004,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypFloating64 values. (PT_MV_DOUBLE, PT_MV_R8)
+        ///     Variable size; a COUNT field followed by that many PtypFloating64 values. (PT_MV_DOUBLE, PT_MV_R8)
         /// </summary>
         PtypMultipleFloating64 = 0x1005,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypCurrency values. (PT_MV_CURRENCY, mv.fixed.14.4)
+        ///     Variable size; a COUNT field followed by that many PtypCurrency values. (PT_MV_CURRENCY, mv.fixed.14.4)
         /// </summary>
         PtypMultipleCurrency = 0x1006,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypFloatingTime values. (PT_MV_APPTIME)
+        ///     Variable size; a COUNT field followed by that many PtypFloatingTime values. (PT_MV_APPTIME)
         /// </summary>
         PtypMultipleFloatingTime = 0x1007,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypInteger64 values. (PT_MV_I8, PT_MV_LONGLONG)
+        ///     Variable size; a COUNT field followed by that many PtypInteger64 values. (PT_MV_I8, PT_MV_LONGLONG)
         /// </summary>
         PtypMultipleInteger64 = 0x1014,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypString values. (PT_MV_UNICODE)
+        ///     Variable size; a COUNT field followed by that many PtypString values. (PT_MV_UNICODE)
         /// </summary>
         PtypMultipleString = 0x101F,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypString8 values. (PT_MV_STRING8, mv.string)
+        ///     Variable size; a COUNT field followed by that many PtypString8 values. (PT_MV_STRING8, mv.string)
         /// </summary>
         PtypMultipleString8 = 0x101E,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypTime values. (PT_MV_SYSTIME)
+        ///     Variable size; a COUNT field followed by that many PtypTime values. (PT_MV_SYSTIME)
         /// </summary>
         PtypMultipleTime = 0x1040,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypGuid values. (PT_MV_CLSID, mv.uuid)
+        ///     Variable size; a COUNT field followed by that many PtypGuid values. (PT_MV_CLSID, mv.uuid)
         /// </summary>
         PtypMultipleGuid = 0x1048,
 
         /// <summary>
-        /// Variable size; a COUNT field followed by that many PtypBinary values. (PT_MV_BINARY, mv.bin.hex)
+        ///     Variable size; a COUNT field followed by that many PtypBinary values. (PT_MV_BINARY, mv.bin.hex)
         /// </summary>
         PtypMultipleBinary = 0x1102,
 
@@ -204,12 +205,12 @@ namespace MsgWriter
         PtypUnspecified = 0x0000,
 
         /// <summary>
-        /// None: This property is a placeholder. (PT_NULL)
+        ///     None: This property is a placeholder. (PT_NULL)
         /// </summary>
         PtypNull = 0x0001,
 
         /// <summary>
-        /// The property value is a Component Object Model (COM) object, as specified in section 2.11.1.5. (PT_OBJECT)
+        ///     The property value is a Component Object Model (COM) object, as specified in section 2.11.1.5. (PT_OBJECT)
         /// </summary>
         PtypObject = 0x000D
     }
@@ -232,16 +233,16 @@ namespace MsgWriter
         internal PropertyType Type { get; private set; }
 
         /// <summary>
-        ///     The <see cref="PropertyFlag" >property flags</see> that have been set
-        ///     in its <see cref="uint"/> raw form
+        ///     The <see cref="PropertyFlag">property flags</see> that have been set
+        ///     in its <see cref="uint" /> raw form
         /// </summary>
         internal uint Flags { get; private set; }
 
         /// <summary>
-        ///     The <see cref="PropertyFlag" >property flags</see> that have been set
+        ///     The <see cref="PropertyFlag">property flags</see> that have been set
         ///     as a readonly collection
         /// </summary>
-        internal ReadOnlyCollection<PropertyFlag> FlagsCollection 
+        internal ReadOnlyCollection<PropertyFlag> FlagsCollection
         {
             get
             {
@@ -257,13 +258,195 @@ namespace MsgWriter
                     result.Add(PropertyFlag.PROPATTR_WRITABLE);
 
                 return result.AsReadOnly();
-            } 
+            }
         }
 
         /// <summary>
         ///     The property data
         /// </summary>
         internal byte[] Data { get; private set; }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an integer when <see cref="Type"/> is set to <see cref="PropertyType.PtypInteger16"/>,
+        ///     <see cref="PropertyType.PtypInteger32"/> or <see cref="PropertyType.PtypErrorCode"/>
+        /// </summary>
+        internal int ToInt
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a float when <see cref="Type"/> is set to <see cref="PropertyType.PtypFloating32"/>
+        ///     or <see cref="PropertyType.PtypFloating64"/>
+        /// </summary>
+        internal float ToFloat
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a decimal when <see cref="Type"/> is set to <see cref="PropertyType.PtypCurrency"/>
+        /// </summary>
+        internal decimal ToDecimal
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a datetime when <see cref="Type"/> is set to <see cref="PropertyType.PtypFloatingTime"/>
+        ///     or <see cref="PropertyType.PtypTime"/>
+        /// </summary>
+        internal DateTime ToDateTime
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a boolean when <see cref="Type"/> is set to <see cref="PropertyType.PtypBoolean"/>
+        /// </summary>
+        internal bool ToBool
+        {
+            get { throw new NotImplementedException(); }
+        }
+        
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a boolean when <see cref="Type"/> is set to <see cref="PropertyType.PtypInteger64"/>
+        /// </summary>
+        internal long ToLong
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a string when <see cref="Type"/> is set to <see cref="PropertyType.PtypString"/>
+        ///     or <see cref="PropertyType.PtypString8"/>
+        /// </summary>
+        public new string ToString
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a string when <see cref="Type"/> is set to <see cref="PropertyType.PtypGuid"/>
+        /// </summary>
+        public Guid ToGuid
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /*
+        /// <summary>
+        ///     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
+        /// </summary>
+        PtypServerId = 0x00FB,
+
+        /// <summary>
+        ///     Variable size; a byte array representing one or more Restriction structures as specified in section 2.12.
+        ///     (PT_SRESTRICT)
+        /// </summary>
+        PtypRestriction = 0x00FD,
+
+        /// <summary>
+        ///     Variable size; a 16-bit COUNT field followed by that many rule (4) action (3) structures, as specified in
+        ///     [MS-OXORULE] section 2.2.5. (PT_ACTIONS)
+        /// </summary>
+        PtypRuleAction = 0x00FE,
+        */
+        
+        /// <summary>
+        ///     Returns <see cref="Data"/> as a byte[] when <see cref="Type"/> is set to <see cref="PropertyType.PtypBinary"/>
+        ///     <see cref="PropertyType.PtypObject"/>
+        /// </summary>
+        public byte[] ToBinary
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of integers when <see cref="Type"/> is set to 
+        ///     <see cref="PropertyType.PtypMultipleInteger16"/> or <see cref="PropertyType.PtypMultipleInteger32"/>
+        /// </summary>
+        internal ReadOnlyCollection<int> ToIntList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of floats when <see cref="Type"/> is set to 
+        ///     <see cref="PropertyType.PtypMultipleFloating32"/> or <see cref="PropertyType.PtypMultipleFloating64"/>
+        /// </summary>
+        internal ReadOnlyCollection<float> ToFloatList
+        {
+            get { throw new NotImplementedException(); }
+        }
+        
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of decimals when <see cref="Type"/> is set to
+        ///     <see cref="PropertyType.PtypMultipleCurrency"/>
+        /// </summary>
+        internal ReadOnlyCollection<decimal> ToDecimalList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of datetime when <see cref="Type"/> is set to
+        ///     <see cref="PropertyType.PtypMultipleFloatingTime"/> or <see cref="PropertyType.PtypMultipleTime"/>
+        /// </summary>
+        internal ReadOnlyCollection<DateTime> ToDateTimeList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of datetime when <see cref="Type"/> is set to
+        ///     <see cref="PropertyType.PtypMultipleInteger64"/>
+        /// </summary>
+        internal ReadOnlyCollection<long> ToLongList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of strings when <see cref="Type"/> is set to
+        ///     <see cref="PropertyType.PtypMultipleString8"/>
+        /// </summary>
+        internal ReadOnlyCollection<long> ToStringList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of guids when <see cref="Type"/> is set to
+        ///     <see cref="PropertyType.PtypMultipleGuid"/>
+        /// </summary>
+        internal ReadOnlyCollection<Guid> ToGuidList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data"/> as an readonly collection of guids when <see cref="Type"/> is set to
+        ///     <see cref="PropertyType.PtypMultipleBinary"/>
+        /// </summary>
+        internal ReadOnlyCollection<byte[]> ToBinaryList
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /*
+        /// <summary>
+        ///     Any: this property type value matches any type; a server MUST return the actual type in its response. Servers
+        ///     MUST NOT return this type in response to a client request other than NspiGetIDsFromNames or the
+        ///     RopGetPropertyIdsFromNamesROP request ([MS-OXCROPS] section 2.2.8.1). (PT_UNSPECIFIED)
+        /// </summary>
+        PtypUnspecified = 0x0000,
+
+        /// <summary>
+        ///     None: This property is a placeholder. (PT_NULL)
+        /// </summary>
+        PtypNull = 0x0001,
+        */
         #endregion
 
         #region Constructor

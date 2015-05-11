@@ -52,6 +52,7 @@
     <Compile Include="MapiTags.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="OLE\CLSID.cs" />
     <Compile Include="PropertiesStream\AttachmentOrRecipient.cs" />
     <Compile Include="PropertiesStream\EmbeddedMessage.cs" />
     <Compile Include="PropertiesStream\TopLevel.cs" />
