@@ -58,7 +58,7 @@
     <Compile Include="PropertiesStream\TopLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertiesStream\Properties.cs" />
-    <Compile Include="FixedLengthProperty.cs" />
+    <Compile Include="Property.cs" />
     <Compile Include="Recipient.cs" />
   </ItemGroup>
   <ItemGroup>

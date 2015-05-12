@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
+using MsgWriter.OLE;
 
 namespace MsgWriter
 {
-
     #region PropertyFlags
     /// <summary>
-    ///     Flags used to set on a <see cref="FixedLengthProperty" />
+    ///     Flags used to set on a <see cref="Property" />
     /// </summary>
     [Flags]
     internal enum PropertyFlag : uint
@@ -217,9 +219,9 @@ namespace MsgWriter
     #endregion
 
     /// <summary>
-    ///     A property with a fixed 16 byte size
+    ///     A property inside the MSG file
     /// </summary>
-    internal class FixedLengthProperty
+    internal class Property
     {
         #region Properties
         /// <summary>
@@ -267,71 +269,115 @@ namespace MsgWriter
         internal byte[] Data { get; private set; }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an integer when <see cref="Type"/> is set to <see cref="PropertyType.PtypInteger16"/>,
-        ///     <see cref="PropertyType.PtypInteger32"/> or <see cref="PropertyType.PtypErrorCode"/>
+        ///     Returns <see cref="Data" /> as an integer when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypInteger16" />,
+        ///     <see cref="PropertyType.PtypInteger32" /> or <see cref="PropertyType.PtypErrorCode" />
         /// </summary>
         internal int ToInt
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypInteger16:
+                        return BitConverter.ToInt16(Data, 0);
+
+                    case PropertyType.PtypInteger32:
+                        return BitConverter.ToInt32(Data, 0);
+
+                    default:
+                        return BitConverter.ToInt32(Data, 0);
+                }
+            }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as a float when <see cref="Type"/> is set to <see cref="PropertyType.PtypFloating32"/>
-        ///     or <see cref="PropertyType.PtypFloating64"/>
+        ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
+        ///     <see cref="PropertyType.PtypFloating32" />
         /// </summary>
-        internal float ToFloat
+        internal float ToSingle
         {
-            get { throw new NotImplementedException(); }
+            get { return BitConverter.ToSingle(Data, 0); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as a decimal when <see cref="Type"/> is set to <see cref="PropertyType.PtypCurrency"/>
+        ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
+        ///     <see cref="PropertyType.PtypFloating64" />
+        /// </summary>
+        internal Double ToDouble
+        {
+            get { return BitConverter.ToDouble(Data, 0); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data" /> as a decimal when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypCurrency" />
         /// </summary>
         internal decimal ToDecimal
         {
-            get { throw new NotImplementedException(); }
+            get { return ByteArrayToDecimal(Data, 0); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as a datetime when <see cref="Type"/> is set to <see cref="PropertyType.PtypFloatingTime"/>
-        ///     or <see cref="PropertyType.PtypTime"/>
+        ///     Returns <see cref="Data" /> as a datetime when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypFloatingTime" />
+        ///     or <see cref="PropertyType.PtypTime" />
         /// </summary>
         internal DateTime ToDateTime
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var fileTime = BitConverter.ToInt64(Data, 0);
+                return DateTime.FromFileTime(fileTime);
+            }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as a boolean when <see cref="Type"/> is set to <see cref="PropertyType.PtypBoolean"/>
+        ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to <see cref="PropertyType.PtypBoolean" />
         /// </summary>
         internal bool ToBool
         {
-            get { throw new NotImplementedException(); }
+            get { return BitConverter.ToBoolean(Data, 0); }
         }
-        
+
         /// <summary>
-        ///     Returns <see cref="Data"/> as a boolean when <see cref="Type"/> is set to <see cref="PropertyType.PtypInteger64"/>
+        ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypInteger64" />
         /// </summary>
         internal long ToLong
         {
-            get { throw new NotImplementedException(); }
+            get { return BitConverter.ToInt64(Data, 0); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as a string when <see cref="Type"/> is set to <see cref="PropertyType.PtypString"/>
-        ///     or <see cref="PropertyType.PtypString8"/>
+        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PtypString" />
+        ///     or <see cref="PropertyType.PtypString8" />
         /// </summary>
         public new string ToString
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var encoding = Type == PropertyType.PtypString8 ? Encoding.Default : Encoding.Unicode;
+                using(var memoryStream = new MemoryStream(Data))
+                using(var streamReader = new StreamReader(memoryStream, encoding))
+                {
+                    var streamContent = streamReader.ReadToEnd();
+                    return streamContent.TrimEnd('\0');  
+                }
+            }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as a string when <see cref="Type"/> is set to <see cref="PropertyType.PtypGuid"/>
+        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PtypGuid" />
         /// </summary>
         public Guid ToGuid
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                using (var memoryStream = new MemoryStream(Data))
+                using (var binaryReader = new BinaryReader(memoryStream))
+                    return new CLSID(binaryReader).ToGuid();
+            }
         }
 
         /*
@@ -352,84 +398,84 @@ namespace MsgWriter
         /// </summary>
         PtypRuleAction = 0x00FE,
         */
-        
+
         /// <summary>
-        ///     Returns <see cref="Data"/> as a byte[] when <see cref="Type"/> is set to <see cref="PropertyType.PtypBinary"/>
-        ///     <see cref="PropertyType.PtypObject"/>
+        ///     Returns <see cref="Data" /> as a byte[] when <see cref="Type" /> is set to <see cref="PropertyType.PtypBinary" />
+        ///     <see cref="PropertyType.PtypObject" />
         /// </summary>
         public byte[] ToBinary
         {
-            get { throw new NotImplementedException(); }
+            get { return Data; }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of integers when <see cref="Type"/> is set to 
-        ///     <see cref="PropertyType.PtypMultipleInteger16"/> or <see cref="PropertyType.PtypMultipleInteger32"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of integers when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleInteger16" /> or <see cref="PropertyType.PtypMultipleInteger32" />
         /// </summary>
-        internal ReadOnlyCollection<int> ToIntList
+        internal ReadOnlyCollection<int> ToIntCollection
         {
             get { throw new NotImplementedException(); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of floats when <see cref="Type"/> is set to 
-        ///     <see cref="PropertyType.PtypMultipleFloating32"/> or <see cref="PropertyType.PtypMultipleFloating64"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of floats when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleFloating32" /> or <see cref="PropertyType.PtypMultipleFloating64" />
         /// </summary>
-        internal ReadOnlyCollection<float> ToFloatList
-        {
-            get { throw new NotImplementedException(); }
-        }
-        
-        /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of decimals when <see cref="Type"/> is set to
-        ///     <see cref="PropertyType.PtypMultipleCurrency"/>
-        /// </summary>
-        internal ReadOnlyCollection<decimal> ToDecimalList
+        internal ReadOnlyCollection<float> ToFloatCollection
         {
             get { throw new NotImplementedException(); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of datetime when <see cref="Type"/> is set to
-        ///     <see cref="PropertyType.PtypMultipleFloatingTime"/> or <see cref="PropertyType.PtypMultipleTime"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of decimals when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleCurrency" />
         /// </summary>
-        internal ReadOnlyCollection<DateTime> ToDateTimeList
+        internal ReadOnlyCollection<decimal> ToDecimalCollection
         {
             get { throw new NotImplementedException(); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of datetime when <see cref="Type"/> is set to
-        ///     <see cref="PropertyType.PtypMultipleInteger64"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleFloatingTime" /> or <see cref="PropertyType.PtypMultipleTime" />
         /// </summary>
-        internal ReadOnlyCollection<long> ToLongList
+        internal ReadOnlyCollection<DateTime> ToDateTimeCollection
         {
             get { throw new NotImplementedException(); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of strings when <see cref="Type"/> is set to
-        ///     <see cref="PropertyType.PtypMultipleString8"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleInteger64" />
         /// </summary>
-        internal ReadOnlyCollection<long> ToStringList
+        internal ReadOnlyCollection<long> ToLongCollection
         {
             get { throw new NotImplementedException(); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of guids when <see cref="Type"/> is set to
-        ///     <see cref="PropertyType.PtypMultipleGuid"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of strings when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleString8" />
         /// </summary>
-        internal ReadOnlyCollection<Guid> ToGuidList
+        internal ReadOnlyCollection<long> ToStringCollection
         {
             get { throw new NotImplementedException(); }
         }
 
         /// <summary>
-        ///     Returns <see cref="Data"/> as an readonly collection of guids when <see cref="Type"/> is set to
-        ///     <see cref="PropertyType.PtypMultipleBinary"/>
+        ///     Returns <see cref="Data" /> as an readonly collection of guids when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleGuid" />
         /// </summary>
-        internal ReadOnlyCollection<byte[]> ToBinaryList
+        internal ReadOnlyCollection<Guid> ToGuidCollection
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        /// <summary>
+        ///     Returns <see cref="Data" /> as an readonly collection of byte arrays when <see cref="Type" /> is set to
+        ///     <see cref="PropertyType.PtypMultipleBinary" />
+        /// </summary>
+        internal ReadOnlyCollection<byte[]> ToBinaryCollection
         {
             get { throw new NotImplementedException(); }
         }
@@ -449,6 +495,24 @@ namespace MsgWriter
         */
         #endregion
 
+        #region ByteArrayToDecimal
+        /// <summary>
+        ///     Converts a byte array to a decimal
+        /// </summary>
+        /// <param name="source">The byte array</param>
+        /// <param name="offset">The offset to start reading</param>
+        /// <returns></returns>
+        private static decimal ByteArrayToDecimal(byte[] source, int offset)
+        {
+            var i1 = BitConverter.ToInt32(source, offset);
+            var i2 = BitConverter.ToInt32(source, offset + 4);
+            var i3 = BitConverter.ToInt32(source, offset + 8);
+            var i4 = BitConverter.ToInt32(source, offset + 12);
+
+            return new decimal(new[] { i1, i2, i3, i4 });
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         ///     Creates this object and sets all its propertues
@@ -457,7 +521,7 @@ namespace MsgWriter
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">The <see cref="PropertyFlag" /></param>
         /// <param name="data">The property data</param>
-        internal FixedLengthProperty(ushort id, PropertyType type, PropertyFlag flags, byte[] data)
+        internal Property(ushort id, PropertyType type, PropertyFlag flags, byte[] data)
         {
             Id = id;
             Type = type;
@@ -472,7 +536,7 @@ namespace MsgWriter
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">The <see cref="PropertyFlag" /></param>
         /// <param name="data">The property data</param>
-        internal FixedLengthProperty(ushort id, PropertyType type, uint flags, byte[] data)
+        internal Property(ushort id, PropertyType type, uint flags, byte[] data)
         {
             Id = id;
             Type = type;

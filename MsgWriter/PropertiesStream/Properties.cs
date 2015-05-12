@@ -12,7 +12,7 @@ namespace MsgWriter.PropertiesStream
     /// <remarks>
     ///     https://msdn.microsoft.com/en-us/library/ee178759%28v=exchg.80%29.aspx
     /// </remarks>
-    internal class Properties : List<FixedLengthProperty>
+    internal class Properties : List<Property>
     {
         #region AddProperty
         /// <summary>
@@ -34,13 +34,13 @@ namespace MsgWriter.PropertiesStream
             if (data.Length != 8)
                 throw new ArgumentOutOfRangeException("The data should always have an 8 byte size");
 
-            Add(new FixedLengthProperty(id, type, flags, data));
+            Add(new Property(id, type, flags, data));
         }
         #endregion
 
         #region ReadProperties
         /// <summary>
-        ///     Reads all the <see cref="FixedLengthProperty" /> objects from the given <paramref name="binaryReader" />
+        ///     Reads all the <see cref="Property" /> objects from the given <paramref name="binaryReader" />
         /// </summary>
         /// <param name="binaryReader"></param>
         /// <exception cref="MWInvalidProperty">Raised when a property is invalid, e.g. not 16 bytes long</exception>
@@ -62,14 +62,14 @@ namespace MsgWriter.PropertiesStream
                 // 8 bytes for the data
                 var data = binaryReader.ReadBytes(10);
 
-                Add(new FixedLengthProperty(id, type, flags, data));
+                Add(new Property(id, type, flags, data));
             }
         }
         #endregion
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the <see cref="FixedLengthProperty" /> objects to the given <paramref name="binaryWriter" />
+        ///     Writes all the <see cref="Property" /> objects to the given <paramref name="binaryWriter" />
         /// </summary>
         /// <param name="binaryWriter"></param>
         internal void WriteProperties(BinaryWriter binaryWriter)
