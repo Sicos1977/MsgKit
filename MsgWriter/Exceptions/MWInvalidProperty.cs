@@ -3,7 +3,7 @@
 namespace MsgWriter.Exceptions
 {
     /// <summary>
-    /// Raised when a property is invalid
+    ///     Raised when a property is invalid
     /// </summary>
     public class MWInvalidProperty : Exception
     {

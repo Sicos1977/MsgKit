@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 
-namespace MsgWriter.PropertiesStream
+namespace MsgWriter.Streams
 {
     /// <summary>
-    ///     The property stream contained inside any Embedded Message object storage.
+    ///     The properties stream contained inside an Embedded Message storage object
     /// </summary>
-    internal sealed class EmbeddedMessage : Properties
+    internal sealed class EmbeddedMessagePropertiesStream : Properties
     {
         #region Properties
         /// <summary>
@@ -44,7 +44,7 @@ namespace MsgWriter.PropertiesStream
         /// </param>
         /// <param name="recipientCount">The number of Recipient objects</param>
         /// <param name="attachmentCount">The number of Attachment objects</param>
-        internal EmbeddedMessage(int nextRecipientId,
+        internal EmbeddedMessagePropertiesStream(int nextRecipientId,
             int nextAttachmentId,
             int recipientCount,
             int attachmentCount)

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using CompoundFileStorage;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 
-namespace MsgWriter.PropertiesStream
+namespace MsgWriter.Streams
 {
     /// <summary>
-    ///     A helper class to generate a __properties_version1.0 stream
+    ///     The properties inside an msg file
     /// </summary>
     /// <remarks>
     ///     https://msdn.microsoft.com/en-us/library/ee178759%28v=exchg.80%29.aspx
@@ -16,7 +17,7 @@ namespace MsgWriter.PropertiesStream
     {
         #region AddProperty
         /// <summary>
-        ///     Adds a property to the property stream
+        ///     Adds a property that has been read from a msg file (the propertiesstream or string streams)
         /// </summary>
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
@@ -36,6 +37,23 @@ namespace MsgWriter.PropertiesStream
 
             Add(new Property(id, type, flags, data));
         }
+
+        /// <summary>
+        ///     Adds a CFStream and converts it to a property
+        /// </summary>
+        /// <param name="cfStream">The <see cref="CFStream"/></param>
+        /// <exception cref="ArgumentOutOfRangeException">Raised when the <see cref="CFStream.Name"/> does not start with "__substg1.0_"</exception>
+        internal void AddProperty(CFStream cfStream)
+        {
+            if (!cfStream.Name.StartsWith("__substg1.0_"))
+                throw new ArgumentOutOfRangeException("The stream name needs to start with '__substg1.0_'");
+
+            var id = cfStream.Name.Substring(12, 4);
+            var type = cfStream.Name.Substring(16, 4);
+            var uId = ushort.Parse(id, System.Globalization.NumberStyles.AllowHexSpecifier);
+            var uType = ushort.Parse(type, System.Globalization.NumberStyles.AllowHexSpecifier);
+            Add(new Property(uId, (PropertyType)uType, PropertyFlag.PROPATTR_READABLE, cfStream.GetData()));
+        }
         #endregion
 
         #region ReadProperties
@@ -43,7 +61,6 @@ namespace MsgWriter.PropertiesStream
         ///     Reads all the <see cref="Property" /> objects from the given <paramref name="binaryReader" />
         /// </summary>
         /// <param name="binaryReader"></param>
-        /// <exception cref="MWInvalidProperty">Raised when a property is invalid, e.g. not 16 bytes long</exception>
         internal void ReadProperties(BinaryReader binaryReader)
         {
             // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
@@ -52,15 +69,15 @@ namespace MsgWriter.PropertiesStream
             // The structure of each entry, representing one property, depends on whether the property is a fixed length 
             // property or not.
 
-            while (!binaryReader.Eof())
+            while (!binaryReader.Eos())
             {
                 // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
                 // represent the property type. The high-order 16 bits represent the property ID.
                 var type = (PropertyType) binaryReader.ReadUInt16();
                 var id = binaryReader.ReadUInt16();
-                var flags = binaryReader.ReadUInt16();
+                var flags = binaryReader.ReadUInt32();
                 // 8 bytes for the data
-                var data = binaryReader.ReadBytes(10);
+                var data = binaryReader.ReadBytes(8);
 
                 Add(new Property(id, type, flags, data));
             }

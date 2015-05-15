@@ -21,13 +21,13 @@ namespace MsgWriter.Helpers
         }
         #endregion
 
-        #region Eof
+        #region Eos
         /// <summary>
         /// Returns true when the end of the <see cref="BinaryReader.BaseStream"/> has been reached
         /// </summary>
         /// <param name="binaryReader"></param>
         /// <returns></returns>
-        internal static bool Eof(this BinaryReader binaryReader)
+        internal static bool Eos(this BinaryReader binaryReader)
         {
             try
             {

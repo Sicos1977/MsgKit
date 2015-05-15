@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using CompoundFileStorage;
 using MsgWriter.Exceptions;
 
 namespace MsgWriter
@@ -57,6 +58,28 @@ namespace MsgWriter
         {
             foreach(var attachment in _attachments)
                 attachment.Stream.Dispose();
+        }
+
+        public void Test()
+        {
+            using (var stream = File.OpenRead("d:\\test.msg"))
+            using (var cf = new CompoundFile(stream))
+            {
+                var st = cf.RootStorage.GetStream("__properties_version1.0");
+                var p = new Streams.TopLevelPropertiesStream(st.GetData());
+                foreach (var child in cf.RootStorage.Children)
+                {
+                    if (child.IsStream)
+                    {
+                        var cfStream = child as CFStream;
+                        if (cfStream == null) continue;
+
+                        if (cfStream.Name.StartsWith("__substg1.0_"))
+                            p.AddProperty(cfStream);
+                    }
+                }
+                var pr = p.Find(m => m.IdAsString == "0E1D");
+            }
         }
     }
 }

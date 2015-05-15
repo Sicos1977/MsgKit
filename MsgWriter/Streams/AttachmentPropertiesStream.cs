@@ -1,11 +1,11 @@
 ﻿using System.IO;
 
-namespace MsgWriter.PropertiesStream
+namespace MsgWriter.Streams
 {
     /// <summary>
-    /// The property stream contained inside an Attachment object storage or a Recipient object storage
+    ///     The properties stream contained inside an Attachment storage object
     /// </summary>
-    internal sealed class AttachmentOrRecipient : Properties
+    internal sealed class AttachmentPropertiesStream : Properties
     {
         #region FromByteArray
         /// <summary>

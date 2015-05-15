@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 
-namespace MsgWriter.PropertiesStream
+namespace MsgWriter.Streams
 {
     /// <summary>
-    ///     The property stream contained inside the top level of the .msg file, which represents the Message object itself.
+    ///     The properties stream contained inside the top level of the .msg file, which represents the Message object itself.
     /// </summary>
-    internal sealed class TopLevel : Properties
+    internal sealed class TopLevelPropertiesStream : Properties
     {
         #region Properties
         /// <summary>
@@ -32,6 +32,24 @@ namespace MsgWriter.PropertiesStream
 
         #region Constructor
         /// <summary>
+        ///     Creates this object and reads all the properties from the toplevel stream
+        /// </summary>
+        /// <param name="byteArray"></param>
+        internal TopLevelPropertiesStream(byte[] byteArray)
+        {
+            using (var memoryStream = new MemoryStream(byteArray))
+            using (var binaryReader = new BinaryReader(memoryStream))
+            {
+                //binaryReader.ReadBytes(8);
+                NextRecipientId = Convert.ToInt32(binaryReader.ReadUInt32());
+                NextAttachmentId = Convert.ToInt32(binaryReader.ReadUInt32());
+                RecipientCount = Convert.ToInt32(binaryReader.ReadUInt32());
+                AttachmentCount = Convert.ToInt32(binaryReader.ReadUInt32());
+                ReadProperties(binaryReader);
+            }
+        }
+
+        /// <summary>
         ///     Creates this object and sets all its properties
         /// </summary>
         /// <param name="nextRecipientId">
@@ -44,7 +62,7 @@ namespace MsgWriter.PropertiesStream
         /// </param>
         /// <param name="recipientCount">The number of Recipient objects</param>
         /// <param name="attachmentCount">The number of Attachment objects</param>
-        internal TopLevel(int nextRecipientId,
+        internal TopLevelPropertiesStream(int nextRecipientId,
                           int nextAttachmentId,
                           int recipientCount,
                           int attachmentCount)
@@ -53,26 +71,6 @@ namespace MsgWriter.PropertiesStream
             NextAttachmentId = nextAttachmentId;
             RecipientCount = recipientCount;
             AttachmentCount = attachmentCount;
-        }
-        #endregion
-
-        #region FromByteArray
-        /// <summary>
-        ///     Reads the Top level property stream from a byte array
-        /// </summary>
-        /// <param name="byteArray"></param>
-        internal void FromByteArray(byte[] byteArray)
-        {
-            using (var memoryStream = new MemoryStream(byteArray))
-            using (var binaryReader = new BinaryReader(memoryStream))
-            {
-                binaryReader.ReadBytes(8);
-                NextRecipientId = Convert.ToInt32(binaryReader.ReadUInt32());
-                NextAttachmentId = Convert.ToInt32(binaryReader.ReadUInt32());
-                RecipientCount = Convert.ToInt32(binaryReader.ReadUInt32());
-                AttachmentCount = Convert.ToInt32(binaryReader.ReadUInt32());
-                ReadProperties(binaryReader);
-            }
         }
         #endregion
 

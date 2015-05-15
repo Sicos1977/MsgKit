@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CompoundFileStorage">
-      <HintPath>..\packages\CompoundFileStorage.1.3.0\lib\CompoundFileStorage.dll</HintPath>
+    <Reference Include="CompoundFileStorage, Version=1.3.1.0, Culture=neutral, PublicKeyToken=3f3b3e125b6598d5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CompoundFileStorage.1.3.1\lib\CompoundFileStorage.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,12 +53,15 @@
     <Compile Include="MapiTags.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="OLE\CLSID.cs" />
-    <Compile Include="PropertiesStream\AttachmentOrRecipient.cs" />
-    <Compile Include="PropertiesStream\EmbeddedMessage.cs" />
-    <Compile Include="PropertiesStream\TopLevel.cs" />
+    <Compile Include="Streams\EntryStream.cs" />
+    <Compile Include="Streams\RecipientPropertiesStream.cs" />
+    <Compile Include="Streams\AttachmentPropertiesStream.cs" />
+    <Compile Include="Streams\EmbeddedMessagePropertiesStream.cs" />
+    <Compile Include="Streams\TopLevelPropertiesStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertiesStream\Properties.cs" />
+    <Compile Include="Streams\Properties.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Recipient.cs" />
   </ItemGroup>

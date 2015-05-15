@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using MsgWriter.Exceptions;
 using MsgWriter.OLE;
 
 namespace MsgWriter
@@ -230,6 +231,14 @@ namespace MsgWriter
         internal UInt16 Id { get; private set; }
 
         /// <summary>
+        ///     Returns <see cref="Id"/> as a human readable string
+        /// </summary>
+        internal string IdAsString 
+        {
+            get { return Id.ToString("X4"); }
+        }
+
+        /// <summary>
         ///     The <see cref="PropertyType" />
         /// </summary>
         internal PropertyType Type { get; private set; }
@@ -273,6 +282,8 @@ namespace MsgWriter
         ///     <see cref="PropertyType.PtypInteger16" />,
         ///     <see cref="PropertyType.PtypInteger32" /> or <see cref="PropertyType.PtypErrorCode" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypInteger16"/> or
+        /// <see cref="PropertyType.PtypInteger32"/></exception>
         internal int ToInt
         {
             get
@@ -286,7 +297,7 @@ namespace MsgWriter
                         return BitConverter.ToInt32(Data, 0);
 
                     default:
-                        return BitConverter.ToInt32(Data, 0);
+                        throw new MWInvalidProperty("Type is not PtypInteger16 or PtypInteger32");
                 }
             }
         }
@@ -295,27 +306,60 @@ namespace MsgWriter
         ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
         ///     <see cref="PropertyType.PtypFloating32" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypFloating32"/></exception>
         internal float ToSingle
         {
-            get { return BitConverter.ToSingle(Data, 0); }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypFloating32:
+                        return BitConverter.ToSingle(Data, 0);
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypFloating32");
+                }
+            }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
         ///     <see cref="PropertyType.PtypFloating64" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypFloating64"/></exception>
         internal Double ToDouble
         {
-            get { return BitConverter.ToDouble(Data, 0); }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypFloating64:
+                        return BitConverter.ToDouble(Data, 0);
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypFloating64");
+                }
+            }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a decimal when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PtypCurrency" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypFloating32"/></exception>
         internal decimal ToDecimal
         {
-            get { return ByteArrayToDecimal(Data, 0); }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypFloating32:
+                        return ByteArrayToDecimal(Data, 0);
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypFloating32");
+                }
+            }
         }
 
         /// <summary>
@@ -323,46 +367,87 @@ namespace MsgWriter
         ///     <see cref="PropertyType.PtypFloatingTime" />
         ///     or <see cref="PropertyType.PtypTime" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypFloatingTime"/> or
+        /// <see cref="PropertyType.PtypTime"/></exception>
         internal DateTime ToDateTime
         {
             get
             {
-                var fileTime = BitConverter.ToInt64(Data, 0);
-                return DateTime.FromFileTime(fileTime);
+                switch (Type)
+                {
+                    case PropertyType.PtypFloatingTime:
+                    case PropertyType.PtypTime:
+                        var fileTime = BitConverter.ToInt64(Data, 0);
+                        return DateTime.FromFileTime(fileTime);
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypFloating32");
+                }
             }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to <see cref="PropertyType.PtypBoolean" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypBoolean"/></exception>
         internal bool ToBool
         {
-            get { return BitConverter.ToBoolean(Data, 0); }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypBoolean:
+                        return BitConverter.ToBoolean(Data, 0);
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypBoolean");
+                }
+            }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PtypInteger64" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypInteger64"/></exception>
         internal long ToLong
         {
-            get { return BitConverter.ToInt64(Data, 0); }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypInteger64:
+                        return BitConverter.ToInt64(Data, 0);
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypInteger64");
+                }
+            }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PtypString" />
         ///     or <see cref="PropertyType.PtypString8" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypString"/> or <see cref="PropertyType.PtypString8" /></exception>
         public new string ToString
         {
             get
             {
-                var encoding = Type == PropertyType.PtypString8 ? Encoding.Default : Encoding.Unicode;
-                using(var memoryStream = new MemoryStream(Data))
-                using(var streamReader = new StreamReader(memoryStream, encoding))
+                switch (Type)
                 {
-                    var streamContent = streamReader.ReadToEnd();
-                    return streamContent.TrimEnd('\0');  
+                    case PropertyType.PtypString:
+                    case PropertyType.PtypString8:
+                        var encoding = Type == PropertyType.PtypString8 ? Encoding.Default : Encoding.Unicode;
+                        using (var memoryStream = new MemoryStream(Data))
+                        using (var streamReader = new StreamReader(memoryStream, encoding))
+                        {
+                            var streamContent = streamReader.ReadToEnd();
+                            return streamContent.TrimEnd('\0');
+                        }
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypString or PtypString8");
                 }
             }
         }
@@ -370,13 +455,21 @@ namespace MsgWriter
         /// <summary>
         ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PtypGuid" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypGuid"/></exception>
         public Guid ToGuid
         {
             get
             {
-                using (var memoryStream = new MemoryStream(Data))
-                using (var binaryReader = new BinaryReader(memoryStream))
-                    return new CLSID(binaryReader).ToGuid();
+                switch (Type)
+                {
+                    case PropertyType.PtypGuid:
+                        using (var memoryStream = new MemoryStream(Data))
+                        using (var binaryReader = new BinaryReader(memoryStream))
+                            return new CLSID(binaryReader).ToGuid();
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypGuid");
+                }
             }
         }
 
@@ -403,15 +496,27 @@ namespace MsgWriter
         ///     Returns <see cref="Data" /> as a byte[] when <see cref="Type" /> is set to <see cref="PropertyType.PtypBinary" />
         ///     <see cref="PropertyType.PtypObject" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypBinary"/></exception>
         public byte[] ToBinary
         {
-            get { return Data; }
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PtypBinary:
+                        return Data;
+
+                    default:
+                        throw new MWInvalidProperty("Type is not PtypBinary");
+                }
+            }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of integers when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PtypMultipleInteger16" /> or <see cref="PropertyType.PtypMultipleInteger32" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypFloating32"/></exception>
         internal ReadOnlyCollection<int> ToIntCollection
         {
             get { throw new NotImplementedException(); }
@@ -421,6 +526,7 @@ namespace MsgWriter
         ///     Returns <see cref="Data" /> as an readonly collection of floats when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PtypMultipleFloating32" /> or <see cref="PropertyType.PtypMultipleFloating64" />
         /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypFloating32"/></exception>
         internal ReadOnlyCollection<float> ToFloatCollection
         {
             get { throw new NotImplementedException(); }

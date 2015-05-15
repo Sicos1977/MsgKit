@@ -20,8 +20,9 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email();
-            email.Attachments.AddAttachment("d:\\new project dialog.png");
-            email.Save("d:\\test.msg");
+            email.Test();
+            //email.Attachments.AddAttachment("d:\\new project dialog.png");
+            //email.Save("d:\\test.msg");
         }
     }
 }
