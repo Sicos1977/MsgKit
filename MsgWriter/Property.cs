@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using MsgWriter.Exceptions;
 using MsgWriter.OLE;
+// ReSharper disable InconsistentNaming
 
 namespace MsgWriter
 {
@@ -49,173 +50,189 @@ namespace MsgWriter
     internal enum PropertyType : ushort
     {
         /// <summary>
-        ///     2 bytes; a 16-bit integer (PT_SHORT, PT_I2, i2, ui2)
+        ///     2 bytes; a 16-bit integer (PT_I2, i2, ui2)
         /// </summary>
-        PtypInteger16 = 0x0002,
+        PT_SHORT = 0x0002,
 
         /// <summary>
         ///     4 bytes; a 32-bit integer (PT_LONG, PT_I4, int, ui4)
         /// </summary>
-        PtypInteger32 = 0x0003,
+        PT_LONG = 0x0003,
 
         /// <summary>
         ///     4 bytes; a 32-bit floating point number (PT_FLOAT, PT_R4, float, r4)
         /// </summary>
-        PtypFloating32 = 0x0004,
+        PT_FLOAT = 0x0004,
 
         /// <summary>
         ///     8 bytes; a 64-bit floating point number (PT_DOUBLE, PT_R8, r8)
         /// </summary>
-        PtypFloating64 = 0x0005,
+        PT_DOUBLE = 0x0005,
 
         /// <summary>
         ///     8 bytes; a 64-bit signed, scaled integer representation of a decimal currency value, with four places to the
         ///     right of the decimal point (PT_CURRENCY, fixed.14.4)
         /// </summary>
-        PtypCurrency = 0x0006,
+        PT_CURRENCY = 0x0006,
 
         /// <summary>
         ///     8 bytes; a 64-bit floating point number in which the whole number part represents the number of days since
         ///     December 30, 1899, and the fractional part represents the fraction of a day since midnight (PT_APPTIME)
         /// </summary>
-        PtypFloatingTime = 0x0007,
+        PT_APPTIME = 0x0007,
 
         /// <summary>
         ///     4 bytes; a 32-bit integer encoding error information as specified in section 2.4.1. (PT_ERROR)
         /// </summary>
-        PtypErrorCode = 0x000A,
+        PT_ERROR = 0x000A,
 
         /// <summary>
         ///     1 byte; restricted to 1 or 0 (PT_BOOLEAN. bool)
         /// </summary>
-        PtypBoolean = 0x000B,
+        PT_BOOLEAN = 0x000B,
 
         /// <summary>
         ///     8 bytes; a 64-bit integer (PT_LONGLONG, PT_I8, i8, ui8)
         /// </summary>
-        PtypInteger64 = 0x0014,
+        PT_I8 = 0x0014,
+
+        /// <summary>
+        ///     8 bytes; a 64-bit integer (PT_LONGLONG, PT_I8, i8, ui8)
+        /// </summary>
+        PT_LONGLONG = 0x0014,
 
         /// <summary>
         ///     Variable size; a string of Unicode characters in UTF-16LE format encoding with terminating null character
         ///     (0x0000). (PT_UNICODE, string)
         /// </summary>
-        PtypString = 0x001F,
+        PT_UNICODE = 0x001F,
+
+        /// <summary>
+        ///     Variable size; a string of Unicode characters in UTF-16LE format encoding with terminating null character
+        ///     (0x0000). (PT_UNICODE, string)
+        /// </summary>
+        PT_TSTRING = 0x001F,
 
         /// <summary>
         ///     Variable size; a string of multibyte characters in externally specified encoding with terminating null
         ///     character (single 0 byte). (PT_STRING8)
         /// </summary>
-        PtypString8 = 0x001E,
+        PT_STRING8 = 0x001E,
 
         /// <summary>
         ///     8 bytes; a 64-bit integer representing the number of 100-nanosecond intervals since January 1, 1601
         ///     (PT_SYSTIME, time, datetime, datetime.tz, datetime.rfc1123, Date, time, time.tz)
         /// </summary>
-        PtypTime = 0x0040,
+        PT_SYSTIME = 0x0040,
 
         /// <summary>
         ///     16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
         /// </summary>
-        PtypGuid = 0x0048,
+        PT_CLSID = 0x0048,
 
         /// <summary>
         ///     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
         /// </summary>
-        PtypServerId = 0x00FB,
+        PT_SVREID = 0x00FB,
 
         /// <summary>
         ///     Variable size; a byte array representing one or more Restriction structures as specified in section 2.12.
         ///     (PT_SRESTRICT)
         /// </summary>
-        PtypRestriction = 0x00FD,
+        PT_SRESTRICT = 0x00FD,
 
         /// <summary>
         ///     Variable size; a 16-bit COUNT field followed by that many rule (4) action (3) structures, as specified in
         ///     [MS-OXORULE] section 2.2.5. (PT_ACTIONS)
         /// </summary>
-        PtypRuleAction = 0x00FE,
+        PT_ACTIONS = 0x00FE,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many bytes. (PT_BINARY)
         /// </summary>
-        PtypBinary = 0x0102,
+        PT_BINARY = 0x0102,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypInteger16 values. (PT_MV_SHORT, PT_MV_I2, mv.i2)
         /// </summary>
-        PtypMultipleInteger16 = 0x1002,
+        PT_MV_SHORT = 0x1002,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypInteger32 values. (PT_MV_LONG, PT_MV_I4, mv.i4)
         /// </summary>
-        PtypMultipleInteger32 = 0x1003,
+        PT_MV_LONG = 0x1003,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypFloating32 values. (PT_MV_FLOAT, PT_MV_R4, mv.float)
         /// </summary>
-        PtypMultipleFloating32 = 0x1004,
+        PT_MV_FLOAT = 0x1004,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypFloating64 values. (PT_MV_DOUBLE, PT_MV_R8)
         /// </summary>
-        PtypMultipleFloating64 = 0x1005,
+        PT_MV_DOUBLE = 0x1005,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypCurrency values. (PT_MV_CURRENCY, mv.fixed.14.4)
         /// </summary>
-        PtypMultipleCurrency = 0x1006,
+        PT_MV_CURRENCY = 0x1006,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypFloatingTime values. (PT_MV_APPTIME)
         /// </summary>
-        PtypMultipleFloatingTime = 0x1007,
+        PT_MV_APPTIME = 0x1007,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypInteger64 values. (PT_MV_I8, PT_MV_LONGLONG)
         /// </summary>
-        PtypMultipleInteger64 = 0x1014,
+        PT_MV_I8 = 0x1014,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypString values. (PT_MV_UNICODE)
         /// </summary>
-        PtypMultipleString = 0x101F,
+        PT_MV_TSTRING = 0x101F,
+
+        /// <summary>
+        ///     Variable size; a COUNT field followed by that many PtypString values. (PT_MV_UNICODE)
+        /// </summary>
+        PT_MV_UNICODE = 0x101F,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypString8 values. (PT_MV_STRING8, mv.string)
         /// </summary>
-        PtypMultipleString8 = 0x101E,
+        PT_MV_STRING8 = 0x101E,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypTime values. (PT_MV_SYSTIME)
         /// </summary>
-        PtypMultipleTime = 0x1040,
+        PT_MV_SYSTIME = 0x1040,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypGuid values. (PT_MV_CLSID, mv.uuid)
         /// </summary>
-        PtypMultipleGuid = 0x1048,
+        PT_MV_CLSID = 0x1048,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PtypBinary values. (PT_MV_BINARY, mv.bin.hex)
         /// </summary>
-        PtypMultipleBinary = 0x1102,
+        PT_MV_BINARY = 0x1102,
 
         /// <summary>
         ///     Any: this property type value matches any type; a server MUST return the actual type in its response. Servers
         ///     MUST NOT return this type in response to a client request other than NspiGetIDsFromNames or the
         ///     RopGetPropertyIdsFromNamesROP request ([MS-OXCROPS] section 2.2.8.1). (PT_UNSPECIFIED)
         /// </summary>
-        PtypUnspecified = 0x0000,
+        PT_UNSPECIFIED = 0x0000,
 
         /// <summary>
         ///     None: This property is a placeholder. (PT_NULL)
         /// </summary>
-        PtypNull = 0x0001,
+        PT_NULL = 0x0001,
 
         /// <summary>
         ///     The property value is a Component Object Model (COM) object, as specified in section 2.11.1.5. (PT_OBJECT)
         /// </summary>
-        PtypObject = 0x000D
+        PT_OBJECT = 0x000D
     }
     #endregion
 
@@ -279,21 +296,21 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an integer when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypInteger16" />,
-        ///     <see cref="PropertyType.PtypInteger32" /> or <see cref="PropertyType.PtypErrorCode" />
+        ///     <see cref="PropertyType.PT_SHORT" />,
+        ///     <see cref="PropertyType.PT_LONG" /> or <see cref="PropertyType.PT_ERROR" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypInteger16"/> or
-        /// <see cref="PropertyType.PtypInteger32"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_SHORT"/> or
+        /// <see cref="PropertyType.PT_LONG"/></exception>
         internal int ToInt
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypInteger16:
+                    case PropertyType.PT_SHORT:
                         return BitConverter.ToInt16(Data, 0);
 
-                    case PropertyType.PtypInteger32:
+                    case PropertyType.PT_LONG:
                         return BitConverter.ToInt32(Data, 0);
 
                     default:
@@ -304,16 +321,16 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
-        ///     <see cref="PropertyType.PtypFloating32" />
+        ///     <see cref="PropertyType.PT_FLOAT" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypFloating32"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
         internal float ToSingle
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypFloating32:
+                    case PropertyType.PT_FLOAT:
                         return BitConverter.ToSingle(Data, 0);
 
                     default:
@@ -324,16 +341,16 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
-        ///     <see cref="PropertyType.PtypFloating64" />
+        ///     <see cref="PropertyType.PT_DOUBLE" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypFloating64"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_DOUBLE"/></exception>
         internal Double ToDouble
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypFloating64:
+                    case PropertyType.PT_DOUBLE:
                         return BitConverter.ToDouble(Data, 0);
 
                     default:
@@ -344,16 +361,16 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a decimal when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypCurrency" />
+        ///     <see cref="PropertyType.PT_CURRENCY" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PtypFloating32"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
         internal decimal ToDecimal
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypFloating32:
+                    case PropertyType.PT_FLOAT:
                         return ByteArrayToDecimal(Data, 0);
 
                     default:
@@ -364,19 +381,19 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a datetime when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypFloatingTime" />
-        ///     or <see cref="PropertyType.PtypTime" />
+        ///     <see cref="PropertyType.PT_APPTIME" />
+        ///     or <see cref="PropertyType.PT_SYSTIME" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypFloatingTime"/> or
-        /// <see cref="PropertyType.PtypTime"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_APPTIME"/> or
+        /// <see cref="PropertyType.PT_SYSTIME"/></exception>
         internal DateTime ToDateTime
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypFloatingTime:
-                    case PropertyType.PtypTime:
+                    case PropertyType.PT_APPTIME:
+                    case PropertyType.PT_SYSTIME:
                         var fileTime = BitConverter.ToInt64(Data, 0);
                         return DateTime.FromFileTime(fileTime);
 
@@ -387,16 +404,16 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to <see cref="PropertyType.PtypBoolean" />
+        ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to <see cref="PropertyType.PT_BOOLEAN" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypBoolean"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BOOLEAN"/></exception>
         internal bool ToBool
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypBoolean:
+                    case PropertyType.PT_BOOLEAN:
                         return BitConverter.ToBoolean(Data, 0);
 
                     default:
@@ -407,16 +424,16 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypInteger64" />
+        ///     <see cref="PropertyType.PT_LONGLONG" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypInteger64"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_LONGLONG"/></exception>
         internal long ToLong
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypInteger64:
+                    case PropertyType.PT_LONGLONG:
                         return BitConverter.ToInt64(Data, 0);
 
                     default:
@@ -426,19 +443,19 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PtypString" />
-        ///     or <see cref="PropertyType.PtypString8" />
+        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PT_UNICODE" />
+        ///     or <see cref="PropertyType.PT_STRING8" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypString"/> or <see cref="PropertyType.PtypString8" /></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_UNICODE"/> or <see cref="PropertyType.PT_STRING8" /></exception>
         public new string ToString
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypString:
-                    case PropertyType.PtypString8:
-                        var encoding = Type == PropertyType.PtypString8 ? Encoding.Default : Encoding.Unicode;
+                    case PropertyType.PT_UNICODE:
+                    case PropertyType.PT_STRING8:
+                        var encoding = Type == PropertyType.PT_STRING8 ? Encoding.Default : Encoding.Unicode;
                         using (var memoryStream = new MemoryStream(Data))
                         using (var streamReader = new StreamReader(memoryStream, encoding))
                         {
@@ -453,16 +470,16 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PtypGuid" />
+        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PT_CLSID" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypGuid"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_CLSID"/></exception>
         public Guid ToGuid
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypGuid:
+                    case PropertyType.PT_CLSID:
                         using (var memoryStream = new MemoryStream(Data))
                         using (var binaryReader = new BinaryReader(memoryStream))
                             return new CLSID(binaryReader).ToGuid();
@@ -493,17 +510,17 @@ namespace MsgWriter
         */
 
         /// <summary>
-        ///     Returns <see cref="Data" /> as a byte[] when <see cref="Type" /> is set to <see cref="PropertyType.PtypBinary" />
-        ///     <see cref="PropertyType.PtypObject" />
+        ///     Returns <see cref="Data" /> as a byte[] when <see cref="Type" /> is set to <see cref="PropertyType.PT_BINARY" />
+        ///     <see cref="PropertyType.PT_OBJECT" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypBinary"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BINARY"/></exception>
         public byte[] ToBinary
         {
             get
             {
                 switch (Type)
                 {
-                    case PropertyType.PtypBinary:
+                    case PropertyType.PT_BINARY:
                         return Data;
 
                     default:
@@ -514,9 +531,9 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of integers when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleInteger16" /> or <see cref="PropertyType.PtypMultipleInteger32" />
+        ///     <see cref="PropertyType.PT_MV_SHORT" /> or <see cref="PropertyType.PT_MV_LONG" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypFloating32"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
         internal ReadOnlyCollection<int> ToIntCollection
         {
             get { throw new NotImplementedException(); }
@@ -524,9 +541,9 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of floats when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleFloating32" /> or <see cref="PropertyType.PtypMultipleFloating64" />
+        ///     <see cref="PropertyType.PT_MV_FLOAT" /> or <see cref="PropertyType.PT_MV_DOUBLE" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PtypFloating32"/></exception>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
         internal ReadOnlyCollection<float> ToFloatCollection
         {
             get { throw new NotImplementedException(); }
@@ -534,7 +551,7 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of decimals when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleCurrency" />
+        ///     <see cref="PropertyType.PT_MV_CURRENCY" />
         /// </summary>
         internal ReadOnlyCollection<decimal> ToDecimalCollection
         {
@@ -543,7 +560,7 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleFloatingTime" /> or <see cref="PropertyType.PtypMultipleTime" />
+        ///     <see cref="PropertyType.PT_MV_APPTIME" /> or <see cref="PropertyType.PT_MV_SYSTIME" />
         /// </summary>
         internal ReadOnlyCollection<DateTime> ToDateTimeCollection
         {
@@ -552,7 +569,7 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleInteger64" />
+        ///     <see cref="PropertyType.PT_MV_I8" />
         /// </summary>
         internal ReadOnlyCollection<long> ToLongCollection
         {
@@ -561,7 +578,7 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of strings when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleString8" />
+        ///     <see cref="PropertyType.PT_MV_STRING8" />
         /// </summary>
         internal ReadOnlyCollection<long> ToStringCollection
         {
@@ -570,7 +587,7 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of guids when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleGuid" />
+        ///     <see cref="PropertyType.PT_MV_CLSID" />
         /// </summary>
         internal ReadOnlyCollection<Guid> ToGuidCollection
         {
@@ -579,7 +596,7 @@ namespace MsgWriter
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of byte arrays when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PtypMultipleBinary" />
+        ///     <see cref="PropertyType.PT_MV_BINARY" />
         /// </summary>
         internal ReadOnlyCollection<byte[]> ToBinaryCollection
         {
