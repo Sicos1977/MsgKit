@@ -62,7 +62,7 @@
     <Compile Include="Streams\TopLevelPropertiesStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Streams\Properties.cs" />
-    <Compile Include="Property.cs" />
+    <Compile Include="Streams\Property.cs" />
     <Compile Include="Recipient.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using MsgWriter.Exceptions;
 using MsgWriter.OLE;
 // ReSharper disable InconsistentNaming
 
-namespace MsgWriter
+namespace MsgWriter.Streams
 {
     #region PropertyFlags
     /// <summary>
@@ -153,67 +153,67 @@ namespace MsgWriter
         PT_BINARY = 0x0102,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypInteger16 values. (PT_MV_SHORT, PT_MV_I2, mv.i2)
+        ///     Variable size; a COUNT field followed by that many PT_MV_SHORT values. (PT_MV_SHORT, PT_MV_I2, mv.i2)
         /// </summary>
         PT_MV_SHORT = 0x1002,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypInteger32 values. (PT_MV_LONG, PT_MV_I4, mv.i4)
+        ///     Variable size; a COUNT field followed by that many PT_MV_LONG values. (PT_MV_LONG, PT_MV_I4, mv.i4)
         /// </summary>
         PT_MV_LONG = 0x1003,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypFloating32 values. (PT_MV_FLOAT, PT_MV_R4, mv.float)
+        ///     Variable size; a COUNT field followed by that many PT_MV_FLOAT values. (PT_MV_FLOAT, PT_MV_R4, mv.float)
         /// </summary>
         PT_MV_FLOAT = 0x1004,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypFloating64 values. (PT_MV_DOUBLE, PT_MV_R8)
+        ///     Variable size; a COUNT field followed by that many PT_MV_DOUBLE values. (PT_MV_DOUBLE, PT_MV_R8)
         /// </summary>
         PT_MV_DOUBLE = 0x1005,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypCurrency values. (PT_MV_CURRENCY, mv.fixed.14.4)
+        ///     Variable size; a COUNT field followed by that many PT_MV_CURRENCY values. (PT_MV_CURRENCY, mv.fixed.14.4)
         /// </summary>
         PT_MV_CURRENCY = 0x1006,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypFloatingTime values. (PT_MV_APPTIME)
+        ///     Variable size; a COUNT field followed by that many PT_MV_APPTIME values. (PT_MV_APPTIME)
         /// </summary>
         PT_MV_APPTIME = 0x1007,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypInteger64 values. (PT_MV_I8, PT_MV_LONGLONG)
+        ///     Variable size; a COUNT field followed by that many PT_MV_I8 values. (PT_MV_I8, PT_MV_LONGLONG)
         /// </summary>
         PT_MV_I8 = 0x1014,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypString values. (PT_MV_UNICODE)
+        ///     Variable size; a COUNT field followed by that many PT_MV_UNICODE values. (PT_MV_UNICODE)
         /// </summary>
         PT_MV_TSTRING = 0x101F,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypString values. (PT_MV_UNICODE)
+        ///     Variable size; a COUNT field followed by that many PT_MV_UNICODE values. (PT_MV_UNICODE)
         /// </summary>
         PT_MV_UNICODE = 0x101F,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypString8 values. (PT_MV_STRING8, mv.string)
+        ///     Variable size; a COUNT field followed by that many PT_MV_STRING8 values. (PT_MV_STRING8, mv.string)
         /// </summary>
         PT_MV_STRING8 = 0x101E,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypTime values. (PT_MV_SYSTIME)
+        ///     Variable size; a COUNT field followed by that many PT_MV_SYSTIME values. (PT_MV_SYSTIME)
         /// </summary>
         PT_MV_SYSTIME = 0x1040,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypGuid values. (PT_MV_CLSID, mv.uuid)
+        ///     Variable size; a COUNT field followed by that many PT_MV_CLSID values. (PT_MV_CLSID, mv.uuid)
         /// </summary>
         PT_MV_CLSID = 0x1048,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PtypBinary values. (PT_MV_BINARY, mv.bin.hex)
+        ///     Variable size; a COUNT field followed by that many PT_MV_BINARY values. (PT_MV_BINARY, mv.bin.hex)
         /// </summary>
         PT_MV_BINARY = 0x1102,
 
