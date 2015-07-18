@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace MsgWriter.Helpers
 {
@@ -7,7 +6,7 @@ namespace MsgWriter.Helpers
     {
         #region ToByteArray
         /// <summary>
-        /// Returns the stream as an byte array
+        ///     Returns the stream as an byte array
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -23,7 +22,7 @@ namespace MsgWriter.Helpers
 
         #region Eos
         /// <summary>
-        /// Returns true when the end of the <see cref="BinaryReader.BaseStream"/> has been reached
+        ///     Returns true when the end of the <see cref="BinaryReader.BaseStream" /> has been reached
         /// </summary>
         /// <param name="binaryReader"></param>
         /// <returns></returns>

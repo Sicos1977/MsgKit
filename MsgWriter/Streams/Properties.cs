@@ -19,19 +19,20 @@ namespace MsgWriter.Streams
         ///     Adds a property
         /// </summary>
         /// <param name="mapiTag">The <see cref="MapiTag"/></param>
-        /// <param name="data">The value for the mapi tag</param>
+        /// <param name="obj">The value for the mapi tag</param>
         /// <param name="flags">
         ///     the flags to set on the property, default <see cref="PropertyFlag.PROPATTR_READABLE"/> 
         ///     and <see cref="PropertyFlag.PROPATTR_WRITABLE"/>
         /// </param>
-        /// <exception cref="ArgumentNullException">Raised when <paramref name="data"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Raised when <paramref name="obj"/> is <c>null</c></exception>
         internal void AddProperty(MapiTag mapiTag,
-                                  byte[] data,
+                                  Object obj,
                                   PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
         {
-            if (data == null)
-                throw new ArgumentNullException("mapiTag", "Data can not be null");
+            if (obj == null)
+                throw new ArgumentNullException("mapiTag", "Obj can not be null");
 
+            var data = Conversion.ObjectToByteArray(obj);
             Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
         }
 
@@ -121,17 +122,109 @@ namespace MsgWriter.Streams
             {
                 foreach (var property in this)
                 {
+                    // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
+                    // represent the property type. The high-order 16 bits represent the property ID.
+                    binaryWriter.Write(Convert.ToUInt16(property.Type));
+                    binaryWriter.Write(Convert.ToUInt32(property.Flags)); 
+                    
                     switch (property.Type)
                     {
                         case PropertyType.PT_ACTIONS:
                         case PropertyType.PT_APPTIME:
-                        case 
-                        // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
-                        // represent the property type. The high-order 16 bits represent the property ID.
-                            binaryWriter.Write(property.Id);
-                            binaryWriter.Write(Convert.ToUInt16(property.Type));
-                            binaryWriter.Write(Convert.ToUInt32(property.Flags));
                             binaryWriter.Write(property.Data);
+                            break;
+
+                        case PropertyType.PT_SHORT:
+                            break;
+
+                        case PropertyType.PT_LONG:
+                            break;
+
+                        case PropertyType.PT_FLOAT:
+                            break;
+
+                        case PropertyType.PT_DOUBLE:
+                            break;
+
+                        case PropertyType.PT_CURRENCY:
+                            break;
+
+                        case PropertyType.PT_ERROR:
+                            break;
+
+                        case PropertyType.PT_BOOLEAN:
+                            break;
+
+                        case PropertyType.PT_I8:
+                            // PropertyType.PT_LONGLONG:
+                            break;
+
+                        case PropertyType.PT_UNICODE:
+                            // PropertyType.PT_TSTRING
+                            break;
+
+                        case PropertyType.PT_STRING8:
+                            break;
+
+                        case PropertyType.PT_SYSTIME:
+                            break;
+
+                        case PropertyType.PT_CLSID:
+                            break;
+
+                        case PropertyType.PT_SVREID:
+                            break;
+
+                        case PropertyType.PT_SRESTRICT:
+                            break;
+
+                        case PropertyType.PT_BINARY:
+                            break;
+
+                        case PropertyType.PT_MV_SHORT:
+                            break;
+                        case PropertyType.PT_MV_LONG:
+                            break;
+
+                        case PropertyType.PT_MV_FLOAT:
+                            break;
+
+                        case PropertyType.PT_MV_DOUBLE:
+                            break;
+
+                        case PropertyType.PT_MV_CURRENCY:
+                            break;
+
+                        case PropertyType.PT_MV_APPTIME:
+                            break;
+
+                        case PropertyType.PT_MV_I8:
+                            break;
+
+                        case PropertyType.PT_MV_UNICODE:
+                            // PropertyType.PT_MV_TSTRING
+                            break;
+
+                        case PropertyType.PT_MV_STRING8:
+                            break;
+
+                        case PropertyType.PT_MV_SYSTIME:
+                            break;
+
+                        case PropertyType.PT_MV_CLSID:
+                            break;
+
+                        case PropertyType.PT_MV_BINARY:
+                            break;
+
+                        case PropertyType.PT_UNSPECIFIED:
+                            break;
+
+                        case PropertyType.PT_NULL:
+                            break;
+
+                        case PropertyType.PT_OBJECT:
+                            break;
                     }
                 }
 

@@ -1,4 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
+
+using MsgWriter.Streams;
+
 namespace MsgWriter
 {
     /// <summary>
