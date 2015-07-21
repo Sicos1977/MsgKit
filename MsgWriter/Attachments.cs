@@ -122,7 +122,7 @@ namespace MsgWriter
         #endregion
         
         /// <summary>
-        /// This method add's the attachment object to the given <paramref name="rootStorage"/>
+        /// This method add's the attachment objects to the given <paramref name="rootStorage"/>
         /// and it will set all the needed properties
         /// </summary>
         /// <param name="rootStorage"></param>

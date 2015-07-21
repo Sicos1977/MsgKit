@@ -91,7 +91,7 @@ namespace MsgWriter.Streams
                 binaryWriter.Write((uint) NextAttachmentId);
                 binaryWriter.Write((uint) RecipientCount);
                 binaryWriter.Write((uint) AttachmentCount);
-                WriteProperties(binaryWriter);
+                //WriteProperties(binaryWriter);
                 return memoryStream.ToArray();
             }
         }

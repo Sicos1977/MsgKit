@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using CompoundFileStorage;
-using MsgWriter.Exceptions;
 
 namespace MsgWriter
 {
     /// <summary>
     /// A class used to make a new Outlook E-mail MSG files
     /// </summary>
-    public class Email : IDisposable
+    public class Email : Message
     {
         #region Fields
         /// <summary>
@@ -34,51 +28,60 @@ namespace MsgWriter
         }
         #endregion
 
+        #region Save
         /// <summary>
         /// Saves the message to the given <paramref name="stream"/>
         /// </summary>
         /// <param name="stream"></param>
-        public void Save(Stream stream)
+        public new void Save(Stream stream)
         {
-
+            Attachments.AddToStorage(CompoundFile.RootStorage);
+            base.Save(stream);
         }
 
         /// <summary>
         /// Saves the message to the given <paramref name="fileName"/>
         /// </summary>
         /// <param name="fileName"></param>
-        public void Save(string fileName)
+        public new void Save(string fileName)
         {
-            var message = new Message();
-            message.AddAttachments(_attachments);
-            message.Save(fileName);
+            Attachments.AddToStorage(CompoundFile.RootStorage);
+            base.Save(fileName);
         }
+        #endregion
 
-        public void Dispose()
+        #region Dispose
+        /// <summary>
+        /// Disposes all the attachment streams
+        /// </summary>
+        public new void Dispose()
         {
-            foreach(var attachment in _attachments)
+            foreach (var attachment in _attachments)
                 attachment.Stream.Dispose();
-        }
 
+            base.Dispose();
+        }
+        #endregion
+        
         public void Test()
         {
             using (var stream = File.OpenRead("d:\\test.msg"))
             using (var cf = new CompoundFile(stream))
             {
-                var st = cf.RootStorage.GetStream("__properties_version1.0");
-                var p = new Streams.TopLevelPropertiesStream(st.GetData());
-                foreach (var child in cf.RootStorage.Children)
-                {
-                    if (child.IsStream)
-                    {
-                        var cfStream = child as CFStream;
-                        if (cfStream == null) continue;
+                //var st = cf.RootStorage.GetStream("__properties_version1.0");
+                //var p = new Streams.TopLevelPropertiesStream(st.GetData());
+                //foreach (var child in cf.RootStorage.Children)
+                //{
+                //    if (child.IsStream)
+                //    {
+                //        var cfStream = child as CFStream;
+                //        if (cfStream == null) continue;
 
-                        if (cfStream.Name.StartsWith("__substg1.0_"))
-                            p.AddProperty(cfStream);
-                    }
-                }
-                var pr = p.Find(m => m.IdAsString == "0E1D");
+                //        if (cfStream.Name.StartsWith("__substg1.0_"))
+                //            p.AddProperty(cfStream);
+                //    }
+                //}
+                //var pr = p.Find(m => m.IdAsString == "0E1D");
             }
         }
     }

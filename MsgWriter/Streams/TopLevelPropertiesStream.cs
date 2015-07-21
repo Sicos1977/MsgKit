@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using CompoundFileStorage;
+using CompoundFileStorage.Interfaces;
 
 namespace MsgWriter.Streams
 {
@@ -34,10 +36,10 @@ namespace MsgWriter.Streams
         /// <summary>
         ///     Creates this object and reads all the properties from the toplevel stream
         /// </summary>
-        /// <param name="byteArray"></param>
-        internal TopLevelPropertiesStream(byte[] byteArray)
+        /// <param name="stream">The <see cref="CFStream"/></param>
+        internal TopLevelPropertiesStream(ICFStream stream)
         {
-            using (var memoryStream = new MemoryStream(byteArray))
+            using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
             {
                 //binaryReader.ReadBytes(8);
@@ -90,7 +92,7 @@ namespace MsgWriter.Streams
                 binaryWriter.Write((uint) RecipientCount);
                 binaryWriter.Write((uint) AttachmentCount);
                 binaryWriter.Write(new byte[8]);
-                WriteProperties(binaryWriter);
+                //WriteProperties(binaryWriter);
                 return memoryStream.ToArray();
             }
         }

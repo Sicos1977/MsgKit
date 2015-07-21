@@ -36,7 +36,7 @@ namespace MsgWriter.Streams
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
                 binaryWriter.Write(new byte[8]);
-                WriteProperties(binaryWriter);
+                //WriteProperties(binaryWriter);
                 return memoryStream.ToArray();
             }
         }

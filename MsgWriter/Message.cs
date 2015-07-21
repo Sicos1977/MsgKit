@@ -1,17 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 using CompoundFileStorage;
-using MsgWriter.Helpers;
 
 namespace MsgWriter
 {
     /// <summary>
     /// The base class for all the different types of Outlook MSG files
     /// </summary>
-    internal class Message
+    public class Message : IDisposable
     {
         #region Public enum MessageType
         /// <summary>
@@ -217,25 +213,14 @@ namespace MsgWriter
 
         #region Properties
         /// <summary>
-        /// The <see cref="CompoundFile"/>
+        /// The <see cref="CompoundFileStorage.CompoundFile"/>
         /// </summary>
-        private CompoundFile _compoundFile;
+        internal readonly CompoundFile CompoundFile;
         #endregion
 
         internal Message()
         {
-            _compoundFile = new CompoundFile();
-        }
-
-        /// <summary>
-        /// Adds a list of attachments to the message
-        /// </summary>
-        /// <param name="attachments"></param>
-        internal void AddAttachments(List<Attachment> attachments)
-        {
-            for (var i = 0; i<attachments.Count(); i++)
-            {
-            }
+            CompoundFile = new CompoundFile();
         }
 
         /// <summary>
@@ -244,7 +229,7 @@ namespace MsgWriter
         /// <param name="fileName"></param>
         internal void Save(string fileName)
         {
-            _compoundFile.Save(fileName);
+            CompoundFile.Save(fileName);
         }
 
         /// <summary>
@@ -253,7 +238,12 @@ namespace MsgWriter
         /// <param name="stream"></param>
         internal void Save(Stream stream)
         {
-            _compoundFile.Save(stream);
+            CompoundFile.Save(stream);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
