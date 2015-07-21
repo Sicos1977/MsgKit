@@ -11,17 +11,43 @@ namespace MsgWriter
     {
         #region Fields
         /// <summary>
-        /// Contains all the recipients
+        /// The E-mail <see cref="Attachments"/>
         /// </summary>
-        private List<Recipient> _recipient = new List<Recipient>(); 
+        private Attachments _attachments;
 
         /// <summary>
-        /// Contains all the attachments
+        /// The E-mail <see cref="Recipients"/>
         /// </summary>
-        private Attachments _attachments; 
+        private Recipients _recipients; 
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Returns the sender of the E-mail from the <see cref="Recipients"/>
+        /// </summary>
+        public Recipient From { get; private set; }
+
+        /// <summary>
+        /// The recipient(s) of the E-mail or null when not available
+        /// </summary>
+        public List<Recipient> To { get; private set; }
+
+        /// <summary>
+        /// The blind recipient(s) of the E-mail or null when not available
+        /// </summary>
+        public List<Recipient> Bcc { get; private set; }
+
+        /// <summary>
+        /// The E-mail <see cref="Recipients"/>
+        /// </summary>
+        public Recipients Recipients
+        {
+            get { return _recipients ?? (_recipients = new Recipients()); }
+        }
+        
+        /// <summary>
+        /// The E-mail <see cref="Attachments"/>
+        /// </summary>
         public Attachments Attachments
         {
             get { return _attachments ?? (_attachments = new Attachments()); }

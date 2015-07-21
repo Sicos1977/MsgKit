@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using CompoundFileStorage;
+using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 
 /*
@@ -23,7 +29,7 @@ namespace MsgWriter
     /// <summary>
     /// The recipient type
     /// </summary>
-    internal enum RecipientType : uint
+    public enum RecipientType : uint
     {
         /// <summary>
         ///     The recipient is an TO E-mail address
@@ -51,6 +57,49 @@ namespace MsgWriter
         Room = 0x0007
     }
     #endregion
+
+    /// <summary>
+    /// Contains a list of <see cref="Recipients"/> objects that are added to a message
+    /// </summary>
+    public sealed class Recipients : List<Recipient>
+    {
+        #region AddRecipient
+        /// <summary>
+        /// Add's an <see cref="Recipient"/>
+        /// </summary>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <see cref="email"/></param>
+        /// <param name="type"></param>
+        public void AddRecipient(string email,
+                           string displayName, 
+                           RecipientType type)
+        {
+            Add(new Recipient(email,
+                              displayName,
+                              type));
+        }
+        #endregion
+
+        #region AddToStorage
+        /// <summary>
+        /// This method add's the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
+        /// and it will set all the needed properties
+        /// </summary>
+        /// <param name="rootStorage"></param>
+        internal void AddToStorage(CFStorage rootStorage)
+        {
+            for (var i = 0; i < Count; i++)
+            {
+                var attachment = this[i];
+                var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString("X8").ToUpper());
+                var stream = storage.AddStream("__substg1.0_3001001F");
+                stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
+                stream = storage.AddStream("__substg1.0_37010102");
+                stream.SetData(attachment.Stream.ToByteArray());
+            }
+        }
+        #endregion
+    }
 
     /// <summary>
     /// This class represents an Outlook recipient
@@ -109,13 +158,19 @@ namespace MsgWriter
 
         #region Constructor
         /// <summary>
-        /// 
+        /// Creates a new recipient object and sets all its properties
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="displayName"></param>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <see cref="email"/></param>
         /// <param name="type"></param>
-        internal Recipient(string email, string displayName, RecipientType type)
+        internal Recipient(string email,
+                           string displayName, 
+                           RecipientType type)
         {
+            Email = email;
+            DisplayName = displayName;
+            Type = type;
+
             //if (EmailAddress.IsEmailAddressValid(tempDisplayName))
             //{
             //    // If the displayname is an emailAddress them move it

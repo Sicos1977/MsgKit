@@ -73,7 +73,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        /// Add's an attachment to the E-mail
+        /// Add's an <see cref="Attachment"/>
         /// </summary>
         /// <param name="fileName">The file to add with full path</param>
         /// <param name="isInline">Set to true to add the attachment inline</param>
@@ -95,7 +95,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        /// Add's an attachment to the E-mail
+        /// Add's an attachment
         /// </summary>
         /// <param name="stream">The stream to the attachment</param>
         /// <param name="fileName">The name for the attachment</param>
@@ -120,9 +120,10 @@ namespace MsgWriter
                                contentId));
         }
         #endregion
-        
+
+        #region AddToStorage
         /// <summary>
-        /// This method add's the attachment objects to the given <paramref name="rootStorage"/>
+        /// This method add's the <see cref="Attachment"/> objects to the given <paramref name="rootStorage"/>
         /// and it will set all the needed properties
         /// </summary>
         /// <param name="rootStorage"></param>
@@ -138,6 +139,7 @@ namespace MsgWriter
                 stream.SetData(attachment.Stream.ToByteArray());
             }
         }
+        #endregion
     }
 
     /// <summary>
