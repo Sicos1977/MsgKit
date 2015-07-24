@@ -91,23 +91,23 @@ namespace MsgWriter
         
         public void Test()
         {
-            using (var stream = File.OpenRead("d:\\test.msg"))
+            using (var stream = File.OpenRead("d:\\message.msg"))
             using (var cf = new CompoundFile(stream))
             {
-                //var st = cf.RootStorage.GetStream("__properties_version1.0");
-                //var p = new Streams.TopLevelPropertiesStream(st.GetData());
-                //foreach (var child in cf.RootStorage.Children)
-                //{
-                //    if (child.IsStream)
-                //    {
-                //        var cfStream = child as CFStream;
-                //        if (cfStream == null) continue;
+                var st = cf.RootStorage.GetStream("__properties_version1.0");
+                var p = new Streams.TopLevelPropertiesStream(st);
+                foreach (var child in cf.RootStorage.Children)
+                {
+                    if (child.IsStream)
+                    {
+                        var cfStream = child as CFStream;
+                        if (cfStream == null) continue;
 
-                //        if (cfStream.Name.StartsWith("__substg1.0_"))
-                //            p.AddProperty(cfStream);
-                //    }
-                //}
-                //var pr = p.Find(m => m.IdAsString == "0E1D");
+                        if (cfStream.Name.StartsWith("__substg1.0_"))
+                            p.AddProperty(cfStream);
+                    }
+                }
+                var pr = p.Find(m => m.IdAsString == "0E1D");
             }
         }
     }

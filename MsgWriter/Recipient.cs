@@ -90,12 +90,12 @@ namespace MsgWriter
         {
             for (var i = 0; i < Count; i++)
             {
-                var attachment = this[i];
-                var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString("X8").ToUpper());
-                var stream = storage.AddStream("__substg1.0_3001001F");
-                stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
-                stream = storage.AddStream("__substg1.0_37010102");
-                stream.SetData(attachment.Stream.ToByteArray());
+                //var attachment = this[i];
+                //var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString("X8").ToUpper());
+                //var stream = storage.AddStream("__substg1.0_3001001F");
+                //stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
+                //stream = storage.AddStream("__substg1.0_37010102");
+                //stream.SetData(attachment.Stream.ToByteArray());
             }
         }
         #endregion
@@ -106,39 +106,6 @@ namespace MsgWriter
     /// </summary>
     public sealed class Recipient
     {
-        #region Public enum RecipientType
-        /// <summary>
-        /// Recipient types
-        /// </summary>
-        public enum RecipientType
-        {
-            /// <summary>
-            /// The recipient is an TO E-mail address
-            /// </summary>
-            To,
-
-            /// <summary>
-            /// The recipient is a CC E-mail address
-            /// </summary>
-            Cc,
-
-            /// <summary>
-            /// The recipient is a BCC E-mail address
-            /// </summary>
-            Bcc,
-
-            /// <summary>
-            /// The recipient is a resource (e.g. a room)
-            /// </summary>
-            Resource,
-
-            /// <summary>
-            ///     The recipient is a room (uses PR_RECIPIENT_TYPE_EXE) needs Exchange 2007 or higher
-            /// </summary>
-            Room
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         /// The E-mail address

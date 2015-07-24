@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using CompoundFileStorage;
 using MsgWriter.Streams;
 
 namespace MsgWriter
@@ -9,6 +10,16 @@ namespace MsgWriter
     /// </summary>
     internal static class MapiTags
     {
+        /// <summary>
+        /// The prefix for an <see cref="Attachment"/> <see cref="CFStorage"/>
+        /// </summary>
+        internal const string AttachmentStoragePrefix = "__attach_version1.0_#";
+
+        /// <summary>
+        /// The prefix for a <see cref="MapiTag"/> <see cref="CFStream"/>
+        /// </summary>
+        internal const string SubStorageStreamPrefix = "__substg1.0_";
+
         internal static MapiTag PR_ACKNOWLEDGEMENT_MODE
         {
             get { return new MapiTag(0x0001, PropertyType.PT_LONG); }
@@ -3065,6 +3076,15 @@ namespace MsgWriter
         ///     The 2 byte <see cref="PropertyType" />
         /// </summary>
         public PropertyType Type { get; private set; }
+
+        /// <summary>
+        ///     Returns the MapiTag as a readable string, e.g.
+        /// </summary>
+        /// <returns></returns>
+        public string Name
+        {
+            get { return MapiTags.SubStorageStreamPrefix + Id.ToString("X4") + ((ushort) Type).ToString("X4"); }
+        }
         #endregion
 
         #region Constructor

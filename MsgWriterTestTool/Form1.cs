@@ -20,7 +20,7 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email();
-            //email.Test();
+            email.Test();
             email.Attachments.AddAttachment("d:\\sarong.png");
             email.Attachments.AddAttachment("d:\\sarong.png");
             email.Attachments.AddAttachment("d:\\sarong.png");

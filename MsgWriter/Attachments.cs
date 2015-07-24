@@ -132,10 +132,15 @@ namespace MsgWriter
             for (var i = 0; i < Count; i++)
             {
                 var attachment = this[i];
-                var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString("X8").ToUpper());
-                var stream = storage.AddStream("__substg1.0_3001001F");
+                var storage = rootStorage.AddStorage(MapiTags.AttachmentStoragePrefix + i.ToString("X8").ToUpper());
+                var stream = storage.AddStream(MapiTags.PR_DISPLAY_NAME_W.Name);
                 stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
-                stream = storage.AddStream("__substg1.0_37010102");
+                stream = storage.AddStream(MapiTags.PR_ATTACH_EXTENSION_W.Name);
+
+                if (!string.IsNullOrEmpty(attachment.FileName))
+                    stream.SetData(Encoding.Unicode.GetBytes(Path.GetExtension(attachment.FileName)));
+
+                stream = storage.AddStream(MapiTags.PR_ATTACH_DATA_BIN.Name);
                 stream.SetData(attachment.Stream.ToByteArray());
             }
         }
@@ -143,7 +148,7 @@ namespace MsgWriter
     }
 
     /// <summary>
-    /// This class represents an Outlook attachment
+    /// This class represents a message attachment
     /// </summary>
     public sealed class Attachment
     {
