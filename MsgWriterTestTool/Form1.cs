@@ -20,12 +20,12 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email();
-            email.Test();
-            email.Attachments.AddAttachment("d:\\sarong.png");
-            email.Attachments.AddAttachment("d:\\sarong.png");
-            email.Attachments.AddAttachment("d:\\sarong.png");
-            email.Attachments.AddAttachment("d:\\sarong.png"); 
-            email.Save("d:\\test2.msg");
+            //email.Test();
+            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
+            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
+            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
+            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
+            email.Save("d:\\test3.msg");
         }
     }
 }

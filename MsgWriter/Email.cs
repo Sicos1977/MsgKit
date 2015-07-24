@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using CompoundFileStorage;
 
 namespace MsgWriter
@@ -51,6 +52,15 @@ namespace MsgWriter
         public Attachments Attachments
         {
             get { return _attachments ?? (_attachments = new Attachments()); }
+        }
+        #endregion
+
+        #region Constructor
+        public Email()
+        {
+            var stream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_MESSAGE_CLASS_W.Name);
+            stream.SetData(Encoding.Unicode.GetBytes("IPM.Note"));
+            Class = MessageClass.Email;
         }
         #endregion
 

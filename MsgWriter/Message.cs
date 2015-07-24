@@ -9,11 +9,11 @@ namespace MsgWriter
     /// </summary>
     public class Message : IDisposable
     {
-        #region Public enum MessageType
+        #region Public enum MessageClass
         /// <summary>
-        /// The message types
+        /// The message class
         /// </summary>
-        public enum MessageType
+        public enum MessageClass
         {
             /// <summary>
             /// The message type is unknown
@@ -21,7 +21,7 @@ namespace MsgWriter
             Unknown,
 
             /// <summary>
-            /// The message is a normal E-mail
+            /// The message is a normal E-mail (IPM.Note)
             /// </summary>
             Email,
 
@@ -188,7 +188,7 @@ namespace MsgWriter
         }
         #endregion
 
-        #region MessageImportance
+        #region Public enum MessageImportance
         /// <summary>
         /// The importancy of the message
         /// </summary>
@@ -211,11 +211,16 @@ namespace MsgWriter
         }
         #endregion
 
-        #region Properties
+        #region Fields
         /// <summary>
         /// The <see cref="CompoundFileStorage.CompoundFile"/>
         /// </summary>
         internal readonly CompoundFile CompoundFile;
+
+        /// <summary>
+        /// The message class
+        /// </summary>
+        internal MessageClass Class;
         #endregion
 
         internal Message()
