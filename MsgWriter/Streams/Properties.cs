@@ -18,14 +18,14 @@ namespace MsgWriter.Streams
         /// <summary>
         ///     Adds a property
         /// </summary>
-        /// <param name="mapiTag">The <see cref="MapiTag"/></param>
+        /// <param name="mapiTag">The <see cref="PropertyTag"/></param>
         /// <param name="obj">The value for the mapi tag</param>
         /// <param name="flags">
         ///     the flags to set on the property, default <see cref="PropertyFlag.PROPATTR_READABLE"/> 
         ///     and <see cref="PropertyFlag.PROPATTR_WRITABLE"/>
         /// </param>
         /// <exception cref="ArgumentNullException">Raised when <paramref name="obj"/> is <c>null</c></exception>
-        internal void AddProperty(MapiTag mapiTag,
+        internal void AddProperty(PropertyTag mapiTag,
                                   Object obj,
                                   PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
         {

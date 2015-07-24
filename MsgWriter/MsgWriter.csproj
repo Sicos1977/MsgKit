@@ -50,7 +50,7 @@
     <Compile Include="Helpers\EmailAddress.cs" />
     <Compile Include="Helpers\ExceptionHelpers.cs" />
     <Compile Include="Helpers\StreamHelpers.cs" />
-    <Compile Include="MapiTags.cs" />
+    <Compile Include="PropertyTags.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="NamedPropertyMapping.cs" />

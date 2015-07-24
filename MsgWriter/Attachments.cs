@@ -132,15 +132,21 @@ namespace MsgWriter
             for (var i = 0; i < Count; i++)
             {
                 var attachment = this[i];
-                var storage = rootStorage.AddStorage(MapiTags.AttachmentStoragePrefix + i.ToString("X8").ToUpper());
-                var stream = storage.AddStream(MapiTags.PR_DISPLAY_NAME_W.Name);
+                var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + i.ToString("X8").ToUpper());
+
+                var stream = storage.AddStream(PropertyTags.PR_RECORD_KEY.Name);
+                stream.SetData(BitConverter.GetBytes(i));
+
+                stream = storage.AddStream(PropertyTags.PR_DISPLAY_NAME_W.Name);
                 stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
-                stream = storage.AddStream(MapiTags.PR_ATTACH_EXTENSION_W.Name);
 
                 if (!string.IsNullOrEmpty(attachment.FileName))
+                {
+                    stream = storage.AddStream(PropertyTags.PR_ATTACH_EXTENSION_W.Name);
                     stream.SetData(Encoding.Unicode.GetBytes(Path.GetExtension(attachment.FileName)));
-
-                stream = storage.AddStream(MapiTags.PR_ATTACH_DATA_BIN.Name);
+                }
+                    
+                stream = storage.AddStream(PropertyTags.PR_ATTACH_DATA_BIN.Name);
                 stream.SetData(attachment.Stream.ToByteArray());
             }
         }
