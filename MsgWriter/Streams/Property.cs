@@ -108,14 +108,8 @@ namespace MsgWriter.Streams
         PT_UNICODE = 0x001F,
 
         /// <summary>
-        ///     Variable size; a string of Unicode characters in UTF-16LE format encoding with terminating null character
-        ///     (0x0000). (PT_UNICODE, string)
-        /// </summary>
-        PT_TSTRING = 0x001F,
-
-        /// <summary>
         ///     Variable size; a string of multibyte characters in externally specified encoding with terminating null
-        ///     character (single 0 byte). (PT_STRING8)
+        ///     character (single 0 byte). (PT_STRING8) ... ANSI format
         /// </summary>
         PT_STRING8 = 0x001E,
 

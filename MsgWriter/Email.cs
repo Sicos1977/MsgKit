@@ -11,15 +11,17 @@ namespace MsgWriter
     public class Email : Message
     {
         #region Fields
-        /// <summary>
-        /// The E-mail <see cref="Attachments"/>
-        /// </summary>
-        private Attachments _attachments;
+        private string _subject;
 
         /// <summary>
         /// The E-mail <see cref="Recipients"/>
         /// </summary>
         private Recipients _recipients; 
+        
+        /// <summary>
+        /// The E-mail <see cref="Attachments"/>
+        /// </summary>
+        private Attachments _attachments;
         #endregion
 
         #region Properties
@@ -37,6 +39,26 @@ namespace MsgWriter
         /// The blind recipient(s) of the E-mail or null when not available
         /// </summary>
         public List<Recipient> Bcc { get; private set; }
+
+        public string Subject
+        {
+            get
+            {
+                if (_subject != null)
+                    return _subject;
+
+                _subject = GetString(PropertyTags.PR_SUBJECT_W);
+                if (_subject == null)
+                    GetString(PropertyTags.PR_SUBJECT_A);
+
+                return _subject;
+            }
+            set
+            {
+                // Todo set value
+            }
+            
+        }
 
         /// <summary>
         /// The E-mail <see cref="Recipients"/>

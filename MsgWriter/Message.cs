@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using CompoundFileStorage;
+using MsgWriter.Exceptions;
+using MsgWriter.Streams;
 
 namespace MsgWriter
 {
@@ -223,11 +226,17 @@ namespace MsgWriter
         internal MessageClass Class;
         #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Creates this object and sets all it's properties
+        /// </summary>
         internal Message()
         {
             CompoundFile = new CompoundFile();
         }
-
+        #endregion
+        
+        #region Save
         /// <summary>
         /// Saves the message to the given <paramref name="fileName"/>
         /// </summary>
@@ -244,6 +253,38 @@ namespace MsgWriter
         internal void Save(Stream stream)
         {
             CompoundFile.Save(stream);
+        }
+        #endregion
+
+        /// <summary>
+        /// Returns the string value from <param name="propertyTag"> or <c>null</c> when the property does not exists</param>
+        /// </summary>
+        /// <param name="propertyTag"></param>
+        /// <returns></returns>
+        /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
+        /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
+        internal string GetString(PropertyTag propertyTag)
+        {
+            string result = null;
+
+            if (CompoundFile.RootStorage.ExistsStream(propertyTag.Name))
+            {
+                switch (propertyTag.Type)
+                {
+                    case PropertyType.PT_STRING8:
+                        result = Encoding.Default.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
+                        break;
+
+                    case PropertyType.PT_UNICODE:
+                        result = Encoding.UTF8.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
+                        break;
+
+                    default:
+                        throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                }
+            }
+
+            return result;
         }
 
         public void Dispose()

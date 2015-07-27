@@ -139,7 +139,7 @@ namespace MsgWriter
 
                 stream = storage.AddStream(PropertyTags.PR_DISPLAY_NAME_W.Name);
                 stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
-
+                
                 if (!string.IsNullOrEmpty(attachment.FileName))
                 {
                     stream = storage.AddStream(PropertyTags.PR_ATTACH_EXTENSION_W.Name);
