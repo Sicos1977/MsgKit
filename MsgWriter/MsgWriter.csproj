@@ -50,11 +50,11 @@
     <Compile Include="Helpers\EmailAddress.cs" />
     <Compile Include="Helpers\ExceptionHelpers.cs" />
     <Compile Include="Helpers\StreamHelpers.cs" />
-    <Compile Include="PropertyTags.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="OLE\CLSID.cs" />
+    <Compile Include="PropertyTags.cs" />
     <Compile Include="Streams\EntryStream.cs" />
     <Compile Include="Streams\RecipientPropertiesStream.cs" />
     <Compile Include="Streams\AttachmentPropertiesStream.cs" />
