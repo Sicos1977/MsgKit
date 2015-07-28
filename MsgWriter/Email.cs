@@ -47,10 +47,7 @@ namespace MsgWriter
                 if (_subject != null)
                     return _subject;
 
-                _subject = GetString(PropertyTags.PR_SUBJECT_W);
-                if (_subject == null)
-                    GetString(PropertyTags.PR_SUBJECT_A);
-
+                _subject = GetString(new List<PropertyTag> {PropertyTags.PR_SUBJECT_W, PropertyTags.PR_SUBJECT_A});
                 return _subject;
             }
             set

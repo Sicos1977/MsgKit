@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using CompoundFileStorage;
@@ -12,6 +13,24 @@ namespace MsgWriter
     /// </summary>
     public class Message : IDisposable
     {
+        #region MessagePropertyEncoding
+        /// <summary>
+        /// The prefered encoding to use when reading or writing a <see cref="PropertyTag"/>
+        /// </summary>
+        public enum MessagePropertyEncoding
+        {
+            /// <summary>
+            /// Prefered UNICODE values
+            /// </summary>
+            Unicode,
+
+            /// <summary>
+            /// Prefered ANSI values
+            /// </summary>
+            Ansi
+        }
+        #endregion
+        
         #region Public enum MessageClass
         /// <summary>
         /// The message class
@@ -256,37 +275,48 @@ namespace MsgWriter
         }
         #endregion
 
+        #region GetString
         /// <summary>
-        /// Returns the string value from <param name="propertyTag"> or <c>null</c> when the property does not exists</param>
+        /// Returns the string value from the first item in the list of <param name="propertyTags"> that gives
+        /// back a valid value. <c>null</c> is returned when the property does not exists or no valid value is found</param>
         /// </summary>
-        /// <param name="propertyTag"></param>
+        /// <param name="propertyTags">List of <see cref="PropertyTag"/></param>
         /// <returns></returns>
-        /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
+        /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTags"/> is not of the type 
         /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
-        internal string GetString(PropertyTag propertyTag)
+        internal string GetString(List<PropertyTag> propertyTags)
         {
             string result = null;
 
-            if (CompoundFile.RootStorage.ExistsStream(propertyTag.Name))
+            foreach (var propertyTag in propertyTags)
             {
-                switch (propertyTag.Type)
+                if (CompoundFile.RootStorage.ExistsStream(propertyTag.Name))
                 {
-                    case PropertyType.PT_STRING8:
-                        result = Encoding.Default.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
-                        break;
+                    switch (propertyTag.Type)
+                    {
+                        case PropertyType.PT_STRING8:
+                            result =
+                                Encoding.Default.GetString(
+                                    CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
+                            break;
 
-                    case PropertyType.PT_UNICODE:
-                        result = Encoding.UTF8.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
-                        break;
+                        case PropertyType.PT_UNICODE:
+                            result =
+                                Encoding.UTF8.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
+                            break;
 
-                    default:
-                        throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                        default:
+                            throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                    }
                 }
+
+                if (!string.IsNullOrEmpty(result))
+                    return result;
             }
-
-            return result;
+            return null;
         }
-
+        #endregion
+        
         public void Dispose()
         {
             throw new NotImplementedException();
