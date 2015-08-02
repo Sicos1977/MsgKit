@@ -116,56 +116,89 @@ namespace MsgWriter
             get { return new PropertyTag(0x000A, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal static PropertyTag PR_CONVERSATION_KEY
         {
             get { return new PropertyTag(0x000B, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal static PropertyTag PR_CONVERSION_EITS
         {
             get { return new PropertyTag(0x000C, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal static PropertyTag PR_CONVERSION_WITH_LOSS_PROHIBITED
         {
             get { return new PropertyTag(0x000D, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        /// Contains an identifier for the types of text in a message after conversion.
+        /// </summary>
         internal static PropertyTag PR_CONVERTED_EITS
         {
             get { return new PropertyTag(0x000E, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        /// Contains the date and time when a message sender wants a message delivered. 
+        /// </summary>
         internal static PropertyTag PR_DEFERRED_DELIVERY_TIME
         {
             get { return new PropertyTag(0x000F, PropertyType.PT_SYSTIME); }
         }
 
+        /// <summary>
+        /// Contains the date and time when the original message was delivered. 
+        /// </summary>
         internal static PropertyTag PR_DELIVER_TIME
         {
             get { return new PropertyTag(0x0010, PropertyType.PT_SYSTIME); }
         }
 
+        /// <summary>
+        /// Contains a reason why a message transfer agent (MTA) has discarded a message. 
+        /// </summary>
         internal static PropertyTag PR_DISCARD_REASON
         {
             get { return new PropertyTag(0x0011, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        /// Contains TRUE if disclosure of recipients is allowed.
+        /// </summary>
         internal static PropertyTag PR_DISCLOSURE_OF_RECIPIENTS
         {
             get { return new PropertyTag(0x0012, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        /// Contains a history showing how a distribution list has been expanded during message transmission. 
+        /// </summary>
         internal static PropertyTag PR_DL_EXPANSION_HISTORY
         {
             get { return new PropertyTag(0x0013, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        /// Contains TRUE if a message transfer agent (MTA) is prohibited from expanding distribution lists.
+        /// </summary>
         internal static PropertyTag PR_DL_EXPANSION_PROHIBITED
         {
             get { return new PropertyTag(0x0014, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        /// The TimeExpired property specifies the date/time the message becomes invalid and can be safely deleted. Read/write. 
+        /// </summary>
         internal static PropertyTag PR_EXPIRY_TIME
         {
             get { return new PropertyTag(0x0015, PropertyType.PT_SYSTIME); }
