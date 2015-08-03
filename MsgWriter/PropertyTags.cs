@@ -1,5 +1,6 @@
 ﻿using CompoundFileStorage;
 using MsgWriter.Streams;
+
 // ReSharper disable InconsistentNaming
 
 /*
@@ -1431,186 +1432,298 @@ namespace MsgWriter
             get { return new PropertyTag(0x1011, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the entry identifier of the originally intended recipient of an auto-forwarded message.
+        /// </summary>
         internal static PropertyTag PR_ORIGINALLY_INTENDED_RECIP_ENTRYID
         {
             get { return new PropertyTag(0x1012, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains an ASN.1 content integrity check value that allows a message sender to protect message content from
+        ///     disclosure to unauthorized recipients.
+        /// </summary>
         internal static PropertyTag PR_CONTENT_INTEGRITY_CHECK
         {
             get { return new PropertyTag(0x0C00, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Indicates that a message sender has requested a message content conversion for a particular recipient.
+        /// </summary>
         internal static PropertyTag PR_EXPLICIT_CONVERSION
         {
             get { return new PropertyTag(0x0C01, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if this message should be returned with a report.
+        /// </summary>
         internal static PropertyTag PR_IPM_RETURN_REQUESTED
         {
             get { return new PropertyTag(0x0C02, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains an ASN.1 security token for a message.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_TOKEN
         {
             get { return new PropertyTag(0x0C03, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains a diagnostic code that forms part of a nondelivery report.
+        /// </summary>
         internal static PropertyTag PR_NDR_REASON_CODE
         {
             get { return new PropertyTag(0x0C04, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a diagnostic code that forms part of a nondelivery report.
+        /// </summary>
         internal static PropertyTag PR_NDR_DIAG_CODE
         {
             get { return new PropertyTag(0x0C05, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        /// </summary>
         internal static PropertyTag PR_NON_RECEIPT_NOTIFICATION_REQUESTED
         {
             get { return new PropertyTag(0x0C06, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a message sender wants notification of non-receipt for a specified recipient.
+        /// </summary>
         internal static PropertyTag PR_ORIGINATOR_NON_DELIVERY_REPORT_REQUESTED
         {
             get { return new PropertyTag(0x0C08, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains an entry identifier for an alternate recipient designated by the sender.
+        /// </summary>
         internal static PropertyTag PR_ORIGINATOR_REQUESTED_ALTERNATE_RECIPIENT
         {
             get { return new PropertyTag(0x0C09, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_DELIVERY_BUREAU_FAX_DELIVERY
         {
             get { return new PropertyTag(0x0C0A, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if the messaging system should use a fax bureau for physical delivery of this message.
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_DELIVERY_MODE
         {
             get { return new PropertyTag(0x0C0B, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the mode of a report to be delivered to a particular message recipient upon completion of physical message
+        ///     delivery or delivery by the message handling system.
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_DELIVERY_REPORT_REQUEST
         {
             get { return new PropertyTag(0x0C0C, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_FORWARDING_ADDRESS
         {
             get { return new PropertyTag(0x0C0D, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a message sender requests the message transfer agent to attach a physical forwarding address for a
+        ///     message recipient.
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_FORWARDING_ADDRESS_REQUESTED
         {
             get { return new PropertyTag(0x0C0E, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a message sender prohibits physical message forwarding for a specific recipient.
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_FORWARDING_PROHIBITED
         {
             get { return new PropertyTag(0x0C0F, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains an ASN.1 object identifier that is used for rendering message attachments.
+        /// </summary>
         internal static PropertyTag PR_PHYSICAL_RENDITION_ATTRIBUTES
         {
             get { return new PropertyTag(0x0C10, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     This property contains an ASN.1 proof of delivery value.
+        /// </summary>
         internal static PropertyTag PR_PROOF_OF_DELIVERY
         {
             get { return new PropertyTag(0x0C11, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     This property contains TRUE if a message sender requests proof of delivery for a particular recipient.
+        /// </summary>
         internal static PropertyTag PR_PROOF_OF_DELIVERY_REQUESTED
         {
             get { return new PropertyTag(0x0C12, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains a message recipient's ASN.1 certificate for use in a report.
+        /// </summary>
         internal static PropertyTag PR_RECIPIENT_CERTIFICATE
         {
             get { return new PropertyTag(0x0C13, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     This property contains a message recipient's telephone number to call to advise of the physical delivery of a
+        ///     message. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_RECIPIENT_NUMBER_FOR_ADVICE_W
         {
             get { return new PropertyTag(0x0C14, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     This property contains a message recipient's telephone number to call to advise of the physical delivery of a
+        ///     message. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_RECIPIENT_NUMBER_FOR_ADVICE_A
         {
             get { return new PropertyTag(0x0C14, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the recipient type for a message recipient.
+        /// </summary>
         internal static PropertyTag PR_RECIPIENT_TYPE
         {
             get { return new PropertyTag(0x0C15, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     This property contains the type of registration used for physical delivery of a message.
+        /// </summary>
         internal static PropertyTag PR_REGISTERED_MAIL_TYPE
         {
             get { return new PropertyTag(0x0C16, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a message sender requests a reply from a recipient.
+        /// </summary>
         internal static PropertyTag PR_REPLY_REQUESTED
         {
             get { return new PropertyTag(0x0C17, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     This property contains a binary array of delivery methods (service providers), in the order of a message sender's
+        ///     preference.
+        /// </summary>
         internal static PropertyTag PR_REQUESTED_DELIVERY_METHOD
         {
             get { return new PropertyTag(0x0C18, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the message sender's entry identifier.
+        /// </summary>
         internal static PropertyTag PR_SENDER_ENTRYID
         {
             get { return new PropertyTag(0x0C19, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the message sender's display name. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_SENDER_NAME_W
         {
             get { return new PropertyTag(0x0C1A, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the message sender's display name. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_SENDER_NAME_A
         {
             get { return new PropertyTag(0x0C1A, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains additional information for use in a report. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_SUPPLEMENTARY_INFO_W
         {
             get { return new PropertyTag(0x0C1B, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains additional information for use in a report. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_SUPPLEMENTARY_INFO_A
         {
             get { return new PropertyTag(0x0C1B, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     This property contains the type of a message recipient for use in a report.
+        /// </summary>
         internal static PropertyTag PR_TYPE_OF_MTS_USER
         {
             get { return new PropertyTag(0x0C1C, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the message sender's search key.
+        /// </summary>
         internal static PropertyTag PR_SENDER_SEARCH_KEY
         {
             get { return new PropertyTag(0x0C1D, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the message sender's e-mail address type. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_SENDER_ADDRTYPE_W
         {
             get { return new PropertyTag(0x0C1E, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the message sender's e-mail address type. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_SENDER_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0C1E, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        /// </summary>
         internal static PropertyTag PR_SENDER_EMAIL_ADDRESS_W
         {
             get { return new PropertyTag(0x0C1F, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        /// </summary>
         internal static PropertyTag PR_SENDER_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0C1F, PropertyType.PT_STRING8); }
