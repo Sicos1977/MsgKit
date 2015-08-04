@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Attachments.cs" />
     <Compile Include="Exceptions\MWAttachmentExists.cs" />
+    <Compile Include="Exceptions\MWPropertyNotFound.cs" />
     <Compile Include="Exceptions\MWInvalidProperty.cs" />
     <Compile Include="Helpers\Conversion.cs" />
     <Compile Include="Helpers\EmailAddress.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Streams\Properties.cs" />
     <Compile Include="Streams\Property.cs" />
     <Compile Include="Recipient.cs" />
+    <Compile Include="TranslateTags.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
