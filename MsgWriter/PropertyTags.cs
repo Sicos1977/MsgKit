@@ -1716,6 +1716,7 @@ namespace MsgWriter
         }
 
         /// <summary>
+        ///     Contains the message sender's e-mail address, encoded in Unicode standard.
         /// </summary>
         internal static PropertyTag PR_SENDER_EMAIL_ADDRESS_W
         {
@@ -1723,447 +1724,740 @@ namespace MsgWriter
         }
 
         /// <summary>
+        ///     Contains the message sender's e-mail address, encoded in Non-Unicode standard.
         /// </summary>
         internal static PropertyTag PR_SENDER_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0C1F, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Was originally meant to contain the current version of a message store. No longer supported.
+        /// </summary>
         internal static PropertyTag PR_CURRENT_VERSION
         {
             get { return new PropertyTag(0x0E00, PropertyType.PT_I8); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a client application wants MAPI to delete the associated message after submission.
+        /// </summary>
         internal static PropertyTag PR_DELETE_AFTER_SUBMIT
         {
             get { return new PropertyTag(0x0E01, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains an ASCII list of the display names of any blind carbon copy (BCC) message recipients, separated by
+        ///     semicolons (;). UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_BCC_W
         {
             get { return new PropertyTag(0x0E02, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains an ASCII list of the display names of any blind carbon copy (BCC) message recipients, separated by
+        ///     semicolons (;). Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_BCC_A
         {
             get { return new PropertyTag(0x0E02, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains an ASCII list of the display names of any carbon copy (CC) message recipients, separated by semicolons
+        ///     (;). UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_CC_W
         {
             get { return new PropertyTag(0x0E03, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains an ASCII list of the display names of any carbon copy (CC) message recipients, separated by semicolons
+        ///     (;). Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_CC_A
         {
             get { return new PropertyTag(0x0E03, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the display name of the folder in which a message was found during a search. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_TO_W
         {
             get { return new PropertyTag(0x0E04, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the display name of the folder in which a message was found during a search. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_TO_A
         {
             get { return new PropertyTag(0x0E04, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the display name of the folder in which a message was found during a search. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_PARENT_DISPLAY_W
         {
             get { return new PropertyTag(0x0E05, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the display name of the folder in which a message was found during a search. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_PARENT_DISPLAY_A
         {
             get { return new PropertyTag(0x0E05, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the date and time a message was delivered.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_DELIVERY_TIME
         {
             get { return new PropertyTag(0x0E06, PropertyType.PT_SYSTIME); }
         }
 
+        /// <summary>
+        ///     Contains a bitmask of flags indicating the origin and current state of a message.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_FLAGS
         {
             get { return new PropertyTag(0x0E07, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the sum, in bytes, of the sizes of all properties on a message object.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_SIZE
         {
             get { return new PropertyTag(0x0E08, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the entry identifier of the folder containing a folder or message.
+        /// </summary>
         internal static PropertyTag PR_PARENT_ENTRYID
         {
             get { return new PropertyTag(0x0E09, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the entry identifier of the folder where the message should be moved after submission.
+        /// </summary>
         internal static PropertyTag PR_SENTMAIL_ENTRYID
         {
             get { return new PropertyTag(0x0E0A, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if the sender of a message requests the correlation feature of the messaging system.
+        /// </summary>
         internal static PropertyTag PR_CORRELATE
         {
             get { return new PropertyTag(0x0E0C, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains the message transfer system (MTS) identifier used in correlating reports with sent messages.
+        /// </summary>
         internal static PropertyTag PR_CORRELATE_MTSID
         {
             get { return new PropertyTag(0x0E0D, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a nondelivery report applies only to discrete members of a distribution list rather than the
+        ///     entire list.
+        /// </summary>
         internal static PropertyTag PR_DISCRETE_VALUES
         {
             get { return new PropertyTag(0x0E0E, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if some transport provider has already accepted responsibility for delivering the message to this
+        ///     recipient, and FALSE if the MAPI spooler considers that this transport provider should accept responsibility.
+        /// </summary>
         internal static PropertyTag PR_RESPONSIBILITY
         {
             get { return new PropertyTag(0x0E0F, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains the status of the message based on information available to the MAPI spooler.
+        /// </summary>
         internal static PropertyTag PR_SPOOLER_STATUS
         {
             get { return new PropertyTag(0x0E10, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Obsolete MAPI spooler property. No longer supported.
+        /// </summary>
         internal static PropertyTag PR_TRANSPORT_STATUS
         {
             get { return new PropertyTag(0x0E11, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a table of restrictions that can be applied to a contents table to find all messages that contain
+        ///     recipient subobjects meeting the restrictions.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_RECIPIENTS
         {
             get { return new PropertyTag(0x0E12, PropertyType.PT_OBJECT); }
         }
 
+        /// <summary>
+        ///     Contains a table of restrictions that can be applied to a contents table to find all messages that contain
+        ///     attachment subobjects meeting the restrictions.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_ATTACHMENTS
         {
             get { return new PropertyTag(0x0E13, PropertyType.PT_OBJECT); }
         }
 
+        /// <summary>
+        ///     Contains a bitmask of flags indicating details about a message submission.
+        /// </summary>
         internal static PropertyTag PR_SUBMIT_FLAGS
         {
             get { return new PropertyTag(0x0E14, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a value used by the MAPI spooler in assigning delivery responsibility among transport providers.
+        /// </summary>
         internal static PropertyTag PR_RECIPIENT_STATUS
         {
             get { return new PropertyTag(0x0E15, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a value used by the MAPI spooler to track the progress of an outbound message through the outgoing
+        ///     transport providers.
+        /// </summary>
         internal static PropertyTag PR_TRANSPORT_KEY
         {
             get { return new PropertyTag(0x0E16, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        /// </summary>
         internal static PropertyTag PR_MSG_STATUS
         {
             get { return new PropertyTag(0x0E17, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a bitmask of property tags that define the status of a message.
+        /// </summary>
         internal static PropertyTag PR_MESSAGE_DOWNLOAD_TIME
         {
             get { return new PropertyTag(0x0E18, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Was originally meant to contain the message store version current at the time a message was created. No longer
+        ///     supported.
+        /// </summary>
         internal static PropertyTag PR_CREATION_VERSION
         {
             get { return new PropertyTag(0x0E19, PropertyType.PT_I8); }
         }
 
+        /// <summary>
+        ///     Was originally meant to contain the message store version current at the time the message was last modified. No
+        ///     longer supported.
+        /// </summary>
         internal static PropertyTag PR_MODIFY_VERSION
         {
             get { return new PropertyTag(0x0E1A, PropertyType.PT_I8); }
         }
 
+        /// <summary>
+        ///     Contains at least one attachment.
+        /// </summary>
         internal static PropertyTag PR_HASATTACH
         {
             get { return new PropertyTag(0x0E1B, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains a circular redundancy check (CRC) value on the message text.
+        /// </summary>
         internal static PropertyTag PR_BODY_CRC
         {
             get { return new PropertyTag(0x0E1C, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the message subject with any prefix removed. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_NORMALIZED_SUBJECT_W
         {
             get { return new PropertyTag(0x0E1D, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the message subject with any prefix removed. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_NORMALIZED_SUBJECT_A
         {
             get { return new PropertyTag(0x0E1D, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if PR_RTF_COMPRESSED has the same text content as PR_BODY for this message.
+        /// </summary>
         internal static PropertyTag PR_RTF_IN_SYNC
         {
             get { return new PropertyTag(0x0E1F, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains the sum, in bytes, of the sizes of all properties on an attachment.
+        /// </summary>
         internal static PropertyTag PR_ATTACH_SIZE
         {
             get { return new PropertyTag(0x0E20, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a number that uniquely identifies the attachment within its parent message.
+        /// </summary>
         internal static PropertyTag PR_ATTACH_NUM
         {
             get { return new PropertyTag(0x0E21, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if the message requires preprocessing.
+        /// </summary>
         internal static PropertyTag PR_PREPROCESS
         {
             get { return new PropertyTag(0x0E22, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains an identifier for the message transfer agent (MTA) that originated the message.
+        /// </summary>
+        internal static PropertyTag PR_ORIGINATING_MTA_CERTIFICATE
+        {
+            get { return new PropertyTag(0x0E25, PropertyType.PT_BINARY); }
+        }
+
+        /// <summary>
+        ///     Contains an ASN.1 proof of submission value.
+        /// </summary>
+        internal static PropertyTag PR_PROOF_OF_SUBMISSION
+        {
+            get { return new PropertyTag(0x0E26, PropertyType.PT_BINARY); }
+        }
+
+        /// <summary>
+        ///     The PR_ENTRYID property contains a MAPI entry identifier used to open and edit properties of a particular MAPI
+        ///     object.
+        /// </summary>
         internal static PropertyTag PR_ENTRYID
         {
             get { return new PropertyTag(0x0FFF, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the type of an object
+        /// </summary>
         internal static PropertyTag PR_OBJECT_TYPE
         {
             get { return new PropertyTag(0x0FFE, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a bitmap of a full size icon for a form.
+        /// </summary>
         internal static PropertyTag PR_ICON
         {
             get { return new PropertyTag(0x0FFD, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains a bitmap of a half-size icon for a form.
+        /// </summary>
         internal static PropertyTag PR_MINI_ICON
         {
             get { return new PropertyTag(0x0FFC, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Specifies the hexadecimal string representation of the value of the PR_STORE_ENTRYID (PidTagStoreEntryId) property
+        ///     on the shared folder. This is a property of a sharing message.
+        /// </summary>
         internal static PropertyTag PR_STORE_ENTRYID
         {
             get { return new PropertyTag(0x0FFB, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the unique binary-comparable identifier (record key) of the message store in which an object resides.
+        /// </summary>
         internal static PropertyTag PR_STORE_RECORD_KEY
         {
             get { return new PropertyTag(0x0FFA, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains a unique binary-comparable identifier for a specific object.
+        /// </summary>
         internal static PropertyTag PR_RECORD_KEY
         {
             get { return new PropertyTag(0x0FF9, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the mapping signature for named properties of a particular MAPI object.
+        /// </summary>
         internal static PropertyTag PR_MAPPING_SIGNATURE
         {
             get { return new PropertyTag(0x0FF8, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Indicates the client's access level to the object.
+        /// </summary>
         internal static PropertyTag PR_ACCESS_LEVEL
         {
             get { return new PropertyTag(0x0FF7, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a value that uniquely identifies a row in a table.
+        /// </summary>
         internal static PropertyTag PR_INSTANCE_KEY
         {
             get { return new PropertyTag(0x0FF6, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains a value that indicates the type of a row in a table.
+        /// </summary>
         internal static PropertyTag PR_ROW_TYPE
         {
             get { return new PropertyTag(0x0FF5, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a bitmask of flags indicating the operations that are available to the client for the object.
+        /// </summary>
         internal static PropertyTag PR_ACCESS
         {
             get { return new PropertyTag(0x0FF4, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a unique identifier for a recipient in a recipient table or status table.
+        /// </summary>
         internal static PropertyTag PR_ROWID
         {
             get { return new PropertyTag(0x3000, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the display name for a given MAPI object. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_NAME_W
         {
             get { return new PropertyTag(0x3001, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the display name for a given MAPI object. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_DISPLAY_NAME_A
         {
             get { return new PropertyTag(0x3001, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the messaging user's e-mail address type, such as SMTP. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_ADDRTYPE_W
         {
             get { return new PropertyTag(0x3002, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the messaging user's e-mail address type, such as SMTP. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_ADDRTYPE_A
         {
             get { return new PropertyTag(0x3002, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the messaging user's e-mail address. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_EMAIL_ADDRESS_W
         {
             get { return new PropertyTag(0x3003, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the messaging user's e-mail address. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x3003, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains a comment about the purpose or content of an object. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_COMMENT_W
         {
             get { return new PropertyTag(0x3004, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains a comment about the purpose or content of an object. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_COMMENT_A
         {
             get { return new PropertyTag(0x3004, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains an integer that represents the relative level of indentation, or depth, of an object in a hierarchy table.
+        /// </summary>
         internal static PropertyTag PR_DEPTH
         {
             get { return new PropertyTag(0x3005, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the vendor-defined display name for a service provider. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_PROVIDER_DISPLAY_W
         {
             get { return new PropertyTag(0x3006, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the vendor-defined display name for a service provider. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_PROVIDER_DISPLAY_A
         {
             get { return new PropertyTag(0x3006, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the creation date and time of a message.
+        /// </summary>
         internal static PropertyTag PR_CREATION_TIME
         {
             get { return new PropertyTag(0x3007, PropertyType.PT_SYSTIME); }
         }
 
+        /// <summary>
+        ///     Contains the date and time when the object or subobject was last modified.
+        /// </summary>
         internal static PropertyTag PR_LAST_MODIFICATION_TIME
         {
             get { return new PropertyTag(0x3008, PropertyType.PT_SYSTIME); }
         }
 
+        /// <summary>
+        ///     Contains a bitmask of flags for message services and providers.
+        /// </summary>
         internal static PropertyTag PR_RESOURCE_FLAGS
         {
             get { return new PropertyTag(0x3009, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the base file name of the MAPI service provider dynamic-link library (DLL). UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_PROVIDER_DLL_NAME_W
         {
             get { return new PropertyTag(0x300A, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the base file name of the MAPI service provider dynamic-link library (DLL). Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_PROVIDER_DLL_NAME_A
         {
             get { return new PropertyTag(0x300A, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains a binary-comparable key that identifies correlated objects for a search.
+        /// </summary>
         internal static PropertyTag PR_SEARCH_KEY
         {
             get { return new PropertyTag(0x300B, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains a MAPIUID structure of the service provider that is handling a message.
+        /// </summary>
         internal static PropertyTag PR_PROVIDER_UID
         {
             get { return new PropertyTag(0x300C, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Contains the zero-based index of a service provider's position in the provider table.
+        /// </summary>
         internal static PropertyTag PR_PROVIDER_ORDINAL
         {
             get { return new PropertyTag(0x300D, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains the version of a form. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_VERSION_W
         {
             get { return new PropertyTag(0x3301, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the version of a form. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_VERSION_A
         {
             get { return new PropertyTag(0x3301, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the 128-bit Object Linking and Embedding (OLE) globally unique identifier (GUID) of a form.
+        /// </summary>
         internal static PropertyTag PR_FORM_CLSID
         {
             get { return new PropertyTag(0x3302, PropertyType.PT_CLSID); }
         }
 
+        /// <summary>
+        ///     Contains the name of a contact for information about a form. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_CONTACT_NAME_W
         {
             get { return new PropertyTag(0x3303, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the name of a contact for information about a form. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_CONTACT_NAME_A
         {
             get { return new PropertyTag(0x3303, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the category of a form. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_CATEGORY_W
         {
             get { return new PropertyTag(0x3304, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the category of a form. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_CATEGORY_A
         {
             get { return new PropertyTag(0x3304, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the subcategory of a form, as defined by a client application. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_CATEGORY_SUB_W
         {
             get { return new PropertyTag(0x3305, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the subcategory of a form, as defined by a client application. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_CATEGORY_SUB_A
         {
             get { return new PropertyTag(0x3305, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains a host map of available forms.
+        /// </summary>
         internal static PropertyTag PR_FORM_HOST_MAP
         {
             get { return new PropertyTag(0x3306, PropertyType.PT_MV_LONG); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a form is to be suppressed from display by compose menus and dialog boxes.
+        /// </summary>
         internal static PropertyTag PR_FORM_HIDDEN
         {
             get { return new PropertyTag(0x3307, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains the display name for the object that is used to design the form. UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_DESIGNER_NAME_W
         {
             get { return new PropertyTag(0x3308, PropertyType.PT_UNICODE); }
         }
 
+        /// <summary>
+        ///     Contains the display name for the object that is used to design the form. Non-UNICODE compilation.
+        /// </summary>
         internal static PropertyTag PR_FORM_DESIGNER_NAME_A
         {
             get { return new PropertyTag(0x3308, PropertyType.PT_STRING8); }
         }
 
+        /// <summary>
+        ///     Contains the unique identifier for the object that is used to design a form.
+        /// </summary>
         internal static PropertyTag PR_FORM_DESIGNER_GUID
         {
             get { return new PropertyTag(0x3309, PropertyType.PT_CLSID); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a message should be composed in the current folder.
+        /// </summary>
         internal static PropertyTag PR_FORM_MESSAGE_BEHAVIOR
         {
             get { return new PropertyTag(0x330A, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains TRUE if a message store is the default message store in the message store table.
+        /// </summary>
         internal static PropertyTag PR_DEFAULT_STORE
         {
             get { return new PropertyTag(0x3400, PropertyType.PT_BOOLEAN); }
         }
 
+        /// <summary>
+        ///     Contains a bitmask of flags that client applications query to determine the characteristics of a message store.
+        /// </summary>
         internal static PropertyTag PR_STORE_SUPPORT_MASK
         {
             get { return new PropertyTag(0x340D, PropertyType.PT_LONG); }
         }
 
+        /// <summary>
+        ///     Contains a flag that describes the state of the message store.
+        /// </summary>
         internal static PropertyTag PR_STORE_STATE
         {
             get { return new PropertyTag(0x340E, PropertyType.PT_LONG); }
