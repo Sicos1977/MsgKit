@@ -21,10 +21,13 @@ using System.Linq;
 namespace MsgWriter
 {
     /// <summary>
-    /// This class maps each MAPI property to the corresponding canonical property name (and the otherway around).
-    /// The topic contains three tables: a table for named properties with numerical identifiers, 
-    /// a second table for named properties with string identifiers, and a third table for tagged properties.
+    ///     This class maps each MAPI property to the corresponding canonical property name (and the otherway around).
+    ///     The topic contains three tables: a table for named properties with numerical identifiers,
+    ///     a second table for named properties with string identifiers, and a third table for tagged properties.
     /// </summary>
+    /// <remarks>
+    ///     See https://msdn.microsoft.com/en-us/library/office/cc815492.aspx
+    /// </remarks>
     internal static class TranslateTags
     {
         private static readonly Dictionary<string, string> Properties =
@@ -32,7 +35,7 @@ namespace MsgWriter
 
         #region Constructor
         /// <summary>
-        /// Creates this object and sets all it's properties
+        ///     Creates this object and sets all it's properties
         /// </summary>
         static TranslateTags()
         {
@@ -639,7 +642,8 @@ namespace MsgWriter
             Properties.Add("PR_ORIGINALLY_INTENDED_RECIP_ENTRYID", "PidTagOriginallyIntendedRecipEntryId");
             Properties.Add("PR_ORIGINALLY_INTENDED_RECIPIENT_NAME", "PidTagOriginallyIntendedRecipientName");
             Properties.Add("PR_ORIGINATING_MTA_CERTIFICATE", "PidTagOriginatingMtaCertificate");
-            Properties.Add("PR_ORIGINATOR_AND_DL_EXPANSION_HISTORY", "PidTagOriginatorAndDistributionListExpansionHistory");
+            Properties.Add("PR_ORIGINATOR_AND_DL_EXPANSION_HISTORY",
+                "PidTagOriginatorAndDistributionListExpansionHistory");
             Properties.Add("PR_ORIGINATOR_CERTIFICATE", "PidTagOriginatorCertificate");
             Properties.Add("PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED", "PidTagOriginatorDeliveryReportRequested");
             Properties.Add("PR_ORIGINATOR_NON_DELIVERY_REPORT_REQUESTED", "PidTagOriginatorNonDeliveryReportRequested");
@@ -1064,8 +1068,8 @@ namespace MsgWriter
 
         #region PropertyNameToCanonical
         /// <summary>
-        /// Returns the canonical name of the give <paramref name="propertyName"/>. When the property does not
-        /// exists then <c>null</c> is returned
+        ///     Returns the canonical name of the give <paramref name="propertyName" />. When the property does not
+        ///     exists then <c>null</c> is returned
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
@@ -1079,12 +1083,12 @@ namespace MsgWriter
 
         #region CanonicalToPropertyName
         /// <summary>
-        /// Returns the property name of the give <paramref name="canonicalName"/>. When the property does not
-        /// exists then <c>null</c> is returned
+        ///     Returns the property name of the give <paramref name="canonicalName" />. When the property does not
+        ///     exists then <c>null</c> is returned
         /// </summary>
         /// <remarks>
-        /// When more then one property is found then the UNICODE property is returned instead
-        /// of it's Non-UNICODE counter parts
+        ///     When more then one property is found then the UNICODE property is returned instead
+        ///     of it's Non-UNICODE counter parts
         /// </remarks>
         /// <param name="canonicalName"></param>
         /// <returns></returns>

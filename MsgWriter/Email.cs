@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using CompoundFileStorage;
+using MsgWriter.Streams;
 
 /*
    Copyright 2015 Kees van Spelde
@@ -22,37 +23,40 @@ using CompoundFileStorage;
 namespace MsgWriter
 {
     /// <summary>
-    /// A class used to make a new Outlook E-mail MSG files
+    ///     A class used to make a new Outlook E-mail MSG files
     /// </summary>
+    /// <remarks>
+    ///     See https://msdn.microsoft.com/en-us/library/office/cc979231.aspx
+    /// </remarks>
     public class Email : Message
     {
         #region Fields
         private string _subject;
 
         /// <summary>
-        /// The E-mail <see cref="Recipients"/>
+        ///     The E-mail <see cref="Recipients" />
         /// </summary>
-        private Recipients _recipients; 
-        
+        private Recipients _recipients;
+
         /// <summary>
-        /// The E-mail <see cref="Attachments"/>
+        ///     The E-mail <see cref="Attachments" />
         /// </summary>
         private Attachments _attachments;
         #endregion
 
         #region Properties
         /// <summary>
-        /// Returns the sender of the E-mail from the <see cref="Recipients"/>
+        ///     Returns the sender of the E-mail from the <see cref="Recipients" />
         /// </summary>
         public Recipient From { get; private set; }
 
         /// <summary>
-        /// The recipient(s) of the E-mail or null when not available
+        ///     The recipient(s) of the E-mail or null when not available
         /// </summary>
         public List<Recipient> To { get; private set; }
 
         /// <summary>
-        /// The blind recipient(s) of the E-mail or null when not available
+        ///     The blind recipient(s) of the E-mail or null when not available
         /// </summary>
         public List<Recipient> Bcc { get; private set; }
 
@@ -70,19 +74,18 @@ namespace MsgWriter
             {
                 // Todo set value
             }
-            
         }
 
         /// <summary>
-        /// The E-mail <see cref="Recipients"/>
+        ///     The E-mail <see cref="Recipients" />
         /// </summary>
         public Recipients Recipients
         {
             get { return _recipients ?? (_recipients = new Recipients()); }
         }
-        
+
         /// <summary>
-        /// The E-mail <see cref="Attachments"/>
+        ///     The E-mail <see cref="Attachments" />
         /// </summary>
         public Attachments Attachments
         {
@@ -101,7 +104,7 @@ namespace MsgWriter
 
         #region Save
         /// <summary>
-        /// Saves the message to the given <paramref name="stream"/>
+        ///     Saves the message to the given <paramref name="stream" />
         /// </summary>
         /// <param name="stream"></param>
         public new void Save(Stream stream)
@@ -111,7 +114,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        /// Saves the message to the given <paramref name="fileName"/>
+        ///     Saves the message to the given <paramref name="fileName" />
         /// </summary>
         /// <param name="fileName"></param>
         public new void Save(string fileName)
@@ -123,7 +126,7 @@ namespace MsgWriter
 
         #region Dispose
         /// <summary>
-        /// Disposes all the attachment streams
+        ///     Disposes all the attachment streams
         /// </summary>
         public new void Dispose()
         {
@@ -133,14 +136,14 @@ namespace MsgWriter
             base.Dispose();
         }
         #endregion
-        
+
         public void Test()
         {
             using (var stream = File.OpenRead("d:\\message.msg"))
             using (var cf = new CompoundFile(stream))
             {
                 var st = cf.RootStorage.GetStream("__properties_version1.0");
-                var p = new Streams.TopLevelPropertiesStream(st);
+                var p = new TopLevelPropertiesStream(st);
                 foreach (var child in cf.RootStorage.Children)
                 {
                     if (child.IsStream)
