@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using CompoundFileStorage;
+using CompoundFileStorage.Interfaces;
 using MsgWriter.Exceptions;
 using MsgWriter.Streams;
 
@@ -293,6 +294,19 @@ namespace MsgWriter
 
         #region GetString
         /// <summary>
+        /// Returns the string value for the given <param name="propertyTag">. 
+        /// <c>null</c> is returned when the property does not exists or no valid value is found</param>
+        /// </summary>
+        /// <param name="propertyTag"><see cref="PropertyTag"/></param>
+        /// <returns></returns>
+        /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
+        /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
+        internal string GetString(PropertyTag propertyTag)
+        {
+            return GetString(new List<PropertyTag> {propertyTag});
+        }
+
+        /// <summary>
         /// Returns the string value from the first item in the list of <param name="propertyTags"> that gives
         /// back a valid value. <c>null</c> is returned when the property does not exists or no valid value is found</param>
         /// </summary>
@@ -329,10 +343,47 @@ namespace MsgWriter
                 if (!string.IsNullOrEmpty(result))
                     return result;
             }
+
             return null;
         }
         #endregion
-        
+
+        #region AddString
+        /// <summary>
+        /// Adds the given multivalue <param name="propertyTag"/> to the message, any already existing <see cref="PropertyTag"/> is
+        /// overwritten.
+        /// </summary>
+        /// <param name="propertyTag">List of <see cref="PropertyTag"/></param>
+        /// <param name="values">The values</param>
+        /// <returns></returns>
+        /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
+        /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
+        internal void AddString(PropertyTag propertyTag, List<string> values)
+        {
+            ICFStream cfStream = null;
+
+            if (CompoundFile.RootStorage.ExistsStream(propertyTag.Name))
+            {
+                switch (propertyTag.Type)
+                {
+                    case PropertyType.PT_STRING8:
+                    case PropertyType.PT_UNICODE:
+                        cfStream = CompoundFile.RootStorage.GetStream(propertyTag.Name);
+                        break;
+
+                    default:
+                        throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                }
+            }
+
+            if (cfStream == null)
+            {
+                // TODO: Multivalue support
+            }
+
+        }
+        #endregion
+
         public void Dispose()
         {
             throw new NotImplementedException();

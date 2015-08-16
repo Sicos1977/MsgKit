@@ -22,8 +22,6 @@ namespace MsgWriter
 {
     /// <summary>
     ///     This class maps each MAPI property to the corresponding canonical property name (and the otherway around).
-    ///     The topic contains three tables: a table for named properties with numerical identifiers,
-    ///     a second table for named properties with string identifiers, and a third table for tagged properties.
     /// </summary>
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/office/cc815492.aspx
@@ -1090,7 +1088,7 @@ namespace MsgWriter
         ///     When more then one property is found then the UNICODE property is returned instead
         ///     of it's Non-UNICODE counter parts
         /// </remarks>
-        /// <param name="canonicalName"></param>
+        /// <param name="canonicalName">The canonical name of the <see cref="PropertyTags"/></param>
         /// <returns></returns>
         internal static string CanonicalToPropertyName(string canonicalName)
         {
