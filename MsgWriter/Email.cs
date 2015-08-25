@@ -137,6 +137,44 @@ namespace MsgWriter
         }
         #endregion
 
+        /*
+            // Because the properties to be set are known in advance, 
+            // most of the structures involved can be statically declared 
+            // to minimize expensive MAPIAllocateBuffer calls.
+            SPropValue spvProps[NUM_PROPS] = {0};
+            spvProps[p_PR_MESSAGE_CLASS_W].ulPropTag          = PR_MESSAGE_CLASS_W;
+            spvProps[p_PR_ICON_INDEX].ulPropTag                 = PR_ICON_INDEX;
+            spvProps[p_PR_SUBJECT_W].ulPropTag                = PR_SUBJECT_W;
+            spvProps[p_PR_CONVERSATION_TOPIC_W].ulPropTag     = PR_CONVERSATION_TOPIC_W;
+            spvProps[p_PR_BODY_W].ulPropTag                   = PR_BODY_W;
+            spvProps[p_PR_IMPORTANCE].ulPropTag               = PR_IMPORTANCE;
+            spvProps[p_PR_READ_RECEIPT_REQUESTED].ulPropTag   = PR_READ_RECEIPT_REQUESTED;
+            spvProps[p_PR_MESSAGE_FLAGS].ulPropTag             = PR_MESSAGE_FLAGS;
+            spvProps[p_PR_MSG_EDITOR_FORMAT].ulPropTag         = PR_MSG_EDITOR_FORMAT;
+            spvProps[p_PR_MESSAGE_LOCALE_ID].ulPropTag         = PR_MESSAGE_LOCALE_ID;
+            spvProps[p_PR_INETMAIL_OVERRIDE_FORMAT].ulPropTag = PR_INETMAIL_OVERRIDE_FORMAT;
+            spvProps[p_PR_DELETE_AFTER_SUBMIT].ulPropTag      = PR_DELETE_AFTER_SUBMIT;
+            spvProps[p_PR_INTERNET_CPID].ulPropTag            = PR_INTERNET_CPID;
+            spvProps[p_PR_CONVERSATION_INDEX].ulPropTag         = PR_CONVERSATION_INDEX;
+            spvProps[p_PR_MESSAGE_CLASS_W].Value.lpszW = L"IPM.Note";
+            spvProps[p_PR_ICON_INDEX].Value.l = 0x103; // Unsent Mail
+            spvProps[p_PR_SUBJECT_W].Value.lpszW = szSubject;
+            spvProps[p_PR_CONVERSATION_TOPIC_W].Value.lpszW = szSubject;
+            spvProps[p_PR_BODY_W].Value.lpszW = szBody;
+            spvProps[p_PR_IMPORTANCE].Value.l = bHighImportance?IMPORTANCE_HIGH:IMPORTANCE_NORMAL;
+            spvProps[p_PR_READ_RECEIPT_REQUESTED].Value.b = bReadReceipt?true:false;
+            spvProps[p_PR_MESSAGE_FLAGS].Value.l = MSGFLAG_UNSENT;
+            spvProps[p_PR_MSG_EDITOR_FORMAT].Value.l = EDITOR_FORMAT_PLAINTEXT;
+            spvProps[p_PR_MESSAGE_LOCALE_ID].Value.l = 1033; // (en-us)
+            spvProps[p_PR_INETMAIL_OVERRIDE_FORMAT].Value.l = NULL; // Mail system chooses default encoding scheme
+            spvProps[p_PR_DELETE_AFTER_SUBMIT].Value.b = bDeleteAfterSubmit?true:false;
+            spvProps[p_PR_INTERNET_CPID].Value.l = cpidASCII;
+
+            hRes = BuildConversationIndex(
+            &spvProps[p_PR_CONVERSATION_INDEX].Value.bin.cb,
+            &spvProps[p_PR_CONVERSATION_INDEX].Value.bin.lpb);
+        */
+
         public void Test()
         {
             using (var stream = File.OpenRead("d:\\message.msg"))

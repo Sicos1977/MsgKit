@@ -350,6 +350,20 @@ namespace MsgWriter
 
         #region AddString
         /// <summary>
+        /// Adds the given single value <param name="propertyTag"/> to the message, any already existing <see cref="PropertyTag"/> is
+        /// overwritten.
+        /// </summary>
+        /// <param name="propertyTag"><see cref="PropertyTag"/></param>
+        /// <param name="value">The value</param>
+        /// <returns></returns>
+        /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
+        /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
+        internal void AddString(PropertyTag propertyTag, string value)
+        {
+            AddString(propertyTag, new List<string> {value});
+        }
+
+        /// <summary>
         /// Adds the given multivalue <param name="propertyTag"/> to the message, any already existing <see cref="PropertyTag"/> is
         /// overwritten.
         /// </summary>
@@ -357,7 +371,7 @@ namespace MsgWriter
         /// <param name="values">The values</param>
         /// <returns></returns>
         /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
-        /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
+        /// <see cref="PropertyType.PT_MV_STRING8"/> or <see cref="PropertyType.PT_MV_UNICODE"/></exception>
         internal void AddString(PropertyTag propertyTag, List<string> values)
         {
             ICFStream cfStream = null;
@@ -366,8 +380,8 @@ namespace MsgWriter
             {
                 switch (propertyTag.Type)
                 {
-                    case PropertyType.PT_STRING8:
-                    case PropertyType.PT_UNICODE:
+                    case PropertyType.PT_MV_STRING8:
+                    case PropertyType.PT_MV_UNICODE:
                         cfStream = CompoundFile.RootStorage.GetStream(propertyTag.Name);
                         break;
 
