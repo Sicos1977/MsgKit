@@ -386,7 +386,7 @@ namespace MsgWriter
                         break;
 
                     default:
-                        throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                        throw new MWInvalidProperty("The property is not of the type PT_MV_STRING8 or PT_MV_UNICODE");
                 }
             }
 
