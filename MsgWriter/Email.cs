@@ -60,6 +60,9 @@ namespace MsgWriter
         /// </summary>
         public List<Recipient> Bcc { get; private set; }
 
+        /// <summary>
+        ///     Returns or sets the subject of the E-mail
+        /// </summary>
         public string Subject
         {
             get
@@ -70,10 +73,7 @@ namespace MsgWriter
                 _subject = GetString(new List<PropertyTag> {PropertyTags.PR_SUBJECT_W, PropertyTags.PR_SUBJECT_A});
                 return _subject;
             }
-            set
-            {
-                // Todo set value
-            }
+            set { _subject = value; }
         }
 
         /// <summary>
@@ -98,7 +98,6 @@ namespace MsgWriter
         {
             var stream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_MESSAGE_CLASS_W.Name);
             stream.SetData(Encoding.Unicode.GetBytes("IPM.Note"));
-            Class = MessageClass.Email;
         }
         #endregion
 
@@ -110,6 +109,16 @@ namespace MsgWriter
         public new void Save(Stream stream)
         {
             Attachments.AddToStorage(CompoundFile.RootStorage);
+
+            var tempStream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_SUBJECT_W.Name);
+            tempStream.SetData(Encoding.Unicode.GetBytes(_subject));
+
+            tempStream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_CREATION_TIME.Name);
+            tempStream.SetData(Encoding.Unicode.GetBytes(_subject));
+
+            tempStream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_SUBJECT_W.Name);
+            tempStream.SetData(Encoding.Unicode.GetBytes(_subject));
+
             base.Save(stream);
         }
 

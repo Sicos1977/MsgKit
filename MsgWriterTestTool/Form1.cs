@@ -36,6 +36,7 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email();
+            email.Subject = "Dit is het onderwerp";
             //email.Test();
             email.Attachments.AddAttachment("d:\\WP_001128.jpg");
             email.Attachments.AddAttachment("d:\\WP_001128.jpg");
