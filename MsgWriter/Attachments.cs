@@ -140,7 +140,7 @@ namespace MsgWriter
         #region AddToStorage
         /// <summary>
         /// This method add's the <see cref="Attachment"/> objects to the given <paramref name="rootStorage"/>
-        /// and it will set all the needed properties
+        /// and sets all the needed properties
         /// </summary>
         /// <param name="rootStorage"></param>
         internal void AddToStorage(CFStorage rootStorage)

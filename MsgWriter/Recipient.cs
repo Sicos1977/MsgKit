@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MsgWriter.Helpers;
 using OpenMcdf;
 
 /*
@@ -25,6 +26,11 @@ namespace MsgWriter
     /// </summary>
     public enum RecipientType : uint
     {
+        /// <summary>
+        ///     The recipient is unknown/not set
+        /// </summary>
+        Unknown = 0x0000,
+
         /// <summary>
         ///     The recipient is an TO E-mail address
         /// </summary>
@@ -123,6 +129,19 @@ namespace MsgWriter
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
+        public Recipient(string email,
+                         string displayName)
+        {
+            Email = email;
+            DisplayName = displayName;
+            Type = RecipientType.Unknown;
+        }
+
+        /// <summary>
+        /// Creates a new recipient object and sets all its properties
+        /// </summary>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <see cref="email"/></param>
         /// <param name="type"></param>
         internal Recipient(string email,
                            string displayName, 
@@ -131,16 +150,6 @@ namespace MsgWriter
             Email = email;
             DisplayName = displayName;
             Type = type;
-
-            //if (EmailAddress.IsEmailAddressValid(tempDisplayName))
-            //{
-            //    // If the displayname is an emailAddress them move it
-            //    Email = tempDisplayName;
-            //    DisplayName = tempDisplayName;
-            //}
-
-            //if (string.Equals(tempEmail, tempDisplayName, StringComparison.InvariantCultureIgnoreCase))
-            //    DisplayName = string.Empty;
         }
         #endregion
     }

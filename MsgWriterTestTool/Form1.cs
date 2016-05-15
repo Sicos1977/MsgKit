@@ -35,13 +35,10 @@ namespace MsgWriterTestTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var email = new Email();
+            var email = new Email(new Sender("keesvanspelde@achmea.nl", "Kees van Spelde"));
             email.Subject = "Dit is het onderwerp";
             //email.Test();
-            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
-            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
-            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
-            email.Attachments.AddAttachment("d:\\WP_001128.jpg");
+            email.Attachments.AddAttachment("d:\\250 - Thee Tze Tji Chun 250 gram.jpg");
             email.Save("d:\\test3.msg");
         }
     }

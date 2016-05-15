@@ -48,7 +48,7 @@ namespace MsgWriter
         /// <summary>
         ///     Returns the sender of the E-mail from the <see cref="Recipients" />
         /// </summary>
-        public Recipient From { get; private set; }
+        public Sender Sender { get; private set; }
 
         /// <summary>
         ///     The recipient(s) of the E-mail or null when not available
@@ -94,10 +94,46 @@ namespace MsgWriter
         #endregion
 
         #region Constructor
-        public Email()
+        /// <summary>
+        /// Creates this object and sets all the needed properties
+        /// </summary>
+        /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
+        public Email(Sender sender)
         {
             var stream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_MESSAGE_CLASS_W.Name);
             stream.SetData(Encoding.Unicode.GetBytes("IPM.Note"));
+            Sender = sender;
+        }
+        #endregion
+
+        #region AddProperty
+        /// <summary>
+        /// Adds the given property to the <see cref="Message"/> object
+        /// </summary>
+        /// <param name="name">The <see cref="PropertyTags"/></param>
+        /// <param name="value">The value</param>
+        private void AddProperty(string name, string value)
+        {
+            var stream = CompoundFile.RootStorage.AddStream(name);
+            stream.SetData(Encoding.Unicode.GetBytes(value));
+        }
+
+        /// <summary>
+        /// Adds all the properties to the <see cref="Message"/>
+        /// </summary>
+        private void AddProperties()
+        {
+            Attachments.AddToStorage(CompoundFile.RootStorage);
+
+            AddProperty(PropertyTags.PR_SUBJECT_W.Name, _subject);
+            //AddProperty(PropertyTags.PR_CREATION_TIME.Name, _subject);
+
+            if (Sender != null)
+            {
+                AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W.Name, Sender.Email);
+                AddProperty(PropertyTags.PR_SENDER_NAME_W.Name, Sender.DisplayName);
+                AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W.Name, Sender.AddressType);
+            }
         }
         #endregion
 
@@ -108,17 +144,7 @@ namespace MsgWriter
         /// <param name="stream"></param>
         public new void Save(Stream stream)
         {
-            Attachments.AddToStorage(CompoundFile.RootStorage);
-
-            var tempStream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_SUBJECT_W.Name);
-            tempStream.SetData(Encoding.Unicode.GetBytes(_subject));
-
-            tempStream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_CREATION_TIME.Name);
-            tempStream.SetData(Encoding.Unicode.GetBytes(_subject));
-
-            tempStream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_SUBJECT_W.Name);
-            tempStream.SetData(Encoding.Unicode.GetBytes(_subject));
-
+            AddProperties();
             base.Save(stream);
         }
 
@@ -128,7 +154,7 @@ namespace MsgWriter
         /// <param name="fileName"></param>
         public new void Save(string fileName)
         {
-            Attachments.AddToStorage(CompoundFile.RootStorage);
+            AddProperties();
             base.Save(fileName);
         }
         #endregion
@@ -186,22 +212,21 @@ namespace MsgWriter
 
         public void Test()
         {
-            using (var stream = File.OpenRead("d:\\message.msg"))
+            using (var stream = File.OpenRead("d:\\email1.msg"))
             using (var cf = new CompoundFile(stream))
             {
                 var st = cf.RootStorage.GetStream("__properties_version1.0");
                 var p = new TopLevelPropertiesStream(st);
-                foreach (var child in cf.RootStorage.Children)
+                cf.RootStorage.VisitEntries(item =>
                 {
-                    if (child.IsStream)
+                    if (item.IsStream)
                     {
-                        var cfStream = child as CFStream;
-                        if (cfStream == null) continue;
-
-                        if (cfStream.Name.StartsWith("__substg1.0_"))
+                        var cfStream = item as CFStream;
+                        if (cfStream != null && cfStream.Name.StartsWith("__substg1.0_"))
                             p.AddProperty(cfStream);
                     }
-                }
+                }, false);
+
                 var pr = p.Find(m => m.IdAsString == "0E1D");
             }
         }

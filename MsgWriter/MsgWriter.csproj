@@ -56,6 +56,7 @@
     <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="OLE\CLSID.cs" />
     <Compile Include="PropertyTags.cs" />
+    <Compile Include="Sender.cs" />
     <Compile Include="Streams\EntryStream.cs" />
     <Compile Include="Streams\RecipientPropertiesStream.cs" />
     <Compile Include="Streams\AttachmentPropertiesStream.cs" />
