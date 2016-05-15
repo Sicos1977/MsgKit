@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using CompoundFileStorage;
-using MsgWriter.Exceptions;
-using MsgWriter.Helpers;
+﻿using System.Collections.Generic;
+using OpenMcdf;
 
 /*
    Copyright 2015 Kees van Spelde

@@ -1,5 +1,5 @@
-﻿using CompoundFileStorage;
-using MsgWriter.Streams;
+﻿using MsgWriter.Streams;
+using OpenMcdf;
 
 // ReSharper disable InconsistentNaming
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
-using CompoundFileStorage;
-using CompoundFileStorage.Interfaces;
+using OpenMcdf;
 
 /*
    Copyright 2015 Kees van Spelde
@@ -53,7 +52,7 @@ namespace MsgWriter.Streams
         ///     Creates this object and reads all the properties from the toplevel stream
         /// </summary>
         /// <param name="stream">The <see cref="CFStream"/></param>
-        internal TopLevelPropertiesStream(ICFStream stream)
+        internal TopLevelPropertiesStream(CFStream stream)
         {
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))

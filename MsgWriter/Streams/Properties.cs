@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using CompoundFileStorage;
 using MsgWriter.Helpers;
+using OpenMcdf;
 
 /*
    Copyright 2015 Kees van Spelde

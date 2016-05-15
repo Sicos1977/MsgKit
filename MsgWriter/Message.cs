@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using CompoundFileStorage;
-using CompoundFileStorage.Interfaces;
 using MsgWriter.Exceptions;
 using MsgWriter.Streams;
+using OpenMcdf;
 
 /*
    Copyright 2015 Kees van Spelde
@@ -252,7 +251,7 @@ namespace MsgWriter
 
         #region Fields
         /// <summary>
-        /// The <see cref="CompoundFileStorage.CompoundFile"/>
+        /// The <see cref="OpenMcdf.CompoundFile"/>
         /// </summary>
         internal readonly CompoundFile CompoundFile;
 
@@ -320,14 +319,14 @@ namespace MsgWriter
 
             foreach (var propertyTag in propertyTags)
             {
-                if (CompoundFile.RootStorage.ExistsStream(propertyTag.Name))
+                var stream = CompoundFile.RootStorage.TryGetStream(propertyTag.Name);
+                if (stream != null)
                 {
                     switch (propertyTag.Type)
                     {
                         case PropertyType.PT_STRING8:
                             result =
-                                Encoding.Default.GetString(
-                                    CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
+                                Encoding.Default.GetString(stream.GetData());
                             break;
 
                         case PropertyType.PT_UNICODE:
@@ -374,15 +373,14 @@ namespace MsgWriter
         /// <see cref="PropertyType.PT_MV_STRING8"/> or <see cref="PropertyType.PT_MV_UNICODE"/></exception>
         internal void AddString(PropertyTag propertyTag, List<string> values)
         {
-            ICFStream cfStream = null;
-
-            if (CompoundFile.RootStorage.ExistsStream(propertyTag.Name))
+            var stream = CompoundFile.RootStorage.TryGetStream(propertyTag.Name);
+            if (stream != null)
             {
                 switch (propertyTag.Type)
                 {
                     case PropertyType.PT_MV_STRING8:
                     case PropertyType.PT_MV_UNICODE:
-                        cfStream = CompoundFile.RootStorage.GetStream(propertyTag.Name);
+                        stream = CompoundFile.RootStorage.GetStream(propertyTag.Name);
                         break;
 
                     default:
@@ -390,7 +388,7 @@ namespace MsgWriter
                 }
             }
 
-            if (cfStream == null)
+            if (stream == null)
             {
                 // TODO: Multivalue support
             }
