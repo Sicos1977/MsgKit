@@ -106,18 +106,7 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddProperty
-        /// <summary>
-        /// Adds the given property to the <see cref="Message"/> object
-        /// </summary>
-        /// <param name="name">The <see cref="PropertyTags"/></param>
-        /// <param name="value">The value</param>
-        private void AddProperty(string name, string value)
-        {
-            var stream = CompoundFile.RootStorage.AddStream(name);
-            stream.SetData(Encoding.Unicode.GetBytes(value));
-        }
-
+        #region AddProperties
         /// <summary>
         /// Adds all the properties to the <see cref="Message"/>
         /// </summary>
@@ -125,14 +114,14 @@ namespace MsgWriter
         {
             Attachments.AddToStorage(CompoundFile.RootStorage);
 
-            AddProperty(PropertyTags.PR_SUBJECT_W.Name, _subject);
+            AddString(PropertyTags.PR_SUBJECT_W, _subject);
             //AddProperty(PropertyTags.PR_CREATION_TIME.Name, _subject);
 
             if (Sender != null)
             {
-                AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W.Name, Sender.Email);
-                AddProperty(PropertyTags.PR_SENDER_NAME_W.Name, Sender.DisplayName);
-                AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W.Name, Sender.AddressType);
+                AddString(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
+                AddString(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
+                AddString(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
             }
         }
         #endregion

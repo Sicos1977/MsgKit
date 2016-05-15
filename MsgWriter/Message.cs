@@ -259,6 +259,11 @@ namespace MsgWriter
         /// The message class
         /// </summary>
         internal MessageClass Class;
+
+        /// <summary>
+        /// The "__nameid_version1.0" storage
+        /// </summary>
+        private readonly CFStorage _nameIdStorage;
         #endregion
 
         #region Constructor
@@ -268,9 +273,23 @@ namespace MsgWriter
         internal Message()
         {
             CompoundFile = new CompoundFile();
+
+            // In the preceding figure, the "__nameid_version1.0" named property mapping storage contains the 
+            // three streams  used to provide a mapping from property ID to property name 
+            // ("__substg1.0_00020102", "__substg1.0_00030102", and "__substg1.0_00040102") and various other 
+            // streams that provide a mapping from property names to property IDs.
+            _nameIdStorage = CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage) ??
+                             CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
+
+            var stream1 = _nameIdStorage.AddStream(PropertyTags.NameIdStream1);
+            stream1.SetData(new byte[0]);
+            var stream2 = _nameIdStorage.AddStream(PropertyTags.NameIdStream2);
+            stream2.SetData(new byte[0]);
+            var stream3 = _nameIdStorage.AddStream(PropertyTags.NameIdStream3);
+            stream3.SetData(new byte[0]);
         }
         #endregion
-        
+
         #region Save
         /// <summary>
         /// Saves the message to the given <paramref name="fileName"/>
@@ -325,13 +344,11 @@ namespace MsgWriter
                     switch (propertyTag.Type)
                     {
                         case PropertyType.PT_STRING8:
-                            result =
-                                Encoding.Default.GetString(stream.GetData());
+                            result = Encoding.Default.GetString(stream.GetData());
                             break;
 
                         case PropertyType.PT_UNICODE:
-                            result =
-                                Encoding.UTF8.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
+                            result =Encoding.UTF8.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
                             break;
 
                         default:
@@ -359,7 +376,25 @@ namespace MsgWriter
         /// <see cref="PropertyType.PT_STRING8"/> or <see cref="PropertyType.PT_UNICODE"/></exception>
         internal void AddString(PropertyTag propertyTag, string value)
         {
-            AddString(propertyTag, new List<string> {value});
+            var stream = CompoundFile.RootStorage.TryGetStream(propertyTag.Name);
+            if (stream != null)
+            {
+                switch (propertyTag.Type)
+                {
+                    case PropertyType.PT_STRING8:
+                    case PropertyType.PT_UNICODE:
+                        stream.SetData(Encoding.UTF8.GetBytes(value));
+                        break;
+
+                    default:
+                        throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                }
+            }
+            else
+            {
+                stream = CompoundFile.RootStorage.AddStream(propertyTag.Name);
+                stream.SetData(Encoding.Unicode.GetBytes(value));
+            }
         }
 
         /// <summary>
@@ -371,26 +406,47 @@ namespace MsgWriter
         /// <returns></returns>
         /// <exception cref="MWInvalidProperty">Raised when the <paramref name="propertyTag"/> is not of the type 
         /// <see cref="PropertyType.PT_MV_STRING8"/> or <see cref="PropertyType.PT_MV_UNICODE"/></exception>
-        internal void AddString(PropertyTag propertyTag, List<string> values)
+        internal void AddStrings(PropertyTag propertyTag, List<string> values)
         {
-            var stream = CompoundFile.RootStorage.TryGetStream(propertyTag.Name);
-            if (stream != null)
-            {
-                switch (propertyTag.Type)
-                {
-                    case PropertyType.PT_MV_STRING8:
-                    case PropertyType.PT_MV_UNICODE:
-                        stream = CompoundFile.RootStorage.GetStream(propertyTag.Name);
-                        break;
+            //  “__substg1.0_<tag>-00000000”, “__substg1.0_<tag>-00000001”, etc…
+            var index = 0;
 
-                    default:
-                        throw new MWInvalidProperty("The property is not of the type PT_MV_STRING8 or PT_MV_UNICODE");
-                }
+            var name = propertyTag.Name + "-" + index.ToString().PadLeft(8, '0');
+            var stream = CompoundFile.RootStorage.TryGetStream(name);
+            while (stream != null)
+            {
+                index += 1;
+                name = propertyTag.Name + "-" + index.ToString().PadLeft(8, '0');
+                stream = CompoundFile.RootStorage.TryGetStream(name);
+                CompoundFile.RootStorage.Delete(name);
             }
 
-            if (stream == null)
+            index = 0;
+
+            foreach (var value in values)
             {
-                // TODO: Multivalue support
+                name = propertyTag.Name + "-" + index.ToString().PadLeft(8, '0');
+                stream = CompoundFile.RootStorage.TryGetStream(name);
+                if (stream != null)
+                {
+                    switch (propertyTag.Type)
+                    {
+                        case PropertyType.PT_MV_STRING8:
+                        case PropertyType.PT_MV_UNICODE:
+                            stream.SetData(Encoding.Unicode.GetBytes(value));
+                            break;
+
+                        default:
+                            throw new MWInvalidProperty("The property is not of the type PT_MV_STRING8 or PT_MV_UNICODE");
+                    }
+                }
+                else
+                {
+                    stream = CompoundFile.RootStorage.AddStream(propertyTag.Name);
+                    stream.SetData(Encoding.Unicode.GetBytes(value));
+                }
+
+                index += 1;
             }
 
         }

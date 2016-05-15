@@ -37,6 +37,26 @@ namespace MsgWriter
         internal const string SubStorageStreamPrefix = "__substg1.0_";
 
         /// <summary>
+        ///     The name id storage
+        /// </summary>
+        internal const string NameIdStorage = "__nameid_version1.0";
+
+        /// <summary>
+        ///     The name id storage
+        /// </summary>
+        internal const string NameIdStream1 = "__substg1.0_00020102";
+
+        /// <summary>
+        ///     The name id storage
+        /// </summary>
+        internal const string NameIdStream2 = "__substg1.0_00030102";
+
+        /// <summary>
+        ///     The name id storage
+        /// </summary>
+        internal const string NameIdStream3 = "__substg1.0_00040102";
+
+        /// <summary>
         ///     Contains the identifier of the mode for message acknowledgment.
         /// </summary>
         internal static PropertyTag PR_ACKNOWLEDGEMENT_MODE
