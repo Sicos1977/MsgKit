@@ -404,6 +404,9 @@ namespace MsgWriter.Streams
                 switch (Type)
                 {
                     case PropertyType.PT_APPTIME:
+                        var oaDate = BitConverter.ToDouble(Data, 0);
+                        return DateTime.FromOADate(oaDate);
+                        
                     case PropertyType.PT_SYSTIME:
                         var fileTime = BitConverter.ToInt64(Data, 0);
                         return DateTime.FromFileTime(fileTime);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
@@ -150,7 +149,7 @@ namespace MsgWriter
             {
                 var attachment = this[index];
                 var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
-                attachment.AddProperties(storage, index);
+                attachment.AddToStorage(storage, index);
             }
         }
         #endregion
@@ -224,13 +223,13 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddProperties
+        #region AddToStorage
         /// <summary>
-        /// Adds all the properties to the <see cref="Attachment"/>
+        /// Adds all the properties to the given <see cref="storage"/>
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage"/></param>
         /// <param name="recordKey">The record key</param>
-        internal void AddProperties(CFStorage storage, int recordKey)
+        internal void AddToStorage(CFStorage storage, int recordKey)
         {
             var propertiesStream = new AttachmentPropertiesStream();
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, recordKey);

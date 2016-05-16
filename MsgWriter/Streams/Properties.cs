@@ -54,7 +54,13 @@ namespace MsgWriter.Streams
             switch (mapiTag.Type)
             {
                 case PropertyType.PT_APPTIME:
+                    var oaDate = ((DateTime) obj).ToOADate();
+                    data = BitConverter.GetBytes(oaDate);
+                    break;
+
                 case PropertyType.PT_SYSTIME:
+                    var fileTime = ((DateTime) obj).ToFileTimeUtc();
+                    data = BitConverter.GetBytes(fileTime);
                     break;
 
                 case PropertyType.PT_SHORT:
@@ -94,12 +100,7 @@ namespace MsgWriter.Streams
                     break;
 
                 case PropertyType.PT_CLSID:
-                    break;
-
-                case PropertyType.PT_SVREID:
-                    break;
-
-                case PropertyType.PT_SRESTRICT:
+                    data = ((Guid) obj).ToByteArray();
                     break;
 
                 case PropertyType.PT_BINARY:
@@ -109,62 +110,77 @@ namespace MsgWriter.Streams
                         case TypeCode.Boolean:
                             data = BitConverter.GetBytes((bool) obj);
                             break;
+
                         case TypeCode.Char:
                             data = BitConverter.GetBytes((char)obj);
                             break;
+
                         case TypeCode.SByte:
                             data = BitConverter.GetBytes((sbyte)obj);
                             break;
+
                         case TypeCode.Byte:
                             data = BitConverter.GetBytes((byte)obj);
                             break;
                         case TypeCode.Int16:
                             data = BitConverter.GetBytes((short)obj);
                             break;
+
                         case TypeCode.UInt16:
                             data = BitConverter.GetBytes((uint)obj);
                             break;
+
                         case TypeCode.Int32:
                             data = BitConverter.GetBytes((int) obj);
                             break;
+
                         case TypeCode.UInt32:
                             data = BitConverter.GetBytes((uint)obj);
                             break;
+
                         case TypeCode.Int64:
                             data = BitConverter.GetBytes((long)obj);
                             break;
+
                         case TypeCode.UInt64:
                             data = BitConverter.GetBytes((ulong)obj);
                             break;
+
                         case TypeCode.Single:
                             data = BitConverter.GetBytes((float)obj);
                             break;
+
                         case TypeCode.Double:
                             data = BitConverter.GetBytes((double)obj);
                             break;
-                        case TypeCode.Decimal:
-                            //data = BitConverter.GetBytes((decimal)obj);
-                            break;
+
                         case TypeCode.DateTime:
-                            //data = BitConverter.GetBytes((DateTime)obj);
+                            data = BitConverter.GetBytes(((DateTime)obj).Ticks);
                             break;
+
                         case TypeCode.String:
-                            //data = BitConverter.GetBytes((string)obj);
+                            data = Encoding.UTF8.GetBytes((string) obj);
                             break;
+
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
 
                     break;
 
-                case PropertyType.PT_UNSPECIFIED:
-                    break;
-
                 case PropertyType.PT_NULL:
                     break;
 
+                case PropertyType.PT_ACTIONS:
+                    throw new NotSupportedException("PT_ACTIONS property type is not supported");
+                case PropertyType.PT_UNSPECIFIED:
+                    throw new NotSupportedException("PT_UNSPECIFIED property type is not supported");
                 case PropertyType.PT_OBJECT:
-                    break;
+                    throw new NotSupportedException("PT_OBJECT property type is not supported");
+                case PropertyType.PT_SVREID:
+                    throw new NotSupportedException("PT_SVREID property type is not supported");
+                case PropertyType.PT_SRESTRICT:
+                    throw new NotSupportedException("PT_SRESTRICT property type is not supported");
 
                 default:
                     throw new ArgumentOutOfRangeException();
