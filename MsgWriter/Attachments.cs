@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
+using MsgWriter.Streams;
 using OpenMcdf;
 
 /*
@@ -145,25 +146,11 @@ namespace MsgWriter
         /// <param name="rootStorage"></param>
         internal void AddToStorage(CFStorage rootStorage)
         {
-            for (var i = 0; i < Count; i++)
+            for (var index = 0; index < Count; index++)
             {
-                var attachment = this[i];
-                var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + i.ToString("X8").ToUpper());
-
-                var stream = storage.AddStream(PropertyTags.PR_RECORD_KEY.Name);
-                stream.SetData(BitConverter.GetBytes(i));
-
-                stream = storage.AddStream(PropertyTags.PR_DISPLAY_NAME_W.Name);
-                stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
-                
-                if (!string.IsNullOrEmpty(attachment.FileName))
-                {
-                    stream = storage.AddStream(PropertyTags.PR_ATTACH_EXTENSION_W.Name);
-                    stream.SetData(Encoding.Unicode.GetBytes(Path.GetExtension(attachment.FileName)));
-                }
-                    
-                stream = storage.AddStream(PropertyTags.PR_ATTACH_DATA_BIN.Name);
-                stream.SetData(attachment.Stream.ToByteArray());
+                var attachment = this[index];
+                var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
+                attachment.AddProperties(storage, index);
             }
         }
         #endregion
@@ -234,6 +221,26 @@ namespace MsgWriter
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
                 throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
+        }
+        #endregion
+
+        #region AddProperties
+        /// <summary>
+        /// Adds all the properties to the <see cref="Attachment"/>
+        /// </summary>
+        /// <param name="storage">The <see cref="CFStorage"/></param>
+        /// <param name="recordKey">The record key</param>
+        internal void AddProperties(CFStorage storage, int recordKey)
+        {
+            var propertiesStream = new AttachmentPropertiesStream();
+            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, recordKey);
+            propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
+
+            if (!string.IsNullOrEmpty(FileName))
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
+
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, Stream.ToByteArray());
+            propertiesStream.WriteProperties(storage);
         }
         #endregion
     }

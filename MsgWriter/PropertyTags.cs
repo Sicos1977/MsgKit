@@ -37,6 +37,11 @@ namespace MsgWriter
         internal const string SubStorageStreamPrefix = "__substg1.0_";
 
         /// <summary>
+        ///     The name for the properties stream
+        /// </summary>
+        internal const string PropertiesStreamName = "__properties_version1.0";
+
+        /// <summary>
         ///     The name id storage
         /// </summary>
         internal const string NameIdStorage = "__nameid_version1.0";

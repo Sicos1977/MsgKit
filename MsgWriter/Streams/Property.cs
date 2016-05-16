@@ -255,14 +255,15 @@ namespace MsgWriter.Streams
         /// <summary>
         ///     The id of the property
         /// </summary>
-        internal UInt16 Id { get; private set; }
+        internal ushort Id { get; private set; }
 
         /// <summary>
-        ///     Returns <see cref="Id"/> as a human readable string
+        ///     Returns the Property as a readable string
         /// </summary>
-        internal string IdAsString 
+        /// <returns></returns>
+        public string Name
         {
-            get { return Id.ToString("X4"); }
+            get { return PropertyTags.SubStorageStreamPrefix + Id.ToString("X4") + ((ushort)Type).ToString("X4"); }
         }
 
         /// <summary>
@@ -354,7 +355,7 @@ namespace MsgWriter.Streams
         ///     <see cref="PropertyType.PT_DOUBLE" />
         /// </summary>
         /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_DOUBLE"/></exception>
-        internal Double ToDouble
+        internal double ToDouble
         {
             get
             {

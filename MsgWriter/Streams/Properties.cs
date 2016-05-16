@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using MsgWriter.Helpers;
 using OpenMcdf;
 
@@ -42,13 +43,133 @@ namespace MsgWriter.Streams
         /// </param>
         /// <exception cref="ArgumentNullException">Raised when <paramref name="obj"/> is <c>null</c></exception>
         internal void AddProperty(PropertyTag mapiTag,
-                                  Object obj,
+                                  object obj,
                                   PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
         {
             if (obj == null)
                 throw new ArgumentNullException("mapiTag", "Obj can not be null");
 
-            var data = Conversion.ObjectToByteArray(obj);
+            var data = new byte[] {};
+
+            switch (mapiTag.Type)
+            {
+                case PropertyType.PT_APPTIME:
+                case PropertyType.PT_SYSTIME:
+                    break;
+
+                case PropertyType.PT_SHORT:
+                    data = BitConverter.GetBytes((short) obj);
+                    break;
+
+                case PropertyType.PT_ERROR:
+                case PropertyType.PT_LONG:
+                    data = BitConverter.GetBytes((int)obj);
+                    break;
+
+                case PropertyType.PT_FLOAT:
+                    data = BitConverter.GetBytes((float)obj);
+                    break;
+
+                case PropertyType.PT_DOUBLE:
+                    data = BitConverter.GetBytes((double)obj);
+                    break;
+
+                case PropertyType.PT_CURRENCY:
+                    break;
+
+                case PropertyType.PT_BOOLEAN:
+                    data = BitConverter.GetBytes((bool)obj);
+                    break;
+
+                case PropertyType.PT_I8:
+                    data = BitConverter.GetBytes((long) obj);
+                    break;
+
+                case PropertyType.PT_UNICODE:
+                    data = Encoding.UTF8.GetBytes((string)obj);
+                    break;
+
+                case PropertyType.PT_STRING8:
+                    data = Encoding.Default.GetBytes((string)obj);
+                    break;
+
+                case PropertyType.PT_CLSID:
+                    break;
+
+                case PropertyType.PT_SVREID:
+                    break;
+
+                case PropertyType.PT_SRESTRICT:
+                    break;
+
+                case PropertyType.PT_BINARY:
+
+                    switch (Type.GetTypeCode(obj.GetType()))
+                    {
+                        case TypeCode.Boolean:
+                            data = BitConverter.GetBytes((bool) obj);
+                            break;
+                        case TypeCode.Char:
+                            data = BitConverter.GetBytes((char)obj);
+                            break;
+                        case TypeCode.SByte:
+                            data = BitConverter.GetBytes((sbyte)obj);
+                            break;
+                        case TypeCode.Byte:
+                            data = BitConverter.GetBytes((byte)obj);
+                            break;
+                        case TypeCode.Int16:
+                            data = BitConverter.GetBytes((short)obj);
+                            break;
+                        case TypeCode.UInt16:
+                            data = BitConverter.GetBytes((uint)obj);
+                            break;
+                        case TypeCode.Int32:
+                            data = BitConverter.GetBytes((int) obj);
+                            break;
+                        case TypeCode.UInt32:
+                            data = BitConverter.GetBytes((uint)obj);
+                            break;
+                        case TypeCode.Int64:
+                            data = BitConverter.GetBytes((long)obj);
+                            break;
+                        case TypeCode.UInt64:
+                            data = BitConverter.GetBytes((ulong)obj);
+                            break;
+                        case TypeCode.Single:
+                            data = BitConverter.GetBytes((float)obj);
+                            break;
+                        case TypeCode.Double:
+                            data = BitConverter.GetBytes((double)obj);
+                            break;
+                        case TypeCode.Decimal:
+                            //data = BitConverter.GetBytes((decimal)obj);
+                            break;
+                        case TypeCode.DateTime:
+                            //data = BitConverter.GetBytes((DateTime)obj);
+                            break;
+                        case TypeCode.String:
+                            //data = BitConverter.GetBytes((string)obj);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    break;
+
+                case PropertyType.PT_UNSPECIFIED:
+                    break;
+
+                case PropertyType.PT_NULL:
+                    break;
+
+                case PropertyType.PT_OBJECT:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
         }
 
@@ -63,10 +184,7 @@ namespace MsgWriter.Streams
         ///     and <see cref="PropertyFlag.PROPATTR_WRITABLE"/>
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">Raised when <paramref name="data"/> is not 8 bytes</exception>
-        internal void AddProperty(ushort id, 
-                                  PropertyType type, 
-                                  byte[] data,
-                                  PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
+        internal void AddProperty(ushort id, PropertyType type, byte[] data, PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
         {
             if (data.Length != 8)
                 throw new ArgumentOutOfRangeException("data", "The data should always have an 8 byte size");
@@ -77,18 +195,18 @@ namespace MsgWriter.Streams
         /// <summary>
         ///     Adds a CFStream and converts it to a property
         /// </summary>
-        /// <param name="cfStream">The <see cref="CFStream"/></param>
+        /// <param name="stream">The <see cref="CFStream"/></param>
         /// <exception cref="ArgumentOutOfRangeException">Raised when the <see cref="CFStream.Name"/> does not start with "__substg1.0_"</exception>
-        internal void AddProperty(CFStream cfStream)
+        internal void AddProperty(CFStream stream)
         {
-            if (!cfStream.Name.StartsWith("__substg1.0_"))
-                throw new ArgumentOutOfRangeException("cfStream", "The stream name needs to start with '__substg1.0_'");
+            if (!stream.Name.StartsWith("__substg1.0_"))
+                throw new ArgumentOutOfRangeException("stream", "The stream name needs to start with '__substg1.0_'");
 
-            var id = cfStream.Name.Substring(12, 4);
-            var type = cfStream.Name.Substring(16, 4);
+            var id = stream.Name.Substring(12, 4);
+            var type = stream.Name.Substring(16, 4);
             var uId = ushort.Parse(id, System.Globalization.NumberStyles.AllowHexSpecifier);
             var uType = ushort.Parse(type, System.Globalization.NumberStyles.AllowHexSpecifier);
-            Add(new Property(uId, (PropertyType)uType, PropertyFlag.PROPATTR_READABLE, cfStream.GetData()));
+            Add(new Property(uId, (PropertyType) uType, PropertyFlag.PROPATTR_READABLE, stream.GetData()));
         }
         #endregion
 
@@ -123,10 +241,10 @@ namespace MsgWriter.Streams
         #region WriteProperties
         /// <summary>
         ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream"/> to the 
-        ///     given <paramref name="cfStorage" />, all other properties are written to an byte array and returned to the caller
+        ///     given <paramref name="storage" />
         /// </summary>
-        /// <param name="cfStorage"></param>
-        internal byte[] WriteProperties(CFStorage cfStorage)
+        /// <param name="storage">The <see cref="CFStorage"/></param>
+        internal void WriteProperties(CFStorage storage)
         {
             // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
             // each represented by one entry, can be determined by first measuring the size of the property stream (1), 
@@ -141,8 +259,8 @@ namespace MsgWriter.Streams
                     // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
                     // represent the property type. The high-order 16 bits represent the property ID.
                     binaryWriter.Write(Convert.ToUInt16(property.Type));
-                    binaryWriter.Write(Convert.ToUInt32(property.Flags)); 
-                    
+                    binaryWriter.Write(Convert.ToUInt32(property.Flags));
+
                     switch (property.Type)
                     {
                         case PropertyType.PT_ACTIONS:
@@ -176,10 +294,11 @@ namespace MsgWriter.Streams
                             break;
 
                         case PropertyType.PT_UNICODE:
-                            // PropertyType.PT_TSTRING
+                            storage.AddStream(property.Name).SetData(property.Data);
                             break;
 
                         case PropertyType.PT_STRING8:
+                            storage.AddStream(property.Name).SetData(property.Data);
                             break;
 
                         case PropertyType.PT_SYSTIME:
@@ -195,6 +314,7 @@ namespace MsgWriter.Streams
                             break;
 
                         case PropertyType.PT_BINARY:
+                            storage.AddStream(property.Name).SetData(property.Data);
                             break;
 
                         case PropertyType.PT_MV_SHORT:
@@ -244,7 +364,8 @@ namespace MsgWriter.Streams
                     }
                 }
 
-                return propertiesStream.ToArray();
+                // Make the properties stream
+                storage.AddStream(PropertyTags.PropertiesStreamName).SetData(propertiesStream.ToArray());
             }
         }
         #endregion
