@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MsgWriter.Streams;
 using OpenMcdf;
 
 /*
@@ -87,14 +88,11 @@ namespace MsgWriter
         /// <param name="rootStorage"></param>
         internal void AddToStorage(CFStorage rootStorage)
         {
-            for (var i = 0; i < Count; i++)
+            for (var index = 0; index < Count; index++)
             {
-                //var attachment = this[i];
-                //var storage = rootStorage.AddStorage("__attach_version1.0_#" + i.ToString("X8").ToUpper());
-                //var stream = storage.AddStream("__substg1.0_3001001F");
-                //stream.SetData(Encoding.Unicode.GetBytes(attachment.FileName));
-                //stream = storage.AddStream("__substg1.0_37010102");
-                //stream.SetData(attachment.Stream.ToByteArray());
+                var recipient = this[index];
+                var storage = rootStorage.AddStorage(PropertyTags.RecipientStoragePrefix + index.ToString("X8").ToUpper());
+                recipient.AddToStorage(storage);
             }
         }
         #endregion
@@ -149,6 +147,22 @@ namespace MsgWriter
             Email = email;
             DisplayName = displayName;
             Type = type;
+        }
+        #endregion
+
+        #region AddToStorage
+        /// <summary>
+        /// Adds all the properties to the given <see cref="storage"/>
+        /// </summary>
+        /// <param name="storage">The <see cref="CFStorage"/></param>
+        internal void AddToStorage(CFStorage storage)
+        {
+            var propertiesStream = new RecipientPropertiesStream();
+            propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
+            propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
+            // TODO : Check address types
+            propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, "SMTP");
+            propertiesStream.WriteProperties(storage);
         }
         #endregion
     }

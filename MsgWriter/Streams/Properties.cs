@@ -162,6 +162,10 @@ namespace MsgWriter.Streams
                             data = Encoding.UTF8.GetBytes((string) obj);
                             break;
 
+                        case TypeCode.Object:
+                            data = (byte[])obj;
+                            break;
+
                         default:
                             throw new ArgumentOutOfRangeException();
                     }

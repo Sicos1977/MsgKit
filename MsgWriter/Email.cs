@@ -112,6 +112,7 @@ namespace MsgWriter
         /// </summary>
         private void AddProperties()
         {
+            Recipients.AddToStorage(CompoundFile.RootStorage);
             Attachments.AddToStorage(CompoundFile.RootStorage);
 
             AddString(PropertyTags.PR_SUBJECT_W, _subject);

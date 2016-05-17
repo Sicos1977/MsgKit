@@ -27,6 +27,11 @@ namespace MsgWriter
     internal static class PropertyTags
     {
         /// <summary>
+        ///     The prefix for an <see cref="Recipient" /> <see cref="CFStorage" />
+        /// </summary>
+        internal const string RecipientStoragePrefix = "__recip_version1.0_#";
+
+        /// <summary>
         ///     The prefix for an <see cref="Attachment" /> <see cref="CFStorage" />
         /// </summary>
         internal const string AttachmentStoragePrefix = "__attach_version1.0_#";

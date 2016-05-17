@@ -36,6 +36,8 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email(new Sender("keesvanspelde@achmea.nl", "Kees van Spelde"));
+            email.Recipients.AddRecipient("kees.van.spelde@achmea.nl", "Kees", RecipientType.To);
+            email.Recipients.AddRecipient("kees.van.spelde@achmea.nl", "Kees", RecipientType.Bcc);
             email.Subject = "Dit is het onderwerp";
             //email.Test();
             email.Attachments.AddAttachment("d:\\250 - Thee Tze Tji Chun 250 gram.jpg");
