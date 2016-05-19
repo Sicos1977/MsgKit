@@ -80,9 +80,9 @@ namespace MsgWriter.Streams
         /// <param name="recipientCount">The number of Recipient objects</param>
         /// <param name="attachmentCount">The number of Attachment objects</param>
         internal TopLevelPropertiesStream(int nextRecipientId,
-                          int nextAttachmentId,
-                          int recipientCount,
-                          int attachmentCount)
+                                          int nextAttachmentId,
+                                          int recipientCount,
+                                          int attachmentCount)
         {
             NextRecipientId = nextRecipientId;
             NextAttachmentId = nextAttachmentId;

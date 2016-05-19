@@ -106,24 +106,29 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddProperties
+        #region AddToStorage
         /// <summary>
         /// Adds all the properties to the <see cref="Message"/>
         /// </summary>
-        private void AddProperties()
+        private void AddToStorage()
         {
-            Recipients.AddToStorage(CompoundFile.RootStorage);
-            Attachments.AddToStorage(CompoundFile.RootStorage);
+            var rootStorage = CompoundFile.RootStorage;
 
-            AddString(PropertyTags.PR_SUBJECT_W, _subject);
-            //AddProperty(PropertyTags.PR_CREATION_TIME.Name, _subject);
+            Recipients.AddToStorage(rootStorage);
+            Attachments.AddToStorage(rootStorage);
+
+            var propertiesStream = new TopLevelPropertiesStream(0, 0, Recipients.Count, Attachments.Count);
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, _subject);
+            //propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME.Name, _subject);
 
             if (Sender != null)
             {
-                AddString(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
-                AddString(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
-                AddString(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
             }
+
+            propertiesStream.WriteProperties(rootStorage);
         }
         #endregion
 
@@ -134,7 +139,7 @@ namespace MsgWriter
         /// <param name="stream"></param>
         public new void Save(Stream stream)
         {
-            AddProperties();
+            AddToStorage();
             base.Save(stream);
         }
 
@@ -144,7 +149,7 @@ namespace MsgWriter
         /// <param name="fileName"></param>
         public new void Save(string fileName)
         {
-            AddProperties();
+            AddToStorage();
             base.Save(fileName);
         }
         #endregion

@@ -44,7 +44,7 @@ namespace MsgWriter.Streams
         /// <exception cref="ArgumentNullException">Raised when <paramref name="obj"/> is <c>null</c></exception>
         internal void AddProperty(PropertyTag mapiTag,
                                   object obj,
-                                  PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
+                                  PropertyFlag flags = PropertyFlag.PROPATTR_READABLE | PropertyFlag.PROPATTR_WRITABLE)
         {
             if (obj == null)
                 throw new ArgumentNullException("mapiTag", "Obj can not be null");
@@ -274,6 +274,9 @@ namespace MsgWriter.Streams
             using (var propertiesStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(propertiesStream))
             {
+                var reserved = new byte[8];
+                binaryWriter.Write(reserved);
+
                 foreach (var property in this)
                 {
                     // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
