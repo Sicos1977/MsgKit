@@ -80,8 +80,8 @@ namespace MsgWriter.Streams
                     data = BitConverter.GetBytes((double)obj);
                     break;
 
-                case PropertyType.PT_CURRENCY:
-                    break;
+                //case PropertyType.PT_CURRENCY:
+                //    throw new NotImplementedException();
 
                 case PropertyType.PT_BOOLEAN:
                     data = BitConverter.GetBytes((bool)obj);
@@ -99,9 +99,9 @@ namespace MsgWriter.Streams
                     data = Encoding.Default.GetBytes((string)obj);
                     break;
 
-                case PropertyType.PT_CLSID:
-                    data = ((Guid) obj).ToByteArray();
-                    break;
+                //case PropertyType.PT_CLSID:
+                //    data = ((Guid) obj).ToByteArray();
+                //    break;
 
                 case PropertyType.PT_BINARY:
 
@@ -175,16 +175,17 @@ namespace MsgWriter.Streams
                 case PropertyType.PT_NULL:
                     break;
 
-                case PropertyType.PT_ACTIONS:
-                    throw new NotSupportedException("PT_ACTIONS property type is not supported");
-                case PropertyType.PT_UNSPECIFIED:
-                    throw new NotSupportedException("PT_UNSPECIFIED property type is not supported");
+                //case PropertyType.PT_ACTIONS:
+                //    throw new NotSupportedException("PT_ACTIONS property type is not supported");
+                //case PropertyType.PT_UNSPECIFIED:
+                //    throw new NotSupportedException("PT_UNSPECIFIED property type is not supported");
                 case PropertyType.PT_OBJECT:
-                    throw new NotSupportedException("PT_OBJECT property type is not supported");
-                case PropertyType.PT_SVREID:
-                    throw new NotSupportedException("PT_SVREID property type is not supported");
-                case PropertyType.PT_SRESTRICT:
-                    throw new NotSupportedException("PT_SRESTRICT property type is not supported");
+                    // Do nothing
+
+                //case PropertyType.PT_SVREID:
+                //    throw new NotSupportedException("PT_SVREID property type is not supported");
+                //case PropertyType.PT_SRESTRICT:
+                //    throw new NotSupportedException("PT_SRESTRICT property type is not supported");
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -286,34 +287,24 @@ namespace MsgWriter.Streams
 
                     switch (property.Type)
                     {
-                        case PropertyType.PT_ACTIONS:
+                        //case PropertyType.PT_ACTIONS:
+                        //    break;
+
                         case PropertyType.PT_APPTIME:
+                        case PropertyType.PT_SHORT:
+                        case PropertyType.PT_LONG:
+                        case PropertyType.PT_FLOAT:
+                        case PropertyType.PT_DOUBLE:
+                        case PropertyType.PT_BOOLEAN:
+                        case PropertyType.PT_I8:
+                        case PropertyType.PT_SYSTIME:
                             binaryWriter.Write(property.Data);
                             break;
 
-                        case PropertyType.PT_SHORT:
-                            break;
-
-                        case PropertyType.PT_LONG:
-                            break;
-
-                        case PropertyType.PT_FLOAT:
-                            break;
-
-                        case PropertyType.PT_DOUBLE:
-                            break;
-
-                        case PropertyType.PT_CURRENCY:
-                            break;
+                        //case PropertyType.PT_CURRENCY:
+                        //    break;
 
                         case PropertyType.PT_ERROR:
-                            break;
-
-                        case PropertyType.PT_BOOLEAN:
-                            break;
-
-                        case PropertyType.PT_I8:
-                            // PropertyType.PT_LONGLONG:
                             break;
 
                         case PropertyType.PT_UNICODE:
@@ -323,18 +314,16 @@ namespace MsgWriter.Streams
                         case PropertyType.PT_STRING8:
                             storage.AddStream(property.Name).SetData(property.Data);
                             break;
+                            
+                        //case PropertyType.PT_CLSID:
+                        //    break;
 
-                        case PropertyType.PT_SYSTIME:
-                            break;
+                        //case PropertyType.PT_SVREID:
+                        //    break;
 
-                        case PropertyType.PT_CLSID:
-                            break;
-
-                        case PropertyType.PT_SVREID:
-                            break;
-
-                        case PropertyType.PT_SRESTRICT:
-                            break;
+                        //case PropertyType.PT_SRESTRICT:
+                        //    storage.AddStream(property.Name).SetData(property.Data);
+                        //    break;
 
                         case PropertyType.PT_BINARY:
                             storage.AddStream(property.Name).SetData(property.Data);
@@ -351,8 +340,8 @@ namespace MsgWriter.Streams
                         case PropertyType.PT_MV_DOUBLE:
                             break;
 
-                        case PropertyType.PT_MV_CURRENCY:
-                            break;
+                        //case PropertyType.PT_MV_CURRENCY:
+                        //    break;
 
                         case PropertyType.PT_MV_APPTIME:
                             break;
@@ -370,8 +359,8 @@ namespace MsgWriter.Streams
                         case PropertyType.PT_MV_SYSTIME:
                             break;
 
-                        case PropertyType.PT_MV_CLSID:
-                            break;
+                        //case PropertyType.PT_MV_CLSID:
+                        //    break;
 
                         case PropertyType.PT_MV_BINARY:
                             break;
@@ -383,6 +372,7 @@ namespace MsgWriter.Streams
                             break;
 
                         case PropertyType.PT_OBJECT:
+                            // TODO: Adding new MSG file
                             break;
                     }
                 }

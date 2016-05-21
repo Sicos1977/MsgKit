@@ -85,11 +85,11 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_DOUBLE = 0x0005,
 
-        /// <summary>
-        ///     8 bytes; a 64-bit signed, scaled integer representation of a decimal currency value, with four places to the
-        ///     right of the decimal point (PT_CURRENCY, fixed.14.4)
-        /// </summary>
-        PT_CURRENCY = 0x0006,
+        ///// <summary>
+        /////     8 bytes; a 64-bit signed, scaled integer representation of a decimal currency value, with four places to the
+        /////     right of the decimal point (PT_CURRENCY, fixed.14.4)
+        ///// </summary>
+        //PT_CURRENCY = 0x0006,
 
         /// <summary>
         ///     8 bytes; a 64-bit floating point number in which the whole number part represents the number of days since
@@ -135,27 +135,27 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_SYSTIME = 0x0040,
 
-        /// <summary>
-        ///     16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
-        /// </summary>
-        PT_CLSID = 0x0048,
+        ///// <summary>
+        /////     16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
+        ///// </summary>
+        //PT_CLSID = 0x0048,
 
-        /// <summary>
-        ///     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
-        /// </summary>
-        PT_SVREID = 0x00FB,
+        ///// <summary>
+        /////     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
+        ///// </summary>
+        //PT_SVREID = 0x00FB,
 
-        /// <summary>
-        ///     Variable size; a byte array representing one or more Restriction structures as specified in section 2.12.
-        ///     (PT_SRESTRICT)
-        /// </summary>
-        PT_SRESTRICT = 0x00FD,
+        ///// <summary>
+        /////     Variable size; a byte array representing one or more Restriction structures as specified in section 2.12.
+        /////     (PT_SRESTRICT)
+        ///// </summary>
+        //PT_SRESTRICT = 0x00FD,
 
-        /// <summary>
-        ///     Variable size; a 16-bit COUNT field followed by that many rule (4) action (3) structures, as specified in
-        ///     [MS-OXORULE] section 2.2.5. (PT_ACTIONS)
-        /// </summary>
-        PT_ACTIONS = 0x00FE,
+        ///// <summary>
+        /////     Variable size; a 16-bit COUNT field followed by that many rule (4) action (3) structures, as specified in
+        /////     [MS-OXORULE] section 2.2.5. (PT_ACTIONS)
+        ///// </summary>
+        //PT_ACTIONS = 0x00FE,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many bytes. (PT_BINARY)
@@ -182,10 +182,10 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_MV_DOUBLE = 0x1005,
 
-        /// <summary>
-        ///     Variable size; a COUNT field followed by that many PT_MV_CURRENCY values. (PT_MV_CURRENCY, mv.fixed.14.4)
-        /// </summary>
-        PT_MV_CURRENCY = 0x1006,
+        ///// <summary>
+        /////     Variable size; a COUNT field followed by that many PT_MV_CURRENCY values. (PT_MV_CURRENCY, mv.fixed.14.4)
+        ///// </summary>
+        //PT_MV_CURRENCY = 0x1006,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PT_MV_APPTIME values. (PT_MV_APPTIME)
@@ -217,10 +217,10 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_MV_SYSTIME = 0x1040,
 
-        /// <summary>
-        ///     Variable size; a COUNT field followed by that many PT_MV_CLSID values. (PT_MV_CLSID, mv.uuid)
-        /// </summary>
-        PT_MV_CLSID = 0x1048,
+        ///// <summary>
+        /////     Variable size; a COUNT field followed by that many PT_MV_CLSID values. (PT_MV_CLSID, mv.uuid)
+        ///// </summary>
+        //PT_MV_CLSID = 0x1048,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PT_MV_BINARY values. (PT_MV_BINARY, mv.bin.hex)
@@ -483,26 +483,26 @@ namespace MsgWriter.Streams
             }
         }
 
-        /// <summary>
-        ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PT_CLSID" />
-        /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_CLSID"/></exception>
-        public Guid ToGuid
-        {
-            get
-            {
-                switch (Type)
-                {
-                    case PropertyType.PT_CLSID:
-                        using (var memoryStream = new MemoryStream(Data))
-                        using (var binaryReader = new BinaryReader(memoryStream))
-                            return new CLSID(binaryReader).ToGuid();
+        ///// <summary>
+        /////     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PT_CLSID" />
+        ///// </summary>
+        ///// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_CLSID"/></exception>
+        //public Guid ToGuid
+        //{
+        //    get
+        //    {
+        //        switch (Type)
+        //        {
+        //            case PropertyType.PT_CLSID:
+        //                using (var memoryStream = new MemoryStream(Data))
+        //                using (var binaryReader = new BinaryReader(memoryStream))
+        //                    return new CLSID(binaryReader).ToGuid();
 
-                    default:
-                        throw new MWInvalidProperty("Type is not PtypGuid");
-                }
-            }
-        }
+        //            default:
+        //                throw new MWInvalidProperty("Type is not PtypGuid");
+        //        }
+        //    }
+        //}
 
         /*
         /// <summary>
@@ -599,14 +599,14 @@ namespace MsgWriter.Streams
             get { throw new NotImplementedException(); }
         }
 
-        /// <summary>
-        ///     Returns <see cref="Data" /> as an readonly collection of guids when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PT_MV_CLSID" />
-        /// </summary>
-        internal ReadOnlyCollection<Guid> ToGuidCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        ///// <summary>
+        /////     Returns <see cref="Data" /> as an readonly collection of guids when <see cref="Type" /> is set to
+        /////     <see cref="PropertyType.PT_MV_CLSID" />
+        ///// </summary>
+        //internal ReadOnlyCollection<Guid> ToGuidCollection
+        //{
+        //    get { throw new NotImplementedException(); }
+        //}
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of byte arrays when <see cref="Type" /> is set to
