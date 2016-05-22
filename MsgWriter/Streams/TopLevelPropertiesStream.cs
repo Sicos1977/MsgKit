@@ -57,11 +57,12 @@ namespace MsgWriter.Streams
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
             {
-                //binaryReader.ReadBytes(8);
+                binaryReader.ReadBytes(8); // Reserved
                 NextRecipientId = Convert.ToInt32(binaryReader.ReadUInt32());
                 NextAttachmentId = Convert.ToInt32(binaryReader.ReadUInt32());
                 RecipientCount = Convert.ToInt32(binaryReader.ReadUInt32());
                 AttachmentCount = Convert.ToInt32(binaryReader.ReadUInt32());
+                binaryReader.ReadBytes(8); // Reserved
                 ReadProperties(binaryReader);
             }
         }
@@ -91,24 +92,25 @@ namespace MsgWriter.Streams
         }
         #endregion
 
-        #region ToByteArray
+        #region WriteProperties
         /// <summary>
-        ///     Returns the Top level property stream as a byte array
+        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream"/> to the 
+        ///     given <paramref name="storage" />
         /// </summary>
-        /// <returns></returns>
-        internal byte[] ToByteArray()
+        /// <param name="storage">The <see cref="CFStorage"/></param>
+        internal void WriteProperties(CFStorage storage)
         {
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
-                binaryWriter.Write(new byte[8]);
-                binaryWriter.Write((uint) NextRecipientId);
-                binaryWriter.Write((uint) NextAttachmentId);
-                binaryWriter.Write((uint) RecipientCount);
-                binaryWriter.Write((uint) AttachmentCount);
-                binaryWriter.Write(new byte[8]);
-                //WriteProperties(binaryWriter);
-                return memoryStream.ToArray();
+                binaryWriter.Write(new byte[8]); // Reserved
+                binaryWriter.Write(Convert.ToUInt32(NextRecipientId));
+                binaryWriter.Write(Convert.ToUInt32(NextAttachmentId));
+                binaryWriter.Write(Convert.ToUInt32(RecipientCount));
+                binaryWriter.Write(Convert.ToUInt32(AttachmentCount));
+                binaryWriter.Write(new byte[8]); // Reserved
+                // Indicates that all the properties that we are adding are stored in unicode format
+                WriteProperties(storage, binaryWriter);
             }
         }
         #endregion

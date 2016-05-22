@@ -64,16 +64,16 @@ namespace MsgWriter.Streams
                     break;
 
                 case PropertyType.PT_SHORT:
-                    data = BitConverter.GetBytes((short) obj);
+                    data = BitConverter.GetBytes(Convert.ToInt16(obj));
                     break;
 
                 case PropertyType.PT_ERROR:
                 case PropertyType.PT_LONG:
-                    data = BitConverter.GetBytes((int)obj);
+                    data = BitConverter.GetBytes(Convert.ToInt32(obj));
                     break;
 
                 case PropertyType.PT_FLOAT:
-                    data = BitConverter.GetBytes((float)obj);
+                    data = BitConverter.GetBytes((float) (int)obj);
                     break;
 
                 case PropertyType.PT_DOUBLE:
@@ -265,121 +265,136 @@ namespace MsgWriter.Streams
         ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage"/></param>
-        internal void WriteProperties(CFStorage storage)
+        /// <param name="binaryWriter">The <see cref="BinaryWriter"/></param>
+        internal void WriteProperties(CFStorage storage, BinaryWriter binaryWriter)
         {
             // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
             // each represented by one entry, can be determined by first measuring the size of the property stream (1), 
             // then subtracting the size of the header from it, and then dividing the result by the size of one entry.
             // The structure of each entry, representing one property, depends on whether the property is a fixed length 
             // property or not.
-            using (var propertiesStream = new MemoryStream())
-            using (var binaryWriter = new BinaryWriter(propertiesStream))
+            foreach (var property in this)
             {
-                var reserved = new byte[8];
-                binaryWriter.Write(reserved);
+                // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
+                // represent the property type. The high-order 16 bits represent the property ID.
+                binaryWriter.Write(Convert.ToUInt16(property.Type));    // 2 bytes
+                binaryWriter.Write(Convert.ToUInt16(property.Id));      // 2 bytes
+                binaryWriter.Write(Convert.ToUInt32(property.Flags));   // 4 bytes
 
-                foreach (var property in this)
+                switch (property.Type)
                 {
-                    // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
-                    // represent the property type. The high-order 16 bits represent the property ID.
-                    binaryWriter.Write(Convert.ToUInt16(property.Type));
-                    binaryWriter.Write(Convert.ToUInt32(property.Flags));
+                    //case PropertyType.PT_ACTIONS:
+                    //    break;
 
-                    switch (property.Type)
-                    {
-                        //case PropertyType.PT_ACTIONS:
-                        //    break;
+                    case PropertyType.PT_APPTIME:
+                    case PropertyType.PT_SYSTIME:
+                    case PropertyType.PT_DOUBLE:
+                    case PropertyType.PT_I8:
+                        binaryWriter.Write(property.Data);
+                        break;
 
-                        case PropertyType.PT_APPTIME:
-                        case PropertyType.PT_SHORT:
-                        case PropertyType.PT_LONG:
-                        case PropertyType.PT_FLOAT:
-                        case PropertyType.PT_DOUBLE:
-                        case PropertyType.PT_BOOLEAN:
-                        case PropertyType.PT_I8:
-                        case PropertyType.PT_SYSTIME:
-                            binaryWriter.Write(property.Data);
-                            break;
+                    case PropertyType.PT_ERROR:
+                    case PropertyType.PT_LONG:
+                    case PropertyType.PT_FLOAT:
+                        binaryWriter.Write(property.Data);
+                        binaryWriter.Write(new byte[4]);
+                        break;
 
-                        //case PropertyType.PT_CURRENCY:
-                        //    break;
+                    case PropertyType.PT_SHORT:
+                        binaryWriter.Write(property.Data);
+                        binaryWriter.Write(new byte[6]);
+                        break;
 
-                        case PropertyType.PT_ERROR:
-                            break;
+                    case PropertyType.PT_BOOLEAN:
+                        binaryWriter.Write(property.Data);
+                        binaryWriter.Write(new byte[7]);
+                        break;
 
-                        case PropertyType.PT_UNICODE:
-                            storage.AddStream(property.Name).SetData(property.Data);
-                            break;
+                    //case PropertyType.PT_CURRENCY:
+                    //    break;
 
-                        case PropertyType.PT_STRING8:
-                            storage.AddStream(property.Name).SetData(property.Data);
-                            break;
-                            
-                        //case PropertyType.PT_CLSID:
-                        //    break;
+                    case PropertyType.PT_UNICODE:
+                        // Write the length of the property to the propertiesstream
+                        binaryWriter.Write(property.Data.Length);
+                        binaryWriter.Write(new byte[4]);
+                        storage.AddStream(property.Name).SetData(property.Data);
+                        break;
 
-                        //case PropertyType.PT_SVREID:
-                        //    break;
+                    case PropertyType.PT_STRING8:
+                        // Write the length of the property to the propertiesstream
+                        binaryWriter.Write(property.Data.Length);
+                        binaryWriter.Write(new byte[4]);
+                        storage.AddStream(property.Name).SetData(property.Data);
+                        break;
 
-                        //case PropertyType.PT_SRESTRICT:
-                        //    storage.AddStream(property.Name).SetData(property.Data);
-                        //    break;
+                    //case PropertyType.PT_CLSID:
+                    //    break;
 
-                        case PropertyType.PT_BINARY:
-                            storage.AddStream(property.Name).SetData(property.Data);
-                            break;
+                    //case PropertyType.PT_SVREID:
+                    //    break;
 
-                        case PropertyType.PT_MV_SHORT:
-                            break;
-                        case PropertyType.PT_MV_LONG:
-                            break;
+                    //case PropertyType.PT_SRESTRICT:
+                    //    storage.AddStream(property.Name).SetData(property.Data);
+                    //    break;
 
-                        case PropertyType.PT_MV_FLOAT:
-                            break;
+                    case PropertyType.PT_BINARY:
+                        // Write the length of the property to the propertiesstream
+                        binaryWriter.Write(property.Data.Length);
+                        binaryWriter.Write(new byte[4]);
+                        storage.AddStream(property.Name).SetData(property.Data);
+                        break;
 
-                        case PropertyType.PT_MV_DOUBLE:
-                            break;
+                    case PropertyType.PT_MV_SHORT:
+                        break;
+                    case PropertyType.PT_MV_LONG:
+                        break;
 
-                        //case PropertyType.PT_MV_CURRENCY:
-                        //    break;
+                    case PropertyType.PT_MV_FLOAT:
+                        break;
 
-                        case PropertyType.PT_MV_APPTIME:
-                            break;
+                    case PropertyType.PT_MV_DOUBLE:
+                        break;
 
-                        case PropertyType.PT_MV_I8:
-                            break;
+                    //case PropertyType.PT_MV_CURRENCY:
+                    //    break;
 
-                        case PropertyType.PT_MV_UNICODE:
-                            // PropertyType.PT_MV_TSTRING
-                            break;
+                    case PropertyType.PT_MV_APPTIME:
+                        break;
 
-                        case PropertyType.PT_MV_STRING8:
-                            break;
+                    case PropertyType.PT_MV_I8:
+                        break;
 
-                        case PropertyType.PT_MV_SYSTIME:
-                            break;
+                    case PropertyType.PT_MV_UNICODE:
+                        // PropertyType.PT_MV_TSTRING
+                        break;
 
-                        //case PropertyType.PT_MV_CLSID:
-                        //    break;
+                    case PropertyType.PT_MV_STRING8:
+                        break;
 
-                        case PropertyType.PT_MV_BINARY:
-                            break;
+                    case PropertyType.PT_MV_SYSTIME:
+                        break;
 
-                        case PropertyType.PT_UNSPECIFIED:
-                            break;
+                    //case PropertyType.PT_MV_CLSID:
+                    //    break;
 
-                        case PropertyType.PT_NULL:
-                            break;
+                    case PropertyType.PT_MV_BINARY:
+                        break;
 
-                        case PropertyType.PT_OBJECT:
-                            // TODO: Adding new MSG file
-                            break;
-                    }
+                    case PropertyType.PT_UNSPECIFIED:
+                        break;
+
+                    case PropertyType.PT_NULL:
+                        break;
+
+                    case PropertyType.PT_OBJECT:
+                        // TODO: Adding new MSG file
+                        break;
                 }
-
-                // Make the properties stream
-                storage.AddStream(PropertyTags.PropertiesStreamName).SetData(propertiesStream.ToArray());
             }
+
+            // Make the properties stream
+            binaryWriter.BaseStream.Position = 0;
+            storage.AddStream(PropertyTags.PropertiesStreamName).SetData(binaryWriter.BaseStream.ToByteArray());
         }
         #endregion
     }

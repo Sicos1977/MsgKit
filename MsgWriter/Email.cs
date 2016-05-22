@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MsgWriter.Streams;
@@ -117,15 +118,71 @@ namespace MsgWriter
             Recipients.AddToStorage(rootStorage);
             Attachments.AddToStorage(rootStorage);
 
-            var propertiesStream = new TopLevelPropertiesStream(0, 0, Recipients.Count, Attachments.Count);
+            var recipientCount = Recipients.Count;
+            var attachmentCount = Attachments.Count;
+            
+            var propertiesStream = new TopLevelPropertiesStream(recipientCount,
+                                                                attachmentCount, 
+                                                                recipientCount, 
+                                                                attachmentCount);
+
+            // Indicates that alle the string properties are written in UNICODE format
+            //var mask = StoreSupportMask.STORE_UNICODE_OK;
+            //mask |= StoreSupportMask.STORE_PUSHER_OK;
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
+            //propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, _subject);
-            //propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME.Name, _subject);
+
+            var now = DateTime.Now;
+            propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, now);
+            propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
 
             if (Sender != null)
             {
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
+            }
+
+            if (recipientCount > 0)
+            {
+                var displayTo = new List<string>();
+                var displayCc = new List<string>();
+                var displayBcc = new List<string>();
+
+                foreach (var recipient in Recipients)
+                {
+                    switch (recipient.Type)
+                    {
+                        case RecipientType.To:
+                            if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
+                                displayTo.Add(recipient.DisplayName);
+                            else if (!string.IsNullOrWhiteSpace(recipient.Email))
+                                displayTo.Add(recipient.Email);
+                            break;
+
+                        case RecipientType.Cc:
+                            if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
+                                displayCc.Add(recipient.DisplayName);
+                            else if (!string.IsNullOrWhiteSpace(recipient.Email))
+                                displayCc.Add(recipient.Email);
+                            break;
+
+                        case RecipientType.Bcc:
+                            if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
+                                displayBcc.Add(recipient.DisplayName);
+                            else if (!string.IsNullOrWhiteSpace(recipient.Email))
+                                displayBcc.Add(recipient.Email);
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc));
             }
 
             propertiesStream.WriteProperties(rootStorage);
@@ -207,7 +264,7 @@ namespace MsgWriter
 
         public void Test()
         {
-            using (var stream = File.OpenRead("d:\\email1.msg"))
+            using (var stream = File.OpenRead("d:\\message.msg"))
             using (var cf = new CompoundFile(stream))
             {
                 var st = cf.RootStorage.GetStream("__properties_version1.0");

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using OpenMcdf;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -40,20 +41,19 @@ namespace MsgWriter.Streams
         }
         #endregion
 
-        #region ToByteArray
+        #region WriteProperties
         /// <summary>
-        ///     Returns the property stream contained inside an Attachment object storage or a Recipient 
-        ///     object storage as a byte array
+        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream"/> to the 
+        ///     given <paramref name="storage" />
         /// </summary>
-        /// <returns></returns>
-        internal byte[] ToByteArray()
+        /// <param name="storage">The <see cref="CFStorage"/></param>
+        internal void WriteProperties(CFStorage storage)
         {
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
                 binaryWriter.Write(new byte[8]);
-                //WriteProperties(binaryWriter);
-                return memoryStream.ToArray();
+                WriteProperties(storage, binaryWriter);
             }
         }
         #endregion
