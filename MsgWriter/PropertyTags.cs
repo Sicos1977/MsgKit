@@ -104,7 +104,7 @@ namespace MsgWriter
         STORE_OLE_OK = 0x00000040,
 
         /// <summary>
-        ///     he folders in this store are public (multi-user), not private (possibly multi-instance but not multi-user).
+        ///     The folders in this store are public (multi-user), not private (possibly multi-instance but not multi-user).
         /// </summary>
         STORE_PUBLIC_FOLDERS = 0x00004000,
 
@@ -659,7 +659,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains the full subject, encoded in Unicode standarD, of a message.
+        ///     Contains the full subject, encoded in Unicode standard, of a message.
         /// </summary>
         internal static PropertyTag PR_SUBJECT_W
         {
@@ -667,7 +667,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains the full subject, encoded in ANSI standarD, of a message.
+        ///     Contains the full subject, encoded in ANSI standard, of a message.
         /// </summary>
         internal static PropertyTag PR_SUBJECT_A
         {
@@ -2152,7 +2152,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains at least one attachment.
+        ///     When true then the message contains at least one attachment.
         /// </summary>
         internal static PropertyTag PR_HASATTACH
         {
@@ -2341,6 +2341,22 @@ namespace MsgWriter
         ///     Contains the display name for a given MAPI object. UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_DISPLAY_NAME_W
+        {
+            get { return new PropertyTag(0x3001, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the value of the PR_DISPLAY_NAME (PidTagDisplayName) property. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_A
+        {
+            get { return new PropertyTag(0x3001, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the value of the PR_DISPLAY_NAME (PidTagDisplayName) property. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_W
         {
             get { return new PropertyTag(0x3001, PropertyType.PT_UNICODE); }
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using MsgWriter.Streams;
 using OpenMcdf;
 
@@ -32,8 +31,6 @@ namespace MsgWriter
     public class Email : Message
     {
         #region Fields
-        private string _subject;
-
         /// <summary>
         ///     The E-mail <see cref="Recipients" />
         /// </summary>
@@ -52,38 +49,27 @@ namespace MsgWriter
         public Sender Sender { get; private set; }
 
         /// <summary>
-        ///     The recipient(s) of the E-mail or null when not available
-        /// </summary>
-        public List<Recipient> To { get; private set; }
-
-        /// <summary>
-        ///     The blind recipient(s) of the E-mail or null when not available
-        /// </summary>
-        public List<Recipient> Bcc { get; private set; }
-
-        /// <summary>
-        ///     Returns or sets the subject of the E-mail
-        /// </summary>
-        public string Subject
-        {
-            get
-            {
-                if (_subject != null)
-                    return _subject;
-
-                _subject = GetString(new List<PropertyTag> {PropertyTags.PR_SUBJECT_W, PropertyTags.PR_SUBJECT_A});
-                return _subject;
-            }
-            set { _subject = value; }
-        }
-
-        /// <summary>
         ///     The E-mail <see cref="Recipients" />
         /// </summary>
         public Recipients Recipients
         {
             get { return _recipients ?? (_recipients = new Recipients()); }
         }
+
+        /// <summary>
+        ///     Returns or sets the subject of the E-mail
+        /// </summary>
+        public string Subject { get; set; }
+
+        /// <summary>
+        ///     Returns or sets the text body of the E-mail
+        /// </summary>
+        public string TextBody { get; set; }
+
+        /// <summary>
+        ///     Returns or sets the html body of the E-mail
+        /// </summary>
+        public string HtmlBody { get; set; }
 
         /// <summary>
         ///     The E-mail <see cref="Attachments" />
@@ -101,8 +87,6 @@ namespace MsgWriter
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
         public Email(Sender sender)
         {
-            var stream = CompoundFile.RootStorage.AddStream(PropertyTags.PR_MESSAGE_CLASS_W.Name);
-            stream.SetData(Encoding.Unicode.GetBytes("IPM.Note"));
             Sender = sender;
         }
         #endregion
@@ -120,22 +104,40 @@ namespace MsgWriter
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
-            
             var propertiesStream = new TopLevelPropertiesStream(recipientCount,
                                                                 attachmentCount, 
                                                                 recipientCount, 
                                                                 attachmentCount);
 
             // Indicates that alle the string properties are written in UNICODE format
-            //var mask = StoreSupportMask.STORE_UNICODE_OK;
-            //mask |= StoreSupportMask.STORE_PUSHER_OK;
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
+
+            //STORE_MODIFY_OK
+            //STORE_READONLY
+            //STORE_SEARCH_OK
+            //STORE_PUBLIC_FOLDERS
+            //STORE_UNCOMPRESSED_RTF
+            //STORE_HTML_OK
+            //STORE_PUSHER_OK
+            //STORE_ITEMPROC
+
+            var mask = StoreSupportMask.STORE_UNICODE_OK;
+            mask |= StoreSupportMask.STORE_MODIFY_OK;
+            mask |= StoreSupportMask.STORE_READONLY;
+            mask |= StoreSupportMask.STORE_SEARCH_OK;
+            mask |= StoreSupportMask.STORE_PUBLIC_FOLDERS;
+            mask |= StoreSupportMask.STORE_UNCOMPRESSED_RTF;
+            mask |= StoreSupportMask.STORE_HTML_OK;
+            mask |= StoreSupportMask.STORE_PUSHER_OK;
+            mask |= StoreSupportMask.STORE_ITEMPROC;
+
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, mask, PropertyFlag.PROPATTR_READABLE);
             //propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, _subject);
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
 
             var now = DateTime.Now;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, now);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
+            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
 
             if (Sender != null)
             {
@@ -184,6 +186,9 @@ namespace MsgWriter
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc));
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc));
             }
+
+            propertiesStream.AddProperty(PropertyTags.PR_BODY_W, TextBody);
+            //propertiesStream.AddProperty(PropertyTags.P, TextBody);
 
             propertiesStream.WriteProperties(rootStorage);
         }

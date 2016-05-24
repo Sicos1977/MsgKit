@@ -158,8 +158,10 @@ namespace MsgWriter
         internal void AddToStorage(CFStorage storage)
         {
             var propertiesStream = new RecipientPropertiesStream();
+            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, (int) Type);
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
+            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_DISPLAY_NAME_W, DisplayName);
             // TODO : Check address types
             propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, "SMTP");
             propertiesStream.WriteProperties(storage);

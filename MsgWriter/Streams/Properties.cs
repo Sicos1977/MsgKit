@@ -92,7 +92,7 @@ namespace MsgWriter.Streams
                     break;
 
                 case PropertyType.PT_UNICODE:
-                    data = Encoding.UTF8.GetBytes((string)obj);
+                    data = Encoding.Unicode.GetBytes((string)obj);
                     break;
 
                 case PropertyType.PT_STRING8:

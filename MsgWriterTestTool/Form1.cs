@@ -37,10 +37,10 @@ namespace MsgWriterTestTool
         {
             var email = new Email(new Sender("keesvanspelde@achmea.nl", "Kees van Spelde"));
             email.Recipients.AddRecipient("kees.van.spelde@achmea.nl", "Kees", RecipientType.To);
-            email.Recipients.AddRecipient("kees.van.spelde@achmea.nl", "Kees", RecipientType.Bcc);
             email.Subject = "Dit is het onderwerp";
+            email.TextBody = "Dit is de tekst body";
             //email.Test();
-            email.Attachments.AddAttachment("d:\\250 - Thee Tze Tji Chun 250 gram.jpg");
+            //email.Attachments.AddAttachment("d:\\250 - Thee Tze Tji Chun 250 gram.jpg");
             email.Save("d:\\test3.msg");
         }
     }
