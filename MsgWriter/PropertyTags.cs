@@ -2350,7 +2350,7 @@ namespace MsgWriter
         /// </summary>
         internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_A
         {
-            get { return new PropertyTag(0x3001, PropertyType.PT_STRING8); }
+            get { return new PropertyTag(0x5FF6, PropertyType.PT_STRING8); }
         }
 
         /// <summary>
@@ -2358,7 +2358,7 @@ namespace MsgWriter
         /// </summary>
         internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_W
         {
-            get { return new PropertyTag(0x3001, PropertyType.PT_UNICODE); }
+            get { return new PropertyTag(0x5FF6, PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -4376,6 +4376,14 @@ namespace MsgWriter
         ///     Indicates the page of a display template to display first.
         /// </summary>
         internal static PropertyTag PR_INITIAL_DETAILS_PANE
+        {
+            get { return new PropertyTag(0x3F08, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Contains the Windows LCID of the end user who created this message.
+        /// </summary>
+        internal static PropertyTag PR_MESSAGE_LOCALE_ID
         {
             get { return new PropertyTag(0x3F08, PropertyType.PT_LONG); }
         }

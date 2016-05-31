@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using MsgWriter.Streams;
 using OpenMcdf;
@@ -100,7 +101,7 @@ namespace MsgWriter
             var rootStorage = CompoundFile.RootStorage;
 
             Recipients.AddToStorage(rootStorage);
-            Attachments.AddToStorage(rootStorage);
+            //Attachments.AddToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
@@ -111,39 +112,20 @@ namespace MsgWriter
 
             // Indicates that alle the string properties are written in UNICODE format
 
-            //STORE_MODIFY_OK
-            //STORE_READONLY
-            //STORE_SEARCH_OK
-            //STORE_PUBLIC_FOLDERS
-            //STORE_UNCOMPRESSED_RTF
-            //STORE_HTML_OK
-            //STORE_PUSHER_OK
-            //STORE_ITEMPROC
-
-            var mask = StoreSupportMask.STORE_UNICODE_OK;
-            mask |= StoreSupportMask.STORE_MODIFY_OK;
-            mask |= StoreSupportMask.STORE_READONLY;
-            mask |= StoreSupportMask.STORE_SEARCH_OK;
-            mask |= StoreSupportMask.STORE_PUBLIC_FOLDERS;
-            mask |= StoreSupportMask.STORE_UNCOMPRESSED_RTF;
-            mask |= StoreSupportMask.STORE_HTML_OK;
-            mask |= StoreSupportMask.STORE_PUSHER_OK;
-            mask |= StoreSupportMask.STORE_ITEMPROC;
-
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, mask, PropertyFlag.PROPATTR_READABLE);
             //propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
-
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_A, Subject);
+            throw new Exception("Datum tijd goed zetten");
             var now = DateTime.Now;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, now);
-            propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
-            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
+            //propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
+            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_A, "IPM.Note");
+            //propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
 
             if (Sender != null)
             {
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_A, Sender.Email);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_A, Sender.DisplayName);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_A, Sender.AddressType);
             }
 
             if (recipientCount > 0)
@@ -182,13 +164,12 @@ namespace MsgWriter
                     }
                 }
 
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo));
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc));
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_A, string.Join(";", displayTo));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_A, string.Join(";", displayCc));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_A, string.Join(";", displayBcc));
             }
 
-            propertiesStream.AddProperty(PropertyTags.PR_BODY_W, TextBody);
-            //propertiesStream.AddProperty(PropertyTags.P, TextBody);
+            propertiesStream.AddProperty(PropertyTags.PR_BODY_A, TextBody);
 
             propertiesStream.WriteProperties(rootStorage);
         }

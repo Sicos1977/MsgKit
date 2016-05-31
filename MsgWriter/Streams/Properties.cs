@@ -315,14 +315,14 @@ namespace MsgWriter.Streams
 
                     case PropertyType.PT_UNICODE:
                         // Write the length of the property to the propertiesstream
-                        binaryWriter.Write(property.Data.Length);
+                        binaryWriter.Write(property.Data.Length + 2);
                         binaryWriter.Write(new byte[4]);
                         storage.AddStream(property.Name).SetData(property.Data);
                         break;
 
                     case PropertyType.PT_STRING8:
                         // Write the length of the property to the propertiesstream
-                        binaryWriter.Write(property.Data.Length);
+                        binaryWriter.Write(property.Data.Length + 1);
                         binaryWriter.Write(new byte[4]);
                         storage.AddStream(property.Name).SetData(property.Data);
                         break;
