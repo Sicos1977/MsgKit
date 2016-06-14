@@ -54,6 +54,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="NamedPropertyMapping.cs" />
+    <Compile Include="NamedPropertyTags.cs" />
     <Compile Include="OLE\CLSID.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />

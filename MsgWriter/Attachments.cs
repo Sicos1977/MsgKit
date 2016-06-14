@@ -233,10 +233,10 @@ namespace MsgWriter
         {
             var propertiesStream = new AttachmentPropertiesStream();
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, recordKey);
-            propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_A, FileName);
+            propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
 
             if (!string.IsNullOrEmpty(FileName))
-                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_A, Path.GetExtension(FileName));
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
 
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, Stream.ToByteArray());
             propertiesStream.WriteProperties(storage);

@@ -52,6 +52,7 @@ namespace MsgWriter.Streams
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
+                // Reserved (8 bytes): This field MUST be set to zero when writing a .msg file and MUST be ignored when reading a .msg file.
                 binaryWriter.Write(new byte[8]);
                 WriteProperties(storage, binaryWriter);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using OpenMcdf;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -92,25 +93,36 @@ namespace MsgWriter.Streams
         }
         #endregion
 
-        #region ToByteArray
+        #region WriteProperties
         /// <summary>
-        ///     Returns the Embedded message property stream as a byte array
+        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream"/> to the 
+        ///     given <paramref name="storage" />
         /// </summary>
-        /// <returns></returns>
-        internal byte[] ToByteArray()
+        /// <param name="storage">The <see cref="CFStorage"/></param>
+        internal void WriteProperties(CFStorage storage)
         {
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
+                // Reserved(8 bytes): This field MUST be set to zero when writing a .msg file and MUST be 
+                // ignored when reading a.msg file.
                 binaryWriter.Write(new byte[8]);
-                binaryWriter.Write((uint) NextRecipientId);
-                binaryWriter.Write((uint) NextAttachmentId);
-                binaryWriter.Write((uint) RecipientCount);
-                binaryWriter.Write((uint) AttachmentCount);
-                //WriteProperties(binaryWriter);
-                return memoryStream.ToArray();
+                // Next Recipient ID(4 bytes): The ID to use for naming the next Recipient object storage 
+                // if one is created inside the .msg file. The naming convention to be used is specified in 
+                // section 2.2.1.
+                binaryWriter.Write(Convert.ToUInt32(NextRecipientId));
+                // Next Attachment ID (4 bytes): The ID to use for naming the next Attachment object storage 
+                // if one is created inside the .msg file. The naming convention to be used is specified in section 2.2.2.
+                binaryWriter.Write(Convert.ToUInt32(NextAttachmentId));
+                // Recipient Count(4 bytes): The number of Recipient objects.
+                binaryWriter.Write(Convert.ToUInt32(RecipientCount));
+                // Attachment Count (4 bytes): The number of Attachment objects.
+                binaryWriter.Write(Convert.ToUInt32(AttachmentCount));
+                WriteProperties(storage, binaryWriter);
             }
         }
         #endregion
+
+
     }
 }

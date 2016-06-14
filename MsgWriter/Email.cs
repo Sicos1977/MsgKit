@@ -113,19 +113,19 @@ namespace MsgWriter
             // Indicates that alle the string properties are written in UNICODE format
 
             //propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_A, Subject);
-            throw new Exception("Datum tijd goed zetten");
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
+            //throw new Exception("Datum tijd goed zetten");
             var now = DateTime.Now;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, now);
             //propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
-            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_A, "IPM.Note");
+            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
             //propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
 
             if (Sender != null)
             {
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_A, Sender.Email);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_A, Sender.DisplayName);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_A, Sender.AddressType);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
             }
 
             if (recipientCount > 0)
@@ -164,12 +164,12 @@ namespace MsgWriter
                     }
                 }
 
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_A, string.Join(";", displayTo));
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_A, string.Join(";", displayCc));
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_A, string.Join(";", displayBcc));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc));
             }
 
-            propertiesStream.AddProperty(PropertyTags.PR_BODY_A, TextBody);
+            propertiesStream.AddProperty(PropertyTags.PR_BODY_W, TextBody);
 
             propertiesStream.WriteProperties(rootStorage);
         }
