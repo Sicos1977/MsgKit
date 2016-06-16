@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using MsgWriter.Exceptions;
-using MsgWriter.OLE;
 // ReSharper disable InconsistentNaming
 
 /*
@@ -325,7 +324,7 @@ namespace MsgWriter.Streams
                         return BitConverter.ToInt32(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypInteger16 or PtypInteger32");
+                        throw new MWInvalidProperty("Type is not PT_SHORT or PT_LONG");
                 }
             }
         }
@@ -345,7 +344,7 @@ namespace MsgWriter.Streams
                         return BitConverter.ToSingle(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypFloating32");
+                        throw new MWInvalidProperty("Type is not PT_FLOAT");
                 }
             }
         }
@@ -365,14 +364,14 @@ namespace MsgWriter.Streams
                         return BitConverter.ToDouble(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypFloating64");
+                        throw new MWInvalidProperty("Type is not PT_DOUBLE");
                 }
             }
         }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as a decimal when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PT_CURRENCY" />
+        ///     <see cref="PropertyType.PT_FLOAT" />
         /// </summary>
         /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
         internal decimal ToDecimal
@@ -385,7 +384,7 @@ namespace MsgWriter.Streams
                         return ByteArrayToDecimal(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypFloating32");
+                        throw new MWInvalidProperty("Type is not PT_FLOAT");
                 }
             }
         }
@@ -412,7 +411,7 @@ namespace MsgWriter.Streams
                         return DateTime.FromFileTime(fileTime);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypFloating32");
+                        throw new MWInvalidProperty("Type is not PT_APPTIME or PT_SYSTIME");
                 }
             }
         }
@@ -431,7 +430,7 @@ namespace MsgWriter.Streams
                         return BitConverter.ToBoolean(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypBoolean");
+                        throw new MWInvalidProperty("Type is not PT_BOOLEAN");
                 }
             }
         }
@@ -451,7 +450,7 @@ namespace MsgWriter.Streams
                         return BitConverter.ToInt64(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypInteger64");
+                        throw new MWInvalidProperty("Type is not PT_LONGLONG");
                 }
             }
         }
@@ -478,7 +477,7 @@ namespace MsgWriter.Streams
                         }
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypString or PtypString8");
+                        throw new MWInvalidProperty("Type is not PT_UNICODE or PT_STRING8");
                 }
             }
         }
@@ -538,7 +537,7 @@ namespace MsgWriter.Streams
                         return Data;
 
                     default:
-                        throw new MWInvalidProperty("Type is not PtypBinary");
+                        throw new MWInvalidProperty("Type is not PT_BINARY");
                 }
             }
         }
