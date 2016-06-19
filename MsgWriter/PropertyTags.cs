@@ -23,7 +23,6 @@ using OpenMcdf;
 
 namespace MsgWriter
 {
-
     #region StoreSupportMask
     /// <summary>
     ///     This property discloses the capabilities of a message store to client applications planning to send it a message.

@@ -446,6 +446,7 @@ namespace MsgWriter.Streams
             {
                 switch (Type)
                 {
+                    case PropertyType.PT_LONG:
                     case PropertyType.PT_LONGLONG:
                         return BitConverter.ToInt64(Data, 0);
 
