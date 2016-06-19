@@ -111,8 +111,9 @@ namespace MsgWriter.Streams
                         binaryWriter.Write(new byte[7]);
                         break;
 
-                    //case PropertyType.PT_CURRENCY:
-                    //    break;
+                    case PropertyType.PT_CURRENCY:
+                        binaryWriter.Write(property.Data);
+                        break;
 
                     case PropertyType.PT_UNICODE:
                         // Write the length of the property to the propertiesstream
@@ -156,8 +157,8 @@ namespace MsgWriter.Streams
                     case PropertyType.PT_MV_DOUBLE:
                         break;
 
-                    //case PropertyType.PT_MV_CURRENCY:
-                    //    break;
+                    case PropertyType.PT_MV_CURRENCY:
+                        break;
 
                     case PropertyType.PT_MV_APPTIME:
                         break;
@@ -248,8 +249,9 @@ namespace MsgWriter.Streams
                     data = BitConverter.GetBytes((double) obj);
                     break;
 
-                //case PropertyType.PT_CURRENCY:
-                //    throw new NotImplementedException();
+                case PropertyType.PT_CURRENCY:
+                    data = (byte[]) obj;
+                    break;
 
                 case PropertyType.PT_BOOLEAN:
                     data = BitConverter.GetBytes((bool) obj);

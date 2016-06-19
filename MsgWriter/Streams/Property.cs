@@ -84,11 +84,11 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_DOUBLE = 0x0005,
 
-        ///// <summary>
-        /////     8 bytes; a 64-bit signed, scaled integer representation of a decimal currency value, with four places to the
-        /////     right of the decimal point (PT_CURRENCY, fixed.14.4)
-        ///// </summary>
-        //PT_CURRENCY = 0x0006,
+        /// <summary>
+        ///     8 bytes; a 64-bit signed, scaled integer representation of a decimal currency value, with four places to the
+        ///     right of the decimal point (PT_CURRENCY, fixed.14.4)
+        /// </summary>
+        PT_CURRENCY = 0x0006,
 
         /// <summary>
         ///     8 bytes; a 64-bit floating point number in which the whole number part represents the number of days since
@@ -184,7 +184,7 @@ namespace MsgWriter.Streams
         ///// <summary>
         /////     Variable size; a COUNT field followed by that many PT_MV_CURRENCY values. (PT_MV_CURRENCY, mv.fixed.14.4)
         ///// </summary>
-        //PT_MV_CURRENCY = 0x1006,
+        PT_MV_CURRENCY = 0x1006,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PT_MV_APPTIME values. (PT_MV_APPTIME)
