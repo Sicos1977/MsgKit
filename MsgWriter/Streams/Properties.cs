@@ -345,17 +345,20 @@ namespace MsgWriter.Streams
                 case PropertyType.PT_NULL:
                     break;
 
-                //case PropertyType.PT_ACTIONS:
-                //    throw new NotSupportedException("PT_ACTIONS property type is not supported");
-                //case PropertyType.PT_UNSPECIFIED:
-                //    throw new NotSupportedException("PT_UNSPECIFIED property type is not supported");
-                case PropertyType.PT_OBJECT:
-                // Do nothing
+                case PropertyType.PT_ACTIONS:
+                    throw new NotSupportedException("PT_ACTIONS property type is not supported");
 
-                //case PropertyType.PT_SVREID:
-                //    throw new NotSupportedException("PT_SVREID property type is not supported");
-                //case PropertyType.PT_SRESTRICT:
-                //    throw new NotSupportedException("PT_SRESTRICT property type is not supported");
+                case PropertyType.PT_UNSPECIFIED:
+                    throw new NotSupportedException("PT_UNSPECIFIED property type is not supported");
+                case PropertyType.PT_OBJECT:
+                    // TODO: Add support for MSG
+                    break;
+
+                case PropertyType.PT_SVREID:
+                    throw new NotSupportedException("PT_SVREID property type is not supported");
+
+                case PropertyType.PT_SRESTRICT:
+                    throw new NotSupportedException("PT_SRESTRICT property type is not supported");
 
                 default:
                     throw new ArgumentOutOfRangeException();

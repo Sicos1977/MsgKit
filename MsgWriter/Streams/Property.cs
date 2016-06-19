@@ -139,22 +139,22 @@ namespace MsgWriter.Streams
         ///// </summary>
         //PT_CLSID = 0x0048,
 
-        ///// <summary>
-        /////     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
-        ///// </summary>
-        //PT_SVREID = 0x00FB,
+        /// <summary>
+        ///     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
+        /// </summary>
+        PT_SVREID = 0x00FB,
 
-        ///// <summary>
-        /////     Variable size; a byte array representing one or more Restriction structures as specified in section 2.12.
-        /////     (PT_SRESTRICT)
-        ///// </summary>
-        //PT_SRESTRICT = 0x00FD,
+        /// <summary>
+        ///     Variable size; a byte array representing one or more Restriction structures as specified in section 2.12.
+        ///     (PT_SRESTRICT)
+        /// </summary>
+        PT_SRESTRICT = 0x00FD,
 
-        ///// <summary>
-        /////     Variable size; a 16-bit COUNT field followed by that many rule (4) action (3) structures, as specified in
-        /////     [MS-OXORULE] section 2.2.5. (PT_ACTIONS)
-        ///// </summary>
-        //PT_ACTIONS = 0x00FE,
+        /// <summary>
+        ///     Variable size; a 16-bit COUNT field followed by that many rule (4) action (3) structures, as specified in
+        ///     [MS-OXORULE] section 2.2.5. (PT_ACTIONS)
+        /// </summary>
+        PT_ACTIONS = 0x00FE,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many bytes. (PT_BINARY)
