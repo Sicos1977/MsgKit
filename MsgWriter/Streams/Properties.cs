@@ -111,9 +111,9 @@ namespace MsgWriter.Streams
                         binaryWriter.Write(new byte[7]);
                         break;
 
-                    case PropertyType.PT_CURRENCY:
-                        binaryWriter.Write(property.Data);
-                        break;
+                    //case PropertyType.PT_CURRENCY:
+                    //    binaryWriter.Write(property.Data);
+                    //    break;
 
                     case PropertyType.PT_UNICODE:
                         // Write the length of the property to the propertiesstream
@@ -129,8 +129,9 @@ namespace MsgWriter.Streams
                         storage.AddStream(property.Name).SetData(property.Data);
                         break;
 
-                    //case PropertyType.PT_CLSID:
-                    //    break;
+                    case PropertyType.PT_CLSID:
+                        binaryWriter.Write(property.Data);
+                        break;
 
                     //case PropertyType.PT_SVREID:
                     //    break;
@@ -163,7 +164,7 @@ namespace MsgWriter.Streams
                     case PropertyType.PT_MV_APPTIME:
                         break;
 
-                    case PropertyType.PT_MV_I8:
+                    case PropertyType.PT_MV_LONGLONG:
                         break;
 
                     case PropertyType.PT_MV_UNICODE:
@@ -249,9 +250,9 @@ namespace MsgWriter.Streams
                     data = BitConverter.GetBytes((double) obj);
                     break;
 
-                case PropertyType.PT_CURRENCY:
-                    data = (byte[]) obj;
-                    break;
+                //case PropertyType.PT_CURRENCY:
+                //    data = (byte[]) obj;
+                //    break;
 
                 case PropertyType.PT_BOOLEAN:
                     data = BitConverter.GetBytes((bool) obj);
@@ -269,9 +270,9 @@ namespace MsgWriter.Streams
                     data = Encoding.Default.GetBytes((string) obj);
                     break;
 
-                //case PropertyType.PT_CLSID:
-                //    data = ((Guid) obj).ToByteArray();
-                //    break;
+                case PropertyType.PT_CLSID:
+                    data = ((Guid) obj).ToByteArray();
+                    break;
 
                 case PropertyType.PT_BINARY:
 

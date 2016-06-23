@@ -2378,7 +2378,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains the messaging user's e-mail address typE, such as SMTP. Non-UNICODE compilation.
+        ///     Contains the messaging user's e-mail address type such as SMTP. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_ADDRTYPE_A
         {
@@ -2391,6 +2391,38 @@ namespace MsgWriter
         internal static PropertyTag PR_EMAIL_ADDRESS_W
         {
             get { return new PropertyTag(0x3003, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the messaging user's SMTP e-mail address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_SMTP_ADDRESS_A
+        {
+            get { return new PropertyTag(0x39FE, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the messaging user's SMTP e-mail address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_SMTP_ADDRESS_W
+        {
+            get { return new PropertyTag(0x39FE, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the messaging user's 7bit e-mail address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_7BIT_DISPLAY_NAME_A
+        {
+            get { return new PropertyTag(0x39FF, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the messaging user's SMTP e-mail address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_7BIT_DISPLAY_NAME_W
+        {
+            get { return new PropertyTag(0x39FF, PropertyType.PT_UNICODE); }
         }
 
         /// <summary>

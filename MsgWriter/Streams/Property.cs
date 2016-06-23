@@ -65,6 +65,18 @@ namespace MsgWriter.Streams
     internal enum PropertyType : ushort
     {
         /// <summary>
+        ///     Any: this property type value matches any type; a server MUST return the actual type in its response. Servers
+        ///     MUST NOT return this type in response to a client request other than NspiGetIDsFromNames or the
+        ///     RopGetPropertyIdsFromNamesROP request ([MS-OXCROPS] section 2.2.8.1). (PT_UNSPECIFIED)
+        /// </summary>
+        PT_UNSPECIFIED = 0x0000,
+
+        /// <summary>
+        ///     None: This property is a placeholder. (PT_NULL)
+        /// </summary>
+        PT_NULL = 0x0001,
+
+        /// <summary>
         ///     2 bytes; a 16-bit integer (PT_I2, i2, ui2)
         /// </summary>
         PT_SHORT = 0x0002,
@@ -85,12 +97,6 @@ namespace MsgWriter.Streams
         PT_DOUBLE = 0x0005,
 
         /// <summary>
-        ///     8 bytes; a 64-bit signed, scaled integer representation of a decimal currency value, with four places to the
-        ///     right of the decimal point (PT_CURRENCY, fixed.14.4)
-        /// </summary>
-        PT_CURRENCY = 0x0006,
-
-        /// <summary>
         ///     8 bytes; a 64-bit floating point number in which the whole number part represents the number of days since
         ///     December 30, 1899, and the fractional part represents the fraction of a day since midnight (PT_APPTIME)
         /// </summary>
@@ -105,6 +111,11 @@ namespace MsgWriter.Streams
         ///     1 byte; restricted to 1 or 0 (PT_BOOLEAN. bool)
         /// </summary>
         PT_BOOLEAN = 0x000B,
+
+        /// <summary>
+        ///     The property value is a Component Object Model (COM) object, as specified in section 2.11.1.5. (PT_OBJECT)
+        /// </summary>
+        PT_OBJECT = 0x000D,
 
         /// <summary>
         ///     8 bytes; a 64-bit integer (PT_LONGLONG, PT_I8, i8, ui8)
@@ -134,10 +145,10 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_SYSTIME = 0x0040,
 
-        ///// <summary>
-        /////     16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
-        ///// </summary>
-        //PT_CLSID = 0x0048,
+        /// <summary>
+        ///     16 bytes; a GUID with Data1, Data2, and Data3 fields in little-endian format (PT_CLSID, UUID)
+        /// </summary>
+        PT_CLSID = 0x0048,
 
         /// <summary>
         ///     Variable size; a 16-bit COUNT field followed by a structure as specified in section 2.11.1.4. (PT_SVREID)
@@ -181,9 +192,9 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_MV_DOUBLE = 0x1005,
 
-        ///// <summary>
-        /////     Variable size; a COUNT field followed by that many PT_MV_CURRENCY values. (PT_MV_CURRENCY, mv.fixed.14.4)
-        ///// </summary>
+        /// <summary>
+        ///     Variable size; a COUNT field followed by that many PT_MV_CURRENCY values. (PT_MV_CURRENCY, mv.fixed.14.4)
+        /// </summary>
         PT_MV_CURRENCY = 0x1006,
 
         /// <summary>
@@ -192,9 +203,9 @@ namespace MsgWriter.Streams
         PT_MV_APPTIME = 0x1007,
 
         /// <summary>
-        ///     Variable size; a COUNT field followed by that many PT_MV_I8 values. (PT_MV_I8, PT_MV_LONGLONG)
+        ///     Variable size; a COUNT field followed by that many PT_MV_LONGLONGvalues. (PT_MV_I8, PT_MV_I8)
         /// </summary>
-        PT_MV_I8 = 0x1014,
+        PT_MV_LONGLONG = 0x1014,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PT_MV_UNICODE values. (PT_MV_UNICODE)
@@ -216,39 +227,22 @@ namespace MsgWriter.Streams
         /// </summary>
         PT_MV_SYSTIME = 0x1040,
 
-        ///// <summary>
-        /////     Variable size; a COUNT field followed by that many PT_MV_CLSID values. (PT_MV_CLSID, mv.uuid)
-        ///// </summary>
-        //PT_MV_CLSID = 0x1048,
+        /// <summary>
+        ///     Variable size; a COUNT field followed by that many PT_MV_CLSID values. (PT_MV_CLSID, mv.uuid)
+        /// </summary>
+        PT_MV_CLSID = 0x1048,
 
         /// <summary>
         ///     Variable size; a COUNT field followed by that many PT_MV_BINARY values. (PT_MV_BINARY, mv.bin.hex)
         /// </summary>
         PT_MV_BINARY = 0x1102,
-
-        /// <summary>
-        ///     Any: this property type value matches any type; a server MUST return the actual type in its response. Servers
-        ///     MUST NOT return this type in response to a client request other than NspiGetIDsFromNames or the
-        ///     RopGetPropertyIdsFromNamesROP request ([MS-OXCROPS] section 2.2.8.1). (PT_UNSPECIFIED)
-        /// </summary>
-        PT_UNSPECIFIED = 0x0000,
-
-        /// <summary>
-        ///     None: This property is a placeholder. (PT_NULL)
-        /// </summary>
-        PT_NULL = 0x0001,
-
-        /// <summary>
-        ///     The property value is a Component Object Model (COM) object, as specified in section 2.11.1.5. (PT_OBJECT)
-        /// </summary>
-        PT_OBJECT = 0x000D
     }
     #endregion
 
     /// <summary>
     ///     A property inside the MSG file
     /// </summary>
-    internal class Property
+    public class Property
     {
         #region Properties
         /// <summary>
@@ -266,6 +260,15 @@ namespace MsgWriter.Streams
         }
 
         /// <summary>
+        ///     Returns the Property as a readable string without the streamprefix and type
+        /// </summary>
+        /// <returns></returns>
+        public string ShortName
+        {
+            get { return Id.ToString("X4"); }
+        }
+
+        /// <summary>
         ///     The <see cref="PropertyType" />
         /// </summary>
         internal PropertyType Type { get; private set; }
@@ -275,6 +278,11 @@ namespace MsgWriter.Streams
         ///     in its <see cref="uint" /> raw form
         /// </summary>
         internal uint Flags { get; private set; }
+
+        /// <summary>
+        ///     Returns <c>true</c> when this property is part of a multivalue property
+        /// </summary>
+        internal bool MultiValue { get; private set; }
 
         /// <summary>
         ///     The <see cref="PropertyFlag">property flags</see> that have been set
@@ -483,26 +491,25 @@ namespace MsgWriter.Streams
             }
         }
 
-        ///// <summary>
-        /////     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PT_CLSID" />
-        ///// </summary>
-        ///// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_CLSID"/></exception>
-        //public Guid ToGuid
-        //{
-        //    get
-        //    {
-        //        switch (Type)
-        //        {
-        //            case PropertyType.PT_CLSID:
-        //                using (var memoryStream = new MemoryStream(Data))
-        //                using (var binaryReader = new BinaryReader(memoryStream))
-        //                    return new CLSID(binaryReader).ToGuid();
+        /// <summary>
+        ///     Returns <see cref="Data" /> as a Guid when <see cref="Type" /> is set to <see cref="PropertyType.PT_CLSID" />
+        ///     <see cref="PropertyType.PT_OBJECT" />
+        /// </summary>
+        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BINARY"/></exception>
+        public Guid ToGuid
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case PropertyType.PT_CLSID:
+                        return new Guid(Data);
 
-        //            default:
-        //                throw new MWInvalidProperty("Type is not PtypGuid");
-        //        }
-        //    }
-        //}
+                    default:
+                        throw new MWInvalidProperty("Type is not PT_CLSID");
+                }
+            }
+        }
 
         /*
         /// <summary>
@@ -583,7 +590,7 @@ namespace MsgWriter.Streams
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
-        ///     <see cref="PropertyType.PT_MV_I8" />
+        ///     <see cref="PropertyType.PT_MV_LONGLONG" />
         /// </summary>
         internal ReadOnlyCollection<long> ToLongCollection
         {
@@ -656,14 +663,15 @@ namespace MsgWriter.Streams
         /// </summary>
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
-        /// <param name="flags">The <see cref="PropertyFlag" /></param>
         /// <param name="data">The property data</param>
-        internal Property(ushort id, PropertyType type, PropertyFlag flags, byte[] data)
+        /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
+        /// multivalue property</param>
+        internal Property(ushort id, PropertyType type, byte[] data, bool multiValue = false)
         {
             Id = id;
             Type = type;
-            Flags = Convert.ToUInt32(flags);
             Data = data;
+            MultiValue = multiValue;
         }
 
         /// <summary>
@@ -673,12 +681,33 @@ namespace MsgWriter.Streams
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">The <see cref="PropertyFlag" /></param>
         /// <param name="data">The property data</param>
-        internal Property(ushort id, PropertyType type, uint flags, byte[] data)
+        /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
+        /// multivalue property</param>
+        internal Property(ushort id, PropertyType type, PropertyFlag flags, byte[] data, bool multiValue = false)
+        {
+            Id = id;
+            Type = type;
+            Flags = Convert.ToUInt32(flags);
+            Data = data;
+            MultiValue = multiValue;
+        }
+
+        /// <summary>
+        ///     Creates this object and sets all its propertues
+        /// </summary>
+        /// <param name="id">The id of the property</param>
+        /// <param name="type">The <see cref="PropertyType" /></param>
+        /// <param name="flags">The <see cref="PropertyFlag" /></param>
+        /// <param name="data">The property data</param>
+        /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
+        /// multivalue property</param>
+        internal Property(ushort id, PropertyType type, uint flags, byte[] data, bool multiValue = false)
         {
             Id = id;
             Type = type;
             Flags = flags;
             Data = data;
+            MultiValue = multiValue;
         }
         #endregion
     }

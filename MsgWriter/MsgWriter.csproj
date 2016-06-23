@@ -51,11 +51,14 @@
     <Compile Include="Helpers\EmailAddress.cs" />
     <Compile Include="Helpers\ExceptionHelpers.cs" />
     <Compile Include="Helpers\StreamHelpers.cs" />
+    <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="NamedPropertyTags.cs" />
     <Compile Include="OLE\CLSID.cs" />
+    <Compile Include="PropertyObjects\AddressBookEntryId.cs" />
+    <Compile Include="PropertyObjects\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />
     <Compile Include="Streams\EntryStream.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="Streams\Property.cs" />
     <Compile Include="Recipient.cs" />
     <Compile Include="TranslateTags.cs" />
+    <Compile Include="PropertyObjects\UnsendableRecipients.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
