@@ -65,11 +65,47 @@ namespace MsgWriter
     {
         #region AddRecipient
         /// <summary>
+        /// Add's an <see cref="RecipientType.To"/> <see cref="Recipient"/>
+        /// </summary>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <see cref="email"/></param>
+        public void AddRecipientTo(string email, string displayName)
+        {
+            Add(new Recipient(email,
+                              displayName,
+                              RecipientType.To));
+        }
+
+        /// <summary>
+        /// Add's an <see cref="RecipientType.Cc"/> <see cref="Recipient"/>
+        /// </summary>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <see cref="email"/></param>
+        public void AddRecipientCc(string email, string displayName)
+        {
+            Add(new Recipient(email,
+                              displayName,
+                              RecipientType.Cc));
+        }
+
+        /// <summary>
+        /// Add's an <see cref="RecipientType.Bcc"/> <see cref="Recipient"/>
+        /// </summary>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <see cref="email"/></param>
+        public void AddRecipientBcc(string email, string displayName)
+        {
+            Add(new Recipient(email,
+                              displayName,
+                              RecipientType.Bcc));
+        }
+
+        /// <summary>
         /// Add's an <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        /// <param name="type"></param>
+        /// <param name="type"><see cref="RecipientType"/></param>
         public void AddRecipient(string email,
                            string displayName, 
                            RecipientType type)
