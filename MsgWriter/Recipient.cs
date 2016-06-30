@@ -199,7 +199,7 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
             propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_DISPLAY_NAME_W, DisplayName);
             // TODO : Check address types
-            propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, "SMTP");
+            //propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, "SMTP");
             propertiesStream.WriteProperties(storage);
         }
         #endregion

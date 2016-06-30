@@ -1242,6 +1242,9 @@ namespace MsgWriter
         /// <summary>
         ///     Contains a binary value that indicates the relative position of this message within a conversation thread.
         /// </summary>
+        /// <remarks>
+        ///     See https://msdn.microsoft.com/en-us/library/office/cc842470.aspx
+        /// </remarks>
         internal static PropertyTag PR_CONVERSATION_INDEX
         {
             get { return new PropertyTag(0x0071, PropertyType.PT_BINARY); }
@@ -2170,6 +2173,9 @@ namespace MsgWriter
         /// <summary>
         ///     Contains the message subject with any prefix removed. UNICODE compilation.
         /// </summary>
+        /// <remarks>
+        ///     See https://msdn.microsoft.com/en-us/library/office/cc815282.aspx
+        /// </remarks>
         internal static PropertyTag PR_NORMALIZED_SUBJECT_W
         {
             get { return new PropertyTag(0x0E1D, PropertyType.PT_UNICODE); }

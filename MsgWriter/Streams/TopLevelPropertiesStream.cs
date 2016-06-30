@@ -118,8 +118,8 @@ namespace MsgWriter.Streams
                 binaryWriter.Write(Convert.ToUInt32(RecipientCount));
                 // Attachment Count (4 bytes): The number of Attachment objects.
                 binaryWriter.Write(Convert.ToUInt32(AttachmentCount));
-                // Reserved(8 bytes):  This field MUST be set to 0 when writing a.msg file and MUST be ignored when 
-                // reading a.msg file.
+                // Reserved(8 bytes): This field MUST be set to 0 when writing a msg file and MUST be ignored when 
+                // reading a msg file.
                 binaryWriter.Write(new byte[8]);
                 WriteProperties(storage, binaryWriter);
             }

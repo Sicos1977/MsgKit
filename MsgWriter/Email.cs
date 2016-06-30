@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using MsgWriter.Streams;
 using OpenMcdf;
 
@@ -58,9 +59,19 @@ namespace MsgWriter
         }
 
         /// <summary>
+        ///     Returns or sets the subject prefix of the E-mail
+        /// </summary>
+        public string SubjectPrefix { get; set; }
+
+        /// <summary>
         ///     Returns or sets the subject of the E-mail
         /// </summary>
         public string Subject { get; set; }
+
+        /// <summary>
+        ///     Returns the normalized subject of the E-mail
+        /// </summary>
+        public string SubjectNormalized { get; internal set; }
 
         /// <summary>
         ///     Returns or sets the text body of the E-mail
@@ -92,6 +103,60 @@ namespace MsgWriter
         }
         #endregion
 
+        #region SetSubject
+        /// <summary>
+        ///     These properties are computed by message store or transport providers from the PR_SUBJECT (PidTagSubject) 
+        ///     and PR_SUBJECT_PREFIX (PidTagSubjectPrefix) properties in the following manner. If the PR_SUBJECT_PREFIX 
+        ///     is present and is an initial substring of PR_SUBJECT, PR_NORMALIZED_SUBJECT and associated properties are 
+        ///     set to the contents of PR_SUBJECT with the prefix removed. If PR_SUBJECT_PREFIX is present, but it is not 
+        ///     an initial substring of PR_SUBJECT, PR_SUBJECT_PREFIX is deleted and recalculated from PR_SUBJECT using 
+        ///     the following rule: If the string contained in PR_SUBJECT begins with one to three non-numeric characters 
+        ///     followed by a colon and a space, then the string together with the colon and the blank becomes the prefix.
+        ///     Numbers, blanks, and punctuation characters are not valid prefix characters. If PR_SUBJECT_PREFIX is not 
+        ///     present, it is calculated from PR_SUBJECT using the rule outlined in the previous step.This property then 
+        ///     is set to the contents of PR_SUBJECT with the prefix removed.
+        /// </summary>
+        /// <remarks>
+        ///     Note  When PR_SUBJECT_PREFIX is an empty string, PR_SUBJECT and PR_NORMALIZED_SUBJECT are the same. Ultimately, 
+        ///     this property should be the part of PR_SUBJECT following the prefix. If there is no prefix, this property 
+        ///     becomes the same as PR_SUBJECT. PR_SUBJECT_PREFIX and this property should be computed as part of the 
+        ///     IMAPIProp::SaveChanges implementation. A client application should not prompt the IMAPIProp::GetProps 
+        ///     method for their values until they have been committed by an IMAPIProp::SaveChanges call.
+        /// </remarks>
+        private void SetSubject(Properties propertiesStream)
+        {
+            if (!string.IsNullOrEmpty(SubjectPrefix))
+            {
+                if (Subject.Contains(SubjectPrefix))
+                    SubjectNormalized = Subject.Replace(SubjectPrefix, string.Empty);
+                else
+                {
+                    var prefix = Subject.Substring(5);
+                    if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
+                    {
+                        SubjectPrefix = prefix;
+                        SubjectNormalized = Subject.Replace(prefix, string.Empty);
+                    }
+                }
+            }
+            else
+            {
+                var prefix = Subject.Substring(5);
+                if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
+                {
+                    SubjectPrefix = prefix;
+                    SubjectNormalized = Subject.Replace(prefix, string.Empty);
+                }
+                else
+                    SubjectNormalized = Subject;
+            }
+            
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
+            propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, Subject);
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
+        }
+        #endregion
+
         #region AddToStorage
         /// <summary>
         /// Adds all the properties to the <see cref="Message"/>
@@ -112,14 +177,15 @@ namespace MsgWriter
 
             // Indicates that alle the string properties are written in UNICODE format
 
-            //propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
+            SetSubject(propertiesStream);
+
             //throw new Exception("Datum tijd goed zetten");
             var now = DateTime.Now;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, now);
-            //propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
+            propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, now);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
-            //propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
+            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
 
             if (Sender != null)
             {
@@ -170,7 +236,6 @@ namespace MsgWriter
             }
 
             propertiesStream.AddProperty(PropertyTags.PR_BODY_W, TextBody);
-
             propertiesStream.WriteProperties(rootStorage);
         }
         #endregion
