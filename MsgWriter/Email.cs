@@ -151,7 +151,9 @@ namespace MsgWriter
                 else
                     SubjectNormalized = Subject;
             }
-            
+
+            if (SubjectPrefix == null) SubjectPrefix = string.Empty;
+
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
             propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, Subject);
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
@@ -168,18 +170,27 @@ namespace MsgWriter
             var rootStorage = CompoundFile.RootStorage;
 
             Recipients.WriteToStorage(rootStorage);
-            //Attachments.AddToStorage(rootStorage);
+            //Attachments.WriteToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
             var propertiesStream = new TopLevelProperties(recipientCount,
-                                                                attachmentCount, 
-                                                                recipientCount, 
-                                                                attachmentCount);
+                                                          attachmentCount, 
+                                                          recipientCount, 
+                                                          attachmentCount);
 
             // Indicates that alle the string properties are written in UNICODE format
-
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMask.STORE_UNICODE_OK, PropertyFlag.PROPATTR_READABLE);
+            var storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
+                                   StoreSupportMask.STORE_CATEGORIZE_OK |
+                                   StoreSupportMask.STORE_CREATE_OK |
+                                   StoreSupportMask.STORE_ENTRYID_UNIQUE |
+                                   StoreSupportMask.STORE_MODIFY_OK |
+                                   StoreSupportMask.STORE_MV_PROPS_OK |
+                                   StoreSupportMask.STORE_OLE_OK |
+                                   StoreSupportMask.STORE_RTF_OK |
+                                   StoreSupportMask.STORE_UNICODE_OK;
+            
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
             SetSubject(propertiesStream);
 
             //throw new Exception("Datum tijd goed zetten");

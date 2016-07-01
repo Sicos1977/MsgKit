@@ -40,7 +40,7 @@ namespace MsgWriterTestTool
             email.Subject = "This is the subject";
             email.TextBody = "This is the text body";
             //email.Test();
-            //email.Attachments.AddAttachment("d:\\250 - Thee Tze Tji Chun 250 gram.jpg");
+            email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
             email.Save("d:\\test.msg");
         }
     }
