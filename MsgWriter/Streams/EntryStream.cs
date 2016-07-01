@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using MsgWriter.Helpers;
-using MsgWriter.Structures;
 using OpenMcdf;
 
 /*
@@ -22,11 +21,11 @@ using OpenMcdf;
 
 namespace MsgWriter.Streams
 {
-    #region Enum PropertyNameKind
+    #region Enum EntryStreamKind
     /// <summary>
     /// Kind (1 byte): The possible values for the Kind field are in the following table.
     /// </summary>
-    public enum PropertyNameKind
+    public enum EntryStreamKind
     {
         /// <summary>
         /// The property is identified by the LID field.
@@ -60,6 +59,7 @@ namespace MsgWriter.Streams
     /// </remarks>
     internal sealed class EntryStream
     {
+        #region Properties
         /// <summary>
         /// Name Identifier/String Offset (4 bytes): If this property is a numerical named property (as specified by 
         /// the Property Kind subfield of the Index and Kind Information field), this value is the LID part of the 
@@ -70,9 +70,9 @@ namespace MsgWriter.Streams
         public int NameIdentifier { get; set; }
 
         /// <summary>
-        /// <see cref="PropertyNameKind"/>
+        /// <see cref="EntryStreamKind"/>
         /// </summary>
-        public PropertyNameKind Kind { get; private set; }
+        public EntryStreamKind Kind { get; private set; }
 
         /// <summary>
         /// The GUID that identifies the property set for the named property.
@@ -86,15 +86,15 @@ namespace MsgWriter.Streams
         /// An unsigned integer that identifies the named property within its property set.
         /// </summary>
         /// <remarks>
-        /// This field is present only if the value of the <see cref="Kind"/> field is equal to <see cref="PropertyNameKind.Lid"/>. 
+        /// This field is present only if the value of the <see cref="EntryStreamKind"/> field is equal to <see cref="EntryStreamKind.Lid"/>. 
         ///  </remarks>
-        public int Lid { get; private set; }
+        public uint Lid { get; private set; }
 
         /// <summary>
         /// The value of this field is equal to the number of bytes in the Name string that follows it.
         /// </summary>
         /// <remarks>
-        /// This field is present only if the value of the <see cref="Kind"/> field is equal to <see cref="PropertyNameKind.Name"/>. 
+        /// This field is present only if the value of the <see cref="EntryStreamKind"/> field is equal to <see cref="EntryStreamKind.Name"/>. 
         ///  </remarks>
         public short NameSize { get; private set; }
 
@@ -102,14 +102,20 @@ namespace MsgWriter.Streams
         /// The value of this field is equal to the number of bytes in the Name string that follows it.
         /// </summary>
         /// <remarks>
-        /// This field is present only if the value of the <see cref="Kind"/> field is equal to <see cref="PropertyNameKind.Name"/>. 
+        /// This field is present only if the value of the <see cref="EntryStreamKind"/> field is equal to <see cref="EntryStreamKind.Name"/>. 
         /// </remarks>
         public string Name { get; private set; }
+        #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Creates this object
+        /// </summary>
         internal EntryStream()
         {
             
         }
+        #endregion
 
         #region ReadProperties
         /// <summary>
@@ -118,23 +124,28 @@ namespace MsgWriter.Streams
         /// <param name="binaryReader"></param>
         internal void ReadProperties(BinaryReader binaryReader)
         {
-            // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
-            // each represented by one entry, can be determined by first measuring the size of the property stream (1), 
-            // then subtracting the size of the header from it, and then dividing the result by the size of one entry.
-            // The structure of each entry, representing one property, depends on whether the property is a fixed length 
-            // property or not.
-
             while (!binaryReader.Eos())
             {
-                // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
-                // represent the property type. The high-order 16 bits represent the property ID.
-                var type = (PropertyType)binaryReader.ReadUInt16();
-                var id = binaryReader.ReadUInt16();
-                var flags = binaryReader.ReadUInt32();
-                // 8 bytes for the data
-                var data = binaryReader.ReadBytes(8);
+                Kind = (EntryStreamKind) binaryReader.ReadByte();
+                Guid = new Guid(binaryReader.ReadBytes(16));
 
-                //Add(new Property(id, type, flags, data));
+                switch (Kind)
+                {
+                    case EntryStreamKind.Lid:
+                        Lid = binaryReader.ReadUInt32();
+                        break;
+
+                    case EntryStreamKind.Name:
+                        NameSize = binaryReader.ReadByte();
+                        break;
+
+                    case EntryStreamKind.NotAssociated:
+                        Name = Strings.ReadNullTerminatedUnicodeString(binaryReader);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
         #endregion
@@ -148,6 +159,7 @@ namespace MsgWriter.Streams
         /// <param name="binaryWriter">The <see cref="BinaryWriter" /></param>
         internal void WriteProperties(CFStorage storage, BinaryWriter binaryWriter)
         {
+            // TODO: Write properties
             //binaryWriter.BaseStream.Position = 0;
             //storage.AddStream(PropertyTags.PropertiesStreamName).SetData(binaryWriter.BaseStream.ToByteArray());
         }
