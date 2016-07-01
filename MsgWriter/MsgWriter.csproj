@@ -56,7 +56,7 @@
     <Compile Include="Email.cs" />
     <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="NamedPropertyTags.cs" />
-    <Compile Include="OLE\CLSID.cs" />
+    <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Structures\AddressBookEntryId.cs" />
     <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />

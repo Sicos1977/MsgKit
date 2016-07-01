@@ -18,7 +18,7 @@ using System.Linq;
    limitations under the License.
 */
 
-namespace MsgWriter.OLE
+namespace MsgWriter.Structures
 {
     /// <summary>
     ///     The packet version of the CLSID structure represents a class identifier (CLSID) in a serialized manner.
