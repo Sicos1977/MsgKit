@@ -116,13 +116,13 @@ namespace MsgWriter
         }
         #endregion
 
-        #region WriteRecipients
+        #region AddToStorage
         /// <summary>
-        ///     This method add's the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
+        ///     Add's the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
         ///     and it will set all the needed properties
         /// </summary>
         /// <param name="rootStorage">The root <see cref="CFStorage"/></param>
-        internal void WriteRecipients(CFStorage rootStorage)
+        internal void AddToStorage(CFStorage rootStorage)
         {
             for (var index = 0; index < Count; index++)
             {
@@ -135,7 +135,7 @@ namespace MsgWriter
     }
 
     /// <summary>
-    /// This class represents an Outlook recipient
+    /// This class represents a recipient
     /// </summary>
     public sealed class Recipient
     {
@@ -188,8 +188,14 @@ namespace MsgWriter
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the <see cref="Property">properties</see> as a <see cref="CFStream"/> to the given <paramref name="storage" />
+        ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
+        ///     on the <see cref="PropertyType"/>
         /// </summary>
+        /// <remarks>
+        ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic
+        ///     that is used to determine this
+        /// </remarks>
         /// <param name="storage">The <see cref="CFStorage"/></param>
         internal void WriteProperties(CFStorage storage)
         {

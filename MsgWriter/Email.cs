@@ -165,7 +165,7 @@ namespace MsgWriter
         {
             var rootStorage = CompoundFile.RootStorage;
 
-            Recipients.WriteRecipients(rootStorage);
+            Recipients.AddToStorage(rootStorage);
             //Attachments.AddToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;

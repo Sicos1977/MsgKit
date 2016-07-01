@@ -139,10 +139,10 @@ namespace MsgWriter
 
         #region WriteProperties
         /// <summary>
-        /// This method add's the <see cref="Attachment"/> objects to the given <paramref name="rootStorage"/>
-        /// and sets all the needed properties
+        ///     Add's the <see cref="Attachment"/> objects to the given <paramref name="rootStorage"/>
+        ///     and it will set all the needed properties
         /// </summary>
-        /// <param name="rootStorage"></param>
+        /// <param name="rootStorage">The root <see cref="CFStorage"/></param>
         internal void AddToStorage(CFStorage rootStorage)
         {
             for (var index = 0; index < Count; index++)
@@ -156,7 +156,7 @@ namespace MsgWriter
     }
 
     /// <summary>
-    /// This class represents a message attachment
+    /// This class represents an attachment
     /// </summary>
     public sealed class Attachment
     {
