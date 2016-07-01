@@ -19,7 +19,7 @@ using MsgWriter.Helpers;
    limitations under the License.
 */
 
-namespace MsgWriter.PropertyObjects
+namespace MsgWriter.Structures
 {
     #region Enum AddressType
     /// <summary>

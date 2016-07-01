@@ -4,7 +4,7 @@ using System.IO;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
 
-namespace MsgWriter.PropertyObjects
+namespace MsgWriter.Structures
 {
     /// <summary>
     ///     An array of RecipientRow structures, as specified in [MS-OXCDATA] section 2.8.3.

@@ -17,7 +17,7 @@ using MsgWriter.Helpers;
    limitations under the License.
 */
 
-namespace MsgWriter.PropertyObjects
+namespace MsgWriter.Structures
 {
     /// <summary>
     ///     An Address Book EntryID structure specifies several types of Address Book objects, including

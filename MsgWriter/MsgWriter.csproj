@@ -57,8 +57,8 @@
     <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="NamedPropertyTags.cs" />
     <Compile Include="OLE\CLSID.cs" />
-    <Compile Include="PropertyObjects\AddressBookEntryId.cs" />
-    <Compile Include="PropertyObjects\RecipientRow.cs" />
+    <Compile Include="Structures\AddressBookEntryId.cs" />
+    <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />
     <Compile Include="Streams\EntryStream.cs" />
@@ -71,7 +71,7 @@
     <Compile Include="Streams\Property.cs" />
     <Compile Include="Recipient.cs" />
     <Compile Include="TranslateTags.cs" />
-    <Compile Include="PropertyObjects\UnsendableRecipients.cs" />
+    <Compile Include="Structures\UnsendableRecipients.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
