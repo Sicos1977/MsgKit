@@ -73,14 +73,14 @@ namespace MsgWriter.Streams
         }
         #endregion
 
-        #region FromByteArray
+        #region ReadProperties
         /// <summary>
-        ///     Reads the Embedded message property stream from a byte array
+        ///     Reads all the <see cref="Property">properties</see> from the <see cref="CFStream"/>
         /// </summary>
-        /// <param name="byteArray"></param>
-        internal void FromByteArray(byte[] byteArray)
+        /// <param name="stream">The <see cref="CFStream"/></param>
+        internal void ReadProperties(CFStream stream)
         {
-            using (var memoryStream = new MemoryStream(byteArray))
+            using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
             {
                 binaryReader.ReadBytes(8);
@@ -95,9 +95,14 @@ namespace MsgWriter.Streams
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream"/> to the 
-        ///     given <paramref name="storage" />
+        ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
+        ///     on the <see cref="PropertyType"/>
         /// </summary>
+        /// <remarks>
+        ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic
+        ///     that is used to determine this
+        /// </remarks>
         /// <param name="storage">The <see cref="CFStorage"/></param>
         internal void WriteProperties(CFStorage storage)
         {
@@ -122,7 +127,5 @@ namespace MsgWriter.Streams
             }
         }
         #endregion
-
-
     }
 }

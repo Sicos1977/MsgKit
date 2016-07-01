@@ -62,10 +62,11 @@ namespace MsgWriter.Streams
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream" /> to the
-        ///     given <paramref name="storage" />
+        ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
+        ///     on the <see cref="PropertyType"/>
         /// </summary>
-        /// <param name="storage">The <see cref="CFStorage" /></param>
+        /// <param name="storage">The <see cref="CFStorage"/></param>
         /// <param name="binaryWriter">The <see cref="BinaryWriter" /></param>
         internal void WriteProperties(CFStorage storage, BinaryWriter binaryWriter)
         {

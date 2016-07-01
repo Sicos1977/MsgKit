@@ -137,7 +137,7 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddToStorage
+        #region WriteProperties
         /// <summary>
         /// This method add's the <see cref="Attachment"/> objects to the given <paramref name="rootStorage"/>
         /// and sets all the needed properties
@@ -149,7 +149,7 @@ namespace MsgWriter
             {
                 var attachment = this[index];
                 var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
-                attachment.AddToStorage(storage, index);
+                attachment.WriteProperties(storage, index);
             }
         }
         #endregion
@@ -223,13 +223,14 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddToStorage
+        #region WriteProperties
         /// <summary>
-        /// Adds all the properties to the given <see cref="storage"/>
+        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream"/> to the 
+        ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage"/></param>
         /// <param name="recordKey">The record key</param>
-        internal void AddToStorage(CFStorage storage, int recordKey)
+        internal void WriteProperties(CFStorage storage, int recordKey)
         {
             var propertiesStream = new AttachmentPropertiesStream();
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, recordKey);

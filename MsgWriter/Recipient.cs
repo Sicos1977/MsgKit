@@ -116,19 +116,19 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddToStorage
+        #region WriteRecipients
         /// <summary>
-        /// This method add's the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
-        /// and it will set all the needed properties
+        ///     This method add's the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
+        ///     and it will set all the needed properties
         /// </summary>
-        /// <param name="rootStorage"></param>
-        internal void AddToStorage(CFStorage rootStorage)
+        /// <param name="rootStorage">The root <see cref="CFStorage"/></param>
+        internal void WriteRecipients(CFStorage rootStorage)
         {
             for (var index = 0; index < Count; index++)
             {
                 var recipient = this[index];
                 var storage = rootStorage.AddStorage(PropertyTags.RecipientStoragePrefix + index.ToString("X8").ToUpper());
-                recipient.AddToStorage(storage);
+                recipient.WriteProperties(storage);
             }
         }
         #endregion
@@ -186,12 +186,12 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddToStorage
+        #region WriteProperties
         /// <summary>
-        /// Adds all the properties to the given <see cref="storage"/>
+        ///     Writes all the <see cref="Property">properties</see> as a <see cref="CFStream"/> to the given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage"/></param>
-        internal void AddToStorage(CFStorage storage)
+        internal void WriteProperties(CFStorage storage)
         {
             var propertiesStream = new RecipientPropertiesStream();
             propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, (int) Type);
