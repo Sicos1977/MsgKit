@@ -157,15 +157,16 @@ namespace MsgWriter
         }
         #endregion
 
-        #region WriteProperties
+        #region WriteToStorage
         /// <summary>
-        ///     Writes all the <see cref="Property">properties</see> as a <see cref="CFStream"/> to the <see cref="Message"/>
+        ///     Writes all the properties that are part of the <see cref="Email"/> object either as <see cref="CFStorage"/>'s
+        ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
         /// </summary>
-        private void WriteProperties()
+        private void WriteToStorage()
         {
             var rootStorage = CompoundFile.RootStorage;
 
-            Recipients.AddToStorage(rootStorage);
+            Recipients.WriteToStorage(rootStorage);
             //Attachments.AddToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
@@ -247,7 +248,7 @@ namespace MsgWriter
         /// <param name="stream"></param>
         public new void Save(Stream stream)
         {
-            WriteProperties();
+            WriteToStorage();
             base.Save(stream);
         }
 
@@ -257,7 +258,7 @@ namespace MsgWriter
         /// <param name="fileName"></param>
         public new void Save(string fileName)
         {
-            WriteProperties();
+            WriteToStorage();
             base.Save(fileName);
         }
         #endregion

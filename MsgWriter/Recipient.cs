@@ -116,13 +116,13 @@ namespace MsgWriter
         }
         #endregion
 
-        #region AddToStorage
+        #region WriteToStorage
         /// <summary>
-        ///     Add's the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
+        ///     Writes the <see cref="Recipient"/> objects to the given <paramref name="rootStorage"/>
         ///     and it will set all the needed properties
         /// </summary>
         /// <param name="rootStorage">The root <see cref="CFStorage"/></param>
-        internal void AddToStorage(CFStorage rootStorage)
+        internal void WriteToStorage(CFStorage rootStorage)
         {
             for (var index = 0; index < Count; index++)
             {
