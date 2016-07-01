@@ -70,7 +70,7 @@ namespace MsgWriter
     #endregion
 
     /// <summary>
-    /// Contains a list of <see cref="Attachment"/> objects that are added to a message
+    /// Contains a list of <see cref="Attachment"/> objects that are added to a <see cref="Message"/>
     /// </summary>
     public sealed class Attachments : List<Attachment>
     {

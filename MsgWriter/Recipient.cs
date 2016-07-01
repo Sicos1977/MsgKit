@@ -59,7 +59,7 @@ namespace MsgWriter
     #endregion
 
     /// <summary>
-    /// Contains a list of <see cref="Recipients"/> objects that are added to a message
+    /// Contains a list of <see cref="Recipients"/> objects that are added to a <see cref="Message"/>
     /// </summary>
     public sealed class Recipients : List<Recipient>
     {
