@@ -22,7 +22,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter.Streams
+namespace MsgWriter.Structures
 {
     /// <summary>
     ///     The properties inside an msg file

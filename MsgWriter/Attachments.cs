@@ -5,6 +5,7 @@ using System.Linq;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
+using MsgWriter.Structures;
 using OpenMcdf;
 
 /*

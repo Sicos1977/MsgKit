@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using OpenMcdf;
-
-/*
+﻿/*
    Copyright 2015 - 2016 Kees van Spelde
 
    Licensed under The Code Project Open License (CPOL) 1.02;

@@ -67,8 +67,8 @@
     <Compile Include="Streams\EmbeddedMessagePropertiesStream.cs" />
     <Compile Include="Streams\TopLevelPropertiesStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Streams\Properties.cs" />
-    <Compile Include="Streams\Property.cs" />
+    <Compile Include="Structures\Properties.cs" />
+    <Compile Include="Structures\Property.cs" />
     <Compile Include="Recipient.cs" />
     <Compile Include="TranslateTags.cs" />
     <Compile Include="Structures\UnsendableRecipients.cs" />

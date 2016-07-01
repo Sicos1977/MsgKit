@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MsgWriter.Streams;
+using MsgWriter.Structures;
 using OpenMcdf;
 
 /*

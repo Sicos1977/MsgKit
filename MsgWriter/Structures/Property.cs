@@ -22,7 +22,7 @@ using MsgWriter.Exceptions;
    limitations under the License.
 */
 
-namespace MsgWriter.Streams
+namespace MsgWriter.Structures
 {
     #region PropertyFlags
     /// <summary>

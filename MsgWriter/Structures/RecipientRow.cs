@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MsgWriter.Helpers;
-using MsgWriter.Streams;
 
 namespace MsgWriter.Structures
 {

@@ -14,7 +14,8 @@
    limitations under the License.
 */
 
-using MsgWriter.Streams;
+using MsgWriter.Structures;
+
 // ReSharper disable ConvertPropertyToExpressionBody
 // ReSharper disable InconsistentNaming
 

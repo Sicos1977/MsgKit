@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using MsgWriter.Exceptions;
-using MsgWriter.Streams;
+using MsgWriter.Structures;
 using OpenMcdf;
 
 /*

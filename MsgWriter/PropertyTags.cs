@@ -1,8 +1,8 @@
 ﻿using System;
-using MsgWriter.Streams;
+using MsgWriter.Structures;
 using OpenMcdf;
-// ReSharper disable ConvertPropertyToExpressionBody
 
+// ReSharper disable ConvertPropertyToExpressionBody
 // ReSharper disable InconsistentNaming
 
 /*
