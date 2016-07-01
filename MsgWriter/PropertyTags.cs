@@ -190,9 +190,9 @@ namespace MsgWriter
         internal const string NameIdStorage = "__nameid_version1.0";
 
         /// <summary>
-        ///     The name id storage
+        ///     The <see cref="EntryStream"/>
         /// </summary>
-        internal const string NameIdStream1 = "__substg1.0_00020102";
+        internal const string EntryStream = "__substg1.0_00020102";
 
         /// <summary>
         ///     The name id storage
