@@ -21,9 +21,9 @@ using OpenMcdf;
 namespace MsgWriter.Streams
 {
     /// <summary>
-    ///     The properties stream contained inside an Recipient storage object.
+    ///     The properties stream contained inside an Attachment storage object
     /// </summary>
-    internal sealed class RecipientPropertiesStream : Properties
+    internal sealed class AttachmentProperties : Properties
     {
         #region ReadProperties
         /// <summary>

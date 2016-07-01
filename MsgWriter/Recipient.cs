@@ -200,7 +200,7 @@ namespace MsgWriter
         /// <param name="storage">The <see cref="CFStorage"/></param>
         internal void WriteProperties(CFStorage storage)
         {
-            var propertiesStream = new RecipientPropertiesStream();
+            var propertiesStream = new RecipientProperties();
             propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, (int) Type);
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);

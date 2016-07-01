@@ -172,7 +172,7 @@ namespace MsgWriter
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
-            var propertiesStream = new TopLevelPropertiesStream(recipientCount,
+            var propertiesStream = new TopLevelProperties(recipientCount,
                                                                 attachmentCount, 
                                                                 recipientCount, 
                                                                 attachmentCount);
@@ -321,7 +321,7 @@ namespace MsgWriter
             using (var cf = new CompoundFile(stream))
             {
                 var st = cf.RootStorage.GetStream("__properties_version1.0");
-                var p = new TopLevelPropertiesStream(st);
+                var p = new TopLevelProperties(st);
                 cf.RootStorage.VisitEntries(item =>
                 {
                     if (item.IsStream)

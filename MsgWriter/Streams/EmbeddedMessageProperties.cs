@@ -24,7 +24,7 @@ namespace MsgWriter.Streams
     /// <summary>
     ///     The properties stream contained inside an Embedded Message storage object
     /// </summary>
-    internal sealed class EmbeddedMessagePropertiesStream : Properties
+    internal sealed class EmbeddedMessageProperties : Properties
     {
         #region Properties
         /// <summary>
@@ -62,7 +62,7 @@ namespace MsgWriter.Streams
         /// </param>
         /// <param name="recipientCount">The number of Recipient objects</param>
         /// <param name="attachmentCount">The number of Attachment objects</param>
-        internal EmbeddedMessagePropertiesStream(int nextRecipientId,
+        internal EmbeddedMessageProperties(int nextRecipientId,
             int nextAttachmentId,
             int recipientCount,
             int attachmentCount)

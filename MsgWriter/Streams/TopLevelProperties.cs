@@ -24,7 +24,7 @@ namespace MsgWriter.Streams
     /// <summary>
     ///     The properties stream contained inside the top level of the .msg file, which represents the Message object itself.
     /// </summary>
-    internal sealed class TopLevelPropertiesStream : Properties
+    internal sealed class TopLevelProperties : Properties
     {
         #region Properties
         /// <summary>
@@ -53,7 +53,7 @@ namespace MsgWriter.Streams
         ///     Creates this object and reads all the properties from the toplevel stream
         /// </summary>
         /// <param name="stream">The <see cref="CFStream"/></param>
-        internal TopLevelPropertiesStream(CFStream stream)
+        internal TopLevelProperties(CFStream stream)
         {
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
@@ -81,7 +81,7 @@ namespace MsgWriter.Streams
         /// </param>
         /// <param name="recipientCount">The number of Recipient objects</param>
         /// <param name="attachmentCount">The number of Attachment objects</param>
-        internal TopLevelPropertiesStream(int nextRecipientId,
+        internal TopLevelProperties(int nextRecipientId,
                                           int nextAttachmentId,
                                           int recipientCount,
                                           int attachmentCount)

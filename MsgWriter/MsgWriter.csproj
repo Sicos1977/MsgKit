@@ -61,11 +61,11 @@
     <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />
-    <Compile Include="Streams\EntryStream.cs" />
-    <Compile Include="Streams\RecipientPropertiesStream.cs" />
-    <Compile Include="Streams\AttachmentPropertiesStream.cs" />
-    <Compile Include="Streams\EmbeddedMessagePropertiesStream.cs" />
-    <Compile Include="Streams\TopLevelPropertiesStream.cs" />
+    <Compile Include="Streams\Entry.cs" />
+    <Compile Include="Streams\RecipientProperties.cs" />
+    <Compile Include="Streams\AttachmentProperties.cs" />
+    <Compile Include="Streams\EmbeddedMessageProperties.cs" />
+    <Compile Include="Streams\TopLevelProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\Properties.cs" />
     <Compile Include="Structures\Property.cs" />

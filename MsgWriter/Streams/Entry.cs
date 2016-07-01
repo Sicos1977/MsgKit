@@ -57,7 +57,7 @@ namespace MsgWriter.Streams
     /// <remarks>
     /// See https://msdn.microsoft.com/en-us/library/ee159689(v=exchg.80).aspx
     /// </remarks>
-    internal sealed class EntryStream
+    internal sealed class Entry
     {
         #region Properties
         /// <summary>
@@ -111,7 +111,7 @@ namespace MsgWriter.Streams
         /// <summary>
         /// Creates this object
         /// </summary>
-        internal EntryStream()
+        internal Entry()
         {
             
         }

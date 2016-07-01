@@ -233,7 +233,7 @@ namespace MsgWriter
         /// <param name="recordKey">The record key</param>
         internal void WriteProperties(CFStorage storage, int recordKey)
         {
-            var propertiesStream = new AttachmentPropertiesStream();
+            var propertiesStream = new AttachmentProperties();
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, recordKey);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
 
