@@ -36,7 +36,7 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"));
-            email.Recipients.AddRecipientTo("magic-sessions@home.nl", "Kees van Spelde");
+            email.Recipients.AddRecipientTo("keesvanspelde@home.nl", "Kees van Spelde 2");
             email.Subject = "This is the subject";
             email.TextBody = "This is the text body";
             //email.Test();

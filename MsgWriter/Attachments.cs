@@ -5,6 +5,7 @@ using System.Linq;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
+using MsgWriter.Structures;
 using OpenMcdf;
 
 /*
@@ -107,7 +108,7 @@ namespace MsgWriter
             {
                 var attachment = this[index];
                 var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
-                attachment.WriteProperties(storage, index + 1);
+                attachment.WriteProperties(storage, index);
             }
         }
         #endregion
@@ -116,7 +117,7 @@ namespace MsgWriter
         /// <summary>
         ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.AttachByValue" /> (default)
         /// </summary>
-        /// <param name="fileName">The file to add with full path</param>
+        /// <param name="fileName">The file to add with it's full path</param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
@@ -133,10 +134,8 @@ namespace MsgWriter
         {
             CheckAttachmentFileName(fileName);
             var file = new FileInfo(fileName);
-            Add(new Attachment(file.OpenRead(),
-                fileName,
-                file.CreationTime,
-                file.LastAccessTime,
+
+            Add(new Attachment(file,
                 AttachmentType.AttachByValue,
                 renderingPosition,
                 isInline,
@@ -168,6 +167,7 @@ namespace MsgWriter
 
             CheckAttachmentFileName(fileName);
             var dateTime = DateTime.Now;
+
             Add(new Attachment(stream,
                 fileName,
                 dateTime,
@@ -204,16 +204,13 @@ namespace MsgWriter
         {
             CheckAttachmentFileName(fileName);
             var file = new FileInfo(fileName);
-            Add(new Attachment(file.OpenRead(),
-                fileName,
-                file.CreationTime,
-                file.LastAccessTime,
+
+            Add(new Attachment(file,
                 AttachmentType.AttachByRefOnly,
                 renderingPosition,
                 isInline,
                 contentId));
         }
-
         #endregion
     }
 
@@ -222,6 +219,10 @@ namespace MsgWriter
     /// </summary>
     public sealed class Attachment
     {
+        #region Fields
+        private readonly FileInfo _file;
+        #endregion
+
         #region Properties
         /// <summary>
         ///     The stream to the attachment
@@ -272,7 +273,7 @@ namespace MsgWriter
         ///     Creates a new attachment object and sets all its properties
         /// </summary>
         /// <param name="stream">The stream to the attachment</param>
-        /// <param name="fileName">The attachment filename</param>
+        /// <param name="fileName">The attachment filename with it's full path</param>
         /// <param name="creationTime">The date and time when the attachment was created</param>
         /// <param name="lastModificationTime">The date and time when the attachment was last modified</param>
         /// <param name="type">The <see cref="AttachmentType"/></param>
@@ -304,6 +305,58 @@ namespace MsgWriter
             if (isInline && string.IsNullOrWhiteSpace(contentId))
                 throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
         }
+
+        /// <summary>
+        ///     Creates a new attachment object and sets all its properties
+        /// </summary>
+        /// <param name="file">The file to add</param>
+        /// <param name="type">The <see cref="AttachmentType"/></param>
+        /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
+        /// <param name="isInline">True when the attachment is inline</param>
+        /// <param name="contentId">The id for the attachment when <paramref name="isInline" /> is set to true</param>
+        /// <exception cref="ArgumentNullException">
+        ///     Raised when <paramref name="isInline" /> is set to true and
+        ///     <paramref name="contentId" /> is null, white space or empty
+        /// </exception>
+        internal Attachment(FileInfo file,
+            AttachmentType type = AttachmentType.AttachByValue,
+            long renderingPosition = -1,
+            bool isInline = false,
+            string contentId = "")
+        {
+            if (!file.Exists)
+                throw new FileNotFoundException("The file '" + file.FullName + "' does not exist");
+
+            _file = file;
+            Stream = file.OpenRead();
+            FileName = file.Name;
+            CreationTime = file.CreationTime;
+            LastModificationTime = file.LastWriteTime;
+            Type = type;
+            RenderingPosition = renderingPosition;
+            IsInline = isInline;
+            ContentId = contentId;
+
+            if (isInline && string.IsNullOrWhiteSpace(contentId))
+                throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
+        }
+        #endregion
+
+        #region GetShortFileName
+        /// <summary>
+        ///     This method will convert a long filename to a short dos 8.3 one
+        /// </summary>
+        /// <param name="fileName">The long filename</param>
+        /// <returns></returns>
+        private static string GetShortFileName(string fileName)
+        {
+            var name = Path.GetFileNameWithoutExtension(fileName);
+            var extension = Path.GetExtension(fileName);
+
+            if (name != null) name = name.Substring(0, 6).ToUpperInvariant() + "~1";
+            if (extension != null) name += "." + extension.Substring(1, 3).ToUpperInvariant();
+            return name;
+        }
         #endregion
 
         #region WriteProperties
@@ -318,14 +371,18 @@ namespace MsgWriter
             var propertiesStream = new AttachmentProperties();
 
             // https://msdn.microsoft.com/en-us/library/office/cc842285.aspx
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index);
-            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
-            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey());
-            propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition);
-            propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlag.PROPATTR_READABLE);
 
             if (!string.IsNullOrEmpty(FileName))
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_FILENAME_W, GetShortFileName(FileName));
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_LONG_FILENAME_W, FileName);
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
+            }
 
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_METHOD, Type);
 
@@ -337,12 +394,13 @@ namespace MsgWriter
                     break;
 
                 case AttachmentType.AttachByRefOnly:
-                    var file = new FileInfo(FileName);
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, new byte[0]);
-                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, file.Length);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, _file.Length);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_LONG_PATHNAME_W, _file.FullName);
                     break;
 
                 case AttachmentType.AttachEmbeddedMsg:
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, new byte[0]);
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_OBJ, Stream.ToByteArray());
                     break;
 
@@ -356,6 +414,19 @@ namespace MsgWriter
             var utcNow = DateTime.UtcNow;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
+
+            const StoreSupportMask storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
+                                                      StoreSupportMask.STORE_CATEGORIZE_OK |
+                                                      StoreSupportMask.STORE_CREATE_OK |
+                                                      StoreSupportMask.STORE_ENTRYID_UNIQUE |
+                                                      StoreSupportMask.STORE_MODIFY_OK |
+                                                      StoreSupportMask.STORE_MV_PROPS_OK |
+                                                      StoreSupportMask.STORE_OLE_OK |
+                                                      StoreSupportMask.STORE_RTF_OK |
+                                                      StoreSupportMask.STORE_UNICODE_OK;
+
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
+
             propertiesStream.WriteProperties(storage);
         }
         #endregion

@@ -170,7 +170,7 @@ namespace MsgWriter
             var rootStorage = CompoundFile.RootStorage;
 
             Recipients.WriteToStorage(rootStorage);
-            Attachments.WriteToStorage(rootStorage);
+            //Attachments.WriteToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
@@ -188,7 +188,7 @@ namespace MsgWriter
                                                       StoreSupportMask.STORE_OLE_OK |
                                                       StoreSupportMask.STORE_RTF_OK |
                                                       StoreSupportMask.STORE_UNICODE_OK;
-            
+
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
             SetSubject(propertiesStream);
 
