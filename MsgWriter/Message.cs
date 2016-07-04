@@ -26,9 +26,6 @@ using OpenMcdf;
 
 namespace MsgWriter
 {
-    #region Enum MessagePriority
-    #endregion
-
     /// <summary>
     ///     The base class for all the different types of Outlook MSG files
     /// </summary>

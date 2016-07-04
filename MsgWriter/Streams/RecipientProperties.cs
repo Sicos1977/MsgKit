@@ -45,7 +45,7 @@ namespace MsgWriter.Streams
         /// <summary>
         ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
         ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
-        ///     on the <see cref="PropertyType"/>
+        ///     on the <see cref="MsgWriter.Enums.PropertyType"/>
         /// </summary>
         /// <remarks>
         ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic

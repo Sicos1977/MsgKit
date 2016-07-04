@@ -4,6 +4,9 @@ namespace MsgWriter.Enums
     /// <summary>
     ///     Contains the relative priority of a message.
     /// </summary>
+    /// <remarks>
+    ///     See https://msdn.microsoft.com/en-us/library/cc815346(v=office.15).aspx
+    /// </remarks>
     public enum MessageImportance
     {
         /// <summary>

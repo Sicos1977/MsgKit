@@ -1,8 +1,12 @@
+// ReSharper disable InconsistentNaming
 namespace MsgWriter.Enums
 {
     /// <summary>
-    ///     The message class
+    ///     The MessageClass element is an optional element that specifies the message class of this e-mail message.
     /// </summary>
+    /// <remarks>
+    ///     See https://msdn.microsoft.com/en-us/library/ee200767(v=exchg.80).aspx
+    /// </remarks>
     public enum MessageClass
     {
         /// <summary>
@@ -11,169 +15,123 @@ namespace MsgWriter.Enums
         Unknown,
 
         /// <summary>
-        ///     The message is a normal E-mail (IPM.Note)
+        ///     Normal e-mail message.
         /// </summary>
-        Email,
+        IPM_Note,
 
         /// <summary>
-        ///     Non-delivery report for a standard E-mail (REPORT.IPM.NOTE.NDR)
+        ///     The message is encrypted and can also be signed.
         /// </summary>
-        EmailNonDeliveryReport,
+        IPM_Note_SMIME,
 
         /// <summary>
-        ///     Delivery receipt for a standard E-mail (REPORT.IPM.NOTE.DR)
+        ///     The message is clear signed.
         /// </summary>
-        EmailDeliveryReport,
+        IPM_Note_SMIME_MultipartSigned,
 
         /// <summary>
-        ///     Delivery receipt for a delayed E-mail (REPORT.IPM.NOTE.DELAYED)
+        ///     The message is a secure read receipt.
         /// </summary>
-        EmailDelayedDeliveryReport,
+        IPM_Note_Receipt_SMIME,
 
         /// <summary>
-        ///     Read receipt for a standard E-mail (REPORT.IPM.NOTE.IPNRN)
+        ///     An InfoPath form, as specified by [MS-IPFFX].
         /// </summary>
-        EmailReadReceipt,
+        IPM_InfoPathForm,
 
         /// <summary>
-        ///     Non-read receipt for a standard E-mail (REPORT.IPM.NOTE.IPNNRN)
+        ///     Meeting request.
         /// </summary>
-        EmailNonReadReceipt,
+        IPM_Schedule_Meeting,
 
         /// <summary>
-        ///     The message in an E-mail that is encrypted and can also be signed (IPM.Note.SMIME)
+        ///     Meeting notification.
         /// </summary>
-        EmailEncryptedAndMeabySigned,
+        IPM_Notification_Meeting,
 
         /// <summary>
-        ///     Non-delivery report for a Secure MIME (S/MIME) encrypted and opaque-signed E-mail (REPORT.IPM.NOTE.SMIME.NDR)
+        ///     Post.
         /// </summary>
-        EmailEncryptedAndMeabySignedNonDelivery,
+        IPM_Post,
 
         /// <summary>
-        ///     Delivery report for a Secure MIME (S/MIME) encrypted and opaque-signed E-mail (REPORT.IPM.NOTE.SMIME.DR)
+        ///     Octel voice message.
         /// </summary>
-        EmailEncryptedAndMeabySignedDelivery,
+        IPM_Octel_Voice,
 
         /// <summary>
-        ///     The message is an E-mail that is clear signed (IPM.Note.SMIME.MultipartSigned)
+        ///     Electronic voice notes.
         /// </summary>
-        EmailClearSigned,
+        IPM_Voicenotes,
 
         /// <summary>
-        ///     The message is a secure read receipt for an E-mail (IPM.Note.Receipt.SMIME)
+        ///     Shared message.
         /// </summary>
-        EmailClearSignedReadReceipt,
+        IPM_Sharing,
 
         /// <summary>
-        ///     Non-delivery report for an S/MIME clear-signed E-mail (REPORT.IPM.NOTE.SMIME.MULTIPARTSIGNED.NDR)
+        ///     Non-delivery report for a standard message.
         /// </summary>
-        EmailClearSignedNonDelivery,
+        REPORT_IPM_NOTE_NDR,
 
         /// <summary>
-        ///     Delivery receipt for an S/MIME clear-signed E-mail (REPORT.IPM.NOTE.SMIME.MULTIPARTSIGNED.DR)
+        ///     Delivery receipt for a standard message.
         /// </summary>
-        EmailClearSignedDelivery,
+        REPORT_IPM_NOTE_DR,
 
         /// <summary>
-        ///     The message is an appointment (IPM.Appointment)
+        ///     Delivery receipt for a delayed message.
         /// </summary>
-        Appointment,
+        REPORT_IPM_NOTE_DELAYED,
 
         /// <summary>
-        ///     The message is a notification for an appointment (IPM.Notification.Meeting)
+        ///     Read receipt for a standard message.
         /// </summary>
-        AppointmentNotification,
+        REPORT_IPM_NOTE_IPNRN,
 
         /// <summary>
-        ///     The message is a schedule for an appointment (IPM.Schedule.Meeting)
+        ///     Non-read receipt for a standard message.
         /// </summary>
-        AppointmentSchedule,
+        REPORT_IPM_NOTE_IPNNRN,
 
         /// <summary>
-        ///     The message is a request for an appointment (IPM.Schedule.Meeting.Request)
+        ///     Non-delivery report for a meeting request.
         /// </summary>
-        AppointmentRequest,
+        REPORT_IPM_SCHEDULE_MEETING_REQUEST_NDR,
 
         /// <summary>
-        ///     The message is a request for an appointment (REPORT.IPM.SCHEDULE.MEETING.REQUEST.NDR)
+        ///     Non-delivery report for a positive meeting response (accept).
         /// </summary>
-        AppointmentRequestNonDelivery,
+        REPORT_IPM_SCHEDULE_MEETING_RESP_POS_NDR,
 
         /// <summary>
-        ///     The message is a response to an appointment (IPM.Schedule.Response)
+        ///     Non-delivery report for a Tentative meeting response.
         /// </summary>
-        AppointmentResponse,
+        REPORT_IPM_SCHEDULE_MEETING_RESP_TENT_NDR,
 
         /// <summary>
-        ///     The message is a positive response to an appointment (IPM.Schedule.Resp.Pos)
+        ///     Non-delivery report for a cancelled meeting notification.
         /// </summary>
-        AppointmentResponsePositive,
+        REPORT_IPM_SCHEDULE_MEETING_CANCELED_NDR,
 
         /// <summary>
-        ///     Non-delivery report for a positive meeting response (accept) (REPORT.IPM.SCHEDULE.MEETING.RESP.POS.NDR)
+        ///     Non-delivery report for a Secure MIME (S/MIME) encrypted and opaque-signed message.
         /// </summary>
-        AppointmentResponsePositiveNonDelivery,
+        REPORT_IPM_NOTE_SMIME_NDR,
 
         /// <summary>
-        ///     The message is a negative response to an appointment (IPM.Schedule.Resp.Neg)
+        ///     Delivery receipt for an S/MIME encrypted and opaque-signed message.
         /// </summary>
-        AppointmentResponseNegative,
+        REPORT_IPM_NOTE_SMIME_DR,
 
         /// <summary>
-        ///     Non-delivery report for a negative meeting response (declinet) (REPORT.IPM.SCHEDULE.MEETING.RESP.NEG.NDR)
+        ///     Non-delivery report for an S/MIME clear-signed message.
         /// </summary>
-        AppointmentResponseNegativeNonDelivery,
+        REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_NDR,
 
         /// <summary>
-        ///     The message is a response to tentatively accept the meeting request (IPM.Schedule.Meeting.Resp.Tent)
+        ///     Delivery receipt for an S/MIME clear-signed message.
         /// </summary>
-        AppointmentResponseTentative,
-
-
-        /// <summary>
-        ///     Non-delivery report for a Tentative meeting response (REPORT.IPM.SCHEDULE.MEETING.RESP.TENT.NDR)
-        /// </summary>
-        AppointmentResponseTentativeNonDelivery,
-
-        /// <summary>
-        ///     The message is a cancelation an appointment (IPM.Schedule.Meeting.Canceled)
-        /// </summary>
-        AppointmentResponseCanceled,
-
-        /// <summary>
-        ///     Non-delivery report for a cancelled meeting notification (REPORT.IPM.SCHEDULE.MEETING.CANCELED.NDR)
-        /// </summary>
-        AppointmentResponseCanceledNonDelivery,
-
-        /// <summary>
-        ///     The message is a contact card (IPM.Contact)
-        /// </summary>
-        Contact,
-
-        /// <summary>
-        ///     The message is a task (IPM.Task)
-        /// </summary>
-        Task,
-
-        /// <summary>
-        ///     The message is a task request accept (IPM.TaskRequest.Accept)
-        /// </summary>
-        TaskRequestAccept,
-
-        /// <summary>
-        ///     The message is a task request decline (IPM.TaskRequest.Decline)
-        /// </summary>
-        TaskRequestDecline,
-
-        /// <summary>
-        ///     The message is a task request update (IPM.TaskRequest.Update)
-        /// </summary>
-        TaskRequestUpdate,
-
-        /// <summary>
-        ///     The message is a sticky note (IPM.StickyNote)
-        /// </summary>
-        StickyNote
+        REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_DR
     }
 }

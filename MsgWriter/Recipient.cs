@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MsgWriter.Enums;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
 using MsgWriter.Structures;
@@ -22,44 +23,6 @@ using OpenMcdf;
 
 namespace MsgWriter
 {
-    #region Enum RecipientType
-    /// <summary>
-    /// The recipient type
-    /// </summary>
-    public enum RecipientType : uint
-    {
-        /// <summary>
-        ///     The recipient is unknown/not set
-        /// </summary>
-        Unknown = 0x0000,
-
-        /// <summary>
-        ///     The recipient is an TO E-mail address
-        /// </summary>
-        To = 0x0001,
-
-        /// <summary>
-        ///     The recipient is a CC E-mail address
-        /// </summary>
-        Cc = 0x0002,
-
-        /// <summary>
-        ///     The recipient is a BCC E-mail address
-        /// </summary>
-        Bcc = 0x0003,
-
-        /// <summary>
-        ///     The recipient is a resource (e.g. a room)
-        /// </summary>
-        Resource = 0x0004,
-
-        /// <summary>
-        ///     The recipient is a room (uses PR_RECIPIENT_TYPE_EXE) needs Exchange 2007 or higher
-        /// </summary>
-        Room = 0x0007
-    }
-    #endregion
-
     /// <summary>
     /// Contains a list of <see cref="Recipients"/> objects that are added to a <see cref="Message"/>
     /// </summary>
@@ -67,7 +30,7 @@ namespace MsgWriter
     {
         #region AddRecipient
         /// <summary>
-        /// Add's an <see cref="RecipientType.To"/> <see cref="Recipient"/>
+        /// Add's an <see cref="RecipientType.MAPI_TO"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
@@ -75,11 +38,11 @@ namespace MsgWriter
         {
             Add(new Recipient(email,
                               displayName,
-                              RecipientType.To));
+                              RecipientType.MAPI_TO));
         }
 
         /// <summary>
-        /// Add's an <see cref="RecipientType.Cc"/> <see cref="Recipient"/>
+        /// Add's an <see cref="RecipientType.MAPI_CC"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
@@ -87,11 +50,11 @@ namespace MsgWriter
         {
             Add(new Recipient(email,
                               displayName,
-                              RecipientType.Cc));
+                              RecipientType.MAPI_CC));
         }
 
         /// <summary>
-        /// Add's an <see cref="RecipientType.Bcc"/> <see cref="Recipient"/>
+        /// Add's an <see cref="RecipientType.MAPI_BCC"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
@@ -99,7 +62,7 @@ namespace MsgWriter
         {
             Add(new Recipient(email,
                               displayName,
-                              RecipientType.Bcc));
+                              RecipientType.MAPI_BCC));
         }
 
         /// <summary>

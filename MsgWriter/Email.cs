@@ -223,21 +223,21 @@ namespace MsgWriter
                 {
                     switch (recipient.Type)
                     {
-                        case RecipientType.To:
+                        case RecipientType.MAPI_TO:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
                                 displayTo.Add(recipient.DisplayName);
                             else if (!string.IsNullOrWhiteSpace(recipient.Email))
                                 displayTo.Add(recipient.Email);
                             break;
 
-                        case RecipientType.Cc:
+                        case RecipientType.MAPI_CC:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
                                 displayCc.Add(recipient.DisplayName);
                             else if (!string.IsNullOrWhiteSpace(recipient.Email))
                                 displayCc.Add(recipient.Email);
                             break;
 
-                        case RecipientType.Bcc:
+                        case RecipientType.MAPI_BCC:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
                                 displayBcc.Add(recipient.DisplayName);
                             else if (!string.IsNullOrWhiteSpace(recipient.Email))
@@ -249,9 +249,9 @@ namespace MsgWriter
                     }
                 }
 
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo));
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc));
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc));
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlag.PROPATTR_READABLE);
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlag.PROPATTR_READABLE);
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlag.PROPATTR_READABLE);
             }
 
             propertiesStream.AddProperty(PropertyTags.PR_BODY_W, TextBody);
@@ -293,26 +293,5 @@ namespace MsgWriter
             base.Dispose();
         }
         #endregion
-
-        public void Test()
-        {
-            using (var stream = File.OpenRead("d:\\message.msg"))
-            using (var cf = new CompoundFile(stream))
-            {
-                var st = cf.RootStorage.GetStream("__properties_version1.0");
-                var p = new TopLevelProperties(st);
-                cf.RootStorage.VisitEntries(item =>
-                {
-                    if (item.IsStream)
-                    {
-                        var cfStream = item as CFStream;
-                        if (cfStream != null && cfStream.Name.StartsWith("__substg1.0_"))
-                            p.AddProperty(cfStream);
-                    }
-                }, false);
-
-                //var pr = p.Find(m => m.IdAsString == "0E1D");
-            }
-        }
     }
 }

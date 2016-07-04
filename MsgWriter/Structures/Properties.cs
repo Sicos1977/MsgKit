@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using MsgWriter.Enums;
 using MsgWriter.Helpers;
 using OpenMcdf;
 

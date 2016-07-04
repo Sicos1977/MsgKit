@@ -5,7 +5,7 @@ namespace MsgWriter.Enums
     ///     The prefered encoding to use when reading or writing a <see cref="PropertyTag" />
     /// </summary>
     /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/cc839733(v=office.12).aspx
+    ///     See https://msdn.microsoft.com/en-us/library/cc839733(v=office.15).aspx
     /// </remarks>
     public enum MessageFlags : uint
     {

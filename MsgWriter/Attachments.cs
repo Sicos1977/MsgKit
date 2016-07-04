@@ -90,7 +90,7 @@ namespace MsgWriter
             var file = new FileInfo(fileName);
 
             Add(new Attachment(file,
-                AttachmentType.AttachByValue,
+                AttachmentType.ATTACH_BY_VALUE,
                 renderingPosition,
                 isInline,
                 contentId));
@@ -126,7 +126,7 @@ namespace MsgWriter
                 fileName,
                 dateTime,
                 dateTime,
-                AttachmentType.AttachByValue,
+                AttachmentType.ATTACH_BY_VALUE,
                 renderingPosition,
                 isInline,
                 contentId));
@@ -160,7 +160,7 @@ namespace MsgWriter
             var file = new FileInfo(fileName);
 
             Add(new Attachment(file,
-                AttachmentType.AttachByRefOnly,
+                AttachmentType.ATTACH_BY_REF_ONLY,
                 renderingPosition,
                 isInline,
                 contentId));
@@ -251,7 +251,7 @@ namespace MsgWriter
             string fileName,
             DateTime creationTime,
             DateTime lastModificationTime,
-            AttachmentType type = AttachmentType.AttachByValue,
+            AttachmentType type = AttachmentType.ATTACH_BY_VALUE,
             long renderingPosition = -1,
             bool isInline = false,
             string contentId = "",
@@ -284,7 +284,7 @@ namespace MsgWriter
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
         internal Attachment(FileInfo file,
-            AttachmentType type = AttachmentType.AttachByValue,
+            AttachmentType type = AttachmentType.ATTACH_BY_VALUE,
             long renderingPosition = -1,
             bool isInline = false,
             string contentId = "")
@@ -353,26 +353,26 @@ namespace MsgWriter
 
             switch (Type)
             {
-                case AttachmentType.AttachByValue:
+                case AttachmentType.ATTACH_BY_VALUE:
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, Stream.ToByteArray());
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
                     break;
 
-                case AttachmentType.AttachByRefOnly:
+                case AttachmentType.ATTACH_BY_REF_ONLY:
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, new byte[0]);
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, _file.Length);
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_LONG_PATHNAME_W, _file.FullName);
                     break;
 
-                case AttachmentType.AttachEmbeddedMsg:
+                case AttachmentType.ATTACH_EMBEDDED_MSG:
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, new byte[0]);
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_OBJ, Stream.ToByteArray());
                     break;
 
-                case AttachmentType.AttachByReference:
-                case AttachmentType.AttachByRefResolve:
-                case AttachmentType.NoAttachment:
-                case AttachmentType.AttachOle:
+                case AttachmentType.ATTACH_BY_REFERENCE:
+                case AttachmentType.ATTACH_BY_REF_RESOLVE:
+                case AttachmentType.NO_ATTACHMENT:
+                case AttachmentType.ATTACH_OLE:
                     throw new NotSupportedException("AttachByReference, AttachByRefResolve, NoAttachment and AttachOle are not supported");
             }
             
