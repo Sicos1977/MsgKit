@@ -202,14 +202,22 @@ namespace MsgWriter
         public long RenderingPosition { get; }
 
         /// <summary>
+        ///     True when the attachment is inline
+        /// </summary>
+        public bool IsInline { get; private set; }
+
+        /// <summary>
         ///     The content id for an inline attachment
         /// </summary>
         public string ContentId { get; private set; }
 
         /// <summary>
-        ///     True when the attachment is inline
+        ///     Returns <c>true</c> when the attachment is a contact photo
         /// </summary>
-        public bool IsInline { get; private set; }
+        /// <remarks>
+        ///     Only valid when the message is a contact card, otherwise always <c>false</c>
+        /// </remarks>
+        public bool IsContactPhoto { get; private set; }
 
         /// <summary>
         ///     Tthe date and time when the attachment was created
@@ -234,6 +242,7 @@ namespace MsgWriter
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">True when the attachment is inline</param>
         /// <param name="contentId">The id for the attachment when <paramref name="isInline" /> is set to true</param>
+        /// <param name="isContactPhoto">Set to <c>true</c> when the attachment is a contact photo</param>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
@@ -245,7 +254,8 @@ namespace MsgWriter
             AttachmentType type = AttachmentType.AttachByValue,
             long renderingPosition = -1,
             bool isInline = false,
-            string contentId = "")
+            string contentId = "",
+            bool isContactPhoto = false)
         {
             Stream = stream;
             FileName = Path.GetFileName(fileName);
@@ -255,6 +265,7 @@ namespace MsgWriter
             RenderingPosition = renderingPosition;
             IsInline = isInline;
             ContentId = contentId;
+            IsContactPhoto = isContactPhoto;
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
                 throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
