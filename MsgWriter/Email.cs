@@ -170,7 +170,7 @@ namespace MsgWriter
             var rootStorage = CompoundFile.RootStorage;
 
             Recipients.WriteToStorage(rootStorage);
-            //Attachments.WriteToStorage(rootStorage);
+            Attachments.WriteToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
@@ -190,6 +190,10 @@ namespace MsgWriter
                                                       StoreSupportMask.STORE_UNICODE_OK;
 
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
+
+            // TODO : Add Message flags 
+
             SetSubject(propertiesStream);
 
             // TODO: Change modification time when this message is opened and only modified
