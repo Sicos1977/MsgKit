@@ -3,6 +3,19 @@ using System;
 
 namespace MsgWriter.Enums
 {
+    internal class StoreSupportMaskConst
+    {
+        public const StoreSupportMask storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
+                                                         StoreSupportMask.STORE_CATEGORIZE_OK |
+                                                         StoreSupportMask.STORE_CREATE_OK |
+                                                         StoreSupportMask.STORE_ENTRYID_UNIQUE |
+                                                         StoreSupportMask.STORE_MODIFY_OK |
+                                                         StoreSupportMask.STORE_MV_PROPS_OK |
+                                                         StoreSupportMask.STORE_OLE_OK |
+                                                         StoreSupportMask.STORE_RTF_OK |
+                                                         StoreSupportMask.STORE_UNICODE_OK;
+    }
+
     /// <summary>
     ///     This property discloses the capabilities of a message store to client applications planning to send it a message.
     ///     The flags can facilitate decisions by a client or another store, such as whether to send PR_BODY (PidTagBody) or

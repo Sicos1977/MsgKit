@@ -187,10 +187,12 @@ namespace MsgWriter
                                                           recipientCount, 
                                                           attachmentCount);
 
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlag.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlag.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
-            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, attachmentCount > 0);
+
+            // TODO: Set message flags
+            //propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, attachmentCount > 0);
 
             SetSubject(propertiesStream);
 
