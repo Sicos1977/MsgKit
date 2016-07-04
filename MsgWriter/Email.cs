@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using MsgWriter.Enums;
 using MsgWriter.Streams;
 using MsgWriter.Structures;
 using OpenMcdf;
@@ -75,6 +76,11 @@ namespace MsgWriter
         public string SubjectNormalized { get; internal set; }
 
         /// <summary>
+        ///     Returns the <see cref="MessagePriority"/>
+        /// </summary>
+        public MessagePriority Priority { get; internal set; }
+
+        /// <summary>
         ///     Returns or sets the text body of the E-mail
         /// </summary>
         public string TextBody { get; set; }
@@ -98,9 +104,11 @@ namespace MsgWriter
         /// Creates this object and sets all the needed properties
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
-        public Email(Sender sender)
+        /// <param name="priority">The <see cref="MessagePriority"/></param>
+        public Email(Sender sender, MessagePriority priority = MessagePriority.IMPORTANCE_NORMAL)
         {
             Sender = sender;
+            Priority = priority;
         }
         #endregion
 
@@ -179,20 +187,10 @@ namespace MsgWriter
                                                           recipientCount, 
                                                           attachmentCount);
 
-            const StoreSupportMask storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
-                                                      StoreSupportMask.STORE_CATEGORIZE_OK |
-                                                      StoreSupportMask.STORE_CREATE_OK |
-                                                      StoreSupportMask.STORE_ENTRYID_UNIQUE |
-                                                      StoreSupportMask.STORE_MODIFY_OK |
-                                                      StoreSupportMask.STORE_MV_PROPS_OK |
-                                                      StoreSupportMask.STORE_OLE_OK |
-                                                      StoreSupportMask.STORE_RTF_OK |
-                                                      StoreSupportMask.STORE_UNICODE_OK;
-
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlag.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
-
-            // TODO : Add Message flags 
+            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, attachmentCount > 0);
 
             SetSubject(propertiesStream);
 
@@ -201,6 +199,9 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
+
+            propertiesStream.AddProperty(PropertyTags.PR_PRIORITY, Priority);
+            propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, MessageImportance.PRIO_NORMAL);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
 
             if (Sender != null)

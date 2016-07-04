@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attachments.cs" />
+    <Compile Include="Enums\AttachmentType.cs" />
     <Compile Include="Exceptions\MWAttachmentExists.cs" />
     <Compile Include="Exceptions\MWPropertyNotFound.cs" />
     <Compile Include="Exceptions\MWInvalidProperty.cs" />
@@ -55,8 +56,13 @@
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="Enums\MessageFlags.cs" />
+    <Compile Include="Enums\MessageClass.cs" />
+    <Compile Include="Enums\MessageImportance.cs" />
+    <Compile Include="Enums\MessagePriority.cs" />
     <Compile Include="NamedPropertyMapping.cs" />
     <Compile Include="NamedPropertyTags.cs" />
+    <Compile Include="Enums\StoreSupportMask.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Structures\AddressBookEntryId.cs" />
     <Compile Include="Structures\RecipientRow.cs" />
