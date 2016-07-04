@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using MsgWriter.Enums;
 using MsgWriter.Exceptions;
-using MsgWriter.Structures;
 using OpenMcdf;
 // ReSharper disable InconsistentNaming
 

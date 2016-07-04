@@ -6,7 +6,6 @@ using MsgWriter.Enums;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
-using MsgWriter.Structures;
 using OpenMcdf;
 
 /*
@@ -69,7 +68,7 @@ namespace MsgWriter
 
         #region AddAttachment
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.AttachByValue" /> (default)
+        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
         /// </summary>
         /// <param name="fileName">The file to add with it's full path</param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -97,7 +96,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> stream by <see cref="AttachmentType.AttachByValue" /> (default)
+        ///     Add's an <see cref="Attachment" /> stream by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
         /// </summary>
         /// <param name="stream">The stream to the attachment</param>
         /// <param name="fileName">The name for the attachment</param>
@@ -135,7 +134,7 @@ namespace MsgWriter
 
         #region AddAttachmentLink
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.AttachByRefOnly" /> as a link
+        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
         /// </summary>
         /// <param name="fileName">The file to link with it's fully qualified path</param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -149,7 +148,7 @@ namespace MsgWriter
         /// </exception>
         /// <remarks>
         ///     Universal naming convention (UNC) names are recommended for fully-qualified paths, which should be used with 
-        ///     <see cref="AttachmentType.AttachByRefOnly" />. 
+        ///     <see cref="AttachmentType.ATTACH_BY_REF_ONLY" />. 
         /// </remarks>
         public void AddAttachmentLink(string fileName, 
                                       long renderingPosition = -1,
