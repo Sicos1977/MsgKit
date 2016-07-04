@@ -20,6 +20,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MsgWriter.Helpers
 {
+    /// <summary>
+    ///     This class contains conversion related helper methods
+    /// </summary>
     internal static class Conversion
     {
         #region ObjectToByteArray

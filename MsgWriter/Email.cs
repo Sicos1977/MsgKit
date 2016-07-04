@@ -179,22 +179,21 @@ namespace MsgWriter
                                                           recipientCount, 
                                                           attachmentCount);
 
-            // Indicates that alle the string properties are written in UNICODE format
-            var storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
-                                   StoreSupportMask.STORE_CATEGORIZE_OK |
-                                   StoreSupportMask.STORE_CREATE_OK |
-                                   StoreSupportMask.STORE_ENTRYID_UNIQUE |
-                                   StoreSupportMask.STORE_MODIFY_OK |
-                                   StoreSupportMask.STORE_MV_PROPS_OK |
-                                   StoreSupportMask.STORE_OLE_OK |
-                                   StoreSupportMask.STORE_RTF_OK |
-                                   StoreSupportMask.STORE_UNICODE_OK;
+            const StoreSupportMask storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
+                                                      StoreSupportMask.STORE_CATEGORIZE_OK |
+                                                      StoreSupportMask.STORE_CREATE_OK |
+                                                      StoreSupportMask.STORE_ENTRYID_UNIQUE |
+                                                      StoreSupportMask.STORE_MODIFY_OK |
+                                                      StoreSupportMask.STORE_MV_PROPS_OK |
+                                                      StoreSupportMask.STORE_OLE_OK |
+                                                      StoreSupportMask.STORE_RTF_OK |
+                                                      StoreSupportMask.STORE_UNICODE_OK;
             
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, storeSupportMask, PropertyFlag.PROPATTR_READABLE);
             SetSubject(propertiesStream);
 
-            //throw new Exception("Datum tijd goed zetten");
-            var utcNow = DateTime.Now;
+            // TODO: Change modification time when this message is opened and only modified
+            var utcNow = DateTime.UtcNow;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");

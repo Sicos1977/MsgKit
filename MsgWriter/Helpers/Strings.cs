@@ -3,6 +3,9 @@ using System.Text;
 
 namespace MsgWriter.Helpers
 {
+    /// <summary>
+    ///     This class contains string related helper methods
+    /// </summary>
     internal static class Strings
     {
         #region ReadNullTerminatedString

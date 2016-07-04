@@ -18,7 +18,10 @@
 
 namespace MsgWriter.Helpers
 {
-    internal static class ExceptionHelpers
+    /// <summary>
+    ///     This class contains exception related helper methods
+    /// </summary>
+    internal static class Exception
     {
         #region GetInnerException
         /// <summary>
@@ -26,7 +29,7 @@ namespace MsgWriter.Helpers
         /// </summary>
         /// <param name="e">The exception object</param>
         /// <returns></returns>
-        public static string GetInnerException(Exception e)
+        public static string GetInnerException(System.Exception e)
         {
             var exception = e.Message + Environment.NewLine;
             if (e.InnerException != null)

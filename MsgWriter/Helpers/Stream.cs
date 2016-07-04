@@ -18,7 +18,10 @@
 
 namespace MsgWriter.Helpers
 {
-    internal static class StreamHelpers
+    /// <summary>
+    ///     This class contains stream related helper methods
+    /// </summary>
+    internal static class Stream
     {
         #region ToByteArray
         /// <summary>
@@ -26,7 +29,7 @@ namespace MsgWriter.Helpers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static byte[] ToByteArray(this Stream input)
+        internal static byte[] ToByteArray(this System.IO.Stream input)
         {
             using (var memoryStream = new MemoryStream())
             {

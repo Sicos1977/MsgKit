@@ -49,8 +49,9 @@
     <Compile Include="Exceptions\MWInvalidProperty.cs" />
     <Compile Include="Helpers\Conversion.cs" />
     <Compile Include="Helpers\EmailAddress.cs" />
-    <Compile Include="Helpers\ExceptionHelpers.cs" />
-    <Compile Include="Helpers\StreamHelpers.cs" />
+    <Compile Include="Helpers\Exception.cs" />
+    <Compile Include="Helpers\Mapi.cs" />
+    <Compile Include="Helpers\Stream.cs" />
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Email.cs" />

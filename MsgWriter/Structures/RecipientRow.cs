@@ -202,8 +202,7 @@ namespace MsgWriter.Structures
             // MUST be specified in Unicode characters if the U flag of the RecipientsFlags field is set
             if (emailAddressIncluded) EmailAddress = Strings.ReadNullTerminatedString(binaryReader, stringsInUnicode);
             if (displayNameIncluded) DisplayName = Strings.ReadNullTerminatedString(binaryReader, stringsInUnicode);
-            if (simpleDisplayNameIncluded)
-                SimpleDisplayName = Strings.ReadNullTerminatedString(binaryReader, stringsInUnicode);
+            if (simpleDisplayNameIncluded) SimpleDisplayName = Strings.ReadNullTerminatedString(binaryReader, stringsInUnicode);
             if (transmittableDisplayNameSameAsDisplayName) TransmittableDisplayName = DisplayName;
             else if (transmittableDisplayNameIncluded)
                 TransmittableDisplayName = Strings.ReadNullTerminatedString(binaryReader, stringsInUnicode);

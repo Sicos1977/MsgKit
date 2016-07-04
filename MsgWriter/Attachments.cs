@@ -5,7 +5,6 @@ using System.Linq;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
-using MsgWriter.Structures;
 using OpenMcdf;
 
 /*
@@ -107,9 +106,8 @@ namespace MsgWriter
             for (var index = 0; index < Count; index++)
             {
                 var attachment = this[index];
-                var storage =
-                    rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
-                attachment.WriteProperties(storage, index);
+                var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
+                attachment.WriteProperties(storage, index + 1);
             }
         }
         #endregion
@@ -119,6 +117,7 @@ namespace MsgWriter
         ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.AttachByValue" /> (default)
         /// </summary>
         /// <param name="fileName">The file to add with full path</param>
+        /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="fileName" /> could not be found</exception>
@@ -127,7 +126,10 @@ namespace MsgWriter
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        public void AddAttachment(string fileName, bool isInline = false, string contentId = "")
+        public void AddAttachment(string fileName, 
+                                  long renderingPosition = -1,
+                                  bool isInline = false, 
+                                  string contentId = "")
         {
             CheckAttachmentFileName(fileName);
             var file = new FileInfo(fileName);
@@ -136,15 +138,17 @@ namespace MsgWriter
                 file.CreationTime,
                 file.LastAccessTime,
                 AttachmentType.AttachByValue,
+                renderingPosition,
                 isInline,
                 contentId));
         }
 
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.AttachByValue" /> (default)
+        ///     Add's an <see cref="Attachment" /> stream by <see cref="AttachmentType.AttachByValue" /> (default)
         /// </summary>
         /// <param name="stream">The stream to the attachment</param>
         /// <param name="fileName">The name for the attachment</param>
+        /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
         /// <exception cref="ArgumentNullException">Raised when the stream is null</exception>
@@ -153,7 +157,11 @@ namespace MsgWriter
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        public void AddAttachment(Stream stream, string fileName, bool isInline = false, string contentId = "")
+        public void AddAttachment(System.IO.Stream stream, 
+                                  string fileName, 
+                                  long renderingPosition = -1,
+                                  bool isInline = false, 
+                                  string contentId = "")
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
@@ -165,9 +173,47 @@ namespace MsgWriter
                 dateTime,
                 dateTime,
                 AttachmentType.AttachByValue,
+                renderingPosition,
                 isInline,
                 contentId));
         }
+        #endregion
+
+        #region AddAttachmentLink
+        /// <summary>
+        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.AttachByRefOnly" /> as a link
+        /// </summary>
+        /// <param name="fileName">The file to link with it's fully qualified path</param>
+        /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
+        /// <param name="isInline">Set to true to add the attachment inline</param>
+        /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
+        /// <exception cref="FileNotFoundException">Raised when the <paramref name="fileName" /> could not be found</exception>
+        /// <exception cref="MWAttachmentExists">Raised when an attachment with the same name already exists</exception>
+        /// <exception cref="ArgumentNullException">
+        ///     Raised when <paramref name="isInline" /> is set to true and
+        ///     <paramref name="contentId" /> is null, white space or empty
+        /// </exception>
+        /// <remarks>
+        ///     Universal naming convention (UNC) names are recommended for fully-qualified paths, which should be used with 
+        ///     <see cref="AttachmentType.AttachByRefOnly" />. 
+        /// </remarks>
+        public void AddAttachmentLink(string fileName, 
+                                      long renderingPosition = -1,
+                                      bool isInline = false, 
+                                      string contentId = "")
+        {
+            CheckAttachmentFileName(fileName);
+            var file = new FileInfo(fileName);
+            Add(new Attachment(file.OpenRead(),
+                fileName,
+                file.CreationTime,
+                file.LastAccessTime,
+                AttachmentType.AttachByRefOnly,
+                renderingPosition,
+                isInline,
+                contentId));
+        }
+
         #endregion
     }
 
@@ -180,7 +226,7 @@ namespace MsgWriter
         /// <summary>
         ///     The stream to the attachment
         /// </summary>
-        public Stream Stream { get; }
+        public System.IO.Stream Stream { get; }
 
         /// <summary>
         ///     The filename of the attachment
@@ -191,6 +237,14 @@ namespace MsgWriter
         ///     The <see cref="AttachmentType"/>
         /// </summary>
         public AttachmentType Type { get; }
+
+        /// <summary>
+        ///     Indicates how an attachment should be displayed in a rich text message. It can be set to an 
+        ///     offset in characters, with the first character of the message content as stored in the <see cref="PropertyTags.PR_BODY_W" /> 
+        ///     (PidTagBody) property being offset 0, or to -1 (0xFFFFFFFF), indicating that the attachment should 
+        ///     not be rendered within the message text at all.
+        /// </summary>
+        public long RenderingPosition { get; }
 
         /// <summary>
         ///     The content id for an inline attachment
@@ -222,17 +276,19 @@ namespace MsgWriter
         /// <param name="creationTime">The date and time when the attachment was created</param>
         /// <param name="lastModificationTime">The date and time when the attachment was last modified</param>
         /// <param name="type">The <see cref="AttachmentType"/></param>
+        /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">True when the attachment is inline</param>
         /// <param name="contentId">The id for the attachment when <paramref name="isInline" /> is set to true</param>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        internal Attachment(Stream stream,
+        internal Attachment(System.IO.Stream stream,
             string fileName,
             DateTime creationTime,
             DateTime lastModificationTime,
             AttachmentType type = AttachmentType.AttachByValue,
+            long renderingPosition = -1,
             bool isInline = false,
             string contentId = "")
         {
@@ -241,6 +297,7 @@ namespace MsgWriter
             CreationTime = creationTime;
             LastModificationTime = lastModificationTime;
             Type = type;
+            RenderingPosition = renderingPosition;
             IsInline = isInline;
             ContentId = contentId;
 
@@ -251,28 +308,54 @@ namespace MsgWriter
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream" /> to the
+        ///     Writes all the string and binary <see cref="Structures.Property">properties</see> as a <see cref="CFStream" /> to the
         ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
-        /// <param name="recordKey">The record key</param>
-        internal void WriteProperties(CFStorage storage, int recordKey)
+        /// <param name="index">The <see cref="Attachment"/> index</param>
+        internal void WriteProperties(CFStorage storage, int index)
         {
             var propertiesStream = new AttachmentProperties();
-            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, recordKey);
+
+            // https://msdn.microsoft.com/en-us/library/office/cc842285.aspx
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index);
+            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
+            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey());
+            propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
 
             if (!string.IsNullOrEmpty(FileName))
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
 
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, Stream.ToByteArray());
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_METHOD, AttachmentType.AttachByValue);
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_METHOD, Type);
 
-            var utcNow = DateTime.Now;
+            switch (Type)
+            {
+                case AttachmentType.AttachByValue:
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, Stream.ToByteArray());
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
+                    break;
+
+                case AttachmentType.AttachByRefOnly:
+                    var file = new FileInfo(FileName);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, new byte[0]);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, file.Length);
+                    break;
+
+                case AttachmentType.AttachEmbeddedMsg:
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_OBJ, Stream.ToByteArray());
+                    break;
+
+                case AttachmentType.AttachByReference:
+                case AttachmentType.AttachByRefResolve:
+                case AttachmentType.NoAttachment:
+                case AttachmentType.AttachOle:
+                    throw new NotSupportedException("AttachByReference, AttachByRefResolve, NoAttachment and AttachOle are not supported");
+            }
+            
+            var utcNow = DateTime.UtcNow;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
-
             propertiesStream.WriteProperties(storage);
         }
         #endregion

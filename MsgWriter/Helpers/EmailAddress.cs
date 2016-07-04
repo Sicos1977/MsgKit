@@ -19,7 +19,7 @@
 namespace MsgWriter.Helpers
 {
     /// <summary>
-    /// This class contains helper methods for E-mail addresses
+    ///     This class contains E-mail related helper methods
     /// </summary>
     internal static class EmailAddress
     {
