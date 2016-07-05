@@ -25,7 +25,7 @@ namespace MsgWriter.Enums
     ///     See https://msdn.microsoft.com/en-us/library/ee158556(v=exchg.80).aspx
     /// </remarks>
     [Flags]
-    internal enum PropertyFlag : uint
+    internal enum PropertyFlags : uint
     {
         // ReSharper disable InconsistentNaming
         /// <summary>

@@ -29,6 +29,7 @@ namespace MsgWriter.Enums
                                                          StoreSupportMask.STORE_MV_PROPS_OK |
                                                          StoreSupportMask.STORE_OLE_OK |
                                                          StoreSupportMask.STORE_RTF_OK |
+                                                         StoreSupportMask.STORE_HTML_OK |
                                                          StoreSupportMask.STORE_UNICODE_OK;
     }
 

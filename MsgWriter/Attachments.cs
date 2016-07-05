@@ -335,10 +335,10 @@ namespace MsgWriter
             var propertiesStream = new AttachmentProperties();
 
             // https://msdn.microsoft.com/en-us/library/office/cc842285.aspx
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlags.PROPATTR_READABLE);
 
             if (!string.IsNullOrEmpty(FileName))
             {
@@ -378,7 +378,7 @@ namespace MsgWriter
             var utcNow = DateTime.UtcNow;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlags.PROPATTR_READABLE);
 
             propertiesStream.WriteProperties(storage);
         }

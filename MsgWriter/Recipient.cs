@@ -165,8 +165,8 @@ namespace MsgWriter
         internal void WriteProperties(CFStorage storage)
         {
             var propertiesStream = new RecipientProperties();
-            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, (int) Type);
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);

@@ -38,9 +38,11 @@ namespace MsgWriterTestTool
             var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"));
             email.Recipients.AddRecipientTo("keesvanspelde@home.nl", "Kees van Spelde 2");
             email.Subject = "This is the subject";
-            email.TextBody = "This is the text body";
+            email.BodyText = "Hello TEXT world";
+            email.BodyHtml = "<html><head></head><body><b>Hello HTML world</b></body></html>";
             //email.Test();
             email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
+            email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
             email.Save("d:\\test.msg");
         }
     }

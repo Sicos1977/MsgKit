@@ -1300,19 +1300,19 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains transport-specific message envelope information. UNICODE compilation.
-        /// </summary>
-        internal static PropertyTag PR_TRANSPORT_MESSAGE_HEADERS_W
-        {
-            get { return new PropertyTag(0x007D, PropertyType.PT_UNICODE); }
-        }
-
-        /// <summary>
         ///     Contains transport-specific message envelope information. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_TRANSPORT_MESSAGE_HEADERS_A
         {
             get { return new PropertyTag(0x007D, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains transport-specific message envelope information. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_TRANSPORT_MESSAGE_HEADERS_W
+        {
+            get { return new PropertyTag(0x007D, PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -1490,19 +1490,11 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains the Hypertext Markup Language (HTML) version of the message text. 
+        ///     Contains the message body text in HTML format.
         /// </summary>
-        /// <remarks>
-        ///     These properties contain the same message text as the <see cref="PR_BODY_CONTENT_LOCATION_W" />
-        ///     (PidTagBodyContentLocation), but in HTML. A message store that supports HTML indicates this by setting the 
-        ///     <see cref="StoreSupportMask.STORE_HTML_OK" /> flag in its <see cref="PR_STORE_SUPPORT_MASK" />
-        ///     (PidTagStoreSupportMask). Note <see cref="StoreSupportMask.STORE_HTML_OK" /> is not defined in versions of 
-        ///     Mapidefs.h included with Microsoft® Exchange 2000 Server and earlier. If <see cref="StoreSupportMask.STORE_HTML_OK" /> 
-        ///     is undefined, use the value 0x00010000 instead.
-        /// </remarks>
-        internal static PropertyTag PR_BODY_HTML_W
+        internal static PropertyTag PR_HTML
         {
-            get { return new PropertyTag(0x1013, PropertyType.PT_UNICODE); }
+            get { return new PropertyTag(0x1013, PropertyType.PT_BINARY); }
         }
 
         /// <summary>
@@ -4344,6 +4336,15 @@ namespace MsgWriter
         internal static PropertyTag PR_MESSAGE_LOCALE_ID
         {
             get { return new PropertyTag(0x3F08, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Indicates the code page used for <see cref="PropertyTags.PR_BODY_W" /> (PidTagBody) or 
+        ///     <see cref="PropertyTags.PR_HTML" /> (PidTagBodyHtml) properties.
+        /// </summary>
+        internal static PropertyTag PR_INTERNET_CPID
+        {
+            get { return new PropertyTag(0x3FDE, PropertyType.PT_LONG); }
         }
     }
 

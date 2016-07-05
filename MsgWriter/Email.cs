@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using MsgWriter.Enums;
 using MsgWriter.Streams;
 using MsgWriter.Structures;
@@ -83,12 +84,12 @@ namespace MsgWriter
         /// <summary>
         ///     Returns or sets the text body of the E-mail
         /// </summary>
-        public string TextBody { get; set; }
+        public string BodyText { get; set; }
 
         /// <summary>
         ///     Returns or sets the html body of the E-mail
         /// </summary>
-        public string HtmlBody { get; set; }
+        public string BodyHtml { get; set; }
 
         /// <summary>
         ///     The E-mail <see cref="Attachments" />
@@ -187,8 +188,8 @@ namespace MsgWriter
                                                           recipientCount, 
                                                           attachmentCount);
 
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlag.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlag.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
 
             // TODO: Set message flags
@@ -201,7 +202,6 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
-
             propertiesStream.AddProperty(PropertyTags.PR_PRIORITY, Priority);
             propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, MessageImportance.PRIO_NORMAL);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
@@ -249,12 +249,16 @@ namespace MsgWriter
                     }
                 }
 
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlag.PROPATTR_READABLE);
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlag.PROPATTR_READABLE);
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlag.PROPATTR_READABLE);
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlags.PROPATTR_READABLE);
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlags.PROPATTR_READABLE);
+                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlags.PROPATTR_READABLE);
             }
 
-            propertiesStream.AddProperty(PropertyTags.PR_BODY_W, TextBody);
+            propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.Default.CodePage);
+            propertiesStream.AddProperty(PropertyTags.PR_BODY_W, BodyText);
+            if (!string.IsNullOrEmpty(BodyHtml))
+                propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
+
             propertiesStream.WriteProperties(rootStorage);
         }
         #endregion

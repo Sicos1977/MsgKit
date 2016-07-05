@@ -66,7 +66,7 @@
     <Compile Include="Enums\RecipientType.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Structures\AddressBookEntryId.cs" />
-    <Compile Include="Enums\PropertyFlag.cs" />
+    <Compile Include="Enums\PropertyFlags.cs" />
     <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />

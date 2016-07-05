@@ -60,7 +60,7 @@ namespace MsgWriter.Structures
         internal PropertyType Type { get; private set; }
 
         /// <summary>
-        ///     The <see cref="PropertyFlag">property flags</see> that have been set
+        ///     The <see cref="PropertyFlags">property flags</see> that have been set
         ///     in its <see cref="uint" /> raw form
         /// </summary>
         internal uint Flags { get; private set; }
@@ -71,23 +71,23 @@ namespace MsgWriter.Structures
         internal bool MultiValue { get; private set; }
 
         /// <summary>
-        ///     The <see cref="PropertyFlag">property flags</see> that have been set
+        ///     The <see cref="PropertyFlags">property flags</see> that have been set
         ///     as a readonly collection
         /// </summary>
-        internal ReadOnlyCollection<PropertyFlag> FlagsCollection
+        internal ReadOnlyCollection<PropertyFlags> FlagsCollection
         {
             get
             {
-                var result = new List<PropertyFlag>();
+                var result = new List<PropertyFlags>();
 
-                if ((Flags & Convert.ToUInt32(PropertyFlag.PROPATTR_MANDATORY)) != 0)
-                    result.Add(PropertyFlag.PROPATTR_MANDATORY);
+                if ((Flags & Convert.ToUInt32(PropertyFlags.PROPATTR_MANDATORY)) != 0)
+                    result.Add(PropertyFlags.PROPATTR_MANDATORY);
 
-                if ((Flags & Convert.ToUInt32(PropertyFlag.PROPATTR_READABLE)) != 0)
-                    result.Add(PropertyFlag.PROPATTR_READABLE);
+                if ((Flags & Convert.ToUInt32(PropertyFlags.PROPATTR_READABLE)) != 0)
+                    result.Add(PropertyFlags.PROPATTR_READABLE);
 
-                if ((Flags & Convert.ToUInt32(PropertyFlag.PROPATTR_WRITABLE)) != 0)
-                    result.Add(PropertyFlag.PROPATTR_WRITABLE);
+                if ((Flags & Convert.ToUInt32(PropertyFlags.PROPATTR_WRITABLE)) != 0)
+                    result.Add(PropertyFlags.PROPATTR_WRITABLE);
 
                 return result.AsReadOnly();
             }
@@ -465,15 +465,15 @@ namespace MsgWriter.Structures
         /// </summary>
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
-        /// <param name="flags">The <see cref="PropertyFlag" /></param>
+        /// <param name="flagses">The <see cref="PropertyFlags" /></param>
         /// <param name="data">The property data</param>
         /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
         /// multivalue property</param>
-        internal Property(ushort id, PropertyType type, PropertyFlag flags, byte[] data, bool multiValue = false)
+        internal Property(ushort id, PropertyType type, PropertyFlags flagses, byte[] data, bool multiValue = false)
         {
             Id = id;
             Type = type;
-            Flags = Convert.ToUInt32(flags);
+            Flags = Convert.ToUInt32(flagses);
             Data = data;
             MultiValue = multiValue;
         }
@@ -483,7 +483,7 @@ namespace MsgWriter.Structures
         /// </summary>
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
-        /// <param name="flags">The <see cref="PropertyFlag" /></param>
+        /// <param name="flags">The <see cref="PropertyFlags" /></param>
         /// <param name="data">The property data</param>
         /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
         /// multivalue property</param>

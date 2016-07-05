@@ -209,14 +209,14 @@ namespace MsgWriter.Structures
         /// </summary>
         /// <param name="mapiTag">The <see cref="PropertyTag" /></param>
         /// <param name="obj">The value for the mapi tag</param>
-        /// <param name="flags">
-        ///     the flags to set on the property, default <see cref="PropertyFlag.PROPATTR_READABLE" />
-        ///     and <see cref="PropertyFlag.PROPATTR_WRITABLE" />
+        /// <param name="flagses">
+        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
+        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
         /// </param>
         /// <exception cref="ArgumentNullException">Raised when <paramref name="obj" /> is <c>null</c></exception>
         internal void AddProperty(PropertyTag mapiTag,
             object obj,
-            PropertyFlag flags = PropertyFlag.PROPATTR_READABLE | PropertyFlag.PROPATTR_WRITABLE)
+            PropertyFlags flagses = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
         {
             if (obj == null)
                 throw new ArgumentNullException("mapiTag", "Obj can not be null");
@@ -367,7 +367,7 @@ namespace MsgWriter.Structures
                     throw new ArgumentOutOfRangeException();
             }
 
-            Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
+            Add(new Property(mapiTag.Id, mapiTag.Type, flagses, data));
         }
 
         /// <summary>
@@ -376,18 +376,18 @@ namespace MsgWriter.Structures
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="data"></param>
-        /// <param name="flags">
-        ///     the flags to set on the property, default <see cref="PropertyFlag.PROPATTR_READABLE" />
-        ///     and <see cref="PropertyFlag.PROPATTR_WRITABLE" />
+        /// <param name="flagses">
+        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
+        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">Raised when <paramref name="data" /> is not 8 bytes</exception>
         internal void AddProperty(ushort id, PropertyType type, byte[] data,
-            PropertyFlag flags = PropertyFlag.PROPATTR_READABLE & PropertyFlag.PROPATTR_WRITABLE)
+            PropertyFlags flagses = PropertyFlags.PROPATTR_READABLE & PropertyFlags.PROPATTR_WRITABLE)
         {
             if (data.Length != 8)
                 throw new ArgumentOutOfRangeException("data", "The data should always have an 8 byte size");
 
-            Add(new Property(id, type, flags, data));
+            Add(new Property(id, type, flagses, data));
         }
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace MsgWriter.Structures
             var type = stream.Name.Substring(16, 4);
             var uId = ushort.Parse(id, NumberStyles.AllowHexSpecifier);
             var uType = ushort.Parse(type, NumberStyles.AllowHexSpecifier);
-            Add(new Property(uId, (PropertyType) uType, PropertyFlag.PROPATTR_READABLE, stream.GetData()));
+            Add(new Property(uId, (PropertyType) uType, PropertyFlags.PROPATTR_READABLE, stream.GetData()));
         }
         #endregion
     }
