@@ -35,8 +35,8 @@ namespace MsgWriter.Enums
     /// <summary>
     ///     This property discloses the capabilities of a message store to client applications planning to send it a message.
     ///     The flags can facilitate decisions by a client or another store, such as whether to send PR_BODY (PidTagBody) or
-    ///     only PR_RTF_COMPRESSED (PidTagRtfCompressed). A client should never set PR_STORE_SUPPORT_MASK; an attempt returns
-    ///     MAPI_E_COMPUTED.
+    ///     only <see cref="PropertyTags.PR_RTF_COMPRESSED" /> (PidTagRtfCompressed). A client should never set 
+    ///     <see cref="PropertyTags.PR_STORE_SUPPORT_MASK" /> an attempt returns MAPI_E_COMPUTED.
     /// </summary>
     [Flags]
     internal enum StoreSupportMask : uint
@@ -68,10 +68,10 @@ namespace MsgWriter.Enums
         STORE_ENTRYID_UNIQUE = 0x00000001,
 
         /// <summary>
-        ///     The message store supports HTML messages, stored in the PR_BODY_HTML (PidTagBodyHtml) property. Note that
-        ///     STORE_HTML_OK is not defined in versions of MAPIDEFS.H that are included with Microsoft Exchange 2000 Server and
-        ///     earlier. If your development environment uses a MAPIDEFS.H file that does not include STORE_HTML_OK, use the value
-        ///     0x00010000 instead.
+        ///     The message store supports HTML messages, stored in the <see cref="PropertyTags.PR_BODY_HTML_W" /> (PidTagBodyHtml) 
+        ///     property. Note that STORE_HTML_OK is not defined in versions of MAPIDEFS.H that are included with Microsoft Exchange 
+        ///     2000 Server and earlier. If your development environment uses a MAPIDEFS.H file that does not include STORE_HTML_OK, 
+        ///     use the value 0x00010000 instead.
         /// </summary>
         STORE_HTML_OK = 0x00010000,
 

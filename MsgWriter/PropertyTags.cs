@@ -1474,6 +1474,64 @@ namespace MsgWriter
         }
 
         /// <summary>
+        ///     Contains the Hypertext Markup Language (HTML) version of the message text. 
+        /// </summary>
+        /// <remarks>
+        ///     These properties contain the same message text as the <see cref="PR_BODY_CONTENT_LOCATION_W" />
+        ///     (PidTagBodyContentLocation), but in HTML. A message store that supports HTML indicates this by setting the 
+        ///     <see cref="StoreSupportMask.STORE_HTML_OK" /> flag in its <see cref="PR_STORE_SUPPORT_MASK" />
+        ///     (PidTagStoreSupportMask). Note <see cref="StoreSupportMask.STORE_HTML_OK" /> is not defined in versions of 
+        ///     Mapidefs.h included with Microsoft® Exchange 2000 Server and earlier. If <see cref="StoreSupportMask.STORE_HTML_OK" /> 
+        ///     is undefined, use the value 0x00010000 instead.
+        /// </remarks>
+        internal static PropertyTag PR_BODY_HTML_A
+        {
+            get { return new PropertyTag(0x1013, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the Hypertext Markup Language (HTML) version of the message text. 
+        /// </summary>
+        /// <remarks>
+        ///     These properties contain the same message text as the <see cref="PR_BODY_CONTENT_LOCATION_W" />
+        ///     (PidTagBodyContentLocation), but in HTML. A message store that supports HTML indicates this by setting the 
+        ///     <see cref="StoreSupportMask.STORE_HTML_OK" /> flag in its <see cref="PR_STORE_SUPPORT_MASK" />
+        ///     (PidTagStoreSupportMask). Note <see cref="StoreSupportMask.STORE_HTML_OK" /> is not defined in versions of 
+        ///     Mapidefs.h included with Microsoft® Exchange 2000 Server and earlier. If <see cref="StoreSupportMask.STORE_HTML_OK" /> 
+        ///     is undefined, use the value 0x00010000 instead.
+        /// </remarks>
+        internal static PropertyTag PR_BODY_HTML_W
+        {
+            get { return new PropertyTag(0x1013, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the value of a MIME Content-Location header field.
+        /// </summary>
+        /// <remarks>
+        ///     To set the value of these properties, MIME clients should write the desired value to a Content-Location header 
+        ///     field on a MIME entity that maps to a message body. MIME readers should copy the value of a Content-Location 
+        ///     header field on such a MIME entity to the value of these properties
+        /// </remarks>
+        internal static PropertyTag PR_BODY_CONTENT_LOCATION_A
+        {
+            get { return new PropertyTag(0x1014, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the value of a MIME Content-Location header field. UNICODE compilation.
+        /// </summary>
+        /// <remarks>
+        ///     To set the value of these properties, MIME clients should write the desired value to a Content-Location header 
+        ///     field on a MIME entity that maps to a message body. MIME readers should copy the value of a Content-Location 
+        ///     header field on such a MIME entity to the value of these properties
+        /// </remarks>
+        internal static PropertyTag PR_BODY_CONTENT_LOCATION_W
+        {
+            get { return new PropertyTag(0x1014, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
         ///     Contains an ASN.1 content integrity check value that allows a message sender to protect message content from
         ///     disclosure to unauthorized recipients.
         /// </summary>
