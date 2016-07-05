@@ -16,6 +16,8 @@
    limitations under the License.
 */
 
+using System;
+
 namespace MsgWriter.Enums
 {
     /// <summary>
@@ -24,6 +26,7 @@ namespace MsgWriter.Enums
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/cc839733(v=office.15).aspx
     /// </remarks>
+    [Flags]
     public enum MessageFlags : uint
     {
         /// <summary>
