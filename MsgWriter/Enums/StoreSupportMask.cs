@@ -133,8 +133,8 @@ namespace MsgWriter.Enums
         STORE_RESTRICTION_OK = 0x00001000,
 
         /// <summary>
-        ///     The message store supports Rich Text Format (RTF) messages, usually compressed, and the store itself keeps PR_BODY
-        ///     and PR_RTF_COMPRESSED synchronized.
+        ///     The message store supports Rich Text Format (RTF) messages, usually compressed, and the store itself keeps 
+        ///     <see cref="PropertyTags.PR_BODY_W" /> and <see cref="PropertyTags.PR_RTF_COMPRESSED" /> synchronized.
         /// </summary>
         STORE_RTF_OK = 0x00000800,
 
