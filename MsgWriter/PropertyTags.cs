@@ -2248,6 +2248,33 @@ namespace MsgWriter
         }
 
         /// <summary>
+        ///     Contains a number that indicates which icon to use when you display a group of e-mail objects.
+        /// </summary>
+        /// <remarks>
+        ///     This property, if it exists, is a hint to the client. The client may ignore the value of this property. 
+        /// </remarks>
+        internal static PropertyTag PR_ICON_INDEX
+        {
+            get { return new PropertyTag(0x1080, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Specifies the last verb executed for the message item to which it is related.
+        /// </summary>
+        internal static PropertyTag PR_LAST_VERB_EXECUTED
+        {
+            get { return new PropertyTag(0x1081, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Contains the time when the last verb was executed.
+        /// </summary>
+        internal static PropertyTag PR_LAST_VERB_EXECUTION_TIME
+        {
+            get { return new PropertyTag(0x1082, PropertyType.PT_SYSTIME); }
+        }
+
+        /// <summary>
         ///     Contains a unique identifier for a recipient in a recipient table or status table.
         /// </summary>
         internal static PropertyTag PR_ROWID

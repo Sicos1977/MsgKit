@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MsgWriter;
+using MsgWriter.Enums;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -40,6 +41,7 @@ namespace MsgWriterTestTool
             email.Subject = "This is the subject";
             email.BodyText = "Hello TEXT world";
             email.BodyHtml = "<html><head></head><body><b>Hello HTML world</b></body></html>";
+            email.IconIndex = MessageIconIndex.Unsent_mail;
             //email.Test();
             email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
             email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");

@@ -64,7 +64,7 @@ namespace MsgWriter
         /// <summary>
         ///     Returns or sets the subject prefix of the E-mail
         /// </summary>
-        public string SubjectPrefix { get; set; }
+        public string SubjectPrefix { get; private set; }
 
         /// <summary>
         ///     Returns or sets the subject of the E-mail
@@ -74,12 +74,12 @@ namespace MsgWriter
         /// <summary>
         ///     Returns the normalized subject of the E-mail
         /// </summary>
-        public string SubjectNormalized { get; internal set; }
+        public string SubjectNormalized { get; private set; }
 
         /// <summary>
         ///     Returns the <see cref="MessagePriority"/>
         /// </summary>
-        public MessagePriority Priority { get; internal set; }
+        public MessagePriority Priority { get; set; }
 
         /// <summary>
         ///     Returns or sets the text body of the E-mail
@@ -127,7 +127,7 @@ namespace MsgWriter
         ///     is set to the contents of PR_SUBJECT with the prefix removed.
         /// </summary>
         /// <remarks>
-        ///     Note  When PR_SUBJECT_PREFIX is an empty string, PR_SUBJECT and PR_NORMALIZED_SUBJECT are the same. Ultimately, 
+        ///     When PR_SUBJECT_PREFIX is an empty string, PR_SUBJECT and PR_NORMALIZED_SUBJECT are the same. Ultimately, 
         ///     this property should be the part of PR_SUBJECT following the prefix. If there is no prefix, this property 
         ///     becomes the same as PR_SUBJECT. PR_SUBJECT_PREFIX and this property should be computed as part of the 
         ///     IMAPIProp::SaveChanges implementation. A client application should not prompt the IMAPIProp::GetProps 
