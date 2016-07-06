@@ -1,30 +1,21 @@
-﻿// ReSharper disable InconsistentNaming
-
-/*
-   Copyright 2015 - 2016 Kees van Spelde
-
-   Licensed under The Code Project Open License (CPOL) 1.02;
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.codeproject.com/info/cpol10.aspx
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
-
-using System;
+﻿using System;
+// ReSharper disable InconsistentNaming
 
 namespace MsgWriter.Enums
 {
     /// <summary>
-    ///     The prefered encoding to use when reading or writing a <see cref="PropertyTag" />
+    ///     Contains a bitmask of flags that indicate the origin and current state of a message.
     /// </summary>
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/cc839733(v=office.15).aspx
+    ///     This property is a nontransmittable message property exposed at both the sending and receiving ends of a
+    ///     transmission, with different values depending upon the client application or store provider involved. This property
+    ///     is initialized by the client or message store provider when a message is created and saved for the first time and
+    ///     then updated periodically by the message store provider, a transport provider, and the MAPI spooler as the message
+    ///     is processed and its state changes.
+    ///     This property exists on a message both before and after submission, and on all copies of the received
+    ///     message. Although it is not a recipient property, it is exposed differently to each recipient according to whether
+    ///     it has been read or modified by that recipient.
     /// </remarks>
     [Flags]
     public enum MessageFlags : uint
@@ -93,7 +84,8 @@ namespace MsgWriter.Enums
         MSGFLAG_NOTIFYUNREAD = 0x0200,
 
         /// <summary>
-        ///     The message has been read at least once. This flag is set or cleared by the server whenever the MSGFLAG_READ flag is set or cleared. 
+        ///     The message has been read at least once. This flag is set or cleared by the server whenever the MSGFLAG_READ flag
+        ///     is set or cleared.
         /// </summary>
         MSGFLAG_EVERREAD = 0x0400,
 
@@ -116,6 +108,6 @@ namespace MsgWriter.Enums
         ///     the organization or from a source the gateway cannot consider trusted. The client should display an appropriate
         ///     message to the user. Transport providers set this flag; the client has read-only access.
         /// </summary>
-        MSGFLAG_ORIGIN_MISC_EXT = 0x8000,
+        MSGFLAG_ORIGIN_MISC_EXT = 0x8000
     }
 }

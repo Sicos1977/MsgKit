@@ -206,8 +206,12 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
 
-            // TODO: Set message flags
-            //propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, attachmentCount > 0);
+            var messageFlags = MessageFlags.MSGFLAG_UNMODIFIED;
+
+            if (attachmentCount > 0)
+                messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
+
+            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
 
             SetSubject();
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);

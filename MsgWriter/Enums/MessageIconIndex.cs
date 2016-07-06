@@ -1,4 +1,6 @@
-﻿ namespace MsgWriter.Enums
+﻿ using System;
+
+namespace MsgWriter.Enums
 {
     /// <summary>
     ///     Contains a number that indicates which icon to use when you display a group of e-mail objects.
@@ -7,12 +9,13 @@
     ///     See https://msdn.microsoft.com/en-us/library/cc815472(v=office.15).aspx
     ///     This property, if it exists, is a hint to the client. The client may ignore the value of this property.
     /// </remarks>
+    [Flags]
     public enum MessageIconIndex : uint
     {
         /// <summary>
         ///     New mail
         /// </summary>
-        NewMail = 0xFFFFFFFF,
+        NewMail = 0x00000000,
 
         /// <summary>
         ///     Post
