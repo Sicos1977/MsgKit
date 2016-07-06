@@ -47,10 +47,10 @@ namespace MsgWriter
         private readonly CFStorage _nameIdStorage;
         #endregion
 
-        #region Propertie
+        #region Properties
         /// <summary>
         /// Contains a number that indicates which icon to use when you display a group 
-        /// of e-mail objects. Default set to <see cref="MessageIconIndex.New_mail"/>
+        /// of e-mail objects. Default set to <see cref="MessageIconIndex.NewMail"/>
         /// </summary>
         /// <remarks>
         /// This property, if it exists, is a hint to the client. The client may ignore the 

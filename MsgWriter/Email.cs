@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using MsgWriter.Enums;
 using MsgWriter.Streams;
-using MsgWriter.Structures;
 using OpenMcdf;
 
 /*
@@ -28,7 +27,7 @@ using OpenMcdf;
 namespace MsgWriter
 {
     /// <summary>
-    ///     A class used to make a new Outlook E-mail MSG files
+    ///     A class used to make a new Outlook E-mail MSG file
     /// </summary>
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/office/cc979231.aspx
@@ -45,6 +44,11 @@ namespace MsgWriter
         ///     The E-mail <see cref="Attachments" />
         /// </summary>
         private Attachments _attachments;
+
+        /// <summary>
+        ///     The subject of the E-mail
+        /// </summary>
+        private string _subject;
         #endregion
 
         #region Properties
@@ -69,7 +73,15 @@ namespace MsgWriter
         /// <summary>
         ///     Returns or sets the subject of the E-mail
         /// </summary>
-        public string Subject { get; set; }
+        public string Subject
+        {
+            get { return _subject; }
+            set
+            {
+                _subject = value;
+                SetSubject();
+            }
+        }
 
         /// <summary>
         ///     Returns the normalized subject of the E-mail
@@ -105,11 +117,16 @@ namespace MsgWriter
         /// Creates this object and sets all the needed properties
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
+        /// <param name="subject">The subject of the E-mail</param>
         /// <param name="priority">The <see cref="MessagePriority"/></param>
-        public Email(Sender sender, MessagePriority priority = MessagePriority.IMPORTANCE_NORMAL)
+        public Email(Sender sender, 
+                     string subject,
+                     MessagePriority priority = MessagePriority.PRIO_NORMAL)
         {
             Sender = sender;
+            Subject = subject;
             Priority = priority;
+            IconIndex = MessageIconIndex.UnsentMail;
         }
         #endregion
 
@@ -133,7 +150,7 @@ namespace MsgWriter
         ///     IMAPIProp::SaveChanges implementation. A client application should not prompt the IMAPIProp::GetProps 
         ///     method for their values until they have been committed by an IMAPIProp::SaveChanges call.
         /// </remarks>
-        private void SetSubject(Properties propertiesStream)
+        private void SetSubject()
         {
             if (!string.IsNullOrEmpty(SubjectPrefix))
             {
@@ -162,10 +179,6 @@ namespace MsgWriter
             }
 
             if (SubjectPrefix == null) SubjectPrefix = string.Empty;
-
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
-            propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, Subject);
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
         }
         #endregion
 
@@ -189,13 +202,17 @@ namespace MsgWriter
                                                           attachmentCount);
 
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
 
             // TODO: Set message flags
             //propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, attachmentCount > 0);
 
-            SetSubject(propertiesStream);
+            SetSubject();
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
+            propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, Subject);
+            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
 
             // TODO: Change modification time when this message is opened and only modified
             var utcNow = DateTime.UtcNow;
@@ -203,7 +220,7 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
             propertiesStream.AddProperty(PropertyTags.PR_PRIORITY, Priority);
-            propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, MessageImportance.PRIO_NORMAL);
+            propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, MessageImportance.IMPORTANCE_NORMAL);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
 
             if (Sender != null)
@@ -254,7 +271,7 @@ namespace MsgWriter
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlags.PROPATTR_READABLE);
             }
 
-            propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.Default.CodePage);
+            propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
             propertiesStream.AddProperty(PropertyTags.PR_BODY_W, BodyText);
             if (!string.IsNullOrEmpty(BodyHtml))
                 propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);

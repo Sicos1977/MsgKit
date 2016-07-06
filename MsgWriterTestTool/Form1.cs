@@ -36,16 +36,16 @@ namespace MsgWriterTestTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"));
+            var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"), "Hello world subject");
             email.Recipients.AddRecipientTo("keesvanspelde@home.nl", "Kees van Spelde 2");
             email.Subject = "This is the subject";
-            email.BodyText = "Hello TEXT world";
-            email.BodyHtml = "<html><head></head><body><b>Hello HTML world</b></body></html>";
-            email.IconIndex = MessageIconIndex.Unsent_mail;
+            email.BodyText = "Hello world text";
+            email.BodyHtml = "<html><head></head><body><b>Hello world html</b></body></html>";
+            email.IconIndex = MessageIconIndex.UnsentMail;
             //email.Test();
             email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
             email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
-            email.Save("d:\\test.msg");
+            email.Save("d:\\test2.msg");
         }
     }
 }
