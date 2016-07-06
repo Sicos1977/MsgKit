@@ -27,18 +27,18 @@ namespace MsgWriter.Enums
     public enum MessagePriority
     {
         /// <summary>
-        ///     The message is not urgent.
+        ///     The message has low importance.
         /// </summary>
-        PRIO_NONURGENT = 0,
+        IMPORTANCE_LOW = 0,
 
         /// <summary>
-        ///     The message has normal priority.
+        ///     The message has normal importance.
         /// </summary>
-        PRIO_NORMAL = 1,
+        IMPORTANCE_NORMAL = 1,
 
         /// <summary>
-        ///     The message is urgent.
+        ///     The message has high importance.
         /// </summary>
-        PRIO_URGENT = 2
+        IMPORTANCE_HIGH = 2
     }
 }
