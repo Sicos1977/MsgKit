@@ -268,7 +268,8 @@ namespace MsgWriter
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (CompoundFile != null)
+                CompoundFile.Close();
         }
     }
 }

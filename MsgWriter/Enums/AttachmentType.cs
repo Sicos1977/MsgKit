@@ -29,12 +29,12 @@ namespace MsgWriter.Enums
         /// <summary>
         ///     There is no attachment
         /// </summary>
-        NO_ATTACHMENT = 0x0000,
+        NO_ATTACHMENT = 0x00000000,
 
         /// <summary>
         ///     The  <see cref="PropertyTags.PR_ATTACH_DATA_BIN" /> property contains the attachment data
         /// </summary>
-        ATTACH_BY_VALUE = 0x0001,
+        ATTACH_BY_VALUE = 0x00000001,
 
         /// <summary>
         ///     The <see cref="PropertyTags.PR_ATTACH_PATHNAME_W" /> or <see cref="PropertyTags.PR_ATTACH_LONG_PATHNAME_W" />
