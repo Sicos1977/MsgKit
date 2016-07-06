@@ -46,6 +46,7 @@
     <Compile Include="Attachments.cs" />
     <Compile Include="Enums\AttachmentType.cs" />
     <Compile Include="Enums\MessageIconIndex.cs" />
+    <Compile Include="Enums\RecipientFlags.cs" />
     <Compile Include="Exceptions\MWAttachmentExists.cs" />
     <Compile Include="Exceptions\MWPropertyNotFound.cs" />
     <Compile Include="Exceptions\MWInvalidProperty.cs" />

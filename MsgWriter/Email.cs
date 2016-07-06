@@ -240,21 +240,21 @@ namespace MsgWriter
                 {
                     switch (recipient.Type)
                     {
-                        case RecipientType.MAPI_TO:
+                        case RecipientType.To:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
                                 displayTo.Add(recipient.DisplayName);
                             else if (!string.IsNullOrWhiteSpace(recipient.Email))
                                 displayTo.Add(recipient.Email);
                             break;
 
-                        case RecipientType.MAPI_CC:
+                        case RecipientType.Cc:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
                                 displayCc.Add(recipient.DisplayName);
                             else if (!string.IsNullOrWhiteSpace(recipient.Email))
                                 displayCc.Add(recipient.Email);
                             break;
 
-                        case RecipientType.MAPI_BCC:
+                        case RecipientType.Bcc:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))
                                 displayBcc.Add(recipient.DisplayName);
                             else if (!string.IsNullOrWhiteSpace(recipient.Email))

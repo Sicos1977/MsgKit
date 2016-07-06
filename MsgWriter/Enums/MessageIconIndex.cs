@@ -65,32 +65,32 @@
         RemoteMail = 0x00000107,
 
         /// <summary>
-        ///     Delivery mail
+        ///     Delivery receipt
         /// </summary>
-        DeliveryMail = 0x00000108,
-
-        ///// <summary>
-        ///// Read mail 
-        ///// </summary>
-        //Read_mail = 0x00000109,
+        DeliveryReceipt = 0x00000108,
 
         /// <summary>
-        ///     Nondelivery mail
+        /// Read mail 
         /// </summary>
-        NondeliveryMail = 0x0000010A,
+        ReadReceipt = 0x00000109,
 
         /// <summary>
-        ///     Nonread mail
+        ///     Non delivery report
         /// </summary>
-        NonreadMail = 0x0000010B,
+        NonDeliveryReport = 0x0000010A,
 
         /// <summary>
-        ///     Recall_S mail
+        ///     Non read receipt
         /// </summary>
-        RecallSMail = 0x0000010C,
+        NonReadReceipt = 0x0000010B,
 
         /// <summary>
-        ///     Recall_F mail
+        ///     Recall S mails
+        /// </summary>
+        RecallSMails = 0x0000010C,
+
+        /// <summary>
+        ///     Recall F mail
         /// </summary>
         RecallFMail = 0x0000010D,
 

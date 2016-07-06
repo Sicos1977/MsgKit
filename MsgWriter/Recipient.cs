@@ -30,7 +30,7 @@ namespace MsgWriter
     {
         #region AddRecipient
         /// <summary>
-        /// Add's an <see cref="RecipientType.MAPI_TO"/> <see cref="Recipient"/>
+        /// Add's an <see cref="RecipientType.To"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
@@ -38,11 +38,11 @@ namespace MsgWriter
         {
             Add(new Recipient(email,
                               displayName,
-                              RecipientType.MAPI_TO));
+                              RecipientType.To));
         }
 
         /// <summary>
-        /// Add's an <see cref="RecipientType.MAPI_CC"/> <see cref="Recipient"/>
+        /// Add's an <see cref="RecipientType.Cc"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
@@ -50,11 +50,11 @@ namespace MsgWriter
         {
             Add(new Recipient(email,
                               displayName,
-                              RecipientType.MAPI_CC));
+                              RecipientType.Cc));
         }
 
         /// <summary>
-        /// Add's an <see cref="RecipientType.MAPI_BCC"/> <see cref="Recipient"/>
+        /// Add's an <see cref="RecipientType.Bcc"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
@@ -62,7 +62,7 @@ namespace MsgWriter
         {
             Add(new Recipient(email,
                               displayName,
-                              RecipientType.MAPI_BCC));
+                              RecipientType.Bcc));
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace MsgWriter
         {
             Email = email;
             DisplayName = displayName;
-            Type = RecipientType.Unknown;
+            Type = RecipientType.Originator;
         }
 
         /// <summary>

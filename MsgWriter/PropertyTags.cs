@@ -2307,6 +2307,17 @@ namespace MsgWriter
         }
 
         /// <summary>
+        ///     Specifies a bit field that describes the recipient status.
+        /// </summary>
+        /// <remarks>
+        ///     This property is not required. The following are the individual flags that can be set.
+        /// </remarks>
+        internal static PropertyTag PR_RECIPIENT_FLAGS
+        {
+            get { return new PropertyTag(0x5FFD, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
         ///     Contains the display name for a given MAPI object. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_DISPLAY_NAME_A

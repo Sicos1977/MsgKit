@@ -43,9 +43,9 @@ namespace MsgWriterTestTool
             email.BodyHtml = "<html><head></head><body><b>Hello world html</b></body></html>";
             email.IconIndex = MessageIconIndex.UnsentMail;
             //email.Test();
-            email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
-            email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
-            email.Save("d:\\test2.msg");
+            //email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
+            //email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
+            email.Save("d:\\test.msg");
         }
     }
 }
