@@ -24,6 +24,10 @@ namespace MsgWriter.Helpers
     /// </summary>
     internal static class Mapi
     {
+        #region Fields
+        private static Guid? _instanceKey;
+        #endregion
+
         #region GenerateSearchKey
         /// <summary>
         ///     A search key is used to compare the data in two objects. An object's search key is stored in its
@@ -89,8 +93,9 @@ namespace MsgWriter.Helpers
         /// <returns></returns>
         public static byte[] GenerateInstanceKey()
         {
-            var guid = Guid.NewGuid();
-            return guid.ToByteArray();
+            if (!_instanceKey.HasValue)
+                _instanceKey = Guid.NewGuid();
+            return _instanceKey.Value.ToByteArray();
         }
         #endregion
     }

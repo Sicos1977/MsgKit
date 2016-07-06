@@ -126,7 +126,7 @@ namespace MsgWriter
             Sender = sender;
             Subject = subject;
             Priority = priority;
-            IconIndex = MessageIconIndex.UnsentMail;
+            IconIndex = MessageIconIndex.NewMail;
         }
         #endregion
 
@@ -222,6 +222,7 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_PRIORITY, Priority);
             propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, MessageImportance.IMPORTANCE_NORMAL);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
+            propertiesStream.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
             if (Sender != null)
             {

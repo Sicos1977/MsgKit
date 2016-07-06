@@ -34,7 +34,7 @@ namespace MsgWriter
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        public void AddRecipientTo(string email, string displayName)
+        public void AddRecipientTo(string email, string displayName = "")
         {
             Add(new Recipient(email,
                               displayName,
@@ -46,7 +46,7 @@ namespace MsgWriter
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        public void AddRecipientCc(string email, string displayName)
+        public void AddRecipientCc(string email, string displayName = "")
         {
             Add(new Recipient(email,
                               displayName,
@@ -58,7 +58,7 @@ namespace MsgWriter
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        public void AddRecipientBcc(string email, string displayName)
+        public void AddRecipientBcc(string email, string displayName = "")
         {
             Add(new Recipient(email,
                               displayName,
@@ -72,8 +72,8 @@ namespace MsgWriter
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
         /// <param name="type"><see cref="RecipientType"/></param>
         public void AddRecipient(string email,
-                           string displayName, 
-                           RecipientType type)
+                                 string displayName, 
+                                 RecipientType type)
         {
             Add(new Recipient(email,
                               displayName,
@@ -119,6 +119,11 @@ namespace MsgWriter
         /// The <see cref="RecipientType"/>
         /// </summary>
         public RecipientType Type { get; private set; }
+
+        /// <summary>
+        /// The <see cref="RecipientFlags"/>
+        /// </summary>
+        public RecipientFlags Flags { get; private set; }
         #endregion
 
         #region Constructor
@@ -146,7 +151,7 @@ namespace MsgWriter
                            RecipientType type)
         {
             Email = email;
-            DisplayName = displayName;
+            DisplayName = string.IsNullOrWhiteSpace(displayName) ? email : displayName;
             Type = type;
         }
         #endregion
