@@ -4416,7 +4416,7 @@ namespace MsgWriter
         public PropertyType Type { get; }
 
         /// <summary>
-        ///     Returns the PropertyTag as a readable string, e.g.
+        ///     Returns the PropertyTag as a readable string, e.g. __substg1.0_0037001F
         /// </summary>
         /// <returns></returns>
         public string Name

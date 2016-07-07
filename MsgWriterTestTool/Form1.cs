@@ -42,7 +42,7 @@ namespace MsgWriterTestTool
             email.Subject = "This is the subject";
             email.BodyText = "Hello world text";
             email.BodyHtml = "<html><head></head><body><b>Hello world html</b></body></html>";
-            email.IconIndex = MessageIconIndex.NewMail;
+            email.IconIndex = MessageIconIndex.ReadMail;
             email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
             email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
             email.Save("d:\\test.msg");
