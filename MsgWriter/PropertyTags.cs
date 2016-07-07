@@ -98,9 +98,6 @@ namespace MsgWriter
             get { return new PropertyTag(0x0004, PropertyType.PT_UNICODE); }
         }
 
-        /// <summary>
-        ///     Contains a ANSI comment added by the auto-forwarding agent.
-        /// </summary>
         internal static PropertyTag PR_AUTO_FORWARD_COMMENT_A
         {
             get { return new PropertyTag(0x0004, PropertyType.PT_STRING8); }
@@ -2326,8 +2323,15 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains the messaging user's e-mail address typE, such as SMTP. UNICODE compilation.
+        ///     Contains the messaging user's e-mail address type, such as SMTP. UNICODE compilation.
         /// </summary>
+        /// <remarks>
+        ///     These properties are examples of the base address properties common to all messaging users. 
+        ///     It specifies which messaging system MAPI uses to handle a given message.
+        ///     This property also determines the format of the address string in the PR_EMAIL_ADRESS(PidTagEmailAddress). 
+        ///     The string it provides can contain only the uppercase alphabetic characters from A through Z and the numbers 
+        ///     from 0 through 9.
+        /// </remarks>
         internal static PropertyTag PR_ADDRTYPE_W
         {
             get { return new PropertyTag(0x3002, PropertyType.PT_UNICODE); }
