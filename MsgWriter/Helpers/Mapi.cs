@@ -25,7 +25,7 @@ namespace MsgWriter.Helpers
     internal static class Mapi
     {
         #region Fields
-        private static Guid? _instanceKey;
+        private static byte[] _instanceKey;
         #endregion
 
         #region GenerateSearchKey
@@ -35,15 +35,22 @@ namespace MsgWriter.Helpers
         ///     represents an object's data and not the object itself, two different objects with the same data can have the same
         ///     search key. When an object is copied, for example, both the original object and its copy have the same data and the
         ///     same search key. Messages and messaging users have search keys. The search key of a message is a unique identifier
-        ///     of  the message's data. Message store providers furnish a message's <see cref="PropertyTags.PR_SEARCH_KEY" /> property
+        ///     of  the message's data. Message store providers furnish a message's <see cref="PropertyTags.PR_SEARCH_KEY" />
+        ///     property
         ///     at message creation time.The search key of an address book entry is computed from its address type(
-        ///     <see cref="PropertyTags.PR_ADDRTYPE_W" /> (PidTagAddressType)) and address(<see cref="PropertyTags.PR_EMAIL_ADDRESS_W" /> (PidTagEmailAddress)). 
-        ///     If the address book entry is writeable, its search key might not be available until the address type and address have been set by using
+        ///     <see cref="PropertyTags.PR_ADDRTYPE_W" /> (PidTagAddressType)) and address(
+        ///     <see cref="PropertyTags.PR_EMAIL_ADDRESS_W" /> (PidTagEmailAddress)).
+        ///     If the address book entry is writeable, its search key might not be available until the address type and address
+        ///     have been set by using
         ///     the IMAPIProp::SetProps method and the entry has been saved by using the IMAPIProp::SaveChanges method.When these
-        ///     address properties change, it is possible for the corresponding search key not to be synchronized with the new values until the
-        ///     changes have been committed with a SaveChanges call. The value of an object's record key can be the same as or different than the
-        ///     value of its search key, depending on the service provider. Some service providers use the same value for an object's search
-        ///     key, record key, and entry identifier.Other service providers assign unique values for each of its objects' identifiers.
+        ///     address properties change, it is possible for the corresponding search key not to be synchronized with the new
+        ///     values until the
+        ///     changes have been committed with a SaveChanges call. The value of an object's record key can be the same as or
+        ///     different than the
+        ///     value of its search key, depending on the service provider. Some service providers use the same value for an
+        ///     object's search
+        ///     key, record key, and entry identifier.Other service providers assign unique values for each of its objects'
+        ///     identifiers.
         /// </summary>
         /// <returns></returns>
         public static byte[] GenerateSearchKey(string addressType, string emailAddress)
@@ -93,9 +100,35 @@ namespace MsgWriter.Helpers
         /// <returns></returns>
         public static byte[] GenerateInstanceKey()
         {
-            if (!_instanceKey.HasValue)
-                _instanceKey = Guid.NewGuid();
-            return _instanceKey.Value.ToByteArray();
+            if (_instanceKey == null)
+            {
+                _instanceKey = new byte[4];
+                Buffer.BlockCopy(Guid.NewGuid().ToByteArray(), 0, _instanceKey, 0, 4);
+            }
+
+            return _instanceKey;
+        }
+        #endregion
+
+        #region GenerateInstanceKey
+        /// <summary>
+        ///     The PR_ENTRYID property contains a MAPI entry identifier used to open and edit properties of a particular MAPI
+        ///     object.
+        /// </summary>
+        /// <remarks>
+        ///     The PR_ENTRYID property identifies an object for OpenEntry to instantiate and provides access to all of its
+        ///     properties through the appropriate derived interface of IMAPIProp. PR_ENTRYID is one of the base address properties
+        ///     for all messaging users. The PR_ENTRYID for CEMAPI always contains long-term identifiers. <br/>
+        ///     - Required on folder objects <br/>
+        ///     - Required on message store objects <br/>
+        ///     - Required on status objects  <br/>
+        ///     - Changed in a copy operation <br/>
+        ///     - Unique within entire world
+        /// </remarks>
+        /// <returns></returns>
+        public static byte[] GenerateEntryId()
+        {
+            return Guid.NewGuid().ToByteArray();
         }
         #endregion
     }

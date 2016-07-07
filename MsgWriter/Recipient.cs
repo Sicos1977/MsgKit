@@ -40,7 +40,8 @@ namespace MsgWriter
                                    string displayName = "",
                                     RecipientAddrType addrType = RecipientAddrType.Smtp)
         {
-            Add(new Recipient(email,
+            Add(new Recipient(Count,
+                              email,
                               displayName,
                               RecipientType.To));
         }
@@ -55,7 +56,8 @@ namespace MsgWriter
                                    string displayName = "",
                                    RecipientAddrType addrType = RecipientAddrType.Smtp)
         {
-            Add(new Recipient(email,
+            Add(new Recipient(Count,
+                              email,
                               displayName,
                               RecipientType.Cc));
         }
@@ -70,7 +72,8 @@ namespace MsgWriter
                                     string displayName = "",
                                     RecipientAddrType addrType = RecipientAddrType.Smtp)
         {
-            Add(new Recipient(email,
+            Add(new Recipient(Count,
+                              email,
                               displayName,
                               RecipientType.Bcc));
         }
@@ -87,7 +90,8 @@ namespace MsgWriter
                                  RecipientType type,
                                  RecipientAddrType addrType = RecipientAddrType.Smtp)
         {
-            Add(new Recipient(email,
+            Add(new Recipient(Count,
+                              email,
                               displayName,
                               type));
         }
@@ -122,14 +126,9 @@ namespace MsgWriter
 
         #region Properties
         /// <summary>
-        ///     The E-mail address
+        /// Returns or sets a unique identifier for a recipient in a recipient table or status table.
         /// </summary>
-        public string Email { get; private set; }
-
-        /// <summary>
-        ///     The display name
-        /// </summary>
-        public string DisplayName { get; private set; }
+        public long RowId { get; private set; }
 
         /// <summary>
         ///     The <see cref="RecipientType"/>
@@ -186,6 +185,16 @@ namespace MsgWriter
         ///     Returns the <see cref="AddrType"/> as a string
         /// </summary>
         public string AddrTypeString { get; private set; }
+        
+        /// <summary>
+        ///     Returns the E-mail address
+        /// </summary>
+        public string Email { get; private set; }
+
+        /// <summary>
+        ///     Returns the display name
+        /// </summary>
+        public string DisplayName { get; private set; }
 
         /// <summary>
         ///     The <see cref="RecipientFlags"/>
@@ -197,15 +206,18 @@ namespace MsgWriter
         /// <summary>
         ///     Creates a new recipient object and sets all its properties
         /// </summary>
+        /// <param name="rowId">Contains a unique identifier for a recipient in a recipient table or status table.</param>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <see cref="email"/></param>
         /// <param name="type">The <see cref="RecipientType"/></param>
         /// <param name="addrType">The <see cref="RecipientAddrType"/></param>
-        internal Recipient(string email, 
+        internal Recipient(long rowId,
+                           string email, 
                            string displayName, 
                            RecipientType type, 
                            RecipientAddrType addrType = RecipientAddrType.Smtp)
         {
+            RowId = rowId;
             Email = email;
             DisplayName = string.IsNullOrWhiteSpace(displayName) ? email : displayName;
             Type = type;
@@ -227,13 +239,14 @@ namespace MsgWriter
         internal void WriteProperties(CFStorage storage)
         {
             var propertiesStream = new RecipientProperties();
-            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, (int) Type);
+            propertiesStream.AddProperty(PropertyTags.PR_ROWID, RowId);
+            propertiesStream.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
+            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
+            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, Type);
+            propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, AddrTypeString);
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
-            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_DISPLAY_NAME_W, DisplayName);
-            propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, AddrTypeString);
+            propertiesStream.AddProperty(PropertyTags.PR_SEARCH_KEY, Mapi.GenerateSearchKey(AddrTypeString, Email));
             propertiesStream.WriteProperties(storage);
         }
         #endregion

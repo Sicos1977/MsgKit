@@ -3698,7 +3698,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains an alternate telephone number for the recipient. UNICODE compilation.
+        ///     Contains a recipient's display name in a secure form that cannot be changed. UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_TRANSMITABLE_DISPLAY_NAME_W
         {

@@ -22,13 +22,13 @@ namespace MsgWriter.Enums
     internal class StoreSupportMaskConst
     {
         public const StoreSupportMask storeSupportMask = StoreSupportMask.STORE_ATTACH_OK |
-                                                         StoreSupportMask.STORE_CATEGORIZE_OK |
+                                                         //StoreSupportMask.STORE_CATEGORIZE_OK |
                                                          StoreSupportMask.STORE_CREATE_OK |
-                                                         StoreSupportMask.STORE_ENTRYID_UNIQUE |
+                                                         //StoreSupportMask.STORE_ENTRYID_UNIQUE |
                                                          StoreSupportMask.STORE_MODIFY_OK |
-                                                         StoreSupportMask.STORE_MV_PROPS_OK |
-                                                         StoreSupportMask.STORE_OLE_OK |
-                                                         StoreSupportMask.STORE_RTF_OK |
+                                                         //StoreSupportMask.STORE_MV_PROPS_OK |
+                                                         //StoreSupportMask.STORE_OLE_OK |
+                                                         //StoreSupportMask.STORE_RTF_OK |
                                                          StoreSupportMask.STORE_HTML_OK |
                                                          StoreSupportMask.STORE_UNICODE_OK;
     }

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using MsgWriter;
 using MsgWriter.Enums;
@@ -37,8 +31,9 @@ namespace MsgWriterTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"), "Hello world subject");
-            email.Recipients.AddRecipientTo("keesvanspelde@home.nl");
-            email.Recipients.AddRecipientCc("keesvanspelde2@home.nl");
+            email.Recipients.AddRecipientTo("keesvanspelde@home.nl", "Kees van Spelde");
+            email.Recipients.AddRecipientTo("spelde@home.nl", "Familie van Spelde");
+            email.Recipients.AddRecipientCc("magic-sessions@home.nl");
             email.Subject = "This is the subject";
             email.BodyText = "Hello world text";
             email.BodyHtml = "<html><head></head><body><b>Hello world html</b></body></html>";
@@ -46,6 +41,7 @@ namespace MsgWriterTestTool
             email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
             email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
             email.Save("d:\\test.msg");
+            System.Diagnostics.Process.Start("d:\\test.msg");
         }
     }
 }
