@@ -111,6 +111,11 @@ namespace MsgWriter
         {
             get { return _attachments ?? (_attachments = new Attachments()); }
         }
+
+        /// <summary>
+        ///     Contains the date and time the message sender submitted a message.
+        /// </summary>
+        public DateTime? SentOn { get; private set; }
         #endregion
 
         #region Constructor
@@ -214,6 +219,10 @@ namespace MsgWriter
             if (attachmentCount > 0)
                 messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
 
+            if (!SentOn.HasValue)
+                SentOn = DateTime.UtcNow;
+
+            propertiesStream.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
 
             SetSubject();
