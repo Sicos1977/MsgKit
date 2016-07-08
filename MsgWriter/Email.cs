@@ -59,6 +59,11 @@ namespace MsgWriter
         public Sender Sender { get; private set; }
 
         /// <summary>
+        ///     Returns the represented sender or <c>null</c> when not present
+        /// </summary>
+        public Sender Representing { get; private set; }
+
+        /// <summary>
         ///     Returns the E-mail <see cref="Recipients" />
         /// </summary>
         public Recipients Recipients
@@ -121,11 +126,18 @@ namespace MsgWriter
         ///     Contains the date and time the message sender submitted a message.
         /// </summary>
         public DateTime? SentOn { get; private set; }
+
+        /// <summary>
+        ///     Returns or sets the transport message headers. These are only present when
+        ///     the message has been sent outside an Exchange environment to another mailserver
+        ///     <c>null</c> will be returned when not present
+        /// </summary>
+        public string TransportMessageHeaders { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates this object and sets all the needed properties
+        ///     Creates this object and sets all the needed properties
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
@@ -133,6 +145,23 @@ namespace MsgWriter
                      string subject)
         {
             Sender = sender;
+            Subject = subject;
+            Importance = MessageImportance.IMPORTANCE_NORMAL;
+            IconIndex = MessageIconIndex.NewMail;
+        }
+
+        /// <summary>
+        ///     Creates this object and sets all the needed properties
+        /// </summary>
+        /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
+        /// <param name="representing">The <see cref="Representing"/> sender of the E-mail</param>
+        /// <param name="subject">The subject of the E-mail</param>
+        public Email(Sender sender,
+                     Sender representing,
+                     string subject)
+        {
+            Sender = sender;
+            Representing = representing;
             Subject = subject;
             Importance = MessageImportance.IMPORTANCE_NORMAL;
             IconIndex = MessageIconIndex.NewMail;
@@ -248,6 +277,13 @@ namespace MsgWriter
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
+            }
+
+            if (Representing != null)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_EMAIL_ADDRESS_W, Representing.Email);
+                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_NAME_W, Representing.DisplayName);
+                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_ADDRTYPE_W, Representing.AddressType);
             }
 
             if (recipientCount > 0)

@@ -30,7 +30,8 @@ namespace MsgWriterTestTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"), "Hello world subject");
+            var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"),
+                new Sender("test@test.com", "Representing test"), "Hello world subject");
             email.Recipients.AddRecipientTo("keesvanspelde@home.nl", "Kees van Spelde");
             email.Recipients.AddRecipientTo("spelde@home.nl", "Familie van Spelde");
             email.Recipients.AddRecipientCc("magic-sessions@home.nl");
