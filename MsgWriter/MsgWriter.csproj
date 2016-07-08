@@ -53,11 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="Attachments.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Enums\AttachmentType.cs" />
     <Compile Include="Enums\MessageIconIndex.cs" />
-    <Compile Include="Enums\RecipientAddrType.cs" />
+    <Compile Include="Enums\AddressType.cs" />
     <Compile Include="Enums\RecipientFlags.cs" />
     <Compile Include="Exceptions\MWAttachmentExists.cs" />
     <Compile Include="Exceptions\MWPropertyNotFound.cs" />
@@ -78,8 +79,11 @@
     <Compile Include="NamedPropertyTags.cs" />
     <Compile Include="Enums\StoreSupportMask.cs" />
     <Compile Include="Enums\RecipientType.cs" />
+    <Compile Include="Enums\AddressBookEntryIdType.cs" />
+    <Compile Include="Received.cs" />
+    <Compile Include="Representing.cs" />
     <Compile Include="Structures\CLSID.cs" />
-    <Compile Include="Structures\AddressBookEntryId.cs" />
+    <Compile Include="Enums\AddressBookEntryId.cs" />
     <Compile Include="Enums\PropertyFlags.cs" />
     <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="Structures\RecipientRow.cs" />
@@ -94,6 +98,8 @@
     <Compile Include="Structures\Properties.cs" />
     <Compile Include="Structures\Property.cs" />
     <Compile Include="Recipient.cs" />
+    <Compile Include="Enums\RecipientRowAddressType.cs" />
+    <Compile Include="Enums\RecipientRowDisplayType.cs" />
     <Compile Include="TranslateTags.cs" />
     <Compile Include="Structures\UnsendableRecipients.cs" />
   </ItemGroup>

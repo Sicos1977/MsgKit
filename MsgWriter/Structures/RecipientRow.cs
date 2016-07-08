@@ -41,9 +41,9 @@ namespace MsgWriter.Structures
         public RecipientType RecipientType { get; private set; }
 
         /// <summary>
-        ///     The <see cref="AddressType" />
+        ///     The <see cref="RecipientRowAddressType" />
         /// </summary>
-        public AddressType AddressType { get; }
+        public RecipientRowAddressType RecipientRowAddressType { get; }
 
         /// <summary>
         ///     The address prefix used
@@ -51,12 +51,12 @@ namespace MsgWriter.Structures
         public uint AddressPrefixUsed { get; private set; }
 
         /// <summary>
-        ///     The <see cref="DisplayType" />
+        ///     The <see cref="RecipientRowDisplayType" />
         /// </summary>
-        public DisplayType DisplayType { get; private set; }
+        public RecipientRowDisplayType RecipientRowDisplayType { get; private set; }
 
         /// <summary>
-        ///     This field MUST be present when the <see cref="AddressType" /> field of the RecipientFlags
+        ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags
         ///     field is set to X500DN (0x1) and MUST NOT be present otherwise. This value specifies the X500 DN of
         ///     this recipient (1).
         /// </summary>
@@ -67,14 +67,14 @@ namespace MsgWriter.Structures
         public string X500Dn { get; private set; }
 
         /// <summary>
-        ///     This field MUST be present when the <see cref="AddressType" /> field of the RecipientFlags field is set to
+        ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
         ///     PersonalDistributionList1 (0x6) or PersonalDistributionList2 (0x7). This field MUST
         ///     NOT be present otherwise. This value specifies the size of the EntryID field.
         /// </summary>
         public uint EntryIdSize { get; private set; }
 
         /// <summary>
-        ///     This field MUST be present when the <see cref="AddressType" /> field of the RecipientFlags field is set to
+        ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
         ///     PersonalDistributionList1 (0x6) or PersonalDistributionList2 (0x7). This field MUST NOT be present otherwise. The
         ///     number of bytes in this field MUST be the same as specified in the EntryIdSize field. This array specifies the
         ///     address book EntryID structure, as specified in section 2.2.5.2, of the distribution list.
@@ -82,14 +82,14 @@ namespace MsgWriter.Structures
         public AddressBookEntryId EntryId { get; private set; }
 
         /// <summary>
-        ///     This field MUST be present when the <see cref="AddressType" /> field of the RecipientFlags field is set to
+        ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
         ///     PersonalDistributionList1 (0x6) or PersonalDistributionList2 (0x7). This field MUST
         ///     NOT be present otherwise. This value specifies the size of the SearchKey field.
         /// </summary>
         public uint SearchKeySize { get; }
 
         /// <summary>
-        ///     This field is used when the <see cref="AddressType" /> field of the RecipientFlags field is set to
+        ///     This field is used when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
         ///     PersonalDistributionList1 (0x6) or PersonalDistributionList2 (0x7). This field MUST
         ///     NOT be present otherwise. The number of bytes in this field MUST be the same as what
         ///     is specified in the SearchKeySize field and can be 0. This array specifies the search
@@ -98,7 +98,7 @@ namespace MsgWriter.Structures
         public byte[] SearchKey { get; private set; }
 
         /// <summary>
-        ///     This field MUST be present when the <see cref="AddressType" /> field of the
+        ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the
         ///     RecipientsFlags field is set to NoType (0x0) and the O flag of the RecipientsFlags field
         ///     is set. This field MUST NOT be present otherwise. This string specifies the address type
         ///     of the recipient (1).
@@ -153,7 +153,7 @@ namespace MsgWriter.Structures
         ///     Creates this object and sets all it's properties
         /// </summary>
         /// <param name="binaryReader">The <see cref="BinaryReader" /></param>
-        /// <param name="addressType">The <see cref="AddressType" /></param>
+        /// <param name="recipientRowAddressType">The <see cref="RecipientRowAddressType" /></param>
         /// <param name="supportsRtf">
         ///     Set to <c>true</c> when the recipient in the <see cref="RecipientRow" />
         ///     supports RTF
@@ -181,7 +181,7 @@ namespace MsgWriter.Structures
         ///     [MS-OXCMAPIHTTP] section 2.2.4.1.
         /// </param>
         internal RecipientRow(BinaryReader binaryReader,
-            AddressType addressType,
+            RecipientRowAddressType recipientRowAddressType,
             bool supportsRtf,
             bool displayNameIncluded,
             bool emailAddressIncluded,
@@ -191,19 +191,19 @@ namespace MsgWriter.Structures
             bool transmittableDisplayNameIncluded,
             bool stringsInUnicode)
         {
-            AddressType = addressType;
+            RecipientRowAddressType = recipientRowAddressType;
             SupportsRtf = supportsRtf;
 
-            switch (AddressType)
+            switch (RecipientRowAddressType)
             {
-                case AddressType.X500Dn:
+                case RecipientRowAddressType.X500Dn:
                     AddressPrefixUsed = binaryReader.ReadByte();
-                    DisplayType = (DisplayType)binaryReader.ReadByte();
+                    RecipientRowDisplayType = (RecipientRowDisplayType)binaryReader.ReadByte();
                     X500Dn = Strings.ReadNullTerminatedAsciiString(binaryReader);
                     break;
 
-                case AddressType.PersonalDistributionList1:
-                case AddressType.PersonalDistributionList2:
+                case RecipientRowAddressType.PersonalDistributionList1:
+                case RecipientRowAddressType.PersonalDistributionList2:
                     EntryIdSize = binaryReader.ReadUInt16();
                     EntryId = new AddressBookEntryId(binaryReader);
                     SearchKeySize = binaryReader.ReadUInt16();
@@ -211,7 +211,7 @@ namespace MsgWriter.Structures
                         SearchKey = binaryReader.ReadBytes((int)SearchKeySize);
                     break;
 
-                case AddressType.NoType:
+                case RecipientRowAddressType.NoType:
                     if (addressTypeIncluded) AddresType = Strings.ReadNullTerminatedAsciiString(binaryReader);
                     break;
             }
@@ -413,7 +413,7 @@ namespace MsgWriter.Structures
 
             var displayTypeProperty = RecipientProperties.Find(m => m.Id == PropertyTags.PR_RECIPIENT_TYPE.Id);
             if (displayTypeProperty != null)
-                DisplayType = (DisplayType)displayTypeProperty.ToInt;
+                RecipientRowDisplayType = (RecipientRowDisplayType)displayTypeProperty.ToInt;
         }
         #endregion
     }

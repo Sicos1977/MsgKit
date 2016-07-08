@@ -13,12 +13,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
+
 namespace MsgWriter.Enums
 {
     /// <summary>
     ///     Contains the messaging user's e-mail address type, such as SMTP.
     /// </summary>
-    public enum RecipientAddrType
+    public enum AddressType
     {
         /// <summary>
         ///     Unknown

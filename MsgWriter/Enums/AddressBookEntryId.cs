@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using MsgWriter.Helpers;
 
- /*
+/*
    Copyright 2015 - 2016 Kees van Spelde
 
    Licensed under The Code Project Open License (CPOL) 1.02;
@@ -17,7 +17,7 @@ using MsgWriter.Helpers;
    limitations under the License.
 */
 
-namespace MsgWriter.Structures
+namespace MsgWriter.Enums
 {
     /// <summary>
     ///     An Address Book EntryID structure specifies several types of Address Book objects, including

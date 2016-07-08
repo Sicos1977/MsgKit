@@ -61,12 +61,22 @@ namespace MsgWriter
         /// <summary>
         ///     Returns the represented sender or <c>null</c> when not present
         /// </summary>
-        public Sender Representing { get; private set; }
+        public Representing Representing { get; private set; }
 
         /// <summary>
         ///     Returns the E-mail <see cref="Recipients" />
         /// </summary>
         public Recipients Recipients
+        {
+            get { return _recipients ?? (_recipients = new Recipients()); }
+        }
+
+        // TODO: Check comments for new Representing and Receiving class
+
+        /// <summary>
+        ///     Returns the E-mail <see cref="Recipients" />
+        /// </summary>
+        public Recipients Receiving
         {
             get { return _recipients ?? (_recipients = new Recipients()); }
         }
@@ -123,9 +133,15 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Contains the date and time the message sender submitted a message.
+        ///     Returns the UTC date and time the sender submitted the message.
         /// </summary>
         public DateTime? SentOn { get; private set; }
+
+        /// <summary>
+        ///     Returns the UTC date and time when the message was received by
+        ///     <see cref=""/>
+        /// </summary>
+        public DateTime? ReceivedOn { get; private set; }
 
         /// <summary>
         ///     Returns or sets the transport message headers. These are only present when
@@ -157,7 +173,7 @@ namespace MsgWriter
         /// <param name="representing">The <see cref="Representing"/> sender of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
         public Email(Sender sender,
-                     Sender representing,
+                     Representing representing,
                      string subject)
         {
             Sender = sender;
@@ -294,7 +310,7 @@ namespace MsgWriter
 
                 foreach (var recipient in Recipients)
                 {
-                    switch (recipient.Type)
+                    switch (recipient.RecipientType)
                     {
                         case RecipientType.To:
                             if (!string.IsNullOrWhiteSpace(recipient.DisplayName))

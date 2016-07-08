@@ -21,7 +21,7 @@ namespace MsgWriter
     /// <summary>
     ///     This class represents an Outlook sender (e.g. keesvanspelde@hotmail.com)
     /// </summary>
-    public sealed class Sender : Address
+    internal sealed class Received : Address
     {
         #region Constructor
         /// <summary>
@@ -30,9 +30,9 @@ namespace MsgWriter
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
-        public Sender(string email,
-                      string displayName,
-                      AddressType addressType = AddressType.Smtp)
+        internal Received(string email,
+                          string displayName,
+                          AddressType addressType = AddressType.Smtp)
         {
             Email = email;
             DisplayName = displayName;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MsgWriter.Enums;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
@@ -34,15 +33,16 @@ namespace MsgWriter
         ///     Add's an <see cref="RecipientType.To"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
-        /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        /// <param name="addrType">The <see cref="RecipientAddrType"/></param>
+        /// <param name="displayName">The displayname for the <paramref name="email"/></param>
+        /// <param name="addressType">The <see cref="AddressType"/></param>
         public void AddRecipientTo(string email, 
                                    string displayName = "",
-                                    RecipientAddrType addrType = RecipientAddrType.Smtp)
+                                   AddressType addressType = AddressType.Smtp)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
+                              addressType,
                               RecipientType.To));
         }
 
@@ -50,15 +50,16 @@ namespace MsgWriter
         ///     Add's an <see cref="RecipientType.Cc"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
-        /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        /// <param name="addrType">The <see cref="RecipientAddrType"/></param>
+        /// <param name="displayName">The displayname for the <paramref name="email"/></param>
+        /// <param name="addressType">The <see cref="AddressType"/></param>
         public void AddRecipientCc(string email, 
                                    string displayName = "",
-                                   RecipientAddrType addrType = RecipientAddrType.Smtp)
+                                   AddressType addressType = AddressType.Smtp)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
+                              addressType,
                               RecipientType.Cc));
         }
 
@@ -66,15 +67,16 @@ namespace MsgWriter
         ///     Add's an <see cref="RecipientType.Bcc"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
-        /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        /// <param name="addrType">The <see cref="RecipientAddrType"/></param>
+        /// <param name="displayName">The displayname for the <paramref name="email"/></param>
+        /// <param name="addressType">The <see cref="AddressType"/></param>
         public void AddRecipientBcc(string email, 
                                     string displayName = "",
-                                    RecipientAddrType addrType = RecipientAddrType.Smtp)
+                                    AddressType addressType = AddressType.Smtp)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
+                              addressType,
                               RecipientType.Bcc));
         }
 
@@ -82,18 +84,19 @@ namespace MsgWriter
         ///     Add's an <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
-        /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        /// <param name="type">The <see cref="RecipientType"/></param>
-        /// <param name="addrType">The <see cref="RecipientAddrType"/></param>
+        /// <param name="displayName">The displayname for the <paramref name="email"/></param>
+        /// <param name="addressType">The <see cref="AddressType"/></param>
+        /// <param name="recipientType">The <see cref="RecipientType"/></param>
         public void AddRecipient(string email,
                                  string displayName, 
-                                 RecipientType type,
-                                 RecipientAddrType addrType = RecipientAddrType.Smtp)
+                                 AddressType addressType,
+                                 RecipientType recipientType)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
-                              type));
+                              addressType,
+                              recipientType));
         }
         #endregion
 
@@ -116,14 +119,10 @@ namespace MsgWriter
     }
 
     /// <summary>
-    /// This class represents a recipient
+    /// T   his class represents a recipient
     /// </summary>
-    public sealed class Recipient
+    public sealed class Recipient : Address
     {
-        #region Fields
-        private RecipientAddrType _addrType;
-        #endregion
-
         #region Properties
         /// <summary>
         /// Returns or sets a unique identifier for a recipient in a recipient table or status table.
@@ -133,68 +132,7 @@ namespace MsgWriter
         /// <summary>
         ///     The <see cref="RecipientType"/>
         /// </summary>
-        public RecipientType Type { get; private set; }
-
-        /// <summary>
-        ///     Returns the messaging user's e-mail address type. Use <see cref="AddrTypeString"/>
-        ///     when this property returns <see cref="RecipientAddrType.Unknown"/>
-        /// </summary>
-        public RecipientAddrType AddrType
-        {
-            get { return _addrType; }
-            private set
-            {
-                _addrType = value;
-                switch (value)
-                {
-                    case RecipientAddrType.Unknown:
-                        AddrTypeString = string.Empty;
-                        break;
-
-                    case RecipientAddrType.Ex:
-                        AddrTypeString = "EX";
-                        break;
-
-                    case RecipientAddrType.Smtp:
-                        AddrTypeString = "SMTP";
-                        break;
-
-                    case RecipientAddrType.Fax:
-                        AddrTypeString = "FAX";
-                        break;
-
-                    case RecipientAddrType.Mhs:
-                        AddrTypeString = "MHS";
-                        break;
-
-                    case RecipientAddrType.Profs:
-                        AddrTypeString = "PROFS";
-                        break;
-
-                    case RecipientAddrType.X400:
-                        AddrTypeString = "X400";
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Returns the <see cref="AddrType"/> as a string
-        /// </summary>
-        public string AddrTypeString { get; private set; }
-        
-        /// <summary>
-        ///     Returns the E-mail address
-        /// </summary>
-        public string Email { get; private set; }
-
-        /// <summary>
-        ///     Returns the display name
-        /// </summary>
-        public string DisplayName { get; private set; }
+        public RecipientType RecipientType { get; private set; }
 
         /// <summary>
         ///     The <see cref="RecipientFlags"/>
@@ -208,20 +146,20 @@ namespace MsgWriter
         /// </summary>
         /// <param name="rowId">Contains a unique identifier for a recipient in a recipient table or status table.</param>
         /// <param name="email">The full E-mail address</param>
-        /// <param name="displayName">The displayname for the <see cref="email"/></param>
-        /// <param name="type">The <see cref="RecipientType"/></param>
-        /// <param name="addrType">The <see cref="RecipientAddrType"/></param>
+        /// <param name="displayName">The displayname for the <paramref name="email"/></param>
+        /// <param name="recipientType">The <see cref="RecipientType"/></param>
+        /// <param name="addressType">The <see cref="AddressType"/></param>
         internal Recipient(long rowId,
                            string email, 
-                           string displayName, 
-                           RecipientType type, 
-                           RecipientAddrType addrType = RecipientAddrType.Smtp)
+                           string displayName,
+                           AddressType addressType,
+                           RecipientType recipientType)
         {
             RowId = rowId;
             Email = email;
             DisplayName = string.IsNullOrWhiteSpace(displayName) ? email : displayName;
-            Type = type;
-            AddrType = addrType;
+            AddressType = addressType;
+            RecipientType = recipientType;
         }
         #endregion
 
@@ -242,11 +180,11 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_ROWID, RowId);
             propertiesStream.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
-            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, Type);
-            propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, AddrTypeString);
+            propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, RecipientType);
+            propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, AddressTypeString);
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
-            propertiesStream.AddProperty(PropertyTags.PR_SEARCH_KEY, Mapi.GenerateSearchKey(AddrTypeString, Email));
+            propertiesStream.AddProperty(PropertyTags.PR_SEARCH_KEY, Mapi.GenerateSearchKey(AddressTypeString, Email));
             propertiesStream.WriteProperties(storage);
         }
         #endregion
