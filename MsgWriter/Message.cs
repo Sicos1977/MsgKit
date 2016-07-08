@@ -105,10 +105,8 @@ namespace MsgWriter
 
         #region GetString
         /// <summary>
-        ///     Returns the string value for the given <param name="propertyTag">
-        ///         .
+        ///     Returns the string value for the given <paramref name="propertyTag"/>.
         ///         <c>null</c> is returned when the property does not exists or no valid value is found
-        ///     </param>
         /// </summary>
         /// <param name="propertyTag">
         ///     <see cref="PropertyTag" />
@@ -124,11 +122,9 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns the string value from the first item in the list of
-        ///     <param name="propertyTags">
-        ///         that gives
-        ///         back a valid value. <c>null</c> is returned when the property does not exists or no valid value is found
-        ///     </param>
+        ///     Returns the string value from the first item in the list of <paramref name="propertyTags"/>
+        ///     that gives back a valid value. <c>null</c> is returned when the property does not exists or 
+        ///     no valid value is found
         /// </summary>
         /// <param name="propertyTags">List of <see cref="PropertyTag" /></param>
         /// <returns></returns>
@@ -171,8 +167,7 @@ namespace MsgWriter
 
         #region AddString
         /// <summary>
-        ///     Adds the given single value
-        ///     <param name="propertyTag" />
+        ///     Adds the given single value <paramref name="propertyTag" />
         ///     to the message, any already existing <see cref="PropertyTag" /> is
         ///     overwritten.
         /// </summary>
