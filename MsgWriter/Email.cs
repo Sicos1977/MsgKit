@@ -59,7 +59,7 @@ namespace MsgWriter
         public Sender Sender { get; private set; }
 
         /// <summary>
-        ///     The E-mail <see cref="Recipients" />
+        ///     Returns the E-mail <see cref="Recipients" />
         /// </summary>
         public Recipients Recipients
         {
@@ -67,7 +67,7 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns or sets the subject prefix of the E-mail
+        ///     Returns the subject prefix of the E-mail
         /// </summary>
         public string SubjectPrefix { get; private set; }
 
@@ -90,9 +90,14 @@ namespace MsgWriter
         public string SubjectNormalized { get; private set; }
 
         /// <summary>
-        ///     Returns the <see cref="MessagePriority"/>
+        ///     Returns or sets the <see cref="MessagePriority"/>
         /// </summary>
         public MessagePriority Priority { get; set; }
+
+        /// <summary>
+        ///     Returns or sets the <see cref="MessageImportance"/>
+        /// </summary>
+        public MessageImportance Importance { get; set; }
 
         /// <summary>
         ///     Returns or sets the text body of the E-mail
@@ -124,14 +129,12 @@ namespace MsgWriter
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
-        /// <param name="priority">The <see cref="MessagePriority"/></param>
         public Email(Sender sender, 
-                     string subject,
-                     MessagePriority priority = MessagePriority.PRIO_NORMAL)
+                     string subject)
         {
             Sender = sender;
             Subject = subject;
-            Priority = priority;
+            Importance = MessageImportance.IMPORTANCE_NORMAL;
             IconIndex = MessageIconIndex.NewMail;
         }
         #endregion
@@ -236,7 +239,7 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
             propertiesStream.AddProperty(PropertyTags.PR_PRIORITY, Priority);
-            propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, MessageImportance.IMPORTANCE_NORMAL);
+            propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, Importance);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
             propertiesStream.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
