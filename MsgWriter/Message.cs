@@ -266,10 +266,15 @@ namespace MsgWriter
         }
         #endregion
 
+        #region Dispose
+        /// <summary>
+        /// Disposes this object and all its resources
+        /// </summary>
         public void Dispose()
         {
             if (CompoundFile != null)
                 CompoundFile.Close();
         }
+        #endregion
     }
 }
