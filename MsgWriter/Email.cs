@@ -292,14 +292,14 @@ namespace MsgWriter
             {
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
                 propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressType);
+                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressTypeString);
             }
 
             if (Representing != null)
             {
                 propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_EMAIL_ADDRESS_W, Representing.Email);
                 propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_NAME_W, Representing.DisplayName);
-                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_ADDRTYPE_W, Representing.AddressType);
+                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_ADDRTYPE_W, Representing.AddressTypeString);
             }
 
             if (recipientCount > 0)
