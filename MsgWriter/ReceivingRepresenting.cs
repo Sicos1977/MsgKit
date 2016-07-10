@@ -1,4 +1,7 @@
 ﻿using MsgWriter.Enums;
+using MsgWriter.Streams;
+using MsgWriter.Structures;
+using OpenMcdf;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -39,6 +42,24 @@ namespace MsgWriter
         public ReceivingRepresenting(string email, string displayName, AddressType addressType = AddressType.Smtp)
             : base(email, displayName, addressType)
         {
+        }
+        #endregion
+
+        #region WriteProperties
+        /// <summary>
+        ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream, this depends on the <see cref="PropertyType"/>
+        /// </summary>
+        /// <remarks>
+        ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic
+        ///     that is used to determine this
+        /// </remarks>
+        /// <param name="propertiesStream">The <see cref="TopLevelProperties"/></param>
+        internal void WriteProperties(TopLevelProperties propertiesStream)
+        {
+            propertiesStream.AddProperty(PropertyTags.PR_RCVD_REPRESENTING_EMAIL_ADDRESS_W, Email);
+            propertiesStream.AddProperty(PropertyTags.PR_RCVD_REPRESENTING_NAME_W, DisplayName);
+            propertiesStream.AddProperty(PropertyTags.PR_RCVD_REPRESENTING_ADDRTYPE_W, AddressTypeString);
         }
         #endregion
     }

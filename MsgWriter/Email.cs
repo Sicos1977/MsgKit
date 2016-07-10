@@ -59,12 +59,14 @@ namespace MsgWriter
         public Sender Sender { get; private set; }
 
         /// <summary>
-        ///     Returns the representings sender of the <see cref="Message"/> or <c>null</c> when not
-        ///     available. 
+        ///     Contains the e-mail address for the messaging user represented by the <see cref="Sender"/>.
         /// </summary>
         /// <remarks>
-        ///     A representing user is the user that has sent the <see cref="Message"/> in the name of 
-        ///     somebody else. E.g. John Doe sents the message for Jane Doe
+        ///     These properties are examples of the address properties for the messaging user who is being represented by the
+        ///     <see cref="Receiving" /> user. They must be set by the incoming transport provider, which is also responsible for
+        ///     authorization or
+        ///     verification of the delegate. If no messaging user is being represented, these properties should be set to the
+        ///     e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
         /// </remarks>
         public Representing Representing { get; private set; }
 
@@ -77,10 +79,24 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns the user that has <see cref="Receiving"/> the message or
-        ///     <c>null</c> when not available
+        ///     Contains the e-mail address for the messaging user who receives the message.
         /// </summary>
-        public Receiving Receiving { get; internal set; }
+        /// <remarks>
+        ///     These properties are examples of the address properties for the messaging user who receives the message. They must
+        ///     be set by the incoming transport provider.
+        /// </remarks>
+        public Receiving Receiving { get; set; }
+
+        /// <summary>
+        ///     Contains the e-mail address for the messaging user who is represented by the <see cref="Receiving"/> user.
+        /// </summary>
+        /// <remarks>
+        ///     These properties are examples of the address properties for the messaging user who is being represented by the
+        ///     <see cref="Receiving" /> user. They must be set by the incoming transport provider, which is also responsible for authorization or
+        ///     verification of the delegate. If no messaging user is being represented, these properties should be set to the
+        ///     e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
+        /// </remarks>
+        public ReceivingRepresenting ReceivingRepresenting { get; internal set; }
 
         /// <summary>
         ///     Returns the subject prefix of the E-mail
@@ -289,19 +305,10 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
             propertiesStream.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
-            if (Sender != null)
-            {
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Sender.Email);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, Sender.DisplayName);
-                propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, Sender.AddressTypeString);
-            }
-
-            if (Representing != null)
-            {
-                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_EMAIL_ADDRESS_W, Representing.Email);
-                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_NAME_W, Representing.DisplayName);
-                propertiesStream.AddProperty(PropertyTags.PR_SENT_REPRESENTING_ADDRTYPE_W, Representing.AddressTypeString);
-            }
+            if (Sender != null) Sender.WriteProperties(propertiesStream);
+            if (Receiving != null) Receiving.WriteProperties(propertiesStream);
+            if (Representing != null) Representing.WriteProperties(propertiesStream);
+            if (ReceivingRepresenting != null) ReceivingRepresenting.WriteProperties(propertiesStream);
 
             if (recipientCount > 0)
             {
