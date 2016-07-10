@@ -32,7 +32,7 @@ namespace MsgWriter
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/office/cc842285.aspx
     /// </remarks>
-    public sealed class Attachments : List<Attachment>
+    public class Attachments : List<Attachment>
     {
         #region CheckAttachmentFileName
         /// <summary>
@@ -170,7 +170,7 @@ namespace MsgWriter
     /// <summary>
     ///     This class represents an attachment
     /// </summary>
-    public sealed class Attachment
+    public class Attachment
     {
         #region Fields
         private readonly FileInfo _file;

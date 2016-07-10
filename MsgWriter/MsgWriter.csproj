@@ -80,7 +80,8 @@
     <Compile Include="Enums\StoreSupportMask.cs" />
     <Compile Include="Enums\RecipientType.cs" />
     <Compile Include="Enums\AddressBookEntryIdType.cs" />
-    <Compile Include="Received.cs" />
+    <Compile Include="Receiving.cs" />
+    <Compile Include="ReceivingRepresenting.cs" />
     <Compile Include="Representing.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Enums\AddressBookEntryId.cs" />

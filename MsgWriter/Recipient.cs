@@ -26,7 +26,7 @@ namespace MsgWriter
     /// <summary>
     ///     Contains a list of <see cref="Recipients"/> objects that are added to a <see cref="Message"/>
     /// </summary>
-    public sealed class Recipients : List<Recipient>
+    public class Recipients : List<Recipient>
     {
         #region AddRecipient
         /// <summary>
@@ -121,7 +121,7 @@ namespace MsgWriter
     /// <summary>
     /// T   his class represents a recipient
     /// </summary>
-    public sealed class Recipient : Address
+    public class Recipient : Address
     {
         #region Properties
         /// <summary>
@@ -153,7 +153,7 @@ namespace MsgWriter
                            string email, 
                            string displayName,
                            AddressType addressType,
-                           RecipientType recipientType)
+                           RecipientType recipientType) : base(email, displayName, addressType)
         {
             RowId = rowId;
             Email = email;

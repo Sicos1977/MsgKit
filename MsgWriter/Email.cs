@@ -59,8 +59,13 @@ namespace MsgWriter
         public Sender Sender { get; private set; }
 
         /// <summary>
-        ///     Returns the represented sender or <c>null</c> when not present
+        ///     Returns the representings sender of the <see cref="Message"/> or <c>null</c> when not
+        ///     available. 
         /// </summary>
+        /// <remarks>
+        ///     A representing user is the user that has sent the <see cref="Message"/> in the name of 
+        ///     somebody else. E.g. John Doe sents the message for Jane Doe
+        /// </remarks>
         public Representing Representing { get; private set; }
 
         /// <summary>
@@ -71,15 +76,11 @@ namespace MsgWriter
             get { return _recipients ?? (_recipients = new Recipients()); }
         }
 
-        // TODO: Check comments for new Representing and Receiving class
-
         /// <summary>
-        ///     Returns the E-mail <see cref="Recipients" />
+        ///     Returns the user that has <see cref="Receiving"/> the message or
+        ///     <c>null</c> when not available
         /// </summary>
-        public Recipients Receiving
-        {
-            get { return _recipients ?? (_recipients = new Recipients()); }
-        }
+        public Receiving Receiving { get; internal set; }
 
         /// <summary>
         ///     Returns the subject prefix of the E-mail
@@ -133,13 +134,13 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns the UTC date and time the sender submitted the message.
+        ///     Returns or sets the UTC date and time the <see cref="Sender"/> has submitted the 
+        ///     <see cref="Message"/>
         /// </summary>
-        public DateTime? SentOn { get; private set; }
+        public DateTime? SentOn { get; set; }
 
         /// <summary>
-        ///     Returns the UTC date and time when the message was received by
-        ///     <see cref=""/>
+        ///     Returns the UTC date and time when the <see cref="Message"/> was received by
         /// </summary>
         public DateTime? ReceivedOn { get; private set; }
 
@@ -170,7 +171,7 @@ namespace MsgWriter
         ///     Creates this object and sets all the needed properties
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
-        /// <param name="representing">The <see cref="Representing"/> sender of the E-mail</param>
+        /// <param name="representing">The <see cref="MsgWriter.Representing"/> sender of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
         public Email(Sender sender,
                      Representing representing,

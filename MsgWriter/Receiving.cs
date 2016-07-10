@@ -18,29 +18,26 @@
 
 namespace MsgWriter
 {
+    #region Constructor
     /// <summary>
-    ///     This class contains the representings sender of the <see cref="Message" />.
+    ///     Contains the e-mail address for the messaging user who receives the message.
     /// </summary>
     /// <remarks>
-    ///     These properties are examples of the address properties for the messaging user who is being represented by the
-    ///     <see cref="Receiving" /> user. They must be set by the incoming transport provider, which is also responsible for
-    ///     authorization or
-    ///     verification of the delegate. If no messaging user is being represented, these properties should be set to the
-    ///     e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
+    ///     These properties are examples of the address properties for the messaging user who receives the message. They must
+    ///     be set by the incoming transport provider.
     /// </remarks>
-    public class Representing : Address
+    public class Receiving : Address
     {
-        #region Constructor
         /// <summary>
         ///     Creates this object and sets all it's needed properties
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email" /></param>
         /// <param name="addressType">The <see cref="Address.AddressType" /></param>
-        public Representing(string email, string displayName, AddressType addressType = AddressType.Smtp)
+        public Receiving(string email, string displayName, AddressType addressType = AddressType.Smtp)
             : base(email, displayName, addressType)
         {
         }
-        #endregion
     }
+    #endregion
 }
