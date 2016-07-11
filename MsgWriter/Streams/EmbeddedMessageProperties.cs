@@ -105,7 +105,10 @@ namespace MsgWriter.Streams
         ///     that is used to determine this
         /// </remarks>
         /// <param name="storage">The <see cref="CFStorage"/></param>
-        internal void WriteProperties(CFStorage storage)
+        /// <returns>
+        ///     Total size of the written <see cref="Properties"/>
+        /// </returns>
+        internal long WriteProperties(CFStorage storage)
         {
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
@@ -124,7 +127,7 @@ namespace MsgWriter.Streams
                 binaryWriter.Write(Convert.ToUInt32(RecipientCount));
                 // Attachment Count (4 bytes): The number of Attachment objects.
                 binaryWriter.Write(Convert.ToUInt32(AttachmentCount));
-                WriteProperties(storage, binaryWriter);
+                return WriteProperties(storage, binaryWriter);
             }
         }
         #endregion

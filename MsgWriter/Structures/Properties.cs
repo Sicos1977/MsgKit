@@ -64,13 +64,19 @@ namespace MsgWriter.Structures
         #region WriteProperties
         /// <summary>
         ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
-        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
+        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <paramref name="storage"/>, this depends 
         ///     on the <see cref="PropertyType"/>
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage"/></param>
         /// <param name="binaryWriter">The <see cref="BinaryWriter" /></param>
-        internal void WriteProperties(CFStorage storage, BinaryWriter binaryWriter)
+        /// <param name="messageSize">Used to calculate the exact size of the <see cref="Message"/></param>
+        /// <returns>
+        ///     Total size of the written <see cref="Properties"/>
+        /// </returns>
+        internal long WriteProperties(CFStorage storage, BinaryWriter binaryWriter, long? messageSize = null)
         {
+            long size = 0;
+
             // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
             // each represented by one entry, can be determined by first measuring the size of the property stream (1), 
             // then subtracting the size of the header from it, and then dividing the result by the size of one entry.
@@ -122,6 +128,7 @@ namespace MsgWriter.Structures
                         binaryWriter.Write(property.Data.Length + 2);
                         binaryWriter.Write(new byte[4]);
                         storage.AddStream(property.Name).SetData(property.Data);
+                        size += property.Data.LongLength;
                         break;
 
                     case PropertyType.PT_STRING8:
@@ -129,6 +136,7 @@ namespace MsgWriter.Structures
                         binaryWriter.Write(property.Data.Length + 1);
                         binaryWriter.Write(new byte[4]);
                         storage.AddStream(property.Name).SetData(property.Data);
+                        size += property.Data.LongLength;
                         break;
 
                     case PropertyType.PT_CLSID:
@@ -147,6 +155,7 @@ namespace MsgWriter.Structures
                         binaryWriter.Write(property.Data.Length);
                         binaryWriter.Write(new byte[4]);
                         storage.AddStream(property.Name).SetData(property.Data);
+                        size += property.Data.LongLength;
                         break;
 
                     case PropertyType.PT_MV_SHORT:
@@ -197,9 +206,21 @@ namespace MsgWriter.Structures
                 }
             }
 
+            if (messageSize.HasValue)
+            {
+                binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Type));  // 2 bytes
+                binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Id));    // 2 bytes
+                binaryWriter.Write(Convert.ToUInt32(PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)); // 4 bytes
+                var totalSize = messageSize.Value + size + 8;
+                var bytes = BitConverter.GetBytes(totalSize);
+                binaryWriter.Write(bytes);
+                binaryWriter.Write(new byte[4]);
+            }
+            
             // Make the properties stream
             binaryWriter.BaseStream.Position = 0;
             storage.AddStream(PropertyTags.PropertiesStreamName).SetData(binaryWriter.BaseStream.ToByteArray());
+            return size + binaryWriter.BaseStream.Length;
         }
         #endregion
 
@@ -209,14 +230,14 @@ namespace MsgWriter.Structures
         /// </summary>
         /// <param name="mapiTag">The <see cref="PropertyTag" /></param>
         /// <param name="obj">The value for the mapi tag</param>
-        /// <param name="flagses">
+        /// <param name="flags">
         ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
         ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
         /// </param>
         /// <exception cref="ArgumentNullException">Raised when <paramref name="obj" /> is <c>null</c></exception>
         internal void AddProperty(PropertyTag mapiTag,
             object obj,
-            PropertyFlags flagses = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
+            PropertyFlags flags = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
         {
             if (obj == null)
                 throw new ArgumentNullException("mapiTag", "Obj can not be null");
@@ -367,7 +388,7 @@ namespace MsgWriter.Structures
                     throw new ArgumentOutOfRangeException();
             }
 
-            Add(new Property(mapiTag.Id, mapiTag.Type, flagses, data));
+            Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
         }
 
         /// <summary>

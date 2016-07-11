@@ -465,15 +465,15 @@ namespace MsgWriter.Structures
         /// </summary>
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
-        /// <param name="flagses">The <see cref="PropertyFlags" /></param>
+        /// <param name="flags">The <see cref="PropertyFlags" /></param>
         /// <param name="data">The property data</param>
         /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
         /// multivalue property</param>
-        internal Property(ushort id, PropertyType type, PropertyFlags flagses, byte[] data, bool multiValue = false)
+        internal Property(ushort id, PropertyType type, PropertyFlags flags, byte[] data, bool multiValue = false)
         {
             Id = id;
             Type = type;
-            Flags = Convert.ToUInt32(flagses);
+            Flags = Convert.ToUInt32(flags);
             Data = data;
             MultiValue = multiValue;
         }

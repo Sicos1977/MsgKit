@@ -120,7 +120,11 @@ namespace MsgWriter.Streams
         ///     that is used to determine this
         /// </remarks>
         /// <param name="storage">The <see cref="CFStorage"/></param>
-        internal void WriteProperties(CFStorage storage)
+        /// <param name="messageSize">Used to calculate the exact size of the <see cref="Message"/></param>
+        /// <returns>
+        ///     Total size of the written <see cref="Properties"/>
+        /// </returns>
+        internal long WriteProperties(CFStorage storage, long? messageSize = null)
         {
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
@@ -143,7 +147,7 @@ namespace MsgWriter.Streams
                 // Reserved(8 bytes): This field MUST be set to 0 when writing a msg file and MUST be ignored when 
                 // reading a msg file.
                 binaryWriter.Write(new byte[8]);
-                WriteProperties(storage, binaryWriter);
+                return WriteProperties(storage, binaryWriter, messageSize);
             }
         }
         #endregion

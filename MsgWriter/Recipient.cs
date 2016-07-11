@@ -106,26 +106,33 @@ namespace MsgWriter
         ///     and it will set all the needed properties
         /// </summary>
         /// <param name="rootStorage">The root <see cref="CFStorage"/></param>
-        internal void WriteToStorage(CFStorage rootStorage)
+        /// <returns>
+        ///     Total size of the written <see cref="Recipient"/> objects and it's <see cref="Properties"/>
+        /// </returns>
+        internal long WriteToStorage(CFStorage rootStorage)
         {
+            long size = 0;
+
             for (var index = 0; index < Count; index++)
             {
                 var recipient = this[index];
                 var storage = rootStorage.AddStorage(PropertyTags.RecipientStoragePrefix + index.ToString("X8").ToUpper());
-                recipient.WriteProperties(storage);
+                size += recipient.WriteProperties(storage);
             }
+
+            return size;
         }
         #endregion
     }
 
     /// <summary>
-    /// T   his class represents a recipient
+    ///     This class represents a recipient
     /// </summary>
     public class Recipient : Address
     {
         #region Properties
         /// <summary>
-        /// Returns or sets a unique identifier for a recipient in a recipient table or status table.
+        ///     Returns or sets a unique identifier for a recipient in a recipient table or status table.
         /// </summary>
         public long RowId { get; private set; }
 
@@ -174,7 +181,10 @@ namespace MsgWriter
         ///     that is used to determine this
         /// </remarks>
         /// <param name="storage">The <see cref="CFStorage"/></param>
-        internal void WriteProperties(CFStorage storage)
+        /// <returns>
+        ///     Total size of the written <see cref="Recipient"/> object and it's <see cref="Properties"/>
+        /// </returns>
+        internal long WriteProperties(CFStorage storage)
         {
             var propertiesStream = new RecipientProperties();
             propertiesStream.AddProperty(PropertyTags.PR_ROWID, RowId);
@@ -185,7 +195,7 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
             propertiesStream.AddProperty(PropertyTags.PR_SEARCH_KEY, Mapi.GenerateSearchKey(AddressTypeString, Email));
-            propertiesStream.WriteProperties(storage);
+            return propertiesStream.WriteProperties(storage);
         }
         #endregion
     }

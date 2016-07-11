@@ -261,9 +261,10 @@ namespace MsgWriter
         private void WriteToStorage()
         {
             var rootStorage = CompoundFile.RootStorage;
+            long messageSize = 0;
 
-            Recipients.WriteToStorage(rootStorage);
-            Attachments.WriteToStorage(rootStorage);
+            messageSize += Recipients.WriteToStorage(rootStorage);
+            messageSize += Attachments.WriteToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
@@ -355,8 +356,8 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_BODY_W, BodyText);
             if (!string.IsNullOrEmpty(BodyHtml))
                 propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
-
-            propertiesStream.WriteProperties(rootStorage);
+            
+            propertiesStream.WriteProperties(rootStorage, messageSize);
         }
         #endregion
 

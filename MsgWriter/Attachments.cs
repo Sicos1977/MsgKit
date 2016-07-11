@@ -6,6 +6,7 @@ using MsgWriter.Enums;
 using MsgWriter.Exceptions;
 using MsgWriter.Helpers;
 using MsgWriter.Streams;
+using MsgWriter.Structures;
 using OpenMcdf;
 
 /*
@@ -55,14 +56,21 @@ namespace MsgWriter
         ///     and it will set all the needed properties
         /// </summary>
         /// <param name="rootStorage">The root <see cref="CFStorage" /></param>
-        internal void WriteToStorage(CFStorage rootStorage)
+        /// <returns>
+        ///     Total size of the written <see cref="Attachment"/> objects and it's <see cref="Properties"/>
+        /// </returns>
+        internal long WriteToStorage(CFStorage rootStorage)
         {
+            long size = 0;
+
             for (var index = 0; index < Count; index++)
             {
                 var attachment = this[index];
                 var storage = rootStorage.AddStorage(PropertyTags.AttachmentStoragePrefix + index.ToString("X8").ToUpper());
-                attachment.WriteProperties(storage, index);
+                size += attachment.WriteProperties(storage, index);
             }
+
+            return size;
         }
         #endregion
 
@@ -330,11 +338,13 @@ namespace MsgWriter
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
         /// <param name="index">The <see cref="Attachment"/> index</param>
-        internal void WriteProperties(CFStorage storage, int index)
+        /// <returns>
+        ///     Total size of the written <see cref="Attachment"/> object and it's <see cref="Properties"/>
+        /// </returns>
+        internal long WriteProperties(CFStorage storage, int index)
         {
             var propertiesStream = new AttachmentProperties();
-
-            // https://msdn.microsoft.com/en-us/library/office/cc842285.aspx
+            
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
@@ -380,7 +390,7 @@ namespace MsgWriter
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.storeSupportMask, PropertyFlags.PROPATTR_READABLE);
 
-            propertiesStream.WriteProperties(storage);
+            return propertiesStream.WriteProperties(storage);
         }
         #endregion
     }

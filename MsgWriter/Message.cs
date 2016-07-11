@@ -5,6 +5,7 @@ using System.Text;
 using MsgWriter.Enums;
 using MsgWriter.Exceptions;
 using OpenMcdf;
+
 // ReSharper disable InconsistentNaming
 
 /*
@@ -49,14 +50,24 @@ namespace MsgWriter
 
         #region Properties
         /// <summary>
-        /// Contains a number that indicates which icon to use when you display a group 
-        /// of e-mail objects. Default set to <see cref="MessageIconIndex.NewMail"/>
+        ///     Contains a number that indicates which icon to use when you display a group
+        ///     of e-mail objects. Default set to <see cref="MessageIconIndex.NewMail" />
         /// </summary>
         /// <remarks>
-        /// This property, if it exists, is a hint to the client. The client may ignore the 
-        /// value of this property. 
+        ///     This property, if it exists, is a hint to the client. The client may ignore the
+        ///     value of this property.
         /// </remarks>
         public MessageIconIndex IconIndex { get; set; }
+
+        /// <summary>
+        ///     Contains the sum, in bytes, of the sizes of all properties on a message object.
+        /// </summary>
+        /// <remarks>
+        ///     It is recommended that message objects expose this property. The message size indicates the approximate number of
+        ///     bytes that are transferred when the message is moved from one message store to another. Being the sum of the sizes
+        ///     of all properties on the message object, it is usually considerably greater than the message text alone.
+        /// </remarks>
+        public long MessageSize { get; private set; }
         #endregion
 
         #region Constructor
@@ -105,8 +116,8 @@ namespace MsgWriter
 
         #region GetString
         /// <summary>
-        ///     Returns the string value for the given <paramref name="propertyTag"/>.
-        ///         <c>null</c> is returned when the property does not exists or no valid value is found
+        ///     Returns the string value for the given <paramref name="propertyTag" />.
+        ///     <c>null</c> is returned when the property does not exists or no valid value is found
         /// </summary>
         /// <param name="propertyTag">
         ///     <see cref="PropertyTag" />
@@ -122,8 +133,8 @@ namespace MsgWriter
         }
 
         /// <summary>
-        ///     Returns the string value from the first item in the list of <paramref name="propertyTags"/>
-        ///     that gives back a valid value. <c>null</c> is returned when the property does not exists or 
+        ///     Returns the string value from the first item in the list of <paramref name="propertyTags" />
+        ///     that gives back a valid value. <c>null</c> is returned when the property does not exists or
         ///     no valid value is found
         /// </summary>
         /// <param name="propertyTags">List of <see cref="PropertyTag" /></param>
@@ -263,7 +274,7 @@ namespace MsgWriter
 
         #region Dispose
         /// <summary>
-        /// Disposes this object and all its resources
+        ///     Disposes this object and all its resources
         /// </summary>
         public void Dispose()
         {
