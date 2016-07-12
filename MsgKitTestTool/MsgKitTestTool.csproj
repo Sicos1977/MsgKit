@@ -75,7 +75,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MsgWriter\MsgKit.csproj">
+    <ProjectReference Include="..\MsgKit\MsgKit.csproj">
       <Project>{f4dc97ac-b333-4df0-9a5c-546c77a63ac8}</Project>
       <Name>MsgKit</Name>
     </ProjectReference>
