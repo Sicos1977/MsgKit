@@ -18,7 +18,7 @@ using System.Linq;
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     This class maps each MAPI property to the corresponding canonical property name (and the otherway around).

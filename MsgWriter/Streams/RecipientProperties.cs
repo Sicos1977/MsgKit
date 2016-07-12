@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using MsgWriter.Structures;
+using MsgKit.Structures;
 using OpenMcdf;
 
 /*
@@ -18,7 +18,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter.Streams
+namespace MsgKit.Streams
 {
     /// <summary>
     ///     The properties stream contained inside an Recipient storage object.
@@ -45,7 +45,7 @@ namespace MsgWriter.Streams
         /// <summary>
         ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
         ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
-        ///     on the <see cref="MsgWriter.Enums.PropertyType"/>
+        ///     on the <see cref="MsgKit.Enums.PropertyType"/>
         /// </summary>
         /// <remarks>
         ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic

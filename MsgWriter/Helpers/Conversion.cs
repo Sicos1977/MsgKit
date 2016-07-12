@@ -18,7 +18,7 @@ using System.Runtime.Serialization.Formatters.Binary;
    limitations under the License.
 */
 
-namespace MsgWriter.Helpers
+namespace MsgKit.Helpers
 {
     /// <summary>
     ///     This class contains conversion related helper methods

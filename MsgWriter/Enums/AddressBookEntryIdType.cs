@@ -1,4 +1,4 @@
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     An integer representing the type of the object. It MUST be one of the values from the following table.

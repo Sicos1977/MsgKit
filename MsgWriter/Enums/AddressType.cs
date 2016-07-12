@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     Contains the messaging user's e-mail address type, such as SMTP.

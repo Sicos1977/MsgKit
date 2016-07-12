@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using MsgWriter.Enums;
-using MsgWriter.Helpers;
-using MsgWriter.Streams;
+using MsgKit.Enums;
+using MsgKit.Helpers;
+using MsgKit.Streams;
 using OpenMcdf;
 using Stream = System.IO.Stream;
 
@@ -25,7 +25,7 @@ using Stream = System.IO.Stream;
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     A class used to make a new Outlook E-mail MSG file
@@ -187,7 +187,7 @@ namespace MsgWriter
         ///     Creates this object and sets all the needed properties
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
-        /// <param name="representing">The <see cref="MsgWriter.Representing"/> sender of the E-mail</param>
+        /// <param name="representing">The <see cref="MsgKit.Representing"/> sender of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
         public Email(Sender sender,
                      Representing representing,

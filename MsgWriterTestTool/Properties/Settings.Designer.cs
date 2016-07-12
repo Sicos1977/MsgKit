@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MsgWriterTestTool.Properties
+namespace MsgKitTestTool.Properties
 {
 
 

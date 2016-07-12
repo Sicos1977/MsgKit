@@ -1,5 +1,5 @@
 ﻿using System;
-using MsgWriter.Enums;
+using MsgKit.Enums;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -17,7 +17,7 @@ using MsgWriter.Enums;
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     A base class for <see cref="Sender"/>, <see cref="Recipient"/>, <see cref="Receiving"/>

@@ -1,7 +1,7 @@
 ﻿using System;
 // ReSharper disable InconsistentNaming
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     Contains a bitmask of flags that indicate the origin and current state of a message.

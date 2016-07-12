@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Helpers
+namespace MsgKit.Helpers
 {
     /// <summary>
     ///     This class contains E-mail related helper methods

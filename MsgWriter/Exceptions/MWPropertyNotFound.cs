@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Exceptions
+namespace MsgKit.Exceptions
 {
     /// <summary>
     ///     Raised when a property is not found

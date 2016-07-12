@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     The MessageClass element is an optional element that specifies the message class of this e-mail message.

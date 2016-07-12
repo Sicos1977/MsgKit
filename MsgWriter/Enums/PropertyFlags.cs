@@ -16,7 +16,7 @@ using System;
    limitations under the License.
 */
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     Flags used to set on a <see cref="Structures.Property" />

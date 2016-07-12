@@ -1,6 +1,6 @@
 ﻿ using System;
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     Contains a number that indicates which icon to use when you display a group of e-mail objects.

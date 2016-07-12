@@ -1,4 +1,4 @@
-﻿namespace MsgWriterTestTool
+﻿namespace MsgKitTestTool
 {
     partial class Form1
     {

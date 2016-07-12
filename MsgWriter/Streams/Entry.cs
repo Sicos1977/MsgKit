@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using MsgWriter.Helpers;
+using MsgKit.Helpers;
 using OpenMcdf;
 
 /*
@@ -19,7 +19,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter.Streams
+namespace MsgKit.Streams
 {
     #region Enum EntryStreamKind
     /// <summary>

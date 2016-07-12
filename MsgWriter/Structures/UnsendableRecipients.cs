@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using MsgWriter.Enums;
-using MsgWriter.Helpers;
+using MsgKit.Enums;
+using MsgKit.Helpers;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -20,7 +20,7 @@ using MsgWriter.Helpers;
    limitations under the License.
 */
 
-namespace MsgWriter.Structures
+namespace MsgKit.Structures
 {
     /// <summary>
     ///     The PidLidAppointmentUnsendableRecipients  property ([MS-OXPROPS] section 2.35) contains a list of

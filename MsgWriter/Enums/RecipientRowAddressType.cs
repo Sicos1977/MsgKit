@@ -1,6 +1,6 @@
-﻿using MsgWriter.Structures;
+﻿using MsgKit.Structures;
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     The <see cref="RecipientRow.RecipientRowDisplayType" />

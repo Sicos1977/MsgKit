@@ -1,6 +1,6 @@
-﻿using MsgWriter.Enums;
-using MsgWriter.Streams;
-using MsgWriter.Structures;
+﻿using MsgKit.Enums;
+using MsgKit.Streams;
+using MsgKit.Structures;
 using OpenMcdf;
 
 /*
@@ -19,7 +19,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     Contains the message sender's e-mail address.

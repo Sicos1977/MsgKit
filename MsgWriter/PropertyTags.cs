@@ -1,4 +1,4 @@
-﻿using MsgWriter.Enums;
+﻿using MsgKit.Enums;
 
 // ReSharper disable ConvertPropertyToExpressionBody
 // ReSharper disable InconsistentNaming
@@ -19,7 +19,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     A class that holds all the known mapi tags

@@ -1,6 +1,6 @@
 using System;
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     Specifies a bit field that describes the recipient status.

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using MsgWriter.Enums;
-using MsgWriter.Exceptions;
+using MsgKit.Enums;
+using MsgKit.Exceptions;
 using OpenMcdf;
 
 // ReSharper disable InconsistentNaming
@@ -24,7 +24,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     The base class for all the different types of Outlook MSG files

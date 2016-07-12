@@ -75,9 +75,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MsgWriter\MsgWriter.csproj">
+    <ProjectReference Include="..\MsgWriter\MsgKit.csproj">
       <Project>{f4dc97ac-b333-4df0-9a5c-546c77a63ac8}</Project>
-      <Name>MsgWriter</Name>
+      <Name>MsgKit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgWriter", "MsgWriter\MsgWriter.csproj", "{F4DC97AC-B333-4DF0-9A5C-546C77A63AC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgKit", "MsgWriter\MsgKit.csproj", "{F4DC97AC-B333-4DF0-9A5C-546C77A63AC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgWriterTestTool", "MsgWriterTestTool\MsgWriterTestTool.csproj", "{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgKitTestTool", "MsgWriterTestTool\MsgKitTestTool.csproj", "{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using MsgWriter.Enums;
-using MsgWriter.Helpers;
+using MsgKit.Enums;
+using MsgKit.Helpers;
 using OpenMcdf;
 
 /*
@@ -23,7 +23,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter.Structures
+namespace MsgKit.Structures
 {
     /// <summary>
     ///     The properties inside an msg file

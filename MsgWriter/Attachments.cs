@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MsgWriter.Enums;
-using MsgWriter.Exceptions;
-using MsgWriter.Helpers;
-using MsgWriter.Streams;
-using MsgWriter.Structures;
+using MsgKit.Enums;
+using MsgKit.Exceptions;
+using MsgKit.Helpers;
+using MsgKit.Streams;
+using MsgKit.Structures;
 using OpenMcdf;
 
 /*
@@ -25,7 +25,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     Contains a list of <see cref="Attachment" /> objects that are added to a <see cref="Message" />

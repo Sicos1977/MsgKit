@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
-using MsgWriter.Enums;
-using MsgWriter.Exceptions;
+using MsgKit.Enums;
+using MsgKit.Exceptions;
 // ReSharper disable InconsistentNaming
 
 /*
@@ -23,7 +23,7 @@ using MsgWriter.Exceptions;
    limitations under the License.
 */
 
-namespace MsgWriter.Structures
+namespace MsgKit.Structures
 {
     /// <summary>
     ///     A property inside the MSG file

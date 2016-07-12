@@ -17,7 +17,7 @@ using System.Text;
    limitations under the License.
 */
 
-namespace MsgWriter.Helpers
+namespace MsgKit.Helpers
 {
     /// <summary>
     ///     This class contains MAPI related helper methods

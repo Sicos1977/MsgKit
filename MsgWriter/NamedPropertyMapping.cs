@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter
+namespace MsgKit
 {
     /// <summary>
     ///     A process that converts PropertyName structures to property IDs and vice-versa. Named properties can be referred to

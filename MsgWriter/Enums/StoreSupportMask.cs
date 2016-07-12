@@ -17,7 +17,7 @@ using System;
    limitations under the License.
 */
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     internal class StoreSupportMaskConst
     {

@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     The type of a property in the properties stream

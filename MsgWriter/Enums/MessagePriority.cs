@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Enums
+namespace MsgKit.Enums
 {
     /// <summary>
     ///     Contains a value that indicates the message sender's opinion of the importance of a message. 

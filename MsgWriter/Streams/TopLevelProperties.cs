@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using MsgWriter.Structures;
+using MsgKit.Structures;
 using OpenMcdf;
 
 /*
@@ -19,7 +19,7 @@ using OpenMcdf;
    limitations under the License.
 */
 
-namespace MsgWriter.Streams
+namespace MsgKit.Streams
 {
     /// <summary>
     ///     The properties stream contained inside the top level of the .msg file, which represents the Message object itself.

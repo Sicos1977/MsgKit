@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-namespace MsgWriter.Exceptions
+namespace MsgKit.Exceptions
 {
     /// <summary>
     /// Raised when an attachment with the same name already exists

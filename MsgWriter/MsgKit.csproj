@@ -7,8 +7,8 @@
     <ProjectGuid>{F4DC97AC-B333-4DF0-9A5C-546C77A63AC8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MsgWriter</RootNamespace>
-    <AssemblyName>MsgWriter</AssemblyName>
+    <RootNamespace>MsgKit</RootNamespace>
+    <AssemblyName>MsgKit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\MsgWriter.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\MsgKit.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

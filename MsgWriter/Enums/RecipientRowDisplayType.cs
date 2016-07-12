@@ -1,4 +1,4 @@
-﻿namespace MsgWriter.Enums
+﻿namespace MsgKit.Enums
 {
     /// <summary>
     ///     An enumeration. This field MUST be present when the Type field

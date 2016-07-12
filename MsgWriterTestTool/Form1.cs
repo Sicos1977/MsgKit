@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using MsgWriter;
-using MsgWriter.Enums;
+using MsgKit;
+using MsgKit.Enums;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -19,7 +19,7 @@ using MsgWriter.Enums;
    limitations under the License.
 */
 
-namespace MsgWriterTestTool
+namespace MsgKitTestTool
 {
     public partial class Form1 : Form
     {
