@@ -4391,23 +4391,10 @@ namespace MsgKit
     }
 
     /// <summary>
-    ///     Used to hold exactly one mapi tag
+    ///     Used to hold exactly one property tag
     /// </summary>
     internal class PropertyTag
     {
-        #region Constructor
-        /// <summary>
-        ///     Creates this object and sets all its properties
-        /// </summary>
-        /// <param name="id">The id <see cref="ushort" /></param>
-        /// <param name="type">The <see cref="PropertyType" /></param>
-        internal PropertyTag(ushort id, PropertyType type)
-        {
-            Id = id;
-            Type = type;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         ///     The 2 byte identifier
@@ -4425,7 +4412,20 @@ namespace MsgKit
         /// <returns></returns>
         public string Name
         {
-            get { return PropertyTags.SubStorageStreamPrefix + Id.ToString("X4") + ((ushort) Type).ToString("X4"); }
+            get { return PropertyTags.SubStorageStreamPrefix + Id.ToString("X4") + ((ushort)Type).ToString("X4"); }
+        }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        ///     Creates this object and sets all its properties
+        /// </summary>
+        /// <param name="id">The id <see cref="ushort" /></param>
+        /// <param name="type">The <see cref="PropertyType" /></param>
+        internal PropertyTag(ushort id, PropertyType type)
+        {
+            Id = id;
+            Type = type;
         }
         #endregion
     }

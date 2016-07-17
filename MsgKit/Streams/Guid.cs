@@ -10,7 +10,7 @@
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/ee220039(v=exchg.80).aspx
     /// </remarks>
-    internal sealed class Guid
+    internal sealed class GuidStream
     {
     }
 }

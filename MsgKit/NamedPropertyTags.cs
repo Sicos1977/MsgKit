@@ -14,6 +14,7 @@
    limitations under the License.
 */
 
+using System;
 using MsgKit.Enums;
 
 // ReSharper disable ConvertPropertyToExpressionBody
@@ -26,309 +27,490 @@ namespace MsgKit
     /// </summary>
     internal static class NamedPropertyTags
     {
-        internal static PropertyTag PidLidAttendeeCriticalChange
+        /// <summary>
+        /// Specifies the date and time at which the meeting-related object was sent
+        /// </summary>
+        internal static NamedPropertyTag PidLidAttendeeCriticalChange
         {
-            get { return new PropertyTag(0x0001, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x0040, new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidWhere
+        /// <summary>
+        /// Contains the value of the PidLidLocation property (section 2.159) from the associated
+        /// Meeting object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidWhere
         {
-            get { return new PropertyTag(0x0002, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidGlobalObjectId
+        /// <summary>
+        /// Contains the value of the PidLidGlobalObjectId property (section 2.142) for an object
+        /// that represents an Exception object to a recurring series, where the Year, Month, and Day fields are
+        /// all zero.
+        /// </summary>
+        internal static NamedPropertyTag PidLidGlobalObjectId
         {
-            get { return new PropertyTag(0x0003, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x0102, new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidIsSilent
+        /// <summary>
+        /// Indicates whether the user did not include any text in the body of the Meeting Response
+        /// object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidIsSilent
         {
-            get { return new PropertyTag(0x0004, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidIsRecurring
+        /// <summary>
+        /// Specifies whether the object is associated with a recurring series.
+        /// </summary>
+        internal static NamedPropertyTag PidLidIsRecurring
         {
-            get { return new PropertyTag(0x0005, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidRequiredAttendees
+        /// <summary>
+        /// Identifies required attendees for the appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRequiredAttendees
         {
-            get { return new PropertyTag(0x0006, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0006, new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidOptionalAttendees
+        /// <summary>
+        /// Specifies optional attendees.
+        /// </summary>
+        internal static NamedPropertyTag PidLidOptionalAttendees
         {
-            get { return new PropertyTag(0x0007, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidResourceAttendees
+        /// <summary>
+        /// Identifies resource attendees for the appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidResourceAttendees
         {
-            get { return new PropertyTag(0x0008, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidDelegateMail
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidDelegateMail
         {
-            get { return new PropertyTag(0x0009, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidIsException
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidIsException
         {
-            get { return new PropertyTag(0x000A, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidSingleInvite
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidSingleInvite
         {
-            get { return new PropertyTag(0x000B, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTimeZone
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidTimeZone
         {
-            get { return new PropertyTag(0x000C, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidStartRecurrenceDate
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidStartRecurrenceDate
         {
-            get { return new PropertyTag(0x000D, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidStartRecurrenceTime
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidStartRecurrenceTime
         {
-            get { return new PropertyTag(0x000E, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidEndRecurrenceDate
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidEndRecurrenceDate
         {
-            get { return new PropertyTag(0x000F, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidEndRecurrenceTime
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidEndRecurrenceTime
         {
-            get { return new PropertyTag(0x0010, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidDayInterval
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidDayInterval
         {
-            get { return new PropertyTag(0x0011, PropertyType.PT_SHORT); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_SHORT); }
         }
 
-        internal static PropertyTag PidLidWeekInterval
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWeekInterval
         {
-            get { return new PropertyTag(0x0012, PropertyType.PT_SHORT); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_SHORT); }
         }
 
-        internal static PropertyTag PidLidMonthInterval
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidMonthInterval
         {
-            get { return new PropertyTag(0x0013, PropertyType.PT_SHORT); }
+            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_SHORT); }
         }
 
-        internal static PropertyTag PidLidYearInterval
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidYearInterval
         {
-            get { return new PropertyTag(0x0014, PropertyType.PT_SHORT); }
+            get { return new NamedPropertyTag(0x0014, new Guid(""),  PropertyType.PT_SHORT); }
         }
 
-        internal static PropertyTag PidLidMonthOfYearMask
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidMonthOfYearMask
         {
-            get { return new PropertyTag(0x0017, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x0017, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidOldRecurrenceType
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidOldRecurrenceType
         {
-            get { return new PropertyTag(0x0018, PropertyType.PT_SHORT); }
+            get { return new NamedPropertyTag(0x0018, new Guid(""),  PropertyType.PT_SHORT); }
         }
 
-        internal static PropertyTag PidLidOwnerCriticalChange
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidOwnerCriticalChange
         {
-            get { return new PropertyTag(0x001A, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x001A, new Guid(""),  PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidUnknown001B
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidUnknown001B
         {
-            get { return new PropertyTag(0x001B, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x001B, new Guid(""),  PropertyType.PT_NULL); }
         }
 
-        internal static PropertyTag PidLidCalendarType
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidCalendarType
         {
-            get { return new PropertyTag(0x001C, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x001C, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAllAttendeesList
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidAllAttendeesList
         {
-            get { return new PropertyTag(0x001D, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x001D, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidCleanGlobalObjectId
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidCleanGlobalObjectId
         {
-            get { return new PropertyTag(0x0023, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x0023, new Guid(""),  PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidAppointmentMessageClass
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentMessageClass
         {
-            get { return new PropertyTag(0x0024, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0024, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidMeetingType
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidMeetingType
         {
-            get { return new PropertyTag(0x0026, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x0026, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidOldLocation
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidOldLocation
         {
-            get { return new PropertyTag(0x0028, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0028, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidOldWhenStartWhole
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidOldWhenStartWhole
         {
-            get { return new PropertyTag(0x0029, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x0029, new Guid(""),  PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidOldWhenEndWhole
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidOldWhenEndWhole
         {
-            get { return new PropertyTag(0x002A, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x002A, new Guid(""),  PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidFileUnder
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidFileUnder
         {
-            get { return new PropertyTag(0x8005, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8005, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFileUnderId
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidFileUnderId
         {
-            get { return new PropertyTag(0x8006, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8006, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidContactItemData
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidContactItemData
         {
-            get { return new PropertyTag(0x8007, PropertyType.PT_MV_LONG); }
+            get { return new NamedPropertyTag(0x8007, new Guid(""),  PropertyType.PT_MV_LONG); }
         }
 
-        internal static PropertyTag PidLidReferredBy
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidReferredBy
         {
-            get { return new PropertyTag(0x800E, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x800E, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidDepartment
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidDepartment
         {
-            get { return new PropertyTag(0x8010, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8010, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidHasPicture
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidHasPicture
         {
-            get { return new PropertyTag(0x8015, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8015, new Guid(""),  PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidHomeAddress
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidHomeAddress
         {
-            get { return new PropertyTag(0x801A, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x801A, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddress
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddress
         {
-            get { return new PropertyTag(0x801B, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x801B, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidOtherAddress
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidOtherAddress
         {
-            get { return new PropertyTag(0x801C, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x801C, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidPostalAddressId
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostalAddressId
         {
-            get { return new PropertyTag(0x8022, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8022, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidContactCharacterSet
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidContactCharacterSet
         {
-            get { return new PropertyTag(0x8023, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8023, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAutoLog
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidAutoLog
         {
-            get { return new PropertyTag(0x8025, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8025, new Guid(""),  PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidFileUnderList
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidFileUnderList
         {
-            get { return new PropertyTag(0x8026, PropertyType.PT_MV_LONG); }
+            get { return new NamedPropertyTag(0x8026, new Guid(""),  PropertyType.PT_MV_LONG); }
         }
 
-        internal static PropertyTag PidLidEmailList
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmailList
         {
-            get { return new PropertyTag(0x8027, PropertyType.PT_MV_LONG); }
+            get { return new NamedPropertyTag(0x8027, new Guid(""),  PropertyType.PT_MV_LONG); }
         }
 
-        internal static PropertyTag PidLidAddressBookProviderEmailList
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidAddressBookProviderEmailList
         {
-            get { return new PropertyTag(0x8028, PropertyType.PT_MV_LONG); }
+            get { return new NamedPropertyTag(0x8028, new Guid(""),  PropertyType.PT_MV_LONG); }
         }
 
-        internal static PropertyTag PidLidAddressBookProviderArrayType
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidAddressBookProviderArrayType
         {
-            get { return new PropertyTag(0x8029, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8029, new Guid(""),  PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidHtml
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidHtml
         {
-            get { return new PropertyTag(0x802B, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802B, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidYomiFirstName
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidYomiFirstName
         {
-            get { return new PropertyTag(0x802C, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802C, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidYomiLastName
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidYomiLastName
         {
-            get { return new PropertyTag(0x802D, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802D, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidYomiCompanyName
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidYomiCompanyName
         {
-            get { return new PropertyTag(0x802E, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802E, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidBusinessCardDisplayDefinition
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidBusinessCardDisplayDefinition
         {
-            get { return new PropertyTag(0x8040, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8040, new Guid(""),  PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidBusinessCardCardPicture
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidBusinessCardCardPicture
         {
-            get { return new PropertyTag(0x8041, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8041, new Guid(""),  PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidWorkAddressStreet
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddressStreet
         {
-            get { return new PropertyTag(0x8045, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8045, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddressCity
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddressCity
         {
-            get { return new PropertyTag(0x8046, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8046, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddressState
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddressState
         {
-            get { return new PropertyTag(0x8047, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8047, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddressPostalCode
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddressPostalCode
         {
-            get { return new PropertyTag(0x8048, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8048, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddressCountry
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddressCountry
         {
-            get { return new PropertyTag(0x8049, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8049, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddressPostOfficeBox
+        internal static NamedPropertyTag PidLidWorkAddressPostOfficeBox
         {
-            get { return new PropertyTag(0x804A, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x804A, new Guid(""),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidDistributionListChecksum
+        internal static NamedPropertyTag PidLidDistributionListChecksum
         {
-            get { return new PropertyTag(0x804C, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x804C, new Guid(""),  PropertyType.PT_LONG); }
         }
 
         internal static PropertyTag PidLidBirthdayEventEntryId
@@ -841,54 +1023,63 @@ namespace MsgKit
             get { return new PropertyTag(0x8210, PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidAppointmentEndDate
+        /// <summary>
+        /// Indicates the date that the appointment ends.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentEndDate
         {
-            get { return new PropertyTag(0x8211, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8211, new Guid("00062002-0000-0000-C000-000000000046"),  PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidAppointmentStartDate
+        /// <summary>
+        /// Identifies the date that the appointment starts.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentStartDate
         {
-            get { return new PropertyTag(0x8212, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8212, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidAppointmentDuration
+        /// <summary>
+        /// Specifies the length of the event, in minutes.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentDuration
         {
-            get { return new PropertyTag(0x8213, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8213, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAppointmentColor
+        internal static NamedPropertyTag PidLidAppointmentColor
         {
-            get { return new PropertyTag(0x8214, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8214, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAppointmentSubType
+        internal static NamedPropertyTag PidLidAppointmentSubType
         {
-            get { return new PropertyTag(0x8215, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8215, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidAppointmentRecur
+        internal static NamedPropertyTag PidLidAppointmentRecur
         {
-            get { return new PropertyTag(0x8216, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8216, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidAppointmentStateFlags
+        internal static NamedPropertyTag PidLidAppointmentStateFlags
         {
-            get { return new PropertyTag(0x8217, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8217, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidResponseStatus
+        internal static NamedPropertyTag PidLidResponseStatus
         {
-            get { return new PropertyTag(0x8218, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8218, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAppointmentReplyTime
+        internal static NamedPropertyTag PidLidAppointmentReplyTime
         {
-            get { return new PropertyTag(0x8220, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8220, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidRecurring
+        internal static NamedPropertyTag PidLidRecurring
         {
-            get { return new PropertyTag(0x8223, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8223, new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_BOOLEAN); }
         }
 
         internal static PropertyTag PidLidIntendedBusyStatus
@@ -1726,19 +1917,28 @@ namespace MsgKit
             get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidNameCompany
+        /// <summary>
+        /// Specifies the company for which the file was created.
+        /// </summary>
+        internal static NamedPropertyTag PidNameCompany
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag("", new Guid("00020329-0000-0000-C000-000000000046"),  PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidNameCreateDateTimeReadOnly
+        /// <summary>
+        /// Specifies the time, in UTC, that the file was first created.
+        /// </summary>
+        internal static NamedPropertyTag PidNameCreateDateTimeReadOnly
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x0000, new Guid("00020329-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidNameRightsManagementLicense
+        /// <summary>
+        /// Caches the use license for the rights-managed e-mail message.
+        /// </summary>
+        internal static NamedPropertyTag PidNameRightsManagementLicense
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_MV_BINARY); }
+            get { return new NamedPropertyTag(0x0000, new Guid(),  PropertyType.PT_MV_BINARY); }
         }
 
         internal static PropertyTag PidNameEditTime
@@ -2140,5 +2340,42 @@ namespace MsgKit
         {
             get { return new PropertyTag(0x8f07, PropertyType.PT_BOOLEAN); }
         }
+    }
+
+    /// <summary>
+    ///     Used to hold exactly one named property tag
+    /// </summary>
+    internal class NamedPropertyTag
+    {
+        #region Constructor
+        /// <summary>
+        ///     Creates this object and sets all its properties
+        /// </summary>
+        /// <param name="guid">The property <see cref="Guid"/></param>
+        /// <param name="type">The <see cref="PropertyType" /></param>
+        internal NamedPropertyTag(string name, Guid guid, PropertyType type)
+        {
+            Name = name;
+            Guid = guid;
+            Type = type;
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        ///     The name of the property
+        /// </summary>
+        public string Name{ get; }
+
+        /// <summary>
+        ///     The <see cref="Guid"/>
+        /// </summary>
+        public Guid Guid { get; }
+
+        /// <summary>
+        ///     The 2 byte <see cref="PropertyType" />
+        /// </summary>
+        public PropertyType Type { get; }
+        #endregion
     }
 }
