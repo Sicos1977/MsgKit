@@ -32,7 +32,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidAttendeeCriticalChange
         {
-            get { return new NamedPropertyTag(0x0040, new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x0001, "PidLidAttendeeCriticalChange", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_SYSTIME); }
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidWhere
         {
-            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x002, "PidLidWhere", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidGlobalObjectId
         {
-            get { return new NamedPropertyTag(0x0102, new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x0003, "PidLidGlobalObjectId", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BINARY); }
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidIsSilent
         {
-            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x004, "PidLidIsSilent", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidIsRecurring
         {
-            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x0005, "PidLidIsRecurring", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidRequiredAttendees
         {
-            get { return new NamedPropertyTag(0x0006, new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0006, "PidLidRequiredAttendees", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidOptionalAttendees
         {
-            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0007, "PidLidOptionalAttendees", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -92,47 +92,47 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidResourceAttendees
         {
-            get { return new NamedPropertyTag("", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0008, "PidLidResourceAttendees", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
-        /// 
+        /// Indicates whether a delegate responded to the meeting request.
         /// </summary>
         internal static NamedPropertyTag PidLidDelegateMail
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x0009, "PidLidDelegateMail", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
-        /// 
+        /// Indicates whether the object represents an exception (including an orphan instance).
         /// </summary>
         internal static NamedPropertyTag PidLidIsException
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x000A, "PidLidIsException", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
-        /// 
+        /// Deprecated
         /// </summary>
         internal static NamedPropertyTag PidLidSingleInvite
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x000B, "PidLidSingleInvite", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
-        /// 
+        /// Contains a stream that maps to the persisted format of a TZREG structure, which describes the time zone to be used for the start and end time of a recurring appointment or meeting request.
         /// </summary>
         internal static NamedPropertyTag PidLidTimeZone
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8233, "PidLidTimeZone", new Guid(), PropertyType.PT_LONG); }
         }
 
         /// <summary>
-        /// 
+        /// Identifies the start date of the recurrence pattern.
         /// </summary>
         internal static NamedPropertyTag PidLidStartRecurrenceDate
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x000D, "PidLidStartRecurrenceDate", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_LONG); }
         }
 
         /// <summary>
@@ -2347,21 +2347,12 @@ namespace MsgKit
     /// </summary>
     internal class NamedPropertyTag
     {
-        #region Constructor
-        /// <summary>
-        ///     Creates this object and sets all its properties
-        /// </summary>
-        /// <param name="guid">The property <see cref="Guid"/></param>
-        /// <param name="type">The <see cref="PropertyType" /></param>
-        internal NamedPropertyTag(string name, Guid guid, PropertyType type)
-        {
-            Name = name;
-            Guid = guid;
-            Type = type;
-        }
-        #endregion
-
         #region Properties
+        /// <summary>
+        ///     The 2 byte identifier
+        /// </summary>
+        public ushort Id { get; }
+
         /// <summary>
         ///     The name of the property
         /// </summary>
@@ -2376,6 +2367,23 @@ namespace MsgKit
         ///     The 2 byte <see cref="PropertyType" />
         /// </summary>
         public PropertyType Type { get; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        ///     Creates this object and sets all its properties
+        /// </summary>
+        /// <param name="id">The id</param>
+        /// <param name="name">The name of the property</param>
+        /// <param name="guid">The property <see cref="Guid"/></param>
+        /// <param name="type">The <see cref="PropertyType" /></param>
+        internal NamedPropertyTag(ushort id, string name, Guid guid, PropertyType type)
+        {
+            Id = id;
+            Name = name;
+            Guid = guid;
+            Type = type;
+        }
         #endregion
     }
 }

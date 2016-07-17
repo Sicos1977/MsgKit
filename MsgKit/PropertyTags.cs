@@ -4420,7 +4420,7 @@ namespace MsgKit
         /// <summary>
         ///     Creates this object and sets all its properties
         /// </summary>
-        /// <param name="id">The id <see cref="ushort" /></param>
+        /// <param name="id">The id</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
         internal PropertyTag(ushort id, PropertyType type)
         {
