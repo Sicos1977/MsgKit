@@ -158,7 +158,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidEndRecurrenceDate
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x0003, "PidLidEndRecurrenceDate", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_LONG); }
         }
 
         /// <summary>
