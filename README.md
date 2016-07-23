@@ -1,6 +1,6 @@
 ## What is MsgKit?
 
-MsgKit is a C# library which may be used for the creation and parsing (in the near future) of messages that are created with outlook
+MsgKit is a 100% C# library which may be used for the creation and parsing (in the near future) of messages that are created with Outlook
 
 ## History
 
