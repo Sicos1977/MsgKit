@@ -35,8 +35,8 @@ At the moment there is no package on NuGet... there will be one when the code is
 ### Creating an Outlook Message file
 
 var email = new Email(new Sender("peterpan@neverland.com", "Peter Pan"),
-					  new Representing("tinkerbell@neverland.com", "Tinkerbell"), 
-					  "Hello Neverland subject");
+		      new Representing("tinkerbell@neverland.com", "Tinkerbell"), 
+		      "Hello Neverland subject");
 					  
 email.Recipients.AddRecipientTo("captainhook@neverland.com", "Captain Hook");
 email.Recipients.AddRecipientCc("crocodile@neverland.com", "The evil ticking crocodile");
