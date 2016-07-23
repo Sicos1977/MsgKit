@@ -146,11 +146,11 @@ namespace MsgKit
         }
 
         /// <summary>
-        /// 
+        /// Identifies the start time of the recurrence pattern.
         /// </summary>
         internal static NamedPropertyTag PidLidStartRecurrenceTime
         {
-            get { return new NamedPropertyTag("", new Guid(""), PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x0003, "PidLidStartRecurrenceTime", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_LONG); }
         }
 
         /// <summary>
