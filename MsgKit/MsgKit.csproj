@@ -108,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="_Documentation\[MS-OXCDATA].pdf" />
+    <None Include="_Documentation\[MS-OXCMAIL].pdf" />
+    <None Include="_Documentation\[MS-OXCMSG].pdf" />
+    <None Include="_Documentation\[MS-OXCROPS].pdf" />
+    <None Include="_Documentation\[MS-OXMSG].pdf" />
+    <None Include="_Documentation\[MS-OXOMSG].pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

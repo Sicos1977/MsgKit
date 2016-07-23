@@ -7,8 +7,8 @@
     <ProjectGuid>{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MsgWriterTestTool</RootNamespace>
-    <AssemblyName>MsgWriterTestTool</AssemblyName>
+    <RootNamespace>MsgKitTestTool</RootNamespace>
+    <AssemblyName>MsgKitTestTool</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,6 +63,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
