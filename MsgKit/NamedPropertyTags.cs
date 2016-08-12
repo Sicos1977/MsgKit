@@ -226,14 +226,6 @@ namespace MsgKit
             get { return new NamedPropertyTag(0x001A, "PidLidOwnerCriticalChange", new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_SYSTIME); }
         }
 
-        ///// <summary>
-        ///// Unknown
-        ///// </summary>
-        //internal static NamedPropertyTag PidLidUnknown
-        //{
-        //    get { return new NamedPropertyTag(0x001B, "PidLidUnknown", new Guid(""), PropertyType.PT_NULL); }
-        //}
-
         /// <summary>
         /// Contains the value of the CalendarType field from the PidLidAppointmentRecur
         /// property(section 2.22).
@@ -369,7 +361,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        /// 
+        /// Specifies the complete address of the contact’s other address.
         /// </summary>
         internal static NamedPropertyTag PidLidOtherAddress
         {
@@ -385,7 +377,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        /// 
+        /// Specifies the character set used for this contact.
         /// </summary>
         internal static NamedPropertyTag PidLidContactCharacterSet
         {
@@ -405,7 +397,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidFileUnderList
         {
-            get { return new NamedPropertyTag(0x8026, "PidLidFileUnderList", new Guid(""), PropertyType.PT_MV_LONG); }
+            get { return new NamedPropertyTag(0x8026, "PidLidFileUnderList", new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_MV_LONG); }
         }
 
         /// <summary>
@@ -2324,39 +2316,28 @@ namespace MsgKit
             get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidNameXUnifiedMessagingPartnerContext
+        /// <summary>
+        /// The spam confidence level
+        /// </summary>
+        internal static NamedPropertyTag PidNameOriginalSpamConfidenceLevel
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0000, "PidNameOriginalSpamConfidenceLevel", new Guid(), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidNameXUnifiedMessagingPartnerStatus
+        /// <summary>
+        /// Indicates the transfer size, in bytes, for a remote item.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRemoteTransferSize
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8F05, "PidLidRemoteTransferSize", new Guid("00062014-0000-0000-c000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidNameInstantMessagingAddress2
+        /// <summary>
+        /// Indicates whether a remote item has an attachment associated with it.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRemoteAttachment
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
-        }
-
-        internal static PropertyTag PidNameInstantMessagingAddress3
-        {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
-        }
-
-        internal static PropertyTag PidNameOriginalSpamConfidenceLevel
-        {
-            get { return new PropertyTag(0x0000, PropertyType.PT_LONG); }
-        }
-
-        internal static PropertyTag PidLidRemoteTransferSize
-        {
-            get { return new PropertyTag(0x8f05, PropertyType.PT_LONG); }
-        }
-
-        internal static PropertyTag PidLidRemoteAttachment
-        {
-            get { return new PropertyTag(0x8f07, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8F07, "PidLidRemoteAttachment", new Guid("00062014-0000-0000-c000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
     }
 
