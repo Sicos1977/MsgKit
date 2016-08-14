@@ -576,11 +576,15 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     TODO
+        ///     The value of this property is ignored.
         /// </summary>
         internal static NamedPropertyTag PidLidEmailList
         {
-            get { return new NamedPropertyTag(0x8027, "PidLidEmailList", new Guid(""), PropertyType.PT_MV_LONG); }
+            get
+            {
+                return new NamedPropertyTag(0x8027, "PidLidEmailList",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_MV_LONG);
+            }
         }
 
         /// <summary>
@@ -712,7 +716,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Specifies the country code portion of the work address of the contact
+        ///     Specifies the country code portion of the work address of the contact.
         /// </summary>
         internal static NamedPropertyTag PidLidWorkAddressCountry
         {
@@ -724,7 +728,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        /// 
+        ///      Specifies the post office box portion of the contact's work address.
         /// </summary>
         internal static NamedPropertyTag PidLidWorkAddressPostOfficeBox
         {
@@ -765,8 +769,11 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidAnniversaryEventEntryId
         {
-            get { return new NamedPropertyTag(0x804E, "PidLidAnniversaryEventEntryId",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
+            get
+            {
+                return new NamedPropertyTag(0x804E, "PidLidAnniversaryEventEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY);
+            }
         }
 
         /// <summary>
@@ -775,8 +782,11 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidContactUserField1
         {
-            get { return new NamedPropertyTag(0x804F, "PidLidContactUserField1",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+            get
+            {
+                return new NamedPropertyTag(0x804F, "PidLidContactUserField1",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+            }
         }
 
         /// <summary>
@@ -785,8 +795,11 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidContactUserField2
         {
-            get { return new NamedPropertyTag(0x8050, "PidLidContactUserField2",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+            get
+            {
+                return new NamedPropertyTag(0x8050, "PidLidContactUserField2",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+            }
         }
 
         /// <summary>
@@ -805,8 +818,11 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidContactUserField4
         {
-            get { return new NamedPropertyTag(0x8052, "PidLidContactUserField4",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+            get
+            {
+                return new NamedPropertyTag(0x8052, "PidLidContactUserField4",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+            }
         }
 
         /// <summary>
@@ -814,8 +830,11 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidDistributionListName
         {
-            get { return new NamedPropertyTag(0x8053, "PidLidDistributionListName",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+            get
+            {
+                return new NamedPropertyTag(0x8053, "PidLidDistributionListName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+            }
         }
 
         /// <summary>
@@ -824,125 +843,240 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidDistributionListOneOffMembers
         {
-            get { return new NamedPropertyTag(0x8054, "PidLidDistributionListOneOffMembers",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_MV_BINARY); }
+            get
+            {
+                return new NamedPropertyTag(0x8054, "PidLidDistributionListOneOffMembers",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_MV_BINARY);
+            }
         }
 
-        internal static PropertyTag PidLidDistributionListMembers
+        /// <summary>
+        ///     Specifies the 32-bit cyclic redundancy check (CRC) polynomial checksum, as
+        ///     specified in [ISO/IEC8802-3], calculated on the value of PidLidDistributionListMembers(section 2.91)
+        /// </summary>
+        internal static NamedPropertyTag PidLidDistributionListMembers
         {
-            get { return new PropertyTag(0x8055, PropertyType.PT_MV_BINARY); }
+            get
+            {
+                return new NamedPropertyTag(0x8055, "PidLidDistributionListMembers",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_MV_BINARY);
+            }
         }
 
-        internal static PropertyTag PidLidInstantMessagingAddress
+        /// <summary>
+        ///     Specifies the contact's instant messaging address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidInstantMessagingAddress
         {
-            get { return new PropertyTag(0x8062, PropertyType.PT_UNICODE); }
+            get
+            {
+                return new NamedPropertyTag(0x8062, "PidLidInstantMessagingAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+            }
         }
 
-        internal static PropertyTag PidLidDistributionListStream
+        /// <summary>
+        ///     Specifies the list of EntryIds and one-off EntryIds corresponding to the members of
+        ///     the personal distribution list.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDistributionListStream
         {
-            get { return new PropertyTag(0x8064, PropertyType.PT_LONG); }
+            get
+            {
+                return new NamedPropertyTag(0x8064, "PidLidDistributionListStream",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_LONG);
+            }
         }
 
-        internal static PropertyTag PidLidEmail1DisplayName
+        /// <summary>
+        ///     Specifies the user-readable display name for the email address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1DisplayName
         {
-            get { return new PropertyTag(0x8080, PropertyType.PT_UNICODE); }
+            get
+            {
+                return new NamedPropertyTag(0x8080, "PidLidEmail1DisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+            }
         }
 
-        internal static PropertyTag PidLidEmail1AddressType
+        /// <summary>
+        ///     Specifies the address type of an electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1AddressType
         {
-            get { return new PropertyTag(0x8082, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8082, "PidLidEmail1AddressType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail1EmailAddress
+        /// <summary>
+        ///     Specifies the email address of the contact.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1EmailAddress
         {
-            get { return new PropertyTag(0x8083, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8083, "PidLidEmail1EmailAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail1OriginalDisplayName
+        /// <summary>
+        ///     Specifies the SMTP email address that corresponds to the email address for the Contact
+        ///     object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1OriginalDisplayName
         {
-            get { return new PropertyTag(0x8084, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8084, "PidLidEmail1OriginalDisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail1OriginalEntryId
+        /// <summary>
+        ///     Specifies the EntryID of the object corresponding to this electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1OriginalEntryId
         {
-            get { return new PropertyTag(0x8085, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8085, "PidLidEmail1OriginalEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidEmail1RichTextFormat
+        /// <summary>
+        ///     Returns true when the E-mail is stored in RTF format
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1RichTextFormat
         {
-            get { return new PropertyTag(0x8086, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8086, "PidLidEmail1RichTextFormat",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidEmail1EmailType
+        /// <summary>
+        /// 
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail1EmailType
         {
-            get { return new PropertyTag(0x8087, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8087, "PidLidEmail1EmailType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail2DisplayName
+        /// <summary>
+        ///     Specifies the user-readable display name for the e-mail address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2DisplayName
         {
-            get { return new PropertyTag(0x8090, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8090, "PidLidEmail2DisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail2EntryId
+        /// <summary>
+        ///     Specifies the EntryID of the object corresponding to this electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2EntryId
         {
-            get { return new PropertyTag(0x8091, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8091, "PidLidEmail2EntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidEmail2AddressType
+        /// <summary>
+        ///     Specifies the address type of an electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2AddressType
         {
-            get { return new PropertyTag(0x8092, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8092, "PidLidEmail2AddressType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail2EmailAddress
+        /// <summary>
+        ///     Specifies the email address of the contact.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2EmailAddress
         {
-            get { return new PropertyTag(0x8093, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8093, "PidLidEmail2EmailAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail2OriginalDisplayName
+        /// <summary>
+        ///     Specifies the SMTP email address that corresponds to the email address for the Contact
+        ///     object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2OriginalDisplayName
         {
-            get { return new PropertyTag(0x8094, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8094, "PidLidEmail2OriginalDisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail2OriginalEntryId
+        /// <summary>
+        ///     Specifies the EntryID of the object corresponding to this electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2OriginalEntryId
         {
-            get { return new PropertyTag(0x8095, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8095, "PidLidEmail2OriginalEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidEmail2RichTextFormat
+        /// <summary>
+        ///     Returns true when the E-mail is stored in RTF format
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail2RichTextFormat
         {
-            get { return new PropertyTag(0x8096, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8096, "PidLidEmail2RichTextFormat",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidEmail3DisplayName
+        /// <summary>
+        ///     Specifies the user-readable display name for the e-mail address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail3DisplayName
         {
-            get { return new PropertyTag(0x80A0, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80A0, "PidLidEmail3DisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail3EntryId
+        /// <summary>
+        ///     Specifies the EntryID of the object corresponding to this electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail3EntryId
         {
-            get { return new PropertyTag(0x80A1, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x80A1, "PidLidEmail3EntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidEmail3AddressType
+        /// <summary>
+        ///     Specifies the address type of an electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail3AddressType
         {
-            get { return new PropertyTag(0x80A2, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80A2, "PidLidEmail3AddressType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail3EmailAddress
+        /// <summary>
+        ///     Specifies the email address of the contact.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail3EmailAddress
         {
-            get { return new PropertyTag(0x80A3, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80A3, "PidLidEmail3EmailAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail3OriginalDisplayName
+        /// <summary>
+        ///     Specifies the SMTP email address that corresponds to the email address for the Contact
+        ///     object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail3OriginalDisplayName
         {
-            get { return new PropertyTag(0x80A4, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80A4, "PidLidEmail3OriginalDisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidEmail3OriginalEntryId
+        /// <summary>
+        ///     Specifies the EntryID of the object corresponding to this electronic address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidEmail3OriginalEntryId
         {
-            get { return new PropertyTag(0x80A5, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x80A5, "PidLidEmail3OriginalEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Returns true when the E-mail is stored in RTF format
+        /// </summary>
         internal static PropertyTag PidLidEmail3RichTextFormat
         {
             get { return new PropertyTag(0x80A6, PropertyType.PT_BOOLEAN); }
