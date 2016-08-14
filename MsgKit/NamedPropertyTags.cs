@@ -1077,69 +1077,121 @@ namespace MsgKit
         /// <summary>
         ///     Returns true when the E-mail is stored in RTF format
         /// </summary>
-        internal static PropertyTag PidLidEmail3RichTextFormat
+        internal static NamedPropertyTag PidLidEmail3RichTextFormat
         {
-            get { return new PropertyTag(0x80A6, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x80A6, "PidLidEmail3RichTextFormat",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidFax1AddressType
+        /// <summary>
+        ///     Contains the string value "FAX".
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax1AddressType
         {
-            get { return new PropertyTag(0x80B2, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80B2, "PidLidFax1AddressType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax1EmailAddress
+        /// <summary>
+        ///     Contains a user-readable display name, followed by the "@" character, followed by a
+        ///     fax number.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax1EmailAddress
         {
-            get { return new PropertyTag(0x80B3, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80B3, "PidLidFax1EmailAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax1OriginalDisplayName
+        /// <summary>
+        ///     Contains the same value as PidTagNormalizedSubject (section 2.907).
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax1OriginalDisplayName
         {
-            get { return new PropertyTag(0x80B4, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80B4, "PidLidFax1OriginalDisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax1OriginalEntryId
+        /// <summary>
+        ///     Specifies a one-off EntryId corresponding to this fax address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax1OriginalEntryId
         {
-            get { return new PropertyTag(0x80B5, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x80B5, "PidLidFax1OriginalEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidFax2AddressType
+        /// <summary>
+        ///     Contains the string value "FAX".
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax2AddressType
         {
-            get { return new PropertyTag(0x80C2, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80C2, "PidLidFax2AddressType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax2EmailAddress
+        /// <summary>
+        ///     Contains a user-readable display name, followed by the "@" character, followed by a
+        ///     fax number.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax2EmailAddress
         {
-            get { return new PropertyTag(0x80C3, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80C3, "PidLidFax2EmailAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax2OriginalDisplayName
+        /// <summary>
+        ///     Contains the same value as PidTagNormalizedSubject (section 2.907).
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax2OriginalDisplayName
         {
-            get { return new PropertyTag(0x80C4, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80C4, "PidLidFax2OriginalDisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax2OriginalEntryId
+        /// <summary>
+        ///     Specifies a one-off EntryId corresponding to this fax address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax2OriginalEntryId
         {
-            get { return new PropertyTag(0x80C5, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x80C5, "PidLidFax2OriginalEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidFax3AddressType
+        /// <summary>
+        ///     Contains the string value "FAX".
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax3AddressType
         {
-            get { return new PropertyTag(0x80D2, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80D2, "PidLidFax3AddressType",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax3EmailAddress
+        /// <summary>
+        ///     Contains a user-readable display name, followed by the "@" character, followed by a
+        ///     fax number. 
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax3EmailAddress
         {
-            get { return new PropertyTag(0x80D3, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80D3, "PidLidFax3EmailAddress",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax3OriginalDisplayName
+        /// <summary>
+        ///     Contains the same value as PidTagNormalizedSubject (section 2.907).
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax3OriginalDisplayName
         {
-            get { return new PropertyTag(0x80D4, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80D4, "PidLidFax3OriginalDisplayName",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidFax3OriginalEntryId
+        /// <summary>
+        ///     Specifies a one-off EntryId corresponding to this fax address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFax3OriginalEntryId
         {
-            get { return new PropertyTag(0x80D5, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x80D5, "PidLidFax3OriginalEntryId",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
         internal static PropertyTag PidLidFreeBusyLocation
