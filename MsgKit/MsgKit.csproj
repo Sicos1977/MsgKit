@@ -103,6 +103,7 @@
     <Compile Include="Recipient.cs" />
     <Compile Include="Enums\RecipientRowAddressType.cs" />
     <Compile Include="Enums\RecipientRowDisplayType.cs" />
+    <Compile Include="ThreadIndex.cs" />
     <Compile Include="TranslateTags.cs" />
     <Compile Include="Structures\UnsendableRecipients.cs" />
   </ItemGroup>
