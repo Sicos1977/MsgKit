@@ -1194,54 +1194,96 @@ namespace MsgKit
                     new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidFreeBusyLocation
+        /// <summary>
+        ///     Specifies a URL path from which a client can retrieve free/busy status information
+        ///     for the contact.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFreeBusyLocation
         {
-            get { return new PropertyTag(0x80D8, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80D8, "PidLidFreeBusyLocation",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidHomeAddressCountryCode
+        /// <summary>
+        ///     Specifies the country code portion of the contact's home address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidHomeAddressCountryCode
         {
-            get { return new PropertyTag(0x80DA, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80DA, "PidLidHomeAddressCountryCode",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWorkAddressCountryCode
+        /// <summary>
+        ///      Specifies the country code portion of the contact's work address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidWorkAddressCountryCode
         {
-            get { return new PropertyTag(0x80DB, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80DB, "PidLidWorkAddressCountryCode",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidOtherAddressCountryCode
+        /// <summary>
+        ///      Specifies the country code portion of the contact's other address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidOtherAddressCountryCode
         {
-            get { return new PropertyTag(0x80DC, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80DC, "PidLidOtherAddressCountryCode",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidBirthdayLocal
+        /// <summary>
+        ///     Specifies the birthday of a contact.
+        /// </summary>
+        internal static NamedPropertyTag PidLidBirthdayLocal
         {
-            get { return new PropertyTag(0x80DE, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x80DE, "PidLidBirthdayLocal",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidAddressCountryCode
+        /// <summary>
+        ///     Specifies the country code portion of the contact's mailing address.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAddressCountryCode
         {
-            get { return new PropertyTag(0x80DD, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x80DD, "PidLidAddressCountryCode",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidWeddingAnniversaryLocal
+        /// <summary>
+        ///     Specifies the wedding anniversary of the contact, at 0:00 in the client's local time
+        ///     zone and it is saved without any time zone conversions.
+        /// </summary>
+        internal static NamedPropertyTag PidLidWeddingAnniversaryLocal
         {
-            get { return new PropertyTag(0x80DF, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x80DF, "PidLidWeddingAnniversaryLocal",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTaskStatus
+        /// <summary>
+        ///      Specifies the status of a task.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskStatus
         {
-            get { return new PropertyTag(0x8101, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8101, "PidLidTaskStatus",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidPercentComplete
+        /// <summary>
+        ///      Indicates whether a time-flagged Message object is completed or not.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPercentComplete
         {
-            get { return new PropertyTag(0x8102, PropertyType.PT_DOUBLE); }
+            get { return new NamedPropertyTag(0x8102, "PidLidPercentComplete",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_DOUBLE); }
         }
 
-        internal static PropertyTag PidLidTeamTask
+        /// <summary>
+        ///     Specifies if the task is for a team
+        /// </summary>
+        internal static NamedPropertyTag PidLidTeamTask
         {
-            get { return new PropertyTag(0x8103, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8103, "PidLidTeamTask",
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
         internal static PropertyTag PidLidTaskStartDate
