@@ -1265,7 +1265,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidLidTaskStatus
         {
             get { return new NamedPropertyTag(0x8101, "PidLidTaskStatus",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
         /// <summary>
@@ -1274,7 +1274,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidLidPercentComplete
         {
             get { return new NamedPropertyTag(0x8102, "PidLidPercentComplete",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_DOUBLE); }
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_DOUBLE); }
         }
 
         /// <summary>
@@ -1283,187 +1283,341 @@ namespace MsgKit
         internal static NamedPropertyTag PidLidTeamTask
         {
             get { return new NamedPropertyTag(0x8103, "PidLidTeamTask",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskStartDate
+        /// <summary>
+        ///      Specifies the date on which the user expects work on the task to begin.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskStartDate
         {
-            get { return new PropertyTag(0x8104, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8104, "PidLidTaskStartDate",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTaskDueDate
+        /// <summary>
+        ///      Specifies the date by which the user expects work on the task to be complete.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskDueDate
         {
-            get { return new PropertyTag(0x8105, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8105, "PidLidTaskDueDate",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTaskResetReminder
+        /// <summary>
+        ///     Indicates whether future instances of recurring tasks need reminders, even though
+        ///     <see cref="PidLidReminderSet" />(section 2.220) is 0x00.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskResetReminder
         {
-            get { return new PropertyTag(0x8107, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8107, "PidLidTaskResetReminder",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskAccepted
+        /// <summary>
+        ///     Indicates whether a task assignee has replied to a task request for this Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskAccepted
         {
-            get { return new PropertyTag(0x8108, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8108, "PidLidTaskAccepted",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskDeadOccurrence
+        /// <summary>
+        ///      Indicates whether new occurrences remain to be generated.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskDeadOccurrence
         {
-            get { return new PropertyTag(0x8109, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8109, "PidLidTaskDeadOccurrence",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskDateCompleted
+        /// <summary>
+        ///     Specifies the date when the user completed work on the task.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskDateCompleted
         {
-            get { return new PropertyTag(0x810F, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x810F, "PidLidTaskDateCompleted",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTaskActualEffort
+        /// <summary>
+        ///      Indicates the number of minutes that the user actually spent working on a task.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskActualEffort
         {
-            get { return new PropertyTag(0x8110, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8110, "PidLidTaskActualEffort",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskEstimatedEffort
+        /// <summary>
+        ///      Indicates the number of minutes that the user expects to work on a task.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskEstimatedEffort
         {
-            get { return new PropertyTag(0x8111, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8111, "PidLidTaskEstimatedEffort",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskVersion
+        /// <summary>
+        ///     Indicates which copy is the latest update of a Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskVersion
         {
-            get { return new PropertyTag(0x8112, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8112, "PidLidTaskVersion",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskState
+        /// <summary>
+        ///     Indicates the current assignment state of the Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskState
         {
-            get { return new PropertyTag(0x8113, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8113, "PidLidTaskState",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskLastUpdate
+        /// <summary>
+        ///     Contains the date and time of the most recent change made to the Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskLastUpdate
         {
-            get { return new PropertyTag(0x8115, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8115, "PidLidTaskLastUpdate",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTaskRecurrence
+        /// <summary>
+        ///     Contains a RecurrencePattern structure that provides information about recurring
+        ///     tasks.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskRecurrence
         {
-            get { return new PropertyTag(0x8116, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8116, "PidLidTaskRecurrence",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidTaskAssigners
+        /// <summary>
+        ///      Contains a stack of entries, each representing a task assigner.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskAssigners
         {
-            get { return new PropertyTag(0x8117, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8117, "PidLidTaskAssigners",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidTaskStatusOnComplete
+        /// <summary>
+        ///      Indicates whether the task assignee has been requested to send an e-mail message
+        ///     update when the task assignee completes the assigned task.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskStatusOnComplete
         {
-            get { return new PropertyTag(0x8119, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8119, "PidLidTaskStatusOnComplete",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskHistory
+        /// <summary>
+        ///      Indicates the type of change that was last made to the Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskHistory
         {
-            get { return new PropertyTag(0x811A, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x811A, "PidLidTaskHistory",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskUpdates
+        /// <summary>
+        ///      Indicates whether the task assignee has been requested to send a task update when
+        ///     the assigned Task object changes.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskUpdates
         {
-            get { return new PropertyTag(0x811B, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x811B, "PidLidTaskUpdates",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskComplete
+        /// <summary>
+        ///     Indicates that the task has been completed.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskComplete
         {
-            get { return new PropertyTag(0x811C, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x811C, "PidLidTaskComplete",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskFCreator
+        /// <summary>
+        ///     Indicates that the Task object was originally created by the action of the current user
+        ///     or user agent instead of by the processing of a task request.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskFCreator
         {
-            get { return new PropertyTag(0x811E, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x811E, "PidLidTaskFCreator",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskOwner
+        /// <summary>
+        ///     Contains the name of the task owner.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskOwner
         {
-            get { return new PropertyTag(0x811F, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x811F, "PidLidTaskOwner",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidTaskMultipleRecipients
+        /// <summary>
+        ///      Provides optimization hints about the recipients of a Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskMultipleRecipients
         {
-            get { return new PropertyTag(0x8120, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8120, "PidLidTaskMultipleRecipients",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskAssigner
+        /// <summary>
+        ///     Specifies the name of the user that last assigned the task.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskAssigner
         {
-            get { return new PropertyTag(0x8121, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8121, "PidLidTaskAssigner",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidTaskLastUser
+        /// <summary>
+        ///     Contains the name of the most recent user to have been the task owner.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskLastUser
         {
-            get { return new PropertyTag(0x8122, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8122, "PidLidTaskLastUser",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidTaskOrdinal
+        /// <summary>
+        ///     Provides an aid to custom sorting of Task objects
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskOrdinal
         {
-            get { return new PropertyTag(0x8123, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8123, "PidLidTaskOrdinal",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskNoCompute
+        /// <summary>
+        ///     Not used. The client can set this property, but it has no impact on the Task-Related
+        ///     Objects protocol and is ignored by the server.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskNoCompute
         {
-            get { return new PropertyTag(0x8124, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8124, "PidLidTaskNoCompute",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskLastDelegate
+        /// <summary>
+        ///     Contains the name of the user who most recently assigned the task, or the user to
+        ///     whom it was most recently assigned.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskLastDelegate
         {
-            get { return new PropertyTag(0x8125, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8125, "PidLidTaskLastDelegate",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidTaskFRecurring
+        /// <summary>
+        ///     Indicates whether the task includes a recurrence pattern.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskFRecurring
         {
-            get { return new PropertyTag(0x8126, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8126, "PidLidTaskFRecurring",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskRole
+        /// <summary>
+        ///     Not used. The client can set this property, but it has no impact on the Task-Related
+        ///     Objects protocol and is ignored by the server.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskRole
         {
-            get { return new PropertyTag(0x8127, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8127, "PidLidTaskRole",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidTaskOwnership
+        /// <summary>
+        ///      Indicates the role of the current user relative to the Task object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskOwnership
         {
-            get { return new PropertyTag(0x8129, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8129, "PidLidTaskOwnership",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAcceptanceState
+        /// <summary>
+        ///     The acceptance state of the task
+        /// </summary>
+        internal static NamedPropertyTag PidLidAcceptanceState
         {
-            get { return new PropertyTag(0x812A, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x812A, "PidLidAcceptanceState",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTaskFFixOffline
+        /// <summary>
+        ///      Indicates the accuracy of PidLidTaskOwner (section 2.326).
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskFFixOffline
         {
-            get { return new PropertyTag(0x812C, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x812C, "PidLidTaskFFixOffline",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidTaskCustomFlags
+        /// <summary>
+        ///     The client can set this property, but it has no impact on the Task-Related Objects
+        ///     protocol and is ignored by the server.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskCustomFlags
         {
-            get { return new PropertyTag(0x8139, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8139, "PidLidTaskCustomFlags",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidTrustRecipientHighlights
+        /// <summary>
+        ///     
+        /// </summary>
+        internal static NamedPropertyTag PidLidTrustRecipientHighlights
         {
-            get { return new PropertyTag(0x823E, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x823E, "PidLidTrustRecipientHighlights",
+                    new Guid("00062003-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidSendMeetingAsIcal
+        /// <summary>
+        ///     
+        /// </summary>
+        internal static NamedPropertyTag PidLidSendMeetingAsIcal
         {
-            get { return new PropertyTag(0x8200, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8200, "PidLidSendMeetingAsIcal",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidAppointmentSequence
+        /// <summary>
+        ///     Specifies the sequence number of a Meeting object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentSequence
         {
-            get { return new PropertyTag(0x8201, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8201, "PidLidAppointmentSequence",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidAppointmentSequenceTime
+        /// <summary>
+        ///      Indicates the date and time at which the property PidLidAppointmentSequence
+        ///     (section 2.25) was last modified.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentSequenceTime
         {
-            get { return new PropertyTag(0x8202, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8202, "PidLidAppointmentSequence",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidAppointmentLastSequence
+        /// <summary>
+        ///     Indicates to the organizer the last sequence number that was sent to any attendee.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentLastSequence
         {
-            get { return new PropertyTag(0x8203, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8203, "PidLidAppointmentSequence",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
         internal static PropertyTag PidLidChangeHighlight
@@ -1562,6 +1716,9 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///      Specifies the color to be used when displaying the Calendar object.
+        /// </summary>
         internal static NamedPropertyTag PidLidAppointmentColor
         {
             get
@@ -1571,6 +1728,9 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///     Specifies whether the event is an all-day event.
+        /// </summary>
         internal static NamedPropertyTag PidLidAppointmentSubType
         {
             get
@@ -1580,6 +1740,10 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///     Contains the value of the CalendarType field from the PidLidAppointmentRecur
+        ///     property(section 2.22).
+        /// </summary>
         internal static NamedPropertyTag PidLidAppointmentRecur
         {
             get
@@ -1589,6 +1753,9 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///      Specifies a bit field that describes the state of the object.
+        /// </summary>
         internal static NamedPropertyTag PidLidAppointmentStateFlags
         {
             get
@@ -1598,6 +1765,9 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///     Specifies the response status of an attendee.
+        /// </summary>
         internal static NamedPropertyTag PidLidResponseStatus
         {
             get
@@ -1607,6 +1777,10 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///     Specifies the date and time at which the attendee responded to a received meeting
+        ///     request or Meeting Update object.
+        /// </summary>
         internal static NamedPropertyTag PidLidAppointmentReplyTime
         {
             get
@@ -1616,12 +1790,15 @@ namespace MsgKit
             }
         }
 
+        /// <summary>
+        ///     Specifies whether the object represents a recurring series.
+        /// </summary>
         internal static NamedPropertyTag PidLidRecurring
         {
             get
             {
-                return new NamedPropertyTag(0x8223, "PidLidRecurring", new Guid("00062002-0000-0000-C000-000000"),
-                    PropertyType.PT_BOOLEAN);
+                return new NamedPropertyTag(0x8223, "PidLidRecurring", 
+                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_BOOLEAN);
             }
         }
 
@@ -1845,6 +2022,100 @@ namespace MsgKit
             get { return new PropertyTag(0x827A, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     Specifies the interval, in minutes, between the time at which the reminder first
+        ///     becomes overdue and the start time of the Calendar object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderDelta
+        {
+            get { return new NamedPropertyTag(0x8501, "PidLidReminderDelta",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Specifies the filename of the sound that a client is to play when the reminder for that
+        ///     object becomes overdue.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderFileParameter
+        {
+            get { return new NamedPropertyTag(0x851F, "PidLidReminderFileParameter",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Specifies whether the client is to respect the values PidLidReminderPlaySound (section
+        ///     2.219) and <see cref="PidLidReminderFileParameter" /> (section 2.217), or use the default 
+        ///     values for those properties.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderOverride
+        {
+            get { return new NamedPropertyTag(0x851C, "PidLidReminderOverride",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
+        }
+
+        /// <summary>
+        ///     Specifies whether the client is to play a sound when the reminder becomes overdue.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderPlaySound
+        {
+            get { return new NamedPropertyTag(0x851E, "PidLidReminderPlaySound",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
+        }
+
+        /// <summary>
+        ///     Specifies whether a reminder is set on the object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderSet
+        {
+            get { return new NamedPropertyTag(0x8503, "PidLidReminderSet",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///      Specifies the point in time when a reminder transitions from pending to overdue.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderSignalTime
+        {
+            get { return new NamedPropertyTag(0x8560, "PidLidReminderSignalTime",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
+        }
+
+        /// <summary>
+        ///     Specifies the initial signal time for non-Calendar objects.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderTime
+        {
+            get { return new NamedPropertyTag(0x8502, "PidLidReminderTime",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
+        }
+
+        /// <summary>
+        ///      Indicates the time and date of the reminder for the appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderTimeDate
+        {
+            get { return new NamedPropertyTag(0x8505, "PidLidReminderTimeDate",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
+        }
+
+        /// <summary>
+        ///      Indicates the time of the reminder for the appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderTimeTime
+        {
+            get { return new NamedPropertyTag(0x8504, "PidLidReminderTimeTime",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///      This property is not set and if set, is ignored.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderType
+        {
+            get { return new NamedPropertyTag(0x851D, "PidLidReminderType",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+        }
+
         internal static PropertyTag PidLidSingleBodyIcal
         {
             get { return new PropertyTag(0x827B, PropertyType.PT_BOOLEAN); }
@@ -1898,16 +2169,6 @@ namespace MsgKit
         internal static PropertyTag PidLidUnknown100f
         {
             get { return new PropertyTag(0x100F, PropertyType.PT_NULL); }
-        }
-
-        internal static PropertyTag PidLidReminderTimeTime
-        {
-            get { return new PropertyTag(0x8504, PropertyType.PT_SYSTIME); }
-        }
-
-        internal static PropertyTag PidLidReminderTimeDate
-        {
-            get { return new PropertyTag(0x8505, PropertyType.PT_SYSTIME); }
         }
 
         internal static PropertyTag PidLidRemoteStatus
