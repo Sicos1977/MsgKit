@@ -1700,7 +1700,7 @@ namespace MsgKit
             get
             {
                 return new NamedPropertyTag(0x8212, "PidLidAppointmentStartDate",
-                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_SYSTIME);
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME);
             }
         }
 
@@ -1712,7 +1712,7 @@ namespace MsgKit
             get
             {
                 return new NamedPropertyTag(0x8213, "PidLidAppointmentDuration",
-                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_LONG);
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG);
             }
         }
 
@@ -1736,7 +1736,7 @@ namespace MsgKit
             get
             {
                 return new NamedPropertyTag(0x8215, "PidLidAppointmentSubType",
-                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_BOOLEAN);
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN);
             }
         }
 
@@ -1748,7 +1748,7 @@ namespace MsgKit
         {
             get
             {
-                return new NamedPropertyTag(0x8216, "PidLidAppointmentRecur", new Guid("00062002-0000-0000-C000-000000"),
+                return new NamedPropertyTag(0x8216, "PidLidAppointmentRecur", new Guid("00062002-0000-0000-C000-000000000046"),
                     PropertyType.PT_BINARY);
             }
         }
@@ -1761,7 +1761,7 @@ namespace MsgKit
             get
             {
                 return new NamedPropertyTag(0x8217, "PidLidAppointmentStateFlags",
-                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_LONG);
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG);
             }
         }
 
@@ -1772,7 +1772,7 @@ namespace MsgKit
         {
             get
             {
-                return new NamedPropertyTag(0x8218, "PidLidResponseStatus", new Guid("00062002-0000-0000-C000-000000"),
+                return new NamedPropertyTag(0x8218, "PidLidResponseStatus", new Guid("00062002-0000-0000-C000-000000000046"),
                     PropertyType.PT_LONG);
             }
         }
@@ -1786,7 +1786,7 @@ namespace MsgKit
             get
             {
                 return new NamedPropertyTag(0x8220, "PidLidAppointmentReplyTime",
-                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_SYSTIME);
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME);
             }
         }
 
@@ -1798,158 +1798,270 @@ namespace MsgKit
             get
             {
                 return new NamedPropertyTag(0x8223, "PidLidRecurring", 
-                    new Guid("00062002-0000-0000-C000-000000"), PropertyType.PT_BOOLEAN);
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN);
             }
         }
 
-        internal static PropertyTag PidLidIntendedBusyStatus
+        /// <summary>
+        ///     Contains the value of the PidLidBusyStatus property (section 2.47) on the Meeting
+        ///     object in the organizer's calendar at the time the Meeting Request object or Meeting 
+        ///     Update object was sent.
+        /// </summary>
+        internal static NamedPropertyTag PidLidIntendedBusyStatus
         {
-            get { return new PropertyTag(0x8224, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8224, "PidLidIntendedBusyStatus",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidUnknown8225
+        /// <summary>
+        ///     Indicates the time at which the appointment was last updated.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentUpdateTime
         {
-            get { return new PropertyTag(0x8225, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x8226, "PidLidAppointmentUpdateTime",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidAppointmentUpdateTime
+        /// <summary>
+        ///     Specifies the date and time, in UTC, within a recurrence pattern that an exception will
+        ///     replace.
+        /// </summary>
+        internal static NamedPropertyTag PidLidExceptionReplaceTime
         {
-            get { return new PropertyTag(0x8226, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8228, "PidLidExceptionReplaceTime",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidExceptionReplaceTime
+        /// <summary>
+        ///     Indicates whether invitations have been sent for the meeting that this Meeting object
+        ///     represents.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFInvited
         {
-            get { return new PropertyTag(0x8228, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8229, "PidLidFInvited",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidFInvited
+        /// <summary>
+        ///     Indicates that the object is a Recurring Calendar object with one or more
+        ///     exceptions, and at least one of the Exception Embedded Message objects has at least 
+        ///     one RecipientRow.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFExceptionalAttendees
         {
-            get { return new PropertyTag(0x8229, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x822B, "PidLidFExceptionalAttendees",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidFExceptionalAttendees
+        /// <summary>
+        ///     Indicates the name of the owner of the mailbox.
+        /// </summary>
+        internal static NamedPropertyTag PidLidOwnerName
         {
-            get { return new PropertyTag(0x822B, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x822E, "PidLidOwnerName",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidUnknown822c
+        /// <summary>
+        ///     Indicates whether the Calendar folder from which the meeting was opened is
+        ///     another user's calendar.
+        /// </summary>
+        internal static NamedPropertyTag PidLidFOthersAppointment
         {
-            get { return new PropertyTag(0x822C, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x822F, "PidLidFOthersAppointment",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidUnknown822d
+        /// <summary>
+        ///      Specifies the user who last replied to the meeting request or meeting update.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAppointmentReplyName
         {
-            get { return new PropertyTag(0x822D, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x8230, "PidLidAppointmentReplyName",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidOwnerName
+        /// <summary>
+        ///     Specifies the recurrence type of the recurring series.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRecurrenceType
         {
-            get { return new PropertyTag(0x822E, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8231, "PidLidRecurrenceType",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidFOthersAppointment
+        /// <summary>
+        ///      Specifies a description of the recurrence pattern of the Calendar object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRecurrencePattern
         {
-            get { return new PropertyTag(0x822F, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8232, "PidLidRecurrencePattern",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidAppointmentReplyName
+        /// <summary>
+        ///     Specifies a human-readable description of the time zone that is represented by the
+        ///     data in the <see cref="PidLidTimeZoneStruct"/> property(section 2.340).
+        /// </summary>
+        internal static NamedPropertyTag PidLidTimeZoneStruct
         {
-            get { return new PropertyTag(0x8230, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8233, "PidLidTimeZoneStruct",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidRecurrenceType
+        /// <summary>
+        ///     Specifies a human-readable description of the time zone that is represented by the
+        ///     data in the PidLidTimeZoneStruct property(section 2.340).
+        /// </summary>
+        internal static NamedPropertyTag PidLidTimeZoneDescription
         {
-            get { return new PropertyTag(0x8231, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8234, "PidLidTimeZoneDescription",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidRecurrencePattern
+        /// <summary>
+        ///     Specifies the start date and time of the event in UTC.
+        /// </summary>
+        internal static NamedPropertyTag PidLidClipStart
         {
-            get { return new PropertyTag(0x8232, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8235, "PidLidClipStart",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTimeZoneStruct
+        /// <summary>
+        ///     Specifies the end date and time of the event in UTC.
+        /// </summary>
+        internal static NamedPropertyTag PidLidClipEnd
         {
-            get { return new PropertyTag(0x8233, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x8236, "PidLidClipEnd",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidTimeZoneDescription
+        /// <summary>
+        ///     The original store id
+        /// </summary>
+        internal static NamedPropertyTag PidLidOriginalStoreEntryId
         {
-            get { return new PropertyTag(0x8234, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8237, "PidLidOriginalStoreEntryId",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidClipStart
+        /// <summary>
+        ///     Specifies a list of all the attendees except for the organizer, including resources and
+        ///     unsendable attendees.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAllAttendeesString
         {
-            get { return new PropertyTag(0x8235, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8238, "PidLidAllAttendeesString",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidClipEnd
+        /// <summary>
+        ///     Indicates whether the value of the <see cref="PidLidLocation"/> property (section 2.157) 
+        ///     is set to the <see cref="PropertyTags.PR_DISPLAY_NAME_W"/> property(section 2.746)
+        /// </summary>
+        internal static NamedPropertyTag PidLidAutoFillLocation
         {
-            get { return new PropertyTag(0x8236, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x823A, "PidLidAutoFillLocation",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidOriginalStoreEntryId
+        /// <summary>
+        ///      Contains a list of all the sendable attendees who are also required attendees.
+        /// </summary>
+        internal static NamedPropertyTag PidLidToAttendeesString
         {
-            get { return new PropertyTag(0x8237, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x823B, "PidLidToAttendeesString",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidAllAttendeesString
+        /// <summary>
+        ///      Contains a list of all the sendable attendees who are also optional attendees.
+        /// </summary>
+        internal static NamedPropertyTag PidLidCcAttendeesString
         {
-            get { return new PropertyTag(0x8238, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x823C, "PidLidCcAttendeesString",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidAutoFillLocation
+        /// <summary>
+        ///     When set to TRUE (0x00000001), the PidLidConferencingCheck property ([MS-OXPROPS] section 2.65) 
+        ///     indicates that the associated meeting is one of the following types:
+        ///     -   "Windows Media Services"
+        ///     -   "Windows NetMeeting"
+        ///     -   "Exchange Conferencing"
+        ///
+        ///     If this property is set, <see cref="PidLidConferencingType"/> (section 2.2.1.51.3) is also to 
+        ///     be set. This property is set to TRUE only on Meeting objects or meeting-related objects.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConferencingCheck
         {
-            get { return new PropertyTag(0x823A, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8240, "PidLidConferencingCheck",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidToAttendeesString
+        /// <summary>
+        ///     Specifies the type of the meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConferencingType
         {
-            get { return new PropertyTag(0x823B, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8241, "PidLidConferencingType",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidCcAttendeesString
+        /// <summary>
+        ///     Specifies the directory server to be used with NetMeeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDirectory
         {
-            get { return new PropertyTag(0x823C, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8242, "PidLidDirectory",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidConferencingCheck
+        /// <summary>
+        ///     Specifies the e-mail address of the organizer.
+        /// </summary>
+        internal static NamedPropertyTag PidLidOrganizerAlias
         {
-            get { return new PropertyTag(0x8240, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8243, "PidLidOrganizerAlias",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidConferencingType
+        /// <summary>
+        ///     Specifies whether or not to automatically start the conferencing application when a
+        ///     reminder for the meeting fires.
+        /// </summary>
+        internal static NamedPropertyTag PidLidAutoStartCheck
         {
-            get { return new PropertyTag(0x8241, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8244, "PidLidAutoStartCheck",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidDirectory
+        /// <summary>
+        ///     
+        /// </summary>
+        internal static NamedPropertyTag PidLidAutoStartWhen
         {
-            get { return new PropertyTag(0x8242, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8245, "PidLidAutoStartWhen",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidOrganizerAlias
+        /// <summary>
+        ///     This property is set to TRUE
+        /// </summary>
+        internal static NamedPropertyTag PidLidAllowExternalCheck
         {
-            get { return new PropertyTag(0x8243, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8246, "PidLidAllowExternalCheck",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidAutoStartCheck
+        /// <summary>
+        ///     Specifies the document to be launched when the user joins the meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidCollaborateDoc
         {
-            get { return new PropertyTag(0x8244, PropertyType.PT_BOOLEAN); }
-        }
-
-        internal static PropertyTag PidLidAutoStartWhen
-        {
-            get { return new PropertyTag(0x8245, PropertyType.PT_LONG); }
-        }
-
-        internal static PropertyTag PidLidAllowExternalCheck
-        {
-            get { return new PropertyTag(0x8246, PropertyType.PT_BOOLEAN); }
-        }
-
-        internal static PropertyTag PidLidCollaborateDoc
-        {
-            get { return new PropertyTag(0x8247, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8247, "PidLidCollaborateDoc",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         internal static PropertyTag PidLidNetShowUrl

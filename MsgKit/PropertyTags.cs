@@ -2297,7 +2297,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Contains the value of the PR_DISPLAY_NAME (PidTagDisplayName) property. Non-UNICODE compilation.
+        ///     Contains the value of the <see cref="PR_DISPLAY_NAME_W"/> (PidTagDisplayName) property. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_A
         {
@@ -2305,7 +2305,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Contains the value of the PR_DISPLAY_NAME (PidTagDisplayName) property. UNICODE compilation.
+        ///     Contains the value of the <see cref="PR_DISPLAY_NAME_W"/> (PidTagDisplayName) property. UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_W
         {
