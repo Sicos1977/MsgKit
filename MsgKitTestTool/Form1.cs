@@ -41,7 +41,7 @@ namespace MsgKitTestTool
             email.BodyText = "Hello Neverland text";
             email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
             email.Importance = MessageImportance.IMPORTANCE_HIGH;
-            email.IconIndex = MessageIconIndex.ReadMail;
+            email.IconIndex = MessageIconIndex.UnsentMail;
             email.Attachments.AddAttachment("Images\\peterpan.jpg");
             email.Attachments.AddAttachment("Images\\tinkerbell.jpg");
             email.Save("test.msg");
