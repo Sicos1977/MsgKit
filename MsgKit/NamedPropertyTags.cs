@@ -2228,179 +2228,291 @@ namespace MsgKit
                     new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidSingleBodyIcal
+        /// <summary>
+        ///     
+        /// </summary>
+        internal static NamedPropertyTag PidLidSingleBodyIcal
         {
-            get { return new PropertyTag(0x827B, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x827B, "PidLidSingleBodyIcal",
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidDayOfMonth
+        /// <summary>
+        ///      Identifies the day of the month for the appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDayOfMonth
         {
-            get { return new PropertyTag(0x1000, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x1000, "PidLidDayOfMonth",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidICalendarDayOfWeekMask
+        /// <summary>
+        ///     Specifies the contact’s business web page URL.
+        /// </summary>
+        internal static NamedPropertyTag PidLidICalendarDayOfWeekMask
         {
-            get { return new PropertyTag(0x1001, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x1001, "PidLidICalendarDayOfWeekMask",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidUnknown1003
+        /// <summary>
+        ///     Indicates the number of occurrences in the recurring appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidOccurrences
         {
-            get { return new PropertyTag(0x1003, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x1005, "PidLidOccurrences",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidUnknown1004
+        /// <summary>
+        ///     Indicates the number of occurrences in the recurring appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidMonthOfYear
         {
-            get { return new PropertyTag(0x1004, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x1006, "PidLidMonthOfYear",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidOccurrences
+        /// <summary>
+        ///      Indicates whether the recurrence pattern has an end date.
+        /// </summary>
+        internal static NamedPropertyTag PidLidNoEndDateFlag
         {
-            get { return new PropertyTag(0x1005, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x100B, "PidLidNoEndDateFlag",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidMonthOfYear
+        /// <summary>
+        ///     Identifies the length, in minutes, of the appointment or meeting.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRecurrenceDuration
         {
-            get { return new PropertyTag(0x1006, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x100D, "PidLidRecurrenceDuration",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidUnknown100a
+        /// <summary>
+        ///     Indicates the remote status of the calendar item.
+        /// </summary>
+        internal static NamedPropertyTag PidLidRemoteStatus
         {
-            get { return new PropertyTag(0x100A, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8511, "PidLidRemoteStatus",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidNoEndDateFlag
+        /// <summary>
+        ///     Contains the entry ID for the destination folder.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConversationActionMoveFolderEid
         {
-            get { return new PropertyTag(0x100B, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x85C6, "PidLidConversationActionMoveFolderEid",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidRecurrenceDuration
+        /// <summary>
+        ///     Contains the entry ID for a move to a folder in a different store.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConversationActionMoveStoreEid
         {
-            get { return new PropertyTag(0x100D, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x85C7, "PidLidConversationActionMoveStoreEid",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BINARY); }
         }
 
-        internal static PropertyTag PidLidUnknown100f
+        /// <summary>
+        ///     Contains the maximum value of <see cref="PropertyTags.PR_MESSAGE_DELIVERY_TIME"/> (section 2.886) of all the
+        ///     E-mail objects modified in response to the last time the user changed a conversation action on the
+        ///     client.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConversationActionMaxDeliveryTime
         {
-            get { return new PropertyTag(0x100F, PropertyType.PT_NULL); }
+            get { return new NamedPropertyTag(0x85C8, "PidLidConversationActionMaxDeliveryTime",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidRemoteStatus
+        /// <summary>
+        ///     Contains the time (in UTC) that an E-mail object was last received in the
+        ///     conversation, or the last time that the user modified the conversation action, whichever occurs
+        ///     later.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConversationProcessed
         {
-            get { return new PropertyTag(0x8511, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x85C9, "PidLidConversationProcessed",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidConversationActionMoveFolderEid
+        /// <summary>
+        ///     Contains the time (in UTC) that an E-mail object was last received in the
+        ///     conversation, or the last time that the user modified the conversation action, whichever occurs
+        ///     later.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConversationActionLastAppliedTime
         {
-            get { return new PropertyTag(0x85C6, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x85CA, "PidLidConversationActionLastAppliedTime",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidConversationActionMoveStoreEid
+        /// <summary>
+        ///     Contains the version of the conversation action FAI message.
+        /// </summary>
+        internal static NamedPropertyTag PidLidConversationActionVersion
         {
-            get { return new PropertyTag(0x85C7, PropertyType.PT_BINARY); }
+            get { return new NamedPropertyTag(0x85CB, "PidLidConversationActionVersion",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidConversationActionMaxDeliveryTime
+        /// <summary>
+        ///     Briefly describes the activity that is being recorded.
+        /// </summary>
+        internal static NamedPropertyTag PidLidLogType
         {
-            get { return new PropertyTag(0x85C8, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8700, "PidLidLogType",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidConversationProcessed
+        /// <summary>
+        ///     Contains the time at which the activity began.
+        /// </summary>
+        internal static NamedPropertyTag PidLidLogStart
         {
-            get { return new PropertyTag(0x85C9, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8706, "PidLidLogStart",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidConversationActionLastAppliedTime
+        /// <summary>
+        ///     Contains the duration in minutes of the activity.
+        /// </summary>
+        internal static NamedPropertyTag PidLidLogDuration
         {
-            get { return new PropertyTag(0x85CA, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8707, "PidLidLogDuration",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidConversationActionVersion
+        /// <summary>
+        ///     
+        /// </summary>
+        internal static NamedPropertyTag PidLidLogEnd
         {
-            get { return new PropertyTag(0x85CB, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8708, "PidLidLogEnd",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
-        internal static PropertyTag PidLidLogType
+        /// <summary>
+        ///     Contains the time at which the activity ended.
+        /// </summary>
+        internal static NamedPropertyTag PidLidLogFlags
         {
-            get { return new PropertyTag(0x8700, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x870C, "PidLidLogFlags",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidLogStart
+        /// <summary>
+        ///     Indicates whether the document was printed during journaling.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDocumentPrinted
         {
-            get { return new PropertyTag(0x8706, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x870E, "PidLidDocumentPrinted",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidLogDuration
+        /// <summary>
+        ///     Indicates whether the document was saved during journaling.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDocumentSaved
         {
-            get { return new PropertyTag(0x8707, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x870F, "PidLidDocumentSaved",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidLogEnd
+        /// <summary>
+        ///     Indicates whether the document was routed during journaling.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDocumentRouted
         {
-            get { return new PropertyTag(0x8708, PropertyType.PT_SYSTIME); }
+            get { return new NamedPropertyTag(0x8710, "PidLidDocumentRouted",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidLogFlags
+        /// <summary>
+        ///     Indicates whether the document was posted during journaling.
+        /// </summary>
+        internal static NamedPropertyTag PidLidDocumentPosted
         {
-            get { return new PropertyTag(0x870C, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x8711, "PidLidDocumentPosted",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
-        internal static PropertyTag PidLidDocumentPrinted
+        /// <summary>
+        ///     Describes the activity that is being recorded.
+        /// </summary>
+        internal static NamedPropertyTag PidLidLogTypeDesc
         {
-            get { return new PropertyTag(0x870E, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8712, "PidLidLogTypeDesc",
+                    new Guid("0006200A-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidDocumentSaved
+        /// <summary>
+        ///     Contains the URL of the RSS or Atom feed that the XML file came from.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssChannelLink
         {
-            get { return new PropertyTag(0x870F, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8900, "PidLidPostRssChannelLink",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidDocumentRouted
+        /// <summary>
+        ///     Contains the URL of the link from the item.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssItemLink
         {
-            get { return new PropertyTag(0x8710, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8901, "PidLidPostRssItemLink",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidDocumentPosted
+        /// <summary>
+        ///     Contains a hash of the feed XML computed by using an implementation-dependent
+        ///     algorithm.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssItemHash
         {
-            get { return new PropertyTag(0x8711, PropertyType.PT_BOOLEAN); }
+            get { return new NamedPropertyTag(0x8902, "PidLidPostRssItemHash",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidLidLogTypeDesc
+        /// <summary>
+        ///     Contains a unique identifier for the RSS object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssItemGuid
         {
-            get { return new PropertyTag(0x8712, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8903, "PidLidPostRssItemGuid",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidPostRssChannelLink
+        /// <summary>
+        ///     Contains the contents of the title field from the XML of the Atom feed or RSS channel.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssChannel
         {
-            get { return new PropertyTag(0x8900, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8904, "PidLidPostRssChannel",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidPostRssItemLink
+        /// <summary>
+        ///     Contains the item element and all its sub-elements from an RSS feed, or the entry
+        ///     element and all its sub-elements from an Atom feed.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssItemXml
         {
-            get { return new PropertyTag(0x8901, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8905, "PidLidPostRssItemXml",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidLidPostRssItemHash
+        /// <summary>
+        ///     Contains the user's preferred name for the subscription.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPostRssSubscription
         {
-            get { return new PropertyTag(0x8902, PropertyType.PT_LONG); }
-        }
-
-        internal static PropertyTag PidLidPostRssItemGuid
-        {
-            get { return new PropertyTag(0x8903, PropertyType.PT_UNICODE); }
-        }
-
-        internal static PropertyTag PidLidPostRssChannel
-        {
-            get { return new PropertyTag(0x8904, PropertyType.PT_UNICODE); }
-        }
-
-        internal static PropertyTag PidLidPostRssItemXml
-        {
-            get { return new PropertyTag(0x8905, PropertyType.PT_UNICODE); }
-        }
-
-        internal static PropertyTag PidLidPostRssSubscription
-        {
-            get { return new PropertyTag(0x8906, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x8906, "PidLidPostRssSubscription",
+                    new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         internal static PropertyTag PidLidSharingStatus
