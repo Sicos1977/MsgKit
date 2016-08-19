@@ -30,21 +30,22 @@ namespace MsgKitTestTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var email = new Email(new Sender("magic-sessions@home.nl", "Kees van Spelde"),
-                                  new Representing("test@test.com", "Representing test"), 
-                                  "Hello world subject");
-            email.Recipients.AddRecipientTo("keesvanspelde@home.nl", "Kees van Spelde");
-            email.Recipients.AddRecipientTo("spelde@home.nl", "Familie van Spelde");
-            email.Recipients.AddRecipientCc("magic-sessions@home.nl");
+            var email = new Email(
+                new Sender("peterpan@neverland.com", "Peter Pan"),
+                new Representing("tinkerbell@neverland.com", "Tinkerbell"),
+                "Hello Neverland subject");
+
+            email.Recipients.AddRecipientTo("captainhook@neverland.com", "Captain Hook");
+            email.Recipients.AddRecipientCc("crocodile@neverland.com", "The evil ticking crocodile");
             email.Subject = "This is the subject";
-            email.BodyText = "Hello world text";
-            email.BodyHtml = "<html><head></head><body><b>Hello world html</b></body></html>";
+            email.BodyText = "Hello Neverland text";
+            email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
             email.Importance = MessageImportance.IMPORTANCE_HIGH;
             email.IconIndex = MessageIconIndex.ReadMail;
-            email.Attachments.AddAttachment("d:\\railroad_1024-768.jpg");
-            email.Attachments.AddAttachment("d:\\Nieuwesarongs 2016.xlsx");
-            email.Save("d:\\test.msg");
-            System.Diagnostics.Process.Start("d:\\test.msg");
+            email.Attachments.AddAttachment("Images\\peterpan.jpg");
+            email.Attachments.AddAttachment("Images\\tinkerbell.jpg");
+            email.Save("test.msg");
+            System.Diagnostics.Process.Start("test.msg");
         }
     }
 }
