@@ -31,7 +31,8 @@ MimeKit is Copyright (C) 2015-2016 Magic-Sessions and is licensed under the MIT 
 
 ## Installing via NuGet
 
-At the moment there is no package on NuGet... there will be one when the code is stable
+At the moment there is no package on NuGet... there will be one when the code is stable.
+The code is working but don't blame me when you find some bugs or un-finished methods (it is a lot of work to add all known properties)
 
 ### Creating an Outlook Message file
 
@@ -54,6 +55,15 @@ email.Save(@"c:\test.msg");
 // Show the message
 System.Diagnostics.Process.Start(@"c:\test.msg");
 ```
+Core Team
+=========
+    Sicos1977 (Kees van Spelde)
+
+Support
+=======
+If you like my work then please consider a donation as a thank you.
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NS92EXB2RDPYA" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
 
 ## Reporting Bugs
 
