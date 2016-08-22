@@ -1,10 +1,11 @@
 ## What is MsgKit?
 
-MsgKit is a 100% C# library which may be used for the creation and parsing (in the near future) of messages that are created with Outlook
+MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation and parsing (in the near future) of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
 
 ## History
 
-Started in 2015
+- Started in 2015
+- Picked up again in August 2016, adding all the know MAPI (Named) properties
 
 ## License Information
 
