@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MsgWriter")]
+[assembly: AssemblyTitle("MsgKit")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Kees van Spelde")]
+[assembly: AssemblyCompany("Magic-Sessions.com - Kees van Spelde")]
 [assembly: AssemblyProduct("MsgKit")]
 [assembly: AssemblyCopyright("Copyright ©  2015 - 2016")]
 [assembly: AssemblyTrademark("")]

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MsgKitTestTool")]
-[assembly: AssemblyCopyright("Copyright ©  2015 - 2016")]
+[assembly: AssemblyCopyright("Magic-Sessions.com - Kees van Spelde")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
