@@ -183,7 +183,7 @@ namespace MsgKit
         #region WriteProperties
         /// <summary>
         ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
-        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <see cref="storage"/>, this depends 
+        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <paramref name="storage"/>, this depends 
         ///     on the <see cref="PropertyType"/>
         /// </summary>
         /// <remarks>

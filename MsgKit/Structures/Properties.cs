@@ -426,7 +426,7 @@ namespace MsgKit.Structures
         /// </summary>
         /// <param name="stream">The <see cref="CFStream" /></param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     Raised when the <see cref="CFStream.Name" /> does not start with
+        ///     Raised when the <paramref name="stream"/> does not start with
         ///     "__substg1.0_"
         /// </exception>
         internal void AddProperty(CFStream stream)

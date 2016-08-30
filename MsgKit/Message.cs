@@ -225,9 +225,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Adds the given multivalue
-        ///     <param name="propertyTag" />
-        ///     to the message, any already existing <see cref="PropertyTag" /> is
+        ///     Adds the given multivalue propertyTag to the message, any already existing <see cref="PropertyTag" /> is
         ///     overwritten.
         /// </summary>
         /// <param name="propertyTag">List of <see cref="PropertyTag" /></param>

@@ -27,6 +27,7 @@
 using System;
 using System.IO;
 using MsgKit.Helpers;
+using MsgKit.Structures;
 using OpenMcdf;
 
 namespace MsgKit.Streams
@@ -162,7 +163,7 @@ namespace MsgKit.Streams
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream" /> to the
+        ///     Writes all the string and binary <see cref="PropertyTags">properties</see> as a <see cref="CFStream" /> to the
         ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
