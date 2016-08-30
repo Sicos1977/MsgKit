@@ -38,14 +38,14 @@ namespace MsgKit
     /// </summary>
     public class Recipients : List<Recipient>
     {
-        #region AddRecipient
+        #region Add
         /// <summary>
         ///     Add's an <see cref="RecipientType.To"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
-        public void AddRecipientTo(string email, 
+        public void AddTo(string email, 
                                    string displayName = "",
                                    AddressType addressType = AddressType.Smtp)
         {
@@ -62,9 +62,9 @@ namespace MsgKit
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
-        public void AddRecipientCc(string email, 
-                                   string displayName = "",
-                                   AddressType addressType = AddressType.Smtp)
+        public void AddCc(string email, 
+                          string displayName = "",
+                          AddressType addressType = AddressType.Smtp)
         {
             Add(new Recipient(Count,
                               email,
@@ -79,9 +79,9 @@ namespace MsgKit
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
-        public void AddRecipientBcc(string email, 
-                                    string displayName = "",
-                                    AddressType addressType = AddressType.Smtp)
+        public void AddBcc(string email, 
+                           string displayName = "",
+                           AddressType addressType = AddressType.Smtp)
         {
             Add(new Recipient(Count,
                               email,

@@ -34,6 +34,7 @@ using MsgKit.Helpers;
 using MsgKit.Streams;
 using MsgKit.Structures;
 using OpenMcdf;
+using Stream = System.IO.Stream;
 
 namespace MsgKit
 {
@@ -98,10 +99,10 @@ namespace MsgKit
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        public void AddAttachment(string fileName, 
-                                  long renderingPosition = -1,
-                                  bool isInline = false, 
-                                  string contentId = "")
+        public void Add(string fileName, 
+                        long renderingPosition = -1,
+                        bool isInline = false, 
+                        string contentId = "")
         {
             CheckAttachmentFileName(fileName);
             var file = new FileInfo(fileName);
@@ -127,11 +128,11 @@ namespace MsgKit
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        public void AddAttachment(System.IO.Stream stream, 
-                                  string fileName, 
-                                  long renderingPosition = -1,
-                                  bool isInline = false, 
-                                  string contentId = "")
+        public void Add(System.IO.Stream stream, 
+                        string fileName, 
+                        long renderingPosition = -1,
+                        bool isInline = false, 
+                        string contentId = "")
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
@@ -150,7 +151,7 @@ namespace MsgKit
         }
         #endregion
 
-        #region AddAttachmentLink
+        #region AddLink
         /// <summary>
         ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
         /// </summary>
@@ -168,10 +169,10 @@ namespace MsgKit
         ///     Universal naming convention (UNC) names are recommended for fully-qualified paths, which should be used with 
         ///     <see cref="AttachmentType.ATTACH_BY_REF_ONLY" />. 
         /// </remarks>
-        public void AddAttachmentLink(string fileName, 
-                                      long renderingPosition = -1,
-                                      bool isInline = false, 
-                                      string contentId = "")
+        public void AddLink(string fileName, 
+                            long renderingPosition = -1,
+                            bool isInline = false, 
+                            string contentId = "")
         {
             CheckAttachmentFileName(fileName);
             var file = new FileInfo(fileName);
