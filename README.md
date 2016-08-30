@@ -42,14 +42,14 @@ var email = new Email(
 	new Representing("tinkerbell@neverland.com", "Tinkerbell"), 
 	"Hello Neverland subject");
 					  
-email.Recipients.AddRecipientTo("captainhook@neverland.com", "Captain Hook");
-email.Recipients.AddRecipientCc("crocodile@neverland.com", "The evil ticking crocodile");
+email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
 email.Subject = "This is the subject";
 email.BodyText = "Hello Neverland text";
 email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
 email.Importance = MessageImportance.IMPORTANCE_HIGH;
 email.IconIndex = MessageIconIndex.ReadMail;
-email.Attachments.AddAttachment(@"d:\crocodile.jpg");
+email.Attachments.Add(@"d:\crocodile.jpg");
 email.Save(@"c:\test.msg");
 
 // Show the message
