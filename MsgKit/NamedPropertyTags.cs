@@ -3224,7 +3224,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameApplicationName
         {
             get { return new NamedPropertyTag(0x0000, "PidNameApplicationName",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3232,8 +3232,8 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidNameAuthor
         {
-            get { return new NamedPropertyTag(0x0000, "{",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0000, "PidNameAuthor",
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3242,7 +3242,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameByteCount
         {
             get { return new NamedPropertyTag(0x0000, "PidNameByteCount",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
         /// <summary>
@@ -3251,7 +3251,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarAttendeeRole
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarAttendeeRole",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
         /// <summary>
@@ -3260,7 +3260,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarBusyStatus
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarBusyStatus",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3269,7 +3269,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarContact
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarContact",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3278,7 +3278,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarContactUrl
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarContactUrl",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3288,7 +3288,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarCreated
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarCreated",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
         /// <summary>
@@ -3298,7 +3298,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarDescriptionUrl
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarDescriptionUrl",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3307,41 +3307,62 @@ namespace MsgKit
         internal static NamedPropertyTag PidNameCalendarDuration
         {
             get { return new NamedPropertyTag(0x0000, "PidNameCalendarDuration",
-                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidNameCalendarExceptionDate
+        /// <summary>
+        ///      Identifies a list of dates that are exceptions to a recurring appointment
+        /// </summary>
+        internal static NamedPropertyTag PidNameCalendarExceptionDate
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_MV_SYSTIME); }
+            get { return new NamedPropertyTag(0x0000, "PidNameCalendarExceptionDate",
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_MV_SYSTIME); }
         }
 
-        internal static PropertyTag PidNameCalendarExceptionRule
+        /// <summary>
+        ///     Specifies an exception rule for a recurring appointment
+        /// </summary>
+        internal static NamedPropertyTag PidNameCalendarExceptionRule
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_MV_UNICODE); }
+            get { return new NamedPropertyTag(0x0000, "PidNameCalendarExceptionRule",
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_MV_UNICODE); }
         }
 
-        internal static PropertyTag PidNameCategory
+        /// <summary>
+        ///     Specifies the category of the file attached to the Document object
+        /// </summary>
+        internal static NamedPropertyTag PidNameCategory
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0000, "PidNameCategory",
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        internal static PropertyTag PidNameCharacterCount
+        /// <summary>
+        ///     Specifies the character count of the file attached to the Document object
+        /// </summary>
+        internal static NamedPropertyTag PidNameCharacterCount
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_LONG); }
+            get { return new NamedPropertyTag(0x0000, "PidNameCharacterCount",
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
         }
 
-        internal static PropertyTag PidNameComments
+        /// <summary>
+        ///     Specifies the comments of the file attached to the Document object.
+        /// </summary>
+        internal static NamedPropertyTag PidNameComments
         {
-            get { return new PropertyTag(0x0000, PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x0000, "PidNameComments",
+                    new Guid("00062040-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
-        ///// <summary>
-        ///// Specifies the company for which the file was created.
-        ///// </summary>
-        //internal static NamedPropertyTag PidNameCompany
-        //{
-        //    get { return new NamedPropertyTag("PidNameCompany", new Guid("00020329-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
-        //}
+        /// <summary>
+        /// Specifies the company for which the file was created.
+        /// </summary>
+        internal static NamedPropertyTag PidNameCompany
+        {
+            get { return new NamedPropertyTag(0x0000, "PidNameCompany",
+                    new Guid("00062039-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+        }
 
         /// <summary>
         ///     Specifies the time, in UTC, that the file was first created.
@@ -3355,13 +3376,15 @@ namespace MsgKit
             }
         }
 
-        ///// <summary>
-        ///// Caches the use license for the rights-managed e-mail message.
-        ///// </summary>
-        //internal static NamedPropertyTag PidNameRightsManagementLicense
-        //{
-        //    get { return new NamedPropertyTag(0x0000, new Guid(), PropertyType.PT_MV_BINARY); }
-        //}
+        /// <summary>
+        ///     Specifies the value used to cache the Use License for the rights-managed email
+        ///     message.
+        /// </summary>
+        internal static NamedPropertyTag PidNameRightsManagementLicense
+        {
+            get { return new NamedPropertyTag(0x0000, "PidNameRightsManagementLicense",
+                    new Guid("00020329-0000-0000-C000-000000000046"), PropertyType.PT_MV_BINARY); }
+        }
 
         internal static PropertyTag PidNameEditTime
         {
