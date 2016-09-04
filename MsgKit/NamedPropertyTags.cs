@@ -4210,23 +4210,6 @@ namespace MsgKit
     /// </summary>
     internal class NamedPropertyTag
     {
-        #region Constructor
-        /// <summary>
-        ///     Creates this object and sets all its properties
-        /// </summary>
-        /// <param name="id">The id</param>
-        /// <param name="name">The name of the property</param>
-        /// <param name="guid">The property <see cref="Guid" /></param>
-        /// <param name="type">The <see cref="PropertyType" /></param>
-        internal NamedPropertyTag(ushort id, string name, Guid guid, PropertyType type)
-        {
-            Id = id;
-            Name = name;
-            Guid = guid;
-            Type = type;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         ///     The 2 byte identifier
@@ -4247,6 +4230,23 @@ namespace MsgKit
         ///     The 2 byte <see cref="PropertyType" />
         /// </summary>
         public PropertyType Type { get; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        ///     Creates this object and sets all its properties
+        /// </summary>
+        /// <param name="id">The id</param>
+        /// <param name="name">The name of the property</param>
+        /// <param name="guid">The property <see cref="Guid" /></param>
+        /// <param name="type">The <see cref="PropertyType" /></param>
+        internal NamedPropertyTag(ushort id, string name, Guid guid, PropertyType type)
+        {
+            Id = id;
+            Name = name;
+            Guid = guid;
+            Type = type;
+        }
         #endregion
     }
 }

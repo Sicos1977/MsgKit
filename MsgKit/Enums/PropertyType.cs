@@ -30,7 +30,7 @@ namespace MsgKit.Enums
     /// <summary>
     ///     The type of a property in the properties stream
     /// </summary>
-    internal enum PropertyType : ushort
+    public enum PropertyType : ushort
     {
         /// <summary>
         ///     Any: this property type value matches any type; a server MUST return the actual type in its response. Servers

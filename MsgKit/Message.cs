@@ -280,6 +280,22 @@ namespace MsgKit
         }
         #endregion
 
+        #region AddNamedProperty
+        /// <summary>
+        ///     Add's a custom named property to the <see cref="Message"/>
+        /// </summary>
+        /// <param name="name">The property name</param>
+        /// <param name="value">The value</param>
+        /// <param name="guid">The <see cref="Guid"/> for the <see cref="NamedPropertyTags"/>, when
+        /// left blank a new guid is generated automaticly</param>
+        public void AddNamedProperty(string name, string value, Guid? guid)
+        {
+            // Get next available property id from string stream
+            //var prop = new PropertyTag();
+            // TODO add NamedProperty class
+        }
+        #endregion
+
         #region Dispose
         /// <summary>
         ///     Disposes this object and all its resources
