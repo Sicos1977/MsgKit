@@ -36,20 +36,24 @@ namespace MsgKit
         /// <summary>
         ///     Converts an EML file to MSG format
         /// </summary>
-        /// <param name="emlFileName"></param>
-        /// <param name="msgFileName"></param>
+        /// <param name="emlFileName">The EML (MIME) file</param>
+        /// <param name="msgFileName">The MSG file</param>
         public static void ConvertEmlToMsg(string emlFileName, string msgFileName)
         {
+            var eml = MimeKit.MimeMessage.Load(emlFileName);
+            var sender = new Sender(eml.Sender.Address, eml.Sender.Name);
+            var msg = new MsgKit.Email(sender, eml.Subject);
             throw new NotImplementedException("Not yet done");
         }
 
         /// <summary>
         ///     Converts an MSG file to EML format
         /// </summary>
-        /// <param name="emlFileName"></param>
-        /// <param name="msgFileName"></param>
-        public static void ConvertMsgToEml(string emlFileName, string msgFileName)
+        /// <param name="msgFileName">The MSG file</param>
+        /// <param name="emlFileName">The EML (MIME) file</param>
+        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
         {
+            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
             throw new NotImplementedException("Not yet done");
         }
     }
