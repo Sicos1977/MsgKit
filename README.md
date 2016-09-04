@@ -6,6 +6,7 @@ MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be
 
 - Started in 2015
 - Picked up again in August 2016, adding all the know MAPI (Named) properties
+- Finished adding all the named properties
 
 ## License Information
 
@@ -32,7 +33,7 @@ MimeKit is Copyright (C) 2015-2016 Magic-Sessions and is licensed under the MIT 
 ## Installing via NuGet
 
 At the moment there is no package on NuGet... there will be one when the code is stable.
-The code is working but don't blame me when you find some bugs or un-finished methods (it is a lot of work to add all known properties)
+The code is working but don't blame me when you find some bugs or un-finished methods (it is a lot of work to make a library that "just" makes MSG giles)
 
 ### Creating an Outlook Message file
 
