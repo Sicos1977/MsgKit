@@ -34,7 +34,6 @@ using MsgKit.Helpers;
 using MsgKit.Streams;
 using MsgKit.Structures;
 using OpenMcdf;
-using Stream = System.IO.Stream;
 
 namespace MsgKit
 {
