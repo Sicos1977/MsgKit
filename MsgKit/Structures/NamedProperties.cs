@@ -1,5 +1,5 @@
-﻿//
-// Properties.cs
+﻿
+// Property.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -24,6 +24,7 @@
 // THE SOFTWARE.
 //
 
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,13 +37,14 @@ using OpenMcdf;
 namespace MsgKit.Structures
 {
     /// <summary>
-    ///     The properties inside an msg file
+    ///     The named properties inside an msg file
     /// </summary>
     /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee178759%28v=exchg.80%29.aspx
+    ///     See https://msdn.microsoft.com/en-us/library/ee178582(v=exchg.80).aspx
     /// </remarks>
-    internal class Properties : List<Property>
+    public class NamedProperties : List<NamedProperty>
     {
+        // TODO: Modify code to work with named properties
         #region ReadProperties
         /// <summary>
         ///     Reads all the <see cref="Property" /> objects from the given <paramref name="binaryReader" />
@@ -50,6 +52,8 @@ namespace MsgKit.Structures
         /// <param name="binaryReader"></param>
         internal void ReadProperties(BinaryReader binaryReader)
         {
+            throw new NotImplementedException("Not yet done");
+
             // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
             // each represented by one entry, can be determined by first measuring the size of the property stream (1), 
             // then subtracting the size of the header from it, and then dividing the result by the size of one entry.
@@ -60,13 +64,13 @@ namespace MsgKit.Structures
             {
                 // property tag: A 32-bit value that contains a property type and a property ID. The low-order 16 bits 
                 // represent the property type. The high-order 16 bits represent the property ID.
-                var type = (PropertyType) binaryReader.ReadUInt16();
+                var type = (PropertyType)binaryReader.ReadUInt16();
                 var id = binaryReader.ReadUInt16();
                 var flags = binaryReader.ReadUInt32();
                 // 8 bytes for the data
                 var data = binaryReader.ReadBytes(8);
 
-                Add(new Property(id, type, flags, data));
+                Add(new NamedProperty(id, type, flags, data));
             }
         }
         #endregion
@@ -85,6 +89,8 @@ namespace MsgKit.Structures
         /// </returns>
         internal long WriteProperties(CFStorage storage, BinaryWriter binaryWriter, long? messageSize = null)
         {
+            throw new NotImplementedException("Not yet done");
+
             long size = 0;
 
             // The data inside the property stream (1) MUST be an array of 16-byte entries. The number of properties, 
@@ -226,7 +232,7 @@ namespace MsgKit.Structures
                 binaryWriter.Write(bytes);
                 binaryWriter.Write(new byte[4]);
             }
-            
+
             // Make the properties stream
             binaryWriter.BaseStream.Position = 0;
             storage.AddStream(PropertyTags.PropertiesStreamName).SetData(binaryWriter.BaseStream.ToByteArray());
@@ -249,20 +255,22 @@ namespace MsgKit.Structures
             object obj,
             PropertyFlags flags = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
         {
+            throw new NotImplementedException("Not yet done");
+
             if (obj == null)
                 throw new ArgumentNullException("mapiTag", "Obj can not be null");
 
-            var data = new byte[] {};
+            var data = new byte[] { };
 
             switch (mapiTag.Type)
             {
                 case PropertyType.PT_APPTIME:
-                    var oaDate = ((DateTime) obj).ToOADate();
+                    var oaDate = ((DateTime)obj).ToOADate();
                     data = BitConverter.GetBytes(oaDate);
                     break;
 
                 case PropertyType.PT_SYSTIME:
-                    var fileTime = ((DateTime) obj).ToFileTimeUtc();
+                    var fileTime = ((DateTime)obj).ToFileTimeUtc();
                     data = BitConverter.GetBytes(fileTime);
                     break;
 
@@ -276,11 +284,11 @@ namespace MsgKit.Structures
                     break;
 
                 case PropertyType.PT_FLOAT:
-                    data = BitConverter.GetBytes((float) (int) obj);
+                    data = BitConverter.GetBytes((float)(int)obj);
                     break;
 
                 case PropertyType.PT_DOUBLE:
-                    data = BitConverter.GetBytes((double) obj);
+                    data = BitConverter.GetBytes((double)obj);
                     break;
 
                 //case PropertyType.PT_CURRENCY:
@@ -288,23 +296,23 @@ namespace MsgKit.Structures
                 //    break;
 
                 case PropertyType.PT_BOOLEAN:
-                    data = BitConverter.GetBytes((bool) obj);
+                    data = BitConverter.GetBytes((bool)obj);
                     break;
 
                 case PropertyType.PT_I8:
-                    data = BitConverter.GetBytes((long) obj);
+                    data = BitConverter.GetBytes((long)obj);
                     break;
 
                 case PropertyType.PT_UNICODE:
-                    data = Encoding.Unicode.GetBytes((string) obj);
+                    data = Encoding.Unicode.GetBytes((string)obj);
                     break;
 
                 case PropertyType.PT_STRING8:
-                    data = Encoding.Default.GetBytes((string) obj);
+                    data = Encoding.Default.GetBytes((string)obj);
                     break;
 
                 case PropertyType.PT_CLSID:
-                    data = ((Guid) obj).ToByteArray();
+                    data = ((Guid)obj).ToByteArray();
                     break;
 
                 case PropertyType.PT_BINARY:
@@ -312,62 +320,62 @@ namespace MsgKit.Structures
                     switch (Type.GetTypeCode(obj.GetType()))
                     {
                         case TypeCode.Boolean:
-                            data = BitConverter.GetBytes((bool) obj);
+                            data = BitConverter.GetBytes((bool)obj);
                             break;
 
                         case TypeCode.Char:
-                            data = BitConverter.GetBytes((char) obj);
+                            data = BitConverter.GetBytes((char)obj);
                             break;
 
                         case TypeCode.SByte:
-                            data = BitConverter.GetBytes((sbyte) obj);
+                            data = BitConverter.GetBytes((sbyte)obj);
                             break;
 
                         case TypeCode.Byte:
-                            data = BitConverter.GetBytes((byte) obj);
+                            data = BitConverter.GetBytes((byte)obj);
                             break;
                         case TypeCode.Int16:
-                            data = BitConverter.GetBytes((short) obj);
+                            data = BitConverter.GetBytes((short)obj);
                             break;
 
                         case TypeCode.UInt16:
-                            data = BitConverter.GetBytes((uint) obj);
+                            data = BitConverter.GetBytes((uint)obj);
                             break;
 
                         case TypeCode.Int32:
-                            data = BitConverter.GetBytes((int) obj);
+                            data = BitConverter.GetBytes((int)obj);
                             break;
 
                         case TypeCode.UInt32:
-                            data = BitConverter.GetBytes((uint) obj);
+                            data = BitConverter.GetBytes((uint)obj);
                             break;
 
                         case TypeCode.Int64:
-                            data = BitConverter.GetBytes((long) obj);
+                            data = BitConverter.GetBytes((long)obj);
                             break;
 
                         case TypeCode.UInt64:
-                            data = BitConverter.GetBytes((ulong) obj);
+                            data = BitConverter.GetBytes((ulong)obj);
                             break;
 
                         case TypeCode.Single:
-                            data = BitConverter.GetBytes((float) obj);
+                            data = BitConverter.GetBytes((float)obj);
                             break;
 
                         case TypeCode.Double:
-                            data = BitConverter.GetBytes((double) obj);
+                            data = BitConverter.GetBytes((double)obj);
                             break;
 
                         case TypeCode.DateTime:
-                            data = BitConverter.GetBytes(((DateTime) obj).Ticks);
+                            data = BitConverter.GetBytes(((DateTime)obj).Ticks);
                             break;
 
                         case TypeCode.String:
-                            data = Encoding.UTF8.GetBytes((string) obj);
+                            data = Encoding.UTF8.GetBytes((string)obj);
                             break;
 
                         case TypeCode.Object:
-                            data = (byte[]) obj;
+                            data = (byte[])obj;
                             break;
 
                         default:
@@ -398,7 +406,7 @@ namespace MsgKit.Structures
                     throw new ArgumentOutOfRangeException();
             }
 
-            Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
+            Add(new NamedProperty(mapiTag.Id, mapiTag.Type, flags, data));
         }
 
         /// <summary>
@@ -418,7 +426,7 @@ namespace MsgKit.Structures
             if (data.Length != 8)
                 throw new ArgumentOutOfRangeException("data", "The data should always have an 8 byte size");
 
-            Add(new Property(id, type, flagses, data));
+            Add(new NamedProperty(id, type, flagses, data));
         }
 
         /// <summary>
@@ -438,7 +446,7 @@ namespace MsgKit.Structures
             var type = stream.Name.Substring(16, 4);
             var uId = ushort.Parse(id, NumberStyles.AllowHexSpecifier);
             var uType = ushort.Parse(type, NumberStyles.AllowHexSpecifier);
-            Add(new Property(uId, (PropertyType) uType, PropertyFlags.PROPATTR_READABLE, stream.GetData()));
+            Add(new NamedProperty(uId, (PropertyType)uType, PropertyFlags.PROPATTR_READABLE, stream.GetData()));
         }
         #endregion
     }
