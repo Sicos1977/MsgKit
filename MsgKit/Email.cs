@@ -303,8 +303,13 @@ namespace MsgKit
 
             SetSubject();
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
-            propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, Subject);
+            propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, SubjectNormalized);
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
+            propertiesStream.AddProperty(PropertyTags.PR_CONVERSATION_TOPIC_W, SubjectNormalized);
+
+            // http://www.meridiandiscovery.com/how-to/e-mail-conversation-index-metadata-computer-forensics/
+            // http://stackoverflow.com/questions/11860540/does-outlook-embed-a-messageid-or-equivalent-in-its-email-elements
+            //propertiesStream.AddProperty(PropertyTags.PR_CONVERSATION_INDEX, Subject);
 
             // TODO: Change modification time when this message is opened and only modified
             var utcNow = DateTime.UtcNow;
