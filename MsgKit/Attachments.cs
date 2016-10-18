@@ -335,8 +335,13 @@ namespace MsgKit
             var name = Path.GetFileNameWithoutExtension(fileName);
             var extension = Path.GetExtension(fileName);
 
-            if (name != null) name = name.Substring(0, 6).ToUpperInvariant() + "~1";
-            if (extension != null) name += "." + extension.Substring(1, 3).ToUpperInvariant();
+            if (name != null)
+                name = (name.Length > 8 ? name.Substring(0, 6) + "~1" : name).ToUpperInvariant();
+
+            if (extension != null)
+                name += "." +
+                        (extension.Length > 3 ? extension.Substring(1, 3) : extension.TrimStart('.')).ToUpperInvariant();
+
             return name;
         }
         #endregion
