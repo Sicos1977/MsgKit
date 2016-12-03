@@ -1,7 +1,30 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MsgKitTestTool.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="From" Type="System.String" Scope="User">
+      <Value Profile="(Default)">captainhook@neverland.com</Value>
+    </Setting>
+    <Setting Name="To" Type="System.String" Scope="User">
+      <Value Profile="(Default)">crocodile@neverland.com</Value>
+    </Setting>
+    <Setting Name="Cc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tinkerbel@neverland.com</Value>
+    </Setting>
+    <Setting Name="Bcc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">wendy@neverland.com</Value>
+    </Setting>
+    <Setting Name="Subject" Type="System.String" Scope="User">
+      <Value Profile="(Default)">This is the subject</Value>
+    </Setting>
+    <Setting Name="SentOn" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">12/03/2016 19:08:54</Value>
+    </Setting>
+    <Setting Name="Sender" Type="System.String" Scope="User">
+      <Value Profile="(Default)">peterpan@neverland.com</Value>
+    </Setting>
+    <Setting Name="Importance" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

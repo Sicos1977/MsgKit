@@ -21,9 +21,9 @@ using MsgKit.Enums;
 
 namespace MsgKitTestTool
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -35,13 +35,29 @@ namespace MsgKitTestTool
                 new Representing("tinkerbell@neverland.com", "Tinkerbell"),
                 "Hello Neverland subject"))
             {
+                email.Recipients.AddTo(FromTextBox.Text);
+                email.Recipients.AddCc(ToTextBox.Text);
+                email.Recipients.AddBcc(BccTextBox.Text);
+                email.Subject = SubjectTextBox.Text;
+                email.BodyText = TextBodyTextBox.Text;
+                email.BodyHtml = HtmlBodyTextBox.Text;
+                email.SentOn = SentOnDatePicker.Value;
 
-                email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
-                email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
-                email.Subject = "This is the subject";
-                email.BodyText = "Hello Neverland text";
-                email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
-                email.Importance = MessageImportance.IMPORTANCE_HIGH;
+                switch (ImportanceComboBox.Text)
+                {
+                    case "Low":
+                        email.Importance = MessageImportance.IMPORTANCE_LOW;
+                        break;
+
+                    case "High":
+                        email.Importance = MessageImportance.IMPORTANCE_HIGH;
+                        break;
+
+                    default:
+                        email.Importance = MessageImportance.IMPORTANCE_NORMAL;
+                        break;
+                }
+
                 email.IconIndex = MessageIconIndex.UnsentMail;
                 email.Attachments.Add("Images\\peterpan.jpg");
                 email.Attachments.Add("Images\\tinkerbell.jpg");
