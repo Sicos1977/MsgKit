@@ -30,21 +30,23 @@ namespace MsgKitTestTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var email = new Email(
+            using (var email = new Email(
                 new Sender("peterpan@neverland.com", "Peter Pan"),
                 new Representing("tinkerbell@neverland.com", "Tinkerbell"),
-                "Hello Neverland subject");
+                "Hello Neverland subject"))
+            {
 
-            email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
-            email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
-            email.Subject = "This is the subject";
-            email.BodyText = "Hello Neverland text";
-            email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
-            email.Importance = MessageImportance.IMPORTANCE_HIGH;
-            email.IconIndex = MessageIconIndex.UnsentMail;
-            email.Attachments.Add("Images\\peterpan.jpg");
-            email.Attachments.Add("Images\\tinkerbell.jpg");
-            email.Save("test.msg");
+                email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+                email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+                email.Subject = "This is the subject";
+                email.BodyText = "Hello Neverland text";
+                email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+                email.Importance = MessageImportance.IMPORTANCE_HIGH;
+                email.IconIndex = MessageIconIndex.UnsentMail;
+                email.Attachments.Add("Images\\peterpan.jpg");
+                email.Attachments.Add("Images\\tinkerbell.jpg");
+                email.Save("test.msg");
+            }
             System.Diagnostics.Process.Start("test.msg");
         }
     }
