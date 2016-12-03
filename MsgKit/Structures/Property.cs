@@ -113,7 +113,7 @@ namespace MsgKit.Structures
         ///     <see cref="PropertyType.PT_SHORT" />,
         ///     <see cref="PropertyType.PT_LONG" /> or <see cref="PropertyType.PT_ERROR" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_SHORT"/> or
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_SHORT"/> or
         /// <see cref="PropertyType.PT_LONG"/></exception>
         internal int ToInt
         {
@@ -128,7 +128,7 @@ namespace MsgKit.Structures
                         return BitConverter.ToInt32(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_SHORT or PT_LONG");
+                        throw new MKInvalidProperty("Type is not PT_SHORT or PT_LONG");
                 }
             }
         }
@@ -137,7 +137,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
         ///     <see cref="PropertyType.PT_FLOAT" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
         internal float ToSingle
         {
             get
@@ -148,7 +148,7 @@ namespace MsgKit.Structures
                         return BitConverter.ToSingle(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_FLOAT");
+                        throw new MKInvalidProperty("Type is not PT_FLOAT");
                 }
             }
         }
@@ -157,7 +157,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a single when <see cref="Type" /> is set to 
         ///     <see cref="PropertyType.PT_DOUBLE" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_DOUBLE"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_DOUBLE"/></exception>
         internal double ToDouble
         {
             get
@@ -168,7 +168,7 @@ namespace MsgKit.Structures
                         return BitConverter.ToDouble(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_DOUBLE");
+                        throw new MKInvalidProperty("Type is not PT_DOUBLE");
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a decimal when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_FLOAT" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not <see cref="PropertyType.PT_FLOAT"/></exception>
         internal decimal ToDecimal
         {
             get
@@ -188,7 +188,7 @@ namespace MsgKit.Structures
                         return ByteArrayToDecimal(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_FLOAT");
+                        throw new MKInvalidProperty("Type is not PT_FLOAT");
                 }
             }
         }
@@ -198,7 +198,7 @@ namespace MsgKit.Structures
         ///     <see cref="PropertyType.PT_APPTIME" />
         ///     or <see cref="PropertyType.PT_SYSTIME" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_APPTIME"/> or
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_APPTIME"/> or
         /// <see cref="PropertyType.PT_SYSTIME"/></exception>
         internal DateTime ToDateTime
         {
@@ -215,7 +215,7 @@ namespace MsgKit.Structures
                         return DateTime.FromFileTime(fileTime);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_APPTIME or PT_SYSTIME");
+                        throw new MKInvalidProperty("Type is not PT_APPTIME or PT_SYSTIME");
                 }
             }
         }
@@ -223,7 +223,7 @@ namespace MsgKit.Structures
         /// <summary>
         ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to <see cref="PropertyType.PT_BOOLEAN" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BOOLEAN"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BOOLEAN"/></exception>
         internal bool ToBool
         {
             get
@@ -234,7 +234,7 @@ namespace MsgKit.Structures
                         return BitConverter.ToBoolean(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_BOOLEAN");
+                        throw new MKInvalidProperty("Type is not PT_BOOLEAN");
                 }
             }
         }
@@ -243,7 +243,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a boolean when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_LONGLONG" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_LONGLONG"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_LONGLONG"/></exception>
         internal long ToLong
         {
             get
@@ -255,7 +255,7 @@ namespace MsgKit.Structures
                         return BitConverter.ToInt64(Data, 0);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_LONGLONG");
+                        throw new MKInvalidProperty("Type is not PT_LONGLONG");
                 }
             }
         }
@@ -264,7 +264,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a string when <see cref="Type" /> is set to <see cref="PropertyType.PT_UNICODE" />
         ///     or <see cref="PropertyType.PT_STRING8" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_UNICODE"/> or <see cref="PropertyType.PT_STRING8" /></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_UNICODE"/> or <see cref="PropertyType.PT_STRING8" /></exception>
         public new string ToString
         {
             get
@@ -282,7 +282,7 @@ namespace MsgKit.Structures
                         }
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_UNICODE or PT_STRING8");
+                        throw new MKInvalidProperty("Type is not PT_UNICODE or PT_STRING8");
                 }
             }
         }
@@ -291,7 +291,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a Guid when <see cref="Type" /> is set to <see cref="PropertyType.PT_CLSID" />
         ///     <see cref="PropertyType.PT_OBJECT" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BINARY"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BINARY"/></exception>
         public Guid ToGuid
         {
             get
@@ -302,7 +302,7 @@ namespace MsgKit.Structures
                         return new Guid(Data);
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_CLSID");
+                        throw new MKInvalidProperty("Type is not PT_CLSID");
                 }
             }
         }
@@ -330,7 +330,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as a byte[] when <see cref="Type" /> is set to <see cref="PropertyType.PT_BINARY" />
         ///     <see cref="PropertyType.PT_OBJECT" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BINARY"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_BINARY"/></exception>
         public byte[] ToBinary
         {
             get
@@ -341,7 +341,7 @@ namespace MsgKit.Structures
                         return Data;
 
                     default:
-                        throw new MWInvalidProperty("Type is not PT_BINARY");
+                        throw new MKInvalidProperty("Type is not PT_BINARY");
                 }
             }
         }
@@ -350,7 +350,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as an readonly collection of integers when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_SHORT" /> or <see cref="PropertyType.PT_MV_LONG" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
         internal ReadOnlyCollection<int> ToIntCollection
         {
             get { throw new NotImplementedException(); }
@@ -360,7 +360,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as an readonly collection of floats when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_FLOAT" /> or <see cref="PropertyType.PT_MV_DOUBLE" />
         /// </summary>
-        /// <exception cref="MWInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
+        /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
         internal ReadOnlyCollection<float> ToFloatCollection
         {
             get { throw new NotImplementedException(); }

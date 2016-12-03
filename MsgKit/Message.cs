@@ -133,7 +133,7 @@ namespace MsgKit
         ///     <see cref="PropertyTag" />
         /// </param>
         /// <returns></returns>
-        /// <exception cref="MWInvalidProperty">
+        /// <exception cref="MKInvalidProperty">
         ///     Raised when the <paramref name="propertyTag" /> is not of the type
         ///     <see cref="PropertyType.PT_STRING8" /> or <see cref="PropertyType.PT_UNICODE" />
         /// </exception>
@@ -149,7 +149,7 @@ namespace MsgKit
         /// </summary>
         /// <param name="propertyTags">List of <see cref="PropertyTag" /></param>
         /// <returns></returns>
-        /// <exception cref="MWInvalidProperty">
+        /// <exception cref="MKInvalidProperty">
         ///     Raised when the <paramref name="propertyTags" /> is not of the type
         ///     <see cref="PropertyType.PT_STRING8" /> or <see cref="PropertyType.PT_UNICODE" />
         /// </exception>
@@ -174,7 +174,7 @@ namespace MsgKit
                             break;
 
                         default:
-                            throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                            throw new MKInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
                     }
                 }
 
@@ -197,7 +197,7 @@ namespace MsgKit
         /// </param>
         /// <param name="value">The value</param>
         /// <returns></returns>
-        /// <exception cref="MWInvalidProperty">
+        /// <exception cref="MKInvalidProperty">
         ///     Raised when the <paramref name="propertyTag" /> is not of the type
         ///     <see cref="PropertyType.PT_STRING8" /> or <see cref="PropertyType.PT_UNICODE" />
         /// </exception>
@@ -214,7 +214,7 @@ namespace MsgKit
                         break;
 
                     default:
-                        throw new MWInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
+                        throw new MKInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
                 }
             }
             else
@@ -231,7 +231,7 @@ namespace MsgKit
         /// <param name="propertyTag">List of <see cref="PropertyTag" /></param>
         /// <param name="values">The values</param>
         /// <returns></returns>
-        /// <exception cref="MWInvalidProperty">
+        /// <exception cref="MKInvalidProperty">
         ///     Raised when the <paramref name="propertyTag" /> is not of the type
         ///     <see cref="PropertyType.PT_MV_STRING8" /> or <see cref="PropertyType.PT_MV_UNICODE" />
         /// </exception>
@@ -266,7 +266,7 @@ namespace MsgKit
                             break;
 
                         default:
-                            throw new MWInvalidProperty("The property is not of the type PT_MV_STRING8 or PT_MV_UNICODE");
+                            throw new MKInvalidProperty("The property is not of the type PT_MV_STRING8 or PT_MV_UNICODE");
                     }
                 }
                 else

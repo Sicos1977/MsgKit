@@ -56,7 +56,7 @@ namespace MsgKit
 
             if (this.Any(
                 attachment => attachment.FileName.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)))
-                throw new MWAttachmentExists("The attachment with the name '" + file + "' already exists");
+                throw new MKAttachmentExists("The attachment with the name '" + file + "' already exists");
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace MsgKit
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="fileName" /> could not be found</exception>
-        /// <exception cref="MWAttachmentExists">Raised when an attachment with the same name already exists</exception>
+        /// <exception cref="MKAttachmentExists">Raised when an attachment with the same name already exists</exception>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
@@ -122,7 +122,7 @@ namespace MsgKit
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
         /// <exception cref="ArgumentNullException">Raised when the stream is null</exception>
-        /// <exception cref="MWAttachmentExists">Raised when an attachment with the same name already exists</exception>
+        /// <exception cref="MKAttachmentExists">Raised when an attachment with the same name already exists</exception>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
@@ -159,7 +159,7 @@ namespace MsgKit
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="fileName" /> could not be found</exception>
-        /// <exception cref="MWAttachmentExists">Raised when an attachment with the same name already exists</exception>
+        /// <exception cref="MKAttachmentExists">Raised when an attachment with the same name already exists</exception>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty

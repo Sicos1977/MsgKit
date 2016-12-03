@@ -31,17 +31,17 @@ namespace MsgKit.Exceptions
     /// <summary>
     ///     Raised when a property is invalid
     /// </summary>
-    public class MWInvalidProperty : Exception
+    public class MKInvalidProperty : Exception
     {
-        internal MWInvalidProperty()
+        internal MKInvalidProperty()
         {
         }
 
-        internal MWInvalidProperty(string message) : base(message)
+        internal MKInvalidProperty(string message) : base(message)
         {
         }
 
-        internal MWInvalidProperty(string message, Exception inner) : base(message, inner)
+        internal MKInvalidProperty(string message, Exception inner) : base(message, inner)
         {
         }
     }

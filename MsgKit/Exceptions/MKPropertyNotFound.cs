@@ -1,5 +1,5 @@
 ﻿//
-// MWAttachmentExists.cs
+// MWPropertyNotFound.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -29,19 +29,19 @@ using System;
 namespace MsgKit.Exceptions
 {
     /// <summary>
-    /// Raised when an attachment with the same name already exists
+    ///     Raised when a property is not found
     /// </summary>
-    public class MWAttachmentExists : Exception
+    public class MKPropertyNotFound : Exception
     {
-        internal MWAttachmentExists() 
+        internal MKPropertyNotFound()
         {
         }
 
-        internal MWAttachmentExists(string message) : base(message)
+        internal MKPropertyNotFound(string message) : base(message)
         {
         }
 
-        internal MWAttachmentExists(string message, Exception inner) : base(message, inner)
+        internal MKPropertyNotFound(string message, Exception inner): base(message, inner)
         {
         }
     }
