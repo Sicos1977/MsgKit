@@ -247,7 +247,7 @@ namespace MsgKit
                     }
                 }
             }
-            else
+            else if (!string.IsNullOrEmpty(Subject))
             {
                 var prefix = Subject.Substring(5);
                 if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
@@ -258,6 +258,8 @@ namespace MsgKit
                 else
                     SubjectNormalized = Subject;
             }
+            else
+                SubjectNormalized = Subject;
 
             if (SubjectPrefix == null) SubjectPrefix = string.Empty;
         }
