@@ -133,7 +133,7 @@ namespace MsgKit.Helpers
         /// <returns></returns>
         public static byte[] GenerateEntryId()
         {
-            return Guid.NewGuid().ToByteArray();
+            return Encoding.Unicode.GetBytes(Guid.NewGuid().ToString());
         }
         #endregion
     }

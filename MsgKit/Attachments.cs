@@ -50,12 +50,14 @@ namespace MsgKit
         ///     Checks if the <paramref name="fileName" /> already exists in this object
         /// </summary>
         /// <param name="fileName"></param>
-        private void CheckAttachmentFileName(string fileName)
+        /// <param name="contentId"></param>
+        private void CheckAttachmentFileName(string fileName, string contentId)
         {
             var file = Path.GetFileName(fileName);
 
             if (this.Any(
-                attachment => attachment.FileName.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)))
+                attachment => attachment.FileName.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)
+                && string.Equals(attachment.ContentId, contentId, StringComparison.InvariantCultureIgnoreCase)))
                 throw new MKAttachmentExists("The attachment with the name '" + file + "' already exists");
         }
         #endregion
@@ -103,7 +105,7 @@ namespace MsgKit
                         bool isInline = false, 
                         string contentId = "")
         {
-            CheckAttachmentFileName(fileName);
+            CheckAttachmentFileName(fileName, contentId);
             var file = new FileInfo(fileName);
 
             Add(new Attachment(file,
@@ -136,7 +138,7 @@ namespace MsgKit
             if (stream == null)
                 throw new ArgumentNullException("stream");
 
-            CheckAttachmentFileName(fileName);
+            CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
 
             Add(new Attachment(stream,
@@ -173,7 +175,7 @@ namespace MsgKit
                             bool isInline = false, 
                             string contentId = "")
         {
-            CheckAttachmentFileName(fileName);
+            CheckAttachmentFileName(fileName, contentId);
             var file = new FileInfo(fileName);
 
             Add(new Attachment(file,
@@ -371,6 +373,11 @@ namespace MsgKit
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_FILENAME_W, GetShortFileName(FileName));
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_LONG_FILENAME_W, FileName);
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
+
+                if (!string.IsNullOrEmpty(this.ContentId))
+                {
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_CONTENT_ID_W, this.ContentId);
+                }
             }
 
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_METHOD, Type);
