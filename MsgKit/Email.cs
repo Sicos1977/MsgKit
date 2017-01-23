@@ -175,7 +175,7 @@ namespace MsgKit
         ///     the message has been sent outside an Exchange environment to another mailserver
         ///     <c>null</c> will be returned when not present
         /// </summary>
-        public string TransportMessageHeaders { get; private set; }
+        public string TransportMessageHeaders { get; set; }
         #endregion
 
         #region Constructor

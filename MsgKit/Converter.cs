@@ -25,6 +25,9 @@
 //
 
 using System;
+using System.IO;
+using System.Text;
+using MimeKit;
 
 namespace MsgKit
 {
@@ -40,10 +43,47 @@ namespace MsgKit
         /// <param name="msgFileName">The MSG file</param>
         public static void ConvertEmlToMsg(string emlFileName, string msgFileName)
         {
-            var eml = MimeKit.MimeMessage.Load(emlFileName);
+            var eml = MimeMessage.Load(emlFileName);
             var sender = new Sender(eml.Sender.Address, eml.Sender.Name);
-            var msg = new MsgKit.Email(sender, eml.Subject);
-            throw new NotImplementedException("Not yet done");
+            var representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
+            var msg = new Email(sender, representing, eml.Subject);
+
+            foreach(var to in eml.To)
+                msg.Recipients.AddTo(to.ToString(), to.Name);
+
+            foreach(var cc in eml.Cc)
+                msg.Recipients.AddBcc(cc.ToString(), cc.Name);
+
+            foreach (var bcc in eml.Bcc)
+                msg.Recipients.AddBcc(bcc.ToString(), bcc.Name);
+
+            using (var headerStream = new MemoryStream())
+            {
+                eml.Headers.WriteTo(headerStream);
+                headerStream.Position = 0;
+                msg.TransportMessageHeaders = Encoding.ASCII.GetString(headerStream.ToArray());
+            }
+
+            msg.BodyHtml = eml.HtmlBody;
+            msg.BodyText = eml.TextBody;
+
+            foreach (var attachment in eml.Attachments)
+            {
+                if (!attachment.IsAttachment) continue;
+
+                using (var attachmentStream = new MemoryStream())
+                {
+                    attachment.WriteTo(attachmentStream);
+                    attachmentStream.Position = 0;
+
+                    msg.Attachments.Add(
+                        attachmentStream,
+                        attachment.ContentDisposition.FileName,
+                        -1,
+                        attachment.ContentDisposition.Disposition.Equals("inline", StringComparison.InvariantCultureIgnoreCase),
+                        attachment.ContentId);
+                }
+            }
         }
 
         /// <summary>
