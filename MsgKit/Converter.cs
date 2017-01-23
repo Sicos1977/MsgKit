@@ -46,12 +46,38 @@ namespace MsgKit
             var eml = MimeMessage.Load(emlFileName);
             var sender = new Sender(eml.Sender.Address, eml.Sender.Name);
             var representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
-            var msg = new Email(sender, representing, eml.Subject);
+            var msg = new Email(sender, representing, eml.Subject) {SentOn = eml.Date.DateTime};
+            
+            switch (eml.Priority)
+            {
+                case MessagePriority.NonUrgent:
+                    msg.Priority = Enums.MessagePriority.PRIO_NONURGENT;
+                    break;
+                case MessagePriority.Normal:
+                    msg.Priority = Enums.MessagePriority.PRIO_NORMAL;
+                    break;
+                case MessagePriority.Urgent:
+                    msg.Priority = Enums.MessagePriority.PRIO_URGENT;
+                    break;
+            }
 
-            foreach(var to in eml.To)
+            switch (eml.Importance)
+            {
+                case MessageImportance.Low:
+                    msg.Importance = Enums.MessageImportance.IMPORTANCE_LOW;
+                    break;
+                case MessageImportance.Normal:
+                    msg.Importance = Enums.MessageImportance.IMPORTANCE_NORMAL;
+                    break;
+                case MessageImportance.High:
+                    msg.Importance = Enums.MessageImportance.IMPORTANCE_HIGH;
+                    break;
+            }
+
+            foreach (var to in eml.To)
                 msg.Recipients.AddTo(to.ToString(), to.Name);
 
-            foreach(var cc in eml.Cc)
+            foreach (var cc in eml.Cc)
                 msg.Recipients.AddBcc(cc.ToString(), cc.Name);
 
             foreach (var bcc in eml.Bcc)
@@ -75,13 +101,9 @@ namespace MsgKit
                 {
                     attachment.WriteTo(attachmentStream);
                     attachmentStream.Position = 0;
-
-                    msg.Attachments.Add(
-                        attachmentStream,
-                        attachment.ContentDisposition.FileName,
-                        -1,
-                        attachment.ContentDisposition.Disposition.Equals("inline", StringComparison.InvariantCultureIgnoreCase),
-                        attachment.ContentId);
+                    msg.Attachments.Add(attachmentStream, attachment.ContentDisposition.FileName, -1,
+                        attachment.ContentDisposition.Disposition.Equals("inline",
+                            StringComparison.InvariantCultureIgnoreCase), attachment.ContentId);
                 }
             }
         }
