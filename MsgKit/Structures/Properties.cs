@@ -250,7 +250,8 @@ namespace MsgKit.Structures
             PropertyFlags flags = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
         {
             if (obj == null)
-                throw new ArgumentNullException("mapiTag", "Obj can not be null");
+                return;
+                //throw new ArgumentNullException("mapiTag", "Obj can not be null");
 
             var data = new byte[] {};
 

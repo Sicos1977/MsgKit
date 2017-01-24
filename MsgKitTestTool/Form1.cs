@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using MsgKit;
 using MsgKit.Enums;
+using MsgKitTestTool.Properties;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -64,6 +66,30 @@ namespace MsgKitTestTool
                 email.Save("test.msg");
             }
             System.Diagnostics.Process.Start("test.msg");
+        }
+
+        private void Eml2MsgButton_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the open file dialog box.
+            var openFileDialog1 = new OpenFileDialog
+            {
+                // ReSharper disable once LocalizableElement
+                Filter = "E-mail|*.eml",
+                FilterIndex = 1,
+                Multiselect = false
+            };
+
+            if (Directory.Exists(Settings.Default.InitialDirectory))
+                openFileDialog1.InitialDirectory = Settings.Default.InitialDirectory;
+
+            // Process input if the user clicked OK.
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Settings.Default.InitialDirectory = Path.GetDirectoryName(openFileDialog1.FileName);
+                var emlFileName = openFileDialog1.FileName;
+                var msgFileName = Path.ChangeExtension(emlFileName, ".msg");
+                Converter.ConvertEmlToMsg(emlFileName, msgFileName);
+            }
         }
     }
 }

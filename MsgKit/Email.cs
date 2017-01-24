@@ -171,6 +171,14 @@ namespace MsgKit
         public DateTime? ReceivedOn { get; private set; }
 
         /// <summary>
+        ///     Returns or sets the Internet Message Id
+        /// </summary>
+        /// <remarks>
+        ///     Corresponds to the message ID field as specified in [RFC2822].
+        /// </remarks>
+        public string InternetMessageId { get; set; }
+
+        /// <summary>
         ///     Returns or sets the transport message headers. These are only present when
         ///     the message has been sent outside an Exchange environment to another mailserver
         ///     <c>null</c> will be returned when not present
@@ -285,6 +293,8 @@ namespace MsgKit
                                                           recipientCount, 
                                                           attachmentCount);
 
+            if (!string.IsNullOrEmpty(InternetMessageId))
+                propertiesStream.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, InternetMessageId);
             propertiesStream.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);

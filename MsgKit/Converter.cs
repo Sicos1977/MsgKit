@@ -44,10 +44,24 @@ namespace MsgKit
         public static void ConvertEmlToMsg(string emlFileName, string msgFileName)
         {
             var eml = MimeMessage.Load(emlFileName);
-            var sender = new Sender(eml.Sender.Address, eml.Sender.Name);
-            var representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
-            var msg = new Email(sender, representing, eml.Subject) {SentOn = eml.Date.DateTime};
-            
+            var sender = new Sender(string.Empty, string.Empty);
+
+            if (eml.From.Count > 0)
+            {
+                var mailAddress = ((MailboxAddress) eml.From[0]);
+                sender = new Sender(mailAddress.Address, mailAddress.Name);
+            }
+
+            var representing = new Representing(string.Empty, string.Empty);
+            if (eml.ResentSender != null)
+                representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
+
+            var msg = new Email(sender, representing, eml.Subject)
+            {
+                SentOn = eml.Date.UtcDateTime,
+                InternetMessageId = eml.MessageId
+            };
+
             switch (eml.Priority)
             {
                 case MessagePriority.NonUrgent:
@@ -75,13 +89,22 @@ namespace MsgKit
             }
 
             foreach (var to in eml.To)
-                msg.Recipients.AddTo(to.ToString(), to.Name);
+            {
+                var mailAddress = ((MailboxAddress)to);
+                msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+            }
 
             foreach (var cc in eml.Cc)
-                msg.Recipients.AddBcc(cc.ToString(), cc.Name);
+            {
+                var mailAddress = ((MailboxAddress)cc);
+                msg.Recipients.AddCc(mailAddress.Address, mailAddress.Name);
+            }
 
             foreach (var bcc in eml.Bcc)
-                msg.Recipients.AddBcc(bcc.ToString(), bcc.Name);
+            {
+                var mailAddress = ((MailboxAddress)bcc);
+                msg.Recipients.AddBcc(mailAddress.Address, mailAddress.Name);
+            }
 
             using (var headerStream = new MemoryStream())
             {
@@ -93,17 +116,50 @@ namespace MsgKit
             msg.BodyHtml = eml.HtmlBody;
             msg.BodyText = eml.TextBody;
 
-            foreach (var attachment in eml.Attachments)
+            foreach (var bodyPart in eml.BodyParts)
             {
-                if (!attachment.IsAttachment) continue;
+                var attachmentStream = new MemoryStream();
+                var fileName = bodyPart.ContentType.Name;
 
-                using (var attachmentStream = new MemoryStream())
+                if (bodyPart is MessagePart)
                 {
-                    attachment.WriteTo(attachmentStream);
-                    attachmentStream.Position = 0;
-                    msg.Attachments.Add(attachmentStream, attachment.ContentDisposition.FileName, -1,
-                        attachment.ContentDisposition.Disposition.Equals("inline",
-                            StringComparison.InvariantCultureIgnoreCase), attachment.ContentId);
+                    var part = (MessagePart)bodyPart;
+                    part.Message.WriteTo(attachmentStream);
+                    if (part.Message.HtmlBody == eml.HtmlBody) continue;
+                    if (part.Message.TextBody == eml.TextBody) continue;
+                }
+                else
+                {
+                    var part = (MimePart)bodyPart;
+                    part.ContentObject.DecodeTo(attachmentStream);
+
+                    if (part.ContentType.MimeType == "message/delivery-status")
+                    {
+                        var att = Encoding.ASCII.GetString(attachmentStream.ToArray());
+                        fileName = "details.txt";
+                        attachmentStream.Position = 0;
+                        msg.Attachments.Add(attachmentStream, fileName, -1, false, bodyPart.ContentId);
+                    }
+                    else
+                    {
+                        var text = part as TextPart;
+                        if (text != null && (text.Text == eml.HtmlBody || text.Text == eml.TextBody)) continue;
+
+                        if (text == null)
+                            fileName = Guid.NewGuid().ToString();
+                        else if (text.IsPlain)
+                            fileName = "details.txt";
+                        else if (text.IsHtml)
+                            fileName = "details.htm";
+                        else if (text.IsRichText)
+                            fileName = "details.rtf";
+
+                        bodyPart.WriteTo(attachmentStream);
+                        attachmentStream.Position = 0;
+                        msg.Attachments.Add(attachmentStream, fileName, -1,
+                            bodyPart.ContentDisposition.Disposition.Equals("inline",
+                                StringComparison.InvariantCultureIgnoreCase), bodyPart.ContentId);
+                    }
                 }
             }
 

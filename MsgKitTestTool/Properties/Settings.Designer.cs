@@ -118,5 +118,17 @@ namespace MsgKitTestTool.Properties {
                 this["Importance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
+        public string InitialDirectory {
+            get {
+                return ((string)(this["InitialDirectory"]));
+            }
+            set {
+                this["InitialDirectory"] = value;
+            }
+        }
     }
 }
