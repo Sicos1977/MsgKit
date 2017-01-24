@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Text;
 using MimeKit;
+using MsgKit.Helpers;
 
 namespace MsgKit
 {
@@ -116,65 +117,78 @@ namespace MsgKit
             msg.BodyHtml = eml.HtmlBody;
             msg.BodyText = eml.TextBody;
 
+            var skipFirst = true;
+
             foreach (var bodyPart in eml.BodyParts)
             {
+                // We always skip the first bodypart because that is normaly the html, text or rtf body
+                if (skipFirst)
+                {
+                    skipFirst = false;
+                    continue;
+                }
+
                 var attachmentStream = new MemoryStream();
                 var fileName = bodyPart.ContentType.Name;
+                var extension = string.Empty;
 
                 if (bodyPart is MessagePart)
                 {
-                    var part = (MessagePart)bodyPart;
+                    var part = (MessagePart) bodyPart;
                     part.Message.WriteTo(attachmentStream);
-                    if (part.Message.HtmlBody == eml.HtmlBody) continue;
-                    if (part.Message.TextBody == eml.TextBody) continue;
+                    if (part.Message != null)
+                        fileName = part.Message.Subject;
+
+                    extension = ".eml";
+                }
+                else if (bodyPart is MessageDispositionNotification)
+                {
+                    var part = (MessageDispositionNotification) bodyPart;
+                    fileName = part.FileName;
+                }
+                else if (bodyPart is MessageDeliveryStatus)
+                {
+                    var part = (MessageDeliveryStatus) bodyPart;
+                    fileName = "details";
+                    extension = ".txt";
+                    part.WriteTo(FormatOptions.Default, attachmentStream, true);
                 }
                 else
                 {
-                    var part = (MimePart)bodyPart;
+                    var part = (MimePart) bodyPart;
                     part.ContentObject.DecodeTo(attachmentStream);
-
-                    if (part.ContentType.MimeType == "message/delivery-status")
-                    {
-                        var att = Encoding.ASCII.GetString(attachmentStream.ToArray());
-                        fileName = "details.txt";
-                        attachmentStream.Position = 0;
-                        msg.Attachments.Add(attachmentStream, fileName, -1, false, bodyPart.ContentId);
-                    }
-                    else
-                    {
-                        var text = part as TextPart;
-                        if (text != null && (text.Text == eml.HtmlBody || text.Text == eml.TextBody)) continue;
-
-                        if (text == null)
-                            fileName = Guid.NewGuid().ToString();
-                        else if (text.IsPlain)
-                            fileName = "details.txt";
-                        else if (text.IsHtml)
-                            fileName = "details.htm";
-                        else if (text.IsRichText)
-                            fileName = "details.rtf";
-
-                        bodyPart.WriteTo(attachmentStream);
-                        attachmentStream.Position = 0;
-                        msg.Attachments.Add(attachmentStream, fileName, -1,
-                            bodyPart.ContentDisposition.Disposition.Equals("inline",
-                                StringComparison.InvariantCultureIgnoreCase), bodyPart.ContentId);
-                    }
+                    fileName = part.FileName;
+                    bodyPart.WriteTo(attachmentStream);
                 }
+               
+                fileName = string.IsNullOrWhiteSpace(fileName)
+                    ? "Nameless"
+                    : FileManager.RemoveInvalidFileNameChars(fileName);
+
+                if (!string.IsNullOrEmpty(extension))
+                    fileName += extension;
+
+                var inline = bodyPart.ContentDisposition != null &&
+                    bodyPart.ContentDisposition.Disposition.Equals("inline",
+                        StringComparison.InvariantCultureIgnoreCase);
+                
+                attachmentStream.Position = 0;
+                msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
+
             }
 
             msg.Save(msgFileName);
         }
 
-        /// <summary>
-        ///     Converts an MSG file to EML format
-        /// </summary>
-        /// <param name="msgFileName">The MSG file</param>
-        /// <param name="emlFileName">The EML (MIME) file</param>
-        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
-        {
-            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-            throw new NotImplementedException("Not yet done");
-        }
+        ///// <summary>
+        /////     Converts an MSG file to EML format
+        ///// </summary>
+        ///// <param name="msgFileName">The MSG file</param>
+        ///// <param name="emlFileName">The EML (MIME) file</param>
+        //public static void ConvertMsgToEml(string msgFileName, string emlFileName)
+        //{
+        //    //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
+        //    throw new NotImplementedException("Not yet done");
+        //}
     }
 }
