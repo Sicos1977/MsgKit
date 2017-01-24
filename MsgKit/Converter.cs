@@ -106,6 +106,8 @@ namespace MsgKit
                             StringComparison.InvariantCultureIgnoreCase), attachment.ContentId);
                 }
             }
+
+            msg.Save(msgFileName);
         }
 
         /// <summary>
