@@ -184,6 +184,11 @@ namespace MsgKit
         ///     <c>null</c> will be returned when not present
         /// </summary>
         public string TransportMessageHeaders { get; set; }
+
+        /// <summary>
+        ///     Returns <c>true</c> when the message is set as a draft message
+        /// </summary>
+        public bool Draft { get; private set; }
         #endregion
 
         #region Constructor
@@ -192,13 +197,16 @@ namespace MsgKit
         /// </summary>
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
+        /// <param name="draft">Set to <c>true</c> to save the E-mail as a draft message</param>
         public Email(Sender sender, 
-                     string subject)
+                     string subject,
+                     bool draft = false)
         {
             Sender = sender;
             Subject = subject;
             Importance = MessageImportance.IMPORTANCE_NORMAL;
             IconIndex = MessageIconIndex.NewMail;
+            Draft = draft;
         }
 
         /// <summary>
@@ -207,15 +215,18 @@ namespace MsgKit
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
         /// <param name="representing">The <see cref="MsgKit.Representing"/> sender of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
+        /// <param name="draft">Set to <c>true</c> to save the E-mail as a draft message</param>
         public Email(Sender sender,
                      Representing representing,
-                     string subject)
+                     string subject,
+                     bool draft = false)
         {
             Sender = sender;
             Representing = representing;
             Subject = subject;
             Importance = MessageImportance.IMPORTANCE_NORMAL;
             IconIndex = MessageIconIndex.NewMail;
+            Draft = draft;
         }
         #endregion
 
@@ -304,6 +315,9 @@ namespace MsgKit
 
             var messageFlags = MessageFlags.MSGFLAG_UNMODIFIED;
 
+            if (Draft)
+                messageFlags |= MessageFlags.MSGFLAG_UNSENT;
+            
             if (attachmentCount > 0)
                 messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
 
