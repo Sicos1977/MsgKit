@@ -17,7 +17,15 @@ namespace MsgKit.Streams
     /// </summary>
     internal sealed class GuidStream : List<Guid>
     {
-        #region Constructor
+        #region Constructors
+        /// <summary>
+        ///     Creates this object
+        /// </summary>
+        internal GuidStream()
+        {
+
+        }
+
         /// <summary>
         ///     Creates this object and reads all the <see cref="Guid" /> objects from 
         ///     the given <paramref name="storage"/>

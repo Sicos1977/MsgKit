@@ -19,7 +19,15 @@ namespace MsgKit.Streams
     /// </remarks>
     internal sealed class StringStream : List<StringStreamItem>
     {
-        #region Constructor
+        #region Constructors
+        /// <summary>
+        ///     Creates this object
+        /// </summary>
+        internal StringStream()
+        {
+
+        }
+
         /// <summary>
         ///     Creates this object and reads all the <see cref="StringStreamItem" /> objects 
         ///     from the given <paramref name="storage"/>

@@ -67,7 +67,15 @@ namespace MsgKit.Streams
     /// </remarks>
     internal sealed class EntryStream : List<EntryStreamItem>
     {
-        #region Constructor
+        #region Constructors
+        /// <summary>
+        ///     Creates this object
+        /// </summary>
+        internal EntryStream()
+        {
+            
+        }
+
         /// <summary>
         ///     Creates this object and reads all the <see cref="EntryStreamItem" /> objects from 
         ///     the given <paramref name="storage"/>
