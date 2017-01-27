@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using MsgKit;
 using MsgKit.Enums;
+using MsgKit.Structures;
 using MsgKitTestTool.Properties;
 
 /*

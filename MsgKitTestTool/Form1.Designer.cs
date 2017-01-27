@@ -50,6 +50,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.ImportanceComboBox = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.ReadMsgFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EmailButton
@@ -261,11 +262,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Eml2MsgButton_Click);
             // 
+            // ReadMsgFileButton
+            // 
+            this.ReadMsgFileButton.Location = new System.Drawing.Point(216, 567);
+            this.ReadMsgFileButton.Name = "ReadMsgFileButton";
+            this.ReadMsgFileButton.Size = new System.Drawing.Size(182, 64);
+            this.ReadMsgFileButton.TabIndex = 21;
+            this.ReadMsgFileButton.Text = "Read MSG";
+            this.ReadMsgFileButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 655);
+            this.Controls.Add(this.ReadMsgFileButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.ImportanceComboBox);
             this.Controls.Add(this.label10);
@@ -321,6 +332,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox ImportanceComboBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ReadMsgFileButton;
     }
 }
 
