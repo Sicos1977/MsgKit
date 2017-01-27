@@ -103,22 +103,6 @@ namespace MsgKit.Streams
         }
         #endregion
 
-        #region ReadProperties
-        /// <summary>
-        ///     Reads all the <see cref="Property">properties</see> from the <see cref="CFStream"/>
-        /// </summary>
-        /// <param name="stream">The <see cref="CFStream"/></param>
-        internal void ReadProperties(CFStream stream)
-        {
-            using (var memoryStream = new MemoryStream(stream.GetData()))
-            using (var binaryReader = new BinaryReader(memoryStream))
-            {
-                binaryReader.ReadBytes(8);
-                ReadProperties(binaryReader);
-            }
-        }
-        #endregion
-
         #region WriteProperties
         /// <summary>
         ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in

@@ -56,24 +56,24 @@ namespace MsgKit
         internal const string PropertiesStreamName = "__properties_version1.0";
 
         /// <summary>
-        ///     The name id storage
+        ///     The name id storage (named property mapping storage)
         /// </summary>
         internal const string NameIdStorage = "__nameid_version1.0";
 
         /// <summary>
-        ///     The <see cref="EntryStream"/>
+        ///     The <see cref="Streams.EntryStream"/> stream
         /// </summary>
-        internal const string EntryStream = "__substg1.0_00020102";
+        internal const string EntryStream = "__substg1.0_00030102";
 
         /// <summary>
-        ///     The name id storage
+        ///     The <see cref="Streams.Guid"/> stream
         /// </summary>
-        internal const string NameIdStream2 = "__substg1.0_00030102";
+        internal const string GuidStream = "__substg1.0_00020102";
 
         /// <summary>
-        ///     The name id storage
+        ///     The <see cref="Streams.String"/> stream
         /// </summary>
-        internal const string NameIdStream3 = "__substg1.0_00040102";
+        internal const string StringStream = "__substg1.0_00040102";
 
         /// <summary>
         ///     Contains the identifier of the mode for message acknowledgment.

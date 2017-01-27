@@ -85,8 +85,6 @@
     <Compile Include="Receiving.cs" />
     <Compile Include="ReceivingRepresenting.cs" />
     <Compile Include="Representing.cs" />
-    <Compile Include="Streams\Guid.cs" />
-    <Compile Include="Streams\String.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Enums\AddressBookEntryId.cs" />
     <Compile Include="Enums\PropertyFlags.cs" />
@@ -96,7 +94,7 @@
     <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />
-    <Compile Include="Streams\Entry.cs" />
+    <Compile Include="Streams\EntryStream.cs" />
     <Compile Include="Streams\RecipientProperties.cs" />
     <Compile Include="Streams\AttachmentProperties.cs" />
     <Compile Include="Streams\EmbeddedMessageProperties.cs" />

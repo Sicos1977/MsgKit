@@ -385,6 +385,7 @@ namespace MsgKit.Structures
 
                 case PropertyType.PT_UNSPECIFIED:
                     throw new NotSupportedException("PT_UNSPECIFIED property type is not supported");
+
                 case PropertyType.PT_OBJECT:
                     // TODO: Add support for MSG
                     break;

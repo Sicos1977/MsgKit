@@ -8,6 +8,31 @@ namespace MsgKit
     /// </summary>
     public class ThreadIndex
     {
+        #region Properties
+        /// <summary>
+        ///     The date and time
+        /// </summary>
+        public DateTime Date { get; }
+
+        /// <summary>
+        ///     The unique GUID for this thread
+        /// </summary>
+        public Guid Id { get; }
+
+        /// <summary>
+        ///     The RAW base64 encoded thread index
+        /// </summary>
+        public string Raw { get; private set; }
+
+        /// <summary>
+        ///     Returns <c>true</c> when the thread index is valid
+        /// </summary>
+        public bool IsValid
+        {
+            get { return Date != default(DateTime) && Id != default(Guid); }
+        }
+        #endregion
+        
         #region Constructor
         /// <summary>
         ///     Creates this object and parses the given <paramref name="threadIndex" />
@@ -19,7 +44,7 @@ namespace MsgKit
 
             var bytes = Convert.FromBase64String(threadIndex);
 
-            // thread index length should be 22 plus extra 5 bytes per reply
+            // Thread index length should be 22 plus extra 5 bytes per reply
             if (bytes.Length < 22 || (bytes.Length - 22)%5 != 0)
                 return;
 
@@ -57,31 +82,6 @@ namespace MsgKit
         public override string ToString()
         {
             return string.Format("Id: {0}, Date: {1}", Id, Date.ToLocalTime());
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        ///     The date and time
-        /// </summary>
-        public DateTime Date { get; }
-
-        /// <summary>
-        ///     The unique GUID for this thread
-        /// </summary>
-        public Guid Id { get; }
-
-        /// <summary>
-        ///     The RAW base64 encoded thread index
-        /// </summary>
-        public string Raw { get; private set; }
-
-        /// <summary>
-        ///     Returns <c>true</c> when the thread index is valid
-        /// </summary>
-        public bool IsValid
-        {
-            get { return Date != default(DateTime) && Id != default(Guid); }
         }
         #endregion
     }

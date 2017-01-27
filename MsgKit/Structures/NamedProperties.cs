@@ -1,5 +1,4 @@
-﻿
-// Property.cs
+﻿// NamedProperties.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -44,13 +43,13 @@ namespace MsgKit.Structures
     /// </remarks>
     public class NamedProperties : List<NamedProperty>
     {
-        // TODO: Modify code to work with named properties
         #region ReadProperties
         /// <summary>
-        ///     Reads all the <see cref="Property" /> objects from the given <paramref name="binaryReader" />
+        ///     Reads all the <see cref="NamedProperty" /> objects from the given <paramref name="storage" />
         /// </summary>
-        /// <param name="binaryReader"></param>
-        internal void ReadProperties(BinaryReader binaryReader)
+        /// <param name="storage">The <see cref="CFStorage"/> that contains the <see cref="Streams.EntryStream"/>, <see cref="Guid"/>
+        /// and <see cref="String"/> stream </param>
+        internal void ReadProperties(CFStorage storage)
         {
             throw new NotImplementedException("Not yet done");
 

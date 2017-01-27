@@ -36,6 +36,9 @@ namespace MsgKit
     public class Address
     {
         #region Fields
+        /// <summary>
+        ///     The messaging user's e-mail address type
+        /// </summary>
         private AddressType _addressType;
         #endregion
 
@@ -49,6 +52,7 @@ namespace MsgKit
         ///     The displayname for the <see cref="Email"/>
         /// </summary>
         public string DisplayName { get; internal set; }
+
         /// <summary>
         ///     Returns the messaging user's e-mail address type. Use <see cref="AddressTypeString"/>
         ///     when this property returns <see cref="Enums.AddressType.Unknown"/>
