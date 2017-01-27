@@ -32,10 +32,11 @@ namespace MsgKit.Streams
     {
         #region ReadProperties
         /// <summary>
-        ///     Reads all the <see cref="Property">properties</see> from the <see cref="CFStream"/>
+        ///     Creates this object and reads all the <see cref="Property">properties</see> 
+        ///     from the given <see cref="CFStream"/>
         /// </summary>
         /// <param name="stream">The <see cref="CFStream"/></param>
-        internal void ReadProperties(CFStream stream)
+        internal RecipientProperties(CFStream stream)
         {
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
@@ -50,7 +51,7 @@ namespace MsgKit.Streams
         /// <summary>
         ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
         ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given storage, this depends 
-        ///     on the <see cref="MsgKit.Enums.PropertyType"/>
+        ///     on the <see cref="Enums.PropertyType"/>
         /// </summary>
         /// <remarks>
         ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic

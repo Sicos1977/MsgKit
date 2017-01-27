@@ -58,7 +58,7 @@ namespace MsgKit.Streams
         internal int AttachmentCount { get; private set; }
         #endregion
 
-        #region Constructor
+        #region Constructors
         /// <summary>
         ///     Creates this object and sets all its properties
         /// </summary>
@@ -82,14 +82,13 @@ namespace MsgKit.Streams
             RecipientCount = recipientCount;
             AttachmentCount = attachmentCount;
         }
-        #endregion
 
-        #region ReadProperties
         /// <summary>
-        ///     Reads all the <see cref="Property">properties</see> from the <see cref="CFStream"/>
+        ///     Create this object and reads all the <see cref="Property">properties</see> from 
+        ///     the given <see cref="CFStream"/>
         /// </summary>
         /// <param name="stream">The <see cref="CFStream"/></param>
-        internal void ReadProperties(CFStream stream)
+        internal EmbeddedMessageProperties(CFStream stream)
         {
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))

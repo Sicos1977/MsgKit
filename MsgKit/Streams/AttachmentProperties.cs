@@ -37,10 +37,11 @@ namespace MsgKit.Streams
     {
         #region ReadProperties
         /// <summary>
-        ///     Reads all the <see cref="Property">properties</see> from the <see cref="CFStream"/>
+        ///     Creates this object and reads all the <see cref="Property">properties</see> from 
+        ///     the given <see cref="CFStream"/>
         /// </summary>
         /// <param name="stream">The <see cref="CFStream"/></param>
-        internal void ReadProperties(CFStream stream)
+        internal AttachmentProperties(CFStream stream)
         {
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))

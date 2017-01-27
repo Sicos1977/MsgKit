@@ -85,6 +85,7 @@
     <Compile Include="Receiving.cs" />
     <Compile Include="ReceivingRepresenting.cs" />
     <Compile Include="Representing.cs" />
+    <Compile Include="Streams\StringStream.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Enums\AddressBookEntryId.cs" />
     <Compile Include="Enums\PropertyFlags.cs" />

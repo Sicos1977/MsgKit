@@ -67,18 +67,21 @@ namespace MsgKit.Streams
     /// </remarks>
     internal sealed class EntryStream : List<EntryStreamItem>
     {
-        #region ReadProperties
+        #region Constructor
         /// <summary>
-        ///     Reads all the <see cref="EntryStreamItem" /> objects from the given <paramref name="binaryReader" />
+        ///     Creates this object and reads all the <see cref="EntryStreamItem" /> objects from 
+        ///     the given <see cref="CFStream"/>
         /// </summary>
-        /// <param name="binaryReader">The <see cref="BinaryReader"/></param>
-        internal void ReadProperties(BinaryReader binaryReader)
+        /// <param name="stream">The <see cref="CFStream"/></param>
+        internal EntryStream(CFStream stream)
         {
-            while (!binaryReader.Eos())
-            {
-                var entryStreamItem = new EntryStreamItem(binaryReader);
-                Add(entryStreamItem);
-            }
+            using (var memoryStream = new MemoryStream(stream.GetData()))
+            using (var binaryReader = new BinaryReader(memoryStream))
+                while (!binaryReader.Eos())
+                {
+                    var entryStreamItem = new EntryStreamItem(binaryReader);
+                    Add(entryStreamItem);
+                }
         }
         #endregion
 
@@ -104,7 +107,7 @@ namespace MsgKit.Streams
     }
 
     /// <summary>
-    ///     Represents on items in the <see cref="EntryStream"/> stream
+    ///     Represents one item in the <see cref="EntryStream"/> stream
     /// </summary>
     internal sealed class EntryStreamItem
     {
@@ -137,7 +140,7 @@ namespace MsgKit.Streams
         }
 
         /// <summary>
-        ///     Creates this object and sets all it's needer properties
+        ///     Creates this object and sets all it's needed properties
         /// </summary>
         /// <param name="nameIdentifierOrStringOffset"><see cref="NameIdentifierOrStringOffset"/></param>
         /// <param name="indexAndKindInformation"><see cref="IndexAndKindInformation"/></param>
@@ -231,7 +234,7 @@ namespace MsgKit.Streams
         }
 
         /// <summary>
-        ///     Creates this object and sets all it's needer properties
+        ///     Creates this object and sets all it's needed properties
         /// </summary>
         /// <param name="propertyIndex"><see cref="PropertyIndex"/></param>
         /// <param name="guidIndex"><see cref="GuidIndex"/></param>

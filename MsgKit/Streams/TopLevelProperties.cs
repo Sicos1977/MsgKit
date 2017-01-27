@@ -60,7 +60,8 @@ namespace MsgKit.Streams
 
         #region Constructor
         /// <summary>
-        ///     Creates this object and reads all the properties from the toplevel stream
+        ///     Create this object and reads all the <see cref="Property">properties</see> from 
+        ///     the given <see cref="CFStream"/>
         /// </summary>
         /// <param name="stream">The <see cref="CFStream"/></param>
         internal TopLevelProperties(CFStream stream)
