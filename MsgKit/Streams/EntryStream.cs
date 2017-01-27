@@ -70,11 +70,12 @@ namespace MsgKit.Streams
         #region Constructor
         /// <summary>
         ///     Creates this object and reads all the <see cref="EntryStreamItem" /> objects from 
-        ///     the given <see cref="CFStream"/>
+        ///     the given <paramref name="storage"/>
         /// </summary>
-        /// <param name="stream">The <see cref="CFStream"/></param>
-        internal EntryStream(CFStream stream)
+        /// <param name="storage">The <see cref="CFStorage"/> that containts the <see cref="PropertyTags.EntryStream"/></param>
+        internal EntryStream(CFStorage storage)
         {
+            var stream = storage.GetStream(PropertyTags.EntryStream);
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
@@ -85,20 +86,20 @@ namespace MsgKit.Streams
         }
         #endregion
 
-        #region WriteProperties
+        #region Write
         /// <summary>
         ///     Writes all the <see cref="EntryStreamItem"/>'s as a <see cref="CFStream" /> to the
         ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
-        internal void WriteProperties(CFStorage storage)
+        internal void Write(CFStorage storage)
         {
             var stream = storage.AddStream(PropertyTags.EntryStream);
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
                 foreach (var entryStreamItem in this)
-                    entryStreamItem.WriteProperties(binaryWriter);
+                    entryStreamItem.Write(binaryWriter);
 
                 stream.SetData(memoryStream.ToArray());
             }
@@ -152,12 +153,12 @@ namespace MsgKit.Streams
         }
         #endregion
 
-        #region WriteProperties
+        #region Write
         /// <summary>
         ///     Writes all the internal properties to the given <paramref name="binaryWriter" />
         /// </summary>
         /// <param name="binaryWriter"></param>
-        internal void WriteProperties(BinaryWriter binaryWriter)
+        internal void Write(BinaryWriter binaryWriter)
         {
             binaryWriter.Write(NameIdentifierOrStringOffset);
             binaryWriter.Write(IndexAndKindInformation.PropertyIndex);
@@ -249,12 +250,12 @@ namespace MsgKit.Streams
         }
         #endregion
 
-        #region WriteProperties
+        #region Write
         /// <summary>
         ///     Writes all the internal properties to the given <paramref name="binaryWriter" />
         /// </summary>
         /// <param name="binaryWriter"></param>
-        internal void WriteProperties(BinaryWriter binaryWriter)
+        internal void Write(BinaryWriter binaryWriter)
         {
             binaryWriter.Write(PropertyIndex);
             binaryWriter.Write(GuidIndex + (uint) PropertyKind);

@@ -11,7 +11,7 @@ namespace MsgKit.Streams
     ///     string named property, and all entries MUST be arranged consecutively, like in an array.
     ///     As specified in section 2.2.3.1.2, the offset, in bytes, to use for a particular property is stored in the
     ///     corresponding entry in the entry stream.That is a byte offset into the string stream from where the
-    ///     entry for the property can be read.The strings MUST NOT be null-terminated.Implementers can add a
+    ///     entry for the property can be read.The strings MUST NOT be null-terminated. Implementers can add a
     ///     terminating null character to the string
     /// </summary>
     /// <remarks>
@@ -19,14 +19,15 @@ namespace MsgKit.Streams
     /// </remarks>
     internal sealed class StringStream : List<StringStreamItem>
     {
-        #region ReadProperties
+        #region Constructor
         /// <summary>
         ///     Creates this object and reads all the <see cref="StringStreamItem" /> objects 
-        ///     from the given <see cref="CFStream"/>
+        ///     from the given <paramref name="storage"/>
         /// </summary>
-        /// <param name="stream">The <see cref="CFStream"/></param>
-        internal StringStream(CFStream stream)
+        /// <param name="storage">The <see cref="CFStorage"/> that contains the <see cref="PropertyTags.EntryStream"/></param>
+        internal StringStream(CFStorage storage)
         {
+            var stream = storage.GetStream(PropertyTags.EntryStream);
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
@@ -37,20 +38,20 @@ namespace MsgKit.Streams
         }
         #endregion
 
-        #region WriteProperties
+        #region Write
         /// <summary>
         ///     Writes all the <see cref="StringStream"/>'s as a <see cref="CFStream" /> to the
         ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
-        internal void WriteProperties(CFStorage storage)
+        internal void Write(CFStorage storage)
         {
             var stream = storage.AddStream(PropertyTags.EntryStream);
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
                 foreach (var stringStreamItem in this)
-                    stringStreamItem.WriteProperties(binaryWriter);
+                    stringStreamItem.Write(binaryWriter);
 
                 stream.SetData(memoryStream.ToArray());
             }
@@ -103,12 +104,12 @@ namespace MsgKit.Streams
         }
         #endregion
 
-        #region WriteProperties
+        #region Write
         /// <summary>
         ///     Writes all the internal properties to the given <paramref name="binaryWriter" />
         /// </summary>
         /// <param name="binaryWriter"></param>
-        internal void WriteProperties(BinaryWriter binaryWriter)
+        internal void Write(BinaryWriter binaryWriter)
         {
             binaryWriter.Write(Length);
             binaryWriter.Write(Name);
