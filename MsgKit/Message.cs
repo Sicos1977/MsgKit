@@ -95,12 +95,12 @@ namespace MsgKit
             _nameIdStorage = CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage) ??
                              CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
 
-            var stream1 = _nameIdStorage.AddStream(PropertyTags.EntryStream);
-            stream1.SetData(new byte[0]);
-            var stream2 = _nameIdStorage.AddStream(PropertyTags.NameIdStream2);
-            stream2.SetData(new byte[0]);
-            var stream3 = _nameIdStorage.AddStream(PropertyTags.NameIdStream3);
-            stream3.SetData(new byte[0]);
+            var entryStream = _nameIdStorage.AddStream(PropertyTags.EntryStream);
+            entryStream.SetData(new byte[0]);
+            var stringStream = _nameIdStorage.AddStream(PropertyTags.StringStream);
+            stringStream.SetData(new byte[0]);
+            var guidStream = _nameIdStorage.AddStream(PropertyTags.GuidStream);
+            guidStream.SetData(new byte[0]);
         }
         #endregion
 

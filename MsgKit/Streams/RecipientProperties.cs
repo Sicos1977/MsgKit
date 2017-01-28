@@ -30,7 +30,15 @@ namespace MsgKit.Streams
     /// </summary>
     internal sealed class RecipientProperties : Properties
     {
-        #region ReadProperties
+        #region Constructors
+        /// <summary>
+        ///     Creates this object
+        /// </summary>
+        internal RecipientProperties()
+        {
+            
+        }
+
         /// <summary>
         ///     Creates this object and reads all the <see cref="Property">properties</see> 
         ///     from the given <see cref="CFStream"/>

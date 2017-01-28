@@ -66,12 +66,12 @@ namespace MsgKit
         internal const string EntryStream = "__substg1.0_00030102";
 
         /// <summary>
-        ///     The <see cref="Streams.Guid"/> stream
+        ///     The <see cref="Streams.GuidStream"/> stream
         /// </summary>
         internal const string GuidStream = "__substg1.0_00020102";
 
         /// <summary>
-        ///     The <see cref="Streams.String"/> stream
+        ///     The <see cref="Streams.StringStream"/> stream
         /// </summary>
         internal const string StringStream = "__substg1.0_00040102";
 

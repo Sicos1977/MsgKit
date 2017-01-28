@@ -5,6 +5,7 @@ using MsgKit;
 using MsgKit.Enums;
 using MsgKit.Structures;
 using MsgKitTestTool.Properties;
+using OpenMcdf;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -91,6 +92,13 @@ namespace MsgKitTestTool
                 var msgFileName = Path.ChangeExtension(emlFileName, ".msg");
                 Converter.ConvertEmlToMsg(emlFileName, msgFileName);
             }
+        }
+
+        private void ReadMsgFileButton_Click(object sender, EventArgs e)
+        {
+            var msg = new CompoundFile(@"d:\naamloos.msg");
+            var storage = msg.RootStorage.GetStorage("__nameid_version1.0");
+            var namedProperties = new NamedProperties(storage);
         }
     }
 }

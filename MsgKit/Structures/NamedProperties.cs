@@ -26,8 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using MsgKit.Enums;
 using MsgKit.Streams;
 using OpenMcdf;
@@ -42,7 +40,15 @@ namespace MsgKit.Structures
     /// </remarks>
     public class NamedProperties : List<NamedProperty>
     {
-        #region ReadProperties
+        #region Constructors
+        /// <summary>
+        ///     Creates this object
+        /// </summary>
+        internal NamedProperties()
+        {
+            
+        }
+
         /// <summary>
         ///     Creates this object and reads all the <see cref="NamedProperty" /> objects from the streams
         ///     <see cref="EntryStream"/>, <see cref="StringStream"/> and <see cref="GuidStream"/> in the
@@ -50,7 +56,7 @@ namespace MsgKit.Structures
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage"/> that contains the <see cref="EntryStream"/>, <see cref="StringStream"/>
         /// and <see cref="GuidStream"/> stream </param>
-        internal NamedProperties(CFStorage storage)
+        public NamedProperties(CFStorage storage)
         {
             var entryStream = new EntryStream(storage);
             var stringStream = new StringStream(storage);
@@ -59,12 +65,15 @@ namespace MsgKit.Structures
             foreach (var entryStreamItem in entryStream)
             {
                 var propertyKind = entryStreamItem.IndexAndKindInformation.PropertyKind;
-                var propertyIndex = entryStreamItem.IndexAndKindInformation.PropertyIndex;
-                var guidIndex = entryStreamItem.IndexAndKindInformation.GuidIndex;
+                var propertyIndex = (int) entryStreamItem.IndexAndKindInformation.PropertyIndex - 1;
+                var guidIndex = (int) entryStreamItem.IndexAndKindInformation.GuidIndex;
 
                 switch (propertyKind)
                 {
                     case PropertyKind.Lid:
+                        var namedPropertyTag = new NamedPropertyTag((ushort) entryStreamItem.NameIdentifierOrStringOffset,
+                                                                    stringStream[propertyIndex].Name,
+                                                                    guidStream[guidIndex], PropertyType.PT_STRING8);
                         break;
                     case PropertyKind.Name:
                         break;

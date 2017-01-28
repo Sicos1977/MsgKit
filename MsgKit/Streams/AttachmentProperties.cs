@@ -37,6 +37,14 @@ namespace MsgKit.Streams
     {
         #region ReadProperties
         /// <summary>
+        ///     Creates this object
+        /// </summary>
+        internal AttachmentProperties()
+        {
+            
+        }
+
+        /// <summary>
         ///     Creates this object and reads all the <see cref="Property">properties</see> from 
         ///     the given <see cref="CFStream"/>
         /// </summary>

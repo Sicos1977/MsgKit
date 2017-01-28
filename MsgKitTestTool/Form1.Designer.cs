@@ -270,6 +270,7 @@
             this.ReadMsgFileButton.TabIndex = 21;
             this.ReadMsgFileButton.Text = "Read MSG";
             this.ReadMsgFileButton.UseVisualStyleBackColor = true;
+            this.ReadMsgFileButton.Click += new System.EventHandler(this.ReadMsgFileButton_Click);
             // 
             // MainForm
             // 

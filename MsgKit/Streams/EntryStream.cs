@@ -130,6 +130,8 @@ namespace MsgKit.Streams
         /// </summary>
         public uint NameIdentifierOrStringOffset { get; private set; }
 
+        public string NameIdentifierOrStringOffsetHex { get; }
+
         /// <summary>
         ///     The following structure specifies the stream indexes and whether the property is a numerical named
         ///     property or a string named property
@@ -145,6 +147,7 @@ namespace MsgKit.Streams
         internal EntryStreamItem(BinaryReader binaryReader)
         {
             NameIdentifierOrStringOffset = binaryReader.ReadUInt32();
+            NameIdentifierOrStringOffsetHex = string.Format("{0:X}", NameIdentifierOrStringOffset);
             IndexAndKindInformation = new IndexAndKindInformation(binaryReader);
         }
 
@@ -157,6 +160,7 @@ namespace MsgKit.Streams
                                  IndexAndKindInformation indexAndKindInformation)
         {
             NameIdentifierOrStringOffset = nameIdentifierOrStringOffset;
+            NameIdentifierOrStringOffsetHex = string.Format("{0:X}", nameIdentifierOrStringOffset);
             IndexAndKindInformation = indexAndKindInformation;
         }
         #endregion
@@ -219,7 +223,7 @@ namespace MsgKit.Streams
         {
             uint value = 0;
 
-            for (var i = (offset != -1 ? offset : 0); i < count; i++)
+            for (var i = (offset != -1 ? offset : 0); i < count + (offset != -1 ? offset : 0); i++)
             {
                 if (bitArray[i])
                     value += Convert.ToUInt16(Math.Pow(2, i));
@@ -237,9 +241,14 @@ namespace MsgKit.Streams
         internal IndexAndKindInformation(BinaryReader binaryReader)
         {
             PropertyIndex = binaryReader.ReadUInt16();
-            var bits = new BitArray(binaryReader.ReadUInt16());
-            GuidIndex = GetUIntFromBitArray(bits, 15);
-            PropertyKind = (PropertyKind)GetUIntFromBitArray(bits, 1, 15);
+            var bits = new BitArray(binaryReader.ReadBytes(2));
+            // var str = "";
+            // for (var i = 0; i < bits.Length; i++)
+            //     str += bits[i] ? "1" : "0";
+            // File.AppendAllText("d:\\bits.txt", str + Environment.NewLine);
+            
+            GuidIndex = GetUIntFromBitArray(bits, 15, 1);
+            PropertyKind = (PropertyKind)GetUIntFromBitArray(bits, 1, 0);
         }
 
         /// <summary>

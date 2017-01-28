@@ -35,7 +35,7 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage"/> that contains the <see cref="PropertyTags.EntryStream"/></param>
         internal StringStream(CFStorage storage)
         {
-            var stream = storage.GetStream(PropertyTags.EntryStream);
+            var stream = storage.GetStream(PropertyTags.StringStream);
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
@@ -96,7 +96,7 @@ namespace MsgKit.Streams
         internal StringStreamItem(BinaryReader binaryReader)
         {
             Length = binaryReader.ReadUInt32();
-            Name = Encoding.UTF8.GetString(binaryReader.ReadBytes((int) Length)).Trim('\0');
+            Name = Encoding.Unicode.GetString(binaryReader.ReadBytes((int) Length)).Trim('\0');
             var boundry = Get4BytesBoundry(Length);
             binaryReader.ReadBytes((int) boundry);
         }

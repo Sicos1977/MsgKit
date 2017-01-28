@@ -33,12 +33,12 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage"/> that containts the <see cref="PropertyTags.GuidStream"/></param>
         internal GuidStream(CFStorage storage)
         {
-            var stream = storage.GetStream(PropertyTags.EntryStream);
+            var stream = storage.GetStream(PropertyTags.GuidStream);
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
                 {
-                    var guid = new Guid(binaryReader.ReadBytes(8));
+                    var guid = new Guid(binaryReader.ReadBytes(16));
                     Add(guid);
                 }
         }
