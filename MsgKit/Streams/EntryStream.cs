@@ -48,7 +48,12 @@ namespace MsgKit.Streams
         /// <summary>
         ///     The property is identified by the Name field.
         /// </summary>
-        Name = 0x01
+        Name = 0x01,
+
+        /// <summary>
+        ///     The property does not have an associated PropertyName field.
+        /// </summary>
+        NotAssociated = 0xFF
     }
     #endregion
 
@@ -206,7 +211,8 @@ namespace MsgKit.Streams
         public uint GuidIndex { get; private set; }
 
         /// <summary>
-        ///     <see cref="PropertyKind" />
+        ///     Bit indicating the type of the property; zero (0) if numerical named property
+        ///     and 1 if string named property.
         /// </summary>
         public PropertyKind PropertyKind { get; private set; }
         #endregion
