@@ -71,11 +71,12 @@ namespace MsgKit.Structures
                 switch (propertyKind)
                 {
                     case PropertyKind.Lid:
-                        var namedPropertyTag = new NamedPropertyTag((ushort) entryStreamItem.NameIdentifierOrStringOffset,
-                                                                    stringStream[propertyIndex].Name,
-                                                                    guidStream[guidIndex], PropertyType.PT_STRING8);
                         break;
                     case PropertyKind.Name:
+                        var namedPropertyTag = new NamedPropertyTag((ushort)entryStreamItem.NameIdentifierOrStringOffset,
+                                                                    stringStream[propertyIndex].Name,
+                                                                    guidStream[0], PropertyType.PT_STRING8); 
+                        Add(new NamedProperty(namedPropertyTag.Id, namedPropertyTag.Type, PropertyFlags.PROPATTR_READABLE, null, false));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

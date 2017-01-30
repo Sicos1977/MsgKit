@@ -41,12 +41,12 @@ namespace MsgKit.Streams
     public enum PropertyKind
     {
         /// <summary>
-        ///     The property is identified by the LID field.
+        ///     The property is identified by the LID field (numerical named property)
         /// </summary>
         Lid = 0x00,
 
         /// <summary>
-        ///     The property is identified by the Name field.
+        ///     The property is identified by the Name field (string named property)
         /// </summary>
         Name = 0x01,
 
@@ -222,14 +222,14 @@ namespace MsgKit.Streams
         /// Converts the given <paramref name="bitArray"/> to an unsigned integer
         /// </summary>
         /// <param name="bitArray"></param>
-        /// <param name="count"></param>
         /// <param name="offset"></param>
+        /// <param name="count"></param>
         /// <returns></returns>
-        private static uint GetUIntFromBitArray(BitArray bitArray, int count, int offset = -1)
+        private static uint GetUIntFromBitArray(BitArray bitArray, int offset, int count)
         {
             uint value = 0;
 
-            for (var i = (offset != -1 ? offset : 0); i < count + (offset != -1 ? offset : 0); i++)
+            for (var i = offset; i < count + offset; i++)
             {
                 if (bitArray[i])
                     value += Convert.ToUInt16(Math.Pow(2, i));
@@ -248,13 +248,8 @@ namespace MsgKit.Streams
         {
             PropertyIndex = binaryReader.ReadUInt16();
             var bits = new BitArray(binaryReader.ReadBytes(2));
-            // var str = "";
-            // for (var i = 0; i < bits.Length; i++)
-            //     str += bits[i] ? "1" : "0";
-            // File.AppendAllText("d:\\bits.txt", str + Environment.NewLine);
-            
-            GuidIndex = GetUIntFromBitArray(bits, 15, 1);
-            PropertyKind = (PropertyKind)GetUIntFromBitArray(bits, 1, 0);
+            GuidIndex = GetUIntFromBitArray(bits, 1, 15);
+            PropertyKind = (PropertyKind)GetUIntFromBitArray(bits, 0, 1);
         }
 
         /// <summary>
