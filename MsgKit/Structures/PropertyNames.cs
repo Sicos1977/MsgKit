@@ -30,33 +30,38 @@ using MsgKit.Enums;
 using MsgKit.Streams;
 using OpenMcdf;
 
+// ReSharper disable InconsistentNaming
+
 namespace MsgKit.Structures
 {
     /// <summary>
-    ///     The named properties inside an msg file
+    ///     The names of the named properties inside an message file.
+    ///     This list can contain <see cref="PropertyName" /> and <see cref="PropertyName_r" />
+    ///     objects
     /// </summary>
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/ee178582(v=exchg.80).aspx
     /// </remarks>
-    public class NamedProperties : List<NamedProperty>
+    internal class PropertyNames : List<PropertyName_r>
     {
         #region Constructors
         /// <summary>
         ///     Creates this object
         /// </summary>
-        internal NamedProperties()
+        internal PropertyNames()
         {
-            
         }
 
         /// <summary>
         ///     Creates this object and reads all the <see cref="NamedProperty" /> objects from the streams
-        ///     <see cref="EntryStream"/>, <see cref="StringStream"/> and <see cref="GuidStream"/> in the
-        ///     given <paramref name="storage"/>
+        ///     <see cref="EntryStream" />, <see cref="StringStream" /> and <see cref="GuidStream" /> in the
+        ///     given <paramref name="storage" />
         /// </summary>
-        /// <param name="storage">The <see cref="CFStorage"/> that contains the <see cref="EntryStream"/>, <see cref="StringStream"/>
-        /// and <see cref="GuidStream"/> stream </param>
-        public NamedProperties(CFStorage storage)
+        /// <param name="storage">
+        ///     The <see cref="CFStorage" /> that contains the <see cref="EntryStream" />, <see cref="StringStream" />
+        ///     and <see cref="GuidStream" /> stream
+        /// </param>
+        public PropertyNames(CFStorage storage)
         {
             var entryStream = new EntryStream(storage);
             var stringStream = new StringStream(storage);
@@ -65,18 +70,25 @@ namespace MsgKit.Structures
             foreach (var entryStreamItem in entryStream)
             {
                 var propertyKind = entryStreamItem.IndexAndKindInformation.PropertyKind;
-                var propertyIndex = (int) entryStreamItem.IndexAndKindInformation.PropertyIndex - 1;
-                var guidIndex = (int) entryStreamItem.IndexAndKindInformation.GuidIndex;
+                var propertyIndex = (int)entryStreamItem.IndexAndKindInformation.PropertyIndex - 1;
+                var guidIndex = (int)entryStreamItem.IndexAndKindInformation.GuidIndex;
 
                 switch (propertyKind)
                 {
                     case PropertyKind.Lid:
+                        var propertyName_r = new PropertyName_r();
+                        propertyName_r.Guid = guidStream[guidIndex];
+                        // propertyName_r.Lid = // TODO : How does this work?
+                        Add(propertyName_r);
                         break;
                     case PropertyKind.Name:
-                        var namedPropertyTag = new NamedPropertyTag((ushort)entryStreamItem.NameIdentifierOrStringOffset,
-                                                                    stringStream[propertyIndex].Name,
-                                                                    guidStream[0], PropertyType.PT_STRING8); 
-                        Add(new NamedProperty(namedPropertyTag.Id, namedPropertyTag.Type, PropertyFlags.PROPATTR_READABLE, null, false));
+                        var propertyName = new PropertyName();
+                        propertyName.Kind = propertyKind;
+                        propertyName.Guid = guidStream[guidIndex];
+                        var stringStreamItem = stringStream[propertyIndex];
+                        propertyName.Name = stringStreamItem.Name;
+                        propertyName.NameSize = stringStreamItem.Length;
+                        Add(propertyName);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -84,12 +96,12 @@ namespace MsgKit.Structures
             }
         }
         #endregion
-
+        
         #region WriteProperties
         /// <summary>
-        ///     Writes all <see cref="NamedProperty"/>'s to the given <paramref name="storage"/>
+        ///     Writes all <see cref="NamedProperty" />'s to the given <paramref name="storage" />
         /// </summary>
-        /// <param name="storage">The <see cref="CFStorage"/></param>
+        /// <param name="storage">The <see cref="CFStorage" /></param>
         internal void WriteProperties(CFStorage storage)
         {
             throw new NotImplementedException("Not yet done");
@@ -118,7 +130,6 @@ namespace MsgKit.Structures
         internal void AddProperty(NamedPropertyTag mapiTag)
         {
             throw new NotImplementedException("Not yet done");
-
         }
         #endregion
     }

@@ -9,6 +9,7 @@ namespace MsgKit.Structures
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/ee204357(v=exchg.80).aspx
     /// </remarks>
+    // ReSharper disable once InconsistentNaming
     internal class PropertyName_r
     {
         #region Properties
