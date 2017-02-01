@@ -32,8 +32,11 @@ MsgKit is Copyright (C) 2015-2017 Magic-Sessions and is licensed under the MIT l
 
 ## Installing via NuGet
 
-At the moment there is no package on NuGet... there will be one when the code is stable.
-The code is working but don't blame me when you find some bugs or un-finished methods (it is a lot of work to make a library that "just" makes MSG files)
+The easiest way to install MsgKit is via NuGet.
+
+In Visual Studio's Package Manager Console, simply enter the following command:
+
+    Install-Package MsgKit
 
 ### Creating an Outlook Message file
 
