@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using MsgKit.Enums;
 using MsgKit.Helpers;
 using MsgKit.Streams;
@@ -46,6 +47,11 @@ namespace MsgKit
     public class Email : Message
     {
         #region Fields
+        /// <summary>
+        ///     The <see cref="Regex" /> to find the prefix in a subject
+        /// </summary>
+        private static readonly Regex SubjectPrefixRegex = new Regex(@"^(\D{1,3}:\s)(.*)$");
+
         /// <summary>
         ///     The E-mail <see cref="Recipients" />
         /// </summary>
@@ -252,27 +258,29 @@ namespace MsgKit
         /// </remarks>
         private void SetSubject()
         {
-            if (!string.IsNullOrEmpty(SubjectPrefix))
+            if (!string.IsNullOrEmpty(SubjectPrefix) && !string.IsNullOrEmpty(Subject))
             {
-                if (Subject.Contains(SubjectPrefix))
-                    SubjectNormalized = Subject.Replace(SubjectPrefix, string.Empty);
+                if (Subject.StartsWith(SubjectPrefix))
+                {
+                    SubjectNormalized = Subject.Substring(SubjectPrefix.Length);
+                }
                 else
                 {
-                    var prefix = Subject.Substring(Math.Min(5, Subject.Length));
-                    if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
+                    var matches = SubjectPrefixRegex.Matches(Subject);
+                    if (matches.Count > 0)
                     {
-                        SubjectPrefix = prefix;
-                        SubjectNormalized = Subject.Replace(prefix, string.Empty);
+                        SubjectPrefix = matches.OfType<Match>().First().Groups[1].Value;
+                        SubjectNormalized = matches.OfType<Match>().First().Groups[2].Value;
                     }
                 }
             }
             else if (!string.IsNullOrEmpty(Subject))
             {
-                var prefix = Subject.Substring(Math.Min(5, Subject.Length));
-                if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
+                var matches = SubjectPrefixRegex.Matches(Subject);
+                if (matches.Count > 0)
                 {
-                    SubjectPrefix = prefix;
-                    SubjectNormalized = Subject.Replace(prefix, string.Empty);
+                    SubjectPrefix = matches.OfType<Match>().First().Groups[1].Value;
+                    SubjectNormalized = matches.OfType<Match>().First().Groups[2].Value;
                 }
                 else
                     SubjectNormalized = Subject;
