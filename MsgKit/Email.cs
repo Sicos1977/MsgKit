@@ -258,7 +258,7 @@ namespace MsgKit
                     SubjectNormalized = Subject.Replace(SubjectPrefix, string.Empty);
                 else
                 {
-                    var prefix = Subject.Substring(5);
+                    var prefix = Subject.Substring(Math.Min(5, Subject.Length));
                     if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
                     {
                         SubjectPrefix = prefix;
@@ -268,7 +268,7 @@ namespace MsgKit
             }
             else if (!string.IsNullOrEmpty(Subject))
             {
-                var prefix = Subject.Substring(5);
+                var prefix = Subject.Substring(Math.Min(5, Subject.Length));
                 if (prefix.Contains(": ") && !prefix.Any(char.IsDigit))
                 {
                     SubjectPrefix = prefix;
