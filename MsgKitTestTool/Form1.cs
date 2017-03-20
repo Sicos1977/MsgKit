@@ -98,7 +98,7 @@ namespace MsgKitTestTool
         {
             var msg = new CompoundFile(@"d:\naamloos.msg");
             var storage = msg.RootStorage.GetStorage("__nameid_version1.0");
-            var namedProperties = new NamedProperties(storage);
+            //var namedProperties = new NamedProperties(storage);
         }
     }
 }
