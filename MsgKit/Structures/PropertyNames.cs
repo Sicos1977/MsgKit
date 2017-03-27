@@ -53,7 +53,7 @@ namespace MsgKit.Structures
         }
 
         /// <summary>
-        ///     Creates this object and reads all the <see cref="NamedProperty" /> objects from the streams
+        ///     Creates this object and reads all the <see cref="PropertyName_r" /> objects from the streams
         ///     <see cref="EntryStream" />, <see cref="StringStream" /> and <see cref="GuidStream" /> in the
         ///     given <paramref name="storage" />
         /// </summary>
@@ -96,10 +96,10 @@ namespace MsgKit.Structures
             }
         }
         #endregion
-        
+
         #region WriteProperties
         /// <summary>
-        ///     Writes all <see cref="NamedProperty" />'s to the given <paramref name="storage" />
+        ///     Writes all <see cref="PropertyName_r" />'s to the given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
         internal void WriteProperties(CFStorage storage)
@@ -122,11 +122,6 @@ namespace MsgKit.Structures
         ///     Adds a property
         /// </summary>
         /// <param name="mapiTag">The <see cref="NamedPropertyTag" /></param>
-        /// <param name="obj">The value for the mapi tag</param>
-        /// <param name="flags">
-        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
-        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
-        /// </param>
         internal void AddProperty(NamedPropertyTag mapiTag)
         {
             throw new NotImplementedException("Not yet done");
