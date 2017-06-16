@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\MsgKit.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -113,6 +119,7 @@
     <Compile Include="Structures\UnsendableRecipients.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MsgKit.snk" />
     <None Include="packages.config" />
     <None Include="_Documentation\[MS-OXCDATA].pdf" />
     <None Include="_Documentation\[MS-OXCMAIL].pdf" />
