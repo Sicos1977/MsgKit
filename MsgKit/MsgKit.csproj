@@ -45,6 +45,10 @@
     <Reference Include="MimeKit, Version=1.16.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
       <HintPath>..\packages\MimeKit.1.16.2\lib\net40\MimeKit.dll</HintPath>
     </Reference>
+    <Reference Include="OpenMcdf, Version=2.1.3.1275, Culture=neutral, PublicKeyToken=a98efa0458a8e1c9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Files\OpenMcdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
