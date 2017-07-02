@@ -42,13 +42,8 @@
       <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MimeKit, Version=1.10.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.1.10.0\lib\net40\MimeKit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="OpenMcdf, Version=2.1.0.33051, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenMcdf.2.1.0.33051\lib\OpenMcdf.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MimeKit, Version=1.16.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.1.16.2\lib\net40\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -128,6 +123,9 @@
     <None Include="_Documentation\[MS-OXMSG].pdf" />
     <None Include="_Documentation\[MS-OXOMSG].pdf" />
     <None Include="_Documentation\[MS-OXPROPS].pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\OpenMcdf.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
