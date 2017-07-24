@@ -107,7 +107,7 @@ namespace MsgKit
         {
             CheckAttachmentFileName(fileName, contentId);
             var file = new FileInfo(fileName);
-
+            
             Add(new Attachment(file,
                 AttachmentType.ATTACH_BY_VALUE,
                 renderingPosition,

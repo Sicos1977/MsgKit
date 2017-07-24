@@ -128,9 +128,6 @@
     <None Include="_Documentation\[MS-OXOMSG].pdf" />
     <None Include="_Documentation\[MS-OXPROPS].pdf" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Files\OpenMcdf.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
