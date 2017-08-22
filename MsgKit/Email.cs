@@ -80,9 +80,8 @@ namespace MsgKit
         /// <remarks>
         ///     These properties are examples of the address properties for the messaging user who is being represented by the
         ///     <see cref="Receiving" /> user. They must be set by the incoming transport provider, which is also responsible for
-        ///     authorization or
-        ///     verification of the delegate. If no messaging user is being represented, these properties should be set to the
-        ///     e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
+        ///     authorization or verification of the delegate. If no messaging user is being represented, these properties should
+        ///     be set to the e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
         /// </remarks>
         public Representing Representing { get; private set; }
 
@@ -108,9 +107,9 @@ namespace MsgKit
         /// </summary>
         /// <remarks>
         ///     These properties are examples of the address properties for the messaging user who is being represented by the
-        ///     <see cref="Receiving" /> user. They must be set by the incoming transport provider, which is also responsible for authorization or
-        ///     verification of the delegate. If no messaging user is being represented, these properties should be set to the
-        ///     e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
+        ///     <see cref="Receiving" /> user. They must be set by the incoming transport provider, which is also responsible for 
+        ///     authorization or verification of the delegate. If no messaging user is being represented, these properties should 
+        ///     be set to the e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
         /// </remarks>
         public ReceivingRepresenting ReceivingRepresenting { get; internal set; }
 
@@ -172,7 +171,7 @@ namespace MsgKit
         public DateTime? SentOn { get; set; }
 
         /// <summary>
-        ///     Returns the UTC date and time when the <see cref="Message"/> was received by
+        ///     Returns the UTC date and time when the <see cref="Message"/> was received
         /// </summary>
         public DateTime? ReceivedOn { get; private set; }
 
@@ -252,9 +251,7 @@ namespace MsgKit
         /// <remarks>
         ///     When PR_SUBJECT_PREFIX is an empty string, PR_SUBJECT and PR_NORMALIZED_SUBJECT are the same. Ultimately, 
         ///     this property should be the part of PR_SUBJECT following the prefix. If there is no prefix, this property 
-        ///     becomes the same as PR_SUBJECT. PR_SUBJECT_PREFIX and this property should be computed as part of the 
-        ///     IMAPIProp::SaveChanges implementation. A client application should not prompt the IMAPIProp::GetProps 
-        ///     method for their values until they have been committed by an IMAPIProp::SaveChanges call.
+        ///     becomes the same as PR_SUBJECT.
         /// </remarks>
         private void SetSubject()
         {
@@ -314,6 +311,7 @@ namespace MsgKit
 
             if (!string.IsNullOrEmpty(InternetMessageId))
                 propertiesStream.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, InternetMessageId);
+
             propertiesStream.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
             propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
