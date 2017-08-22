@@ -168,11 +168,17 @@ namespace MsgKit
         ///     Returns or sets the UTC date and time the <see cref="Sender"/> has submitted the 
         ///     <see cref="Message"/>
         /// </summary>
+        /// <remarks>
+        ///     This property has to be set to UTC datetime
+        /// </remarks>
         public DateTime? SentOn { get; set; }
 
         /// <summary>
         ///     Returns the UTC date and time when the <see cref="Message"/> was received
         /// </summary>
+        /// <remarks>
+        ///     This property has to be set to UTC datetime
+        /// </remarks>
         public DateTime? ReceivedOn { get; private set; }
 
         /// <summary>
@@ -323,7 +329,7 @@ namespace MsgKit
 
             if (Draft)
                 messageFlags |= MessageFlags.MSGFLAG_UNSENT;
-            
+                       
             if (attachmentCount > 0)
                 messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
 
@@ -402,8 +408,10 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
             propertiesStream.AddProperty(PropertyTags.PR_BODY_W, BodyText);
             if (!string.IsNullOrEmpty(BodyHtml))
+            {
                 propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
-            
+            }
+
             propertiesStream.WriteProperties(rootStorage, messageSize);
         }
         #endregion

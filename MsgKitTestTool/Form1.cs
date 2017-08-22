@@ -36,7 +36,7 @@ namespace MsgKitTestTool
             using (var email = new Email(
                 new Sender("peterpan@neverland.com", "Peter Pan"),
                 new Representing("tinkerbell@neverland.com", "Tinkerbell"),
-                "Hello Neverland subject"))
+                "Hello Neverland subject", DraftMessageCheckBox.Checked))
             {
                 email.Recipients.AddTo(FromTextBox.Text);
                 email.Recipients.AddCc(ToTextBox.Text);
@@ -44,7 +44,7 @@ namespace MsgKitTestTool
                 email.Subject = SubjectTextBox.Text;
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
-                email.SentOn = SentOnDatePicker.Value;
+                email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
 
                 switch (ImportanceComboBox.Text)
                 {

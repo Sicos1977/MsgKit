@@ -40,6 +40,11 @@
             this.HtmlBodyTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ReadMsgFileButton = new System.Windows.Forms.Button();
+            this.DraftMessageCheckBox = new System.Windows.Forms.CheckBox();
+            this.ImportanceComboBox = new System.Windows.Forms.ComboBox();
             this.SenderTextBox = new System.Windows.Forms.TextBox();
             this.SubjectTextBox = new System.Windows.Forms.TextBox();
             this.SentOnDatePicker = new System.Windows.Forms.DateTimePicker();
@@ -47,10 +52,6 @@
             this.CcTextBox = new System.Windows.Forms.TextBox();
             this.ToTextBox = new System.Windows.Forms.TextBox();
             this.FromTextBox = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.ImportanceComboBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.ReadMsgFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EmailButton
@@ -163,6 +164,62 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Sender:";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 362);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(124, 25);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "Importance:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(14, 567);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(182, 64);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "EML -> MSG";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Eml2MsgButton_Click);
+            // 
+            // ReadMsgFileButton
+            // 
+            this.ReadMsgFileButton.Location = new System.Drawing.Point(216, 567);
+            this.ReadMsgFileButton.Name = "ReadMsgFileButton";
+            this.ReadMsgFileButton.Size = new System.Drawing.Size(182, 64);
+            this.ReadMsgFileButton.TabIndex = 21;
+            this.ReadMsgFileButton.Text = "Read MSG";
+            this.ReadMsgFileButton.UseVisualStyleBackColor = true;
+            this.ReadMsgFileButton.Visible = false;
+            this.ReadMsgFileButton.Click += new System.EventHandler(this.ReadMsgFileButton_Click);
+            // 
+            // DraftMessageCheckBox
+            // 
+            this.DraftMessageCheckBox.AutoSize = true;
+            this.DraftMessageCheckBox.Checked = global::MsgKitTestTool.Properties.Settings.Default.DraftMessageCheckBox;
+            this.DraftMessageCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MsgKitTestTool.Properties.Settings.Default, "DraftMessageCheckBox", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DraftMessageCheckBox.Location = new System.Drawing.Point(139, 416);
+            this.DraftMessageCheckBox.Name = "DraftMessageCheckBox";
+            this.DraftMessageCheckBox.Size = new System.Drawing.Size(183, 29);
+            this.DraftMessageCheckBox.TabIndex = 22;
+            this.DraftMessageCheckBox.Text = "Draft message";
+            this.DraftMessageCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ImportanceComboBox
+            // 
+            this.ImportanceComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MsgKitTestTool.Properties.Settings.Default, "Importance", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ImportanceComboBox.FormattingEnabled = true;
+            this.ImportanceComboBox.Items.AddRange(new object[] {
+            "Low",
+            "Normal",
+            "High"});
+            this.ImportanceComboBox.Location = new System.Drawing.Point(139, 359);
+            this.ImportanceComboBox.Name = "ImportanceComboBox";
+            this.ImportanceComboBox.Size = new System.Drawing.Size(121, 33);
+            this.ImportanceComboBox.TabIndex = 19;
+            this.ImportanceComboBox.Text = global::MsgKitTestTool.Properties.Settings.Default.Importance;
+            // 
             // SenderTextBox
             // 
             this.SenderTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MsgKitTestTool.Properties.Settings.Default, "Sender", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -229,54 +286,12 @@
             this.FromTextBox.TabIndex = 2;
             this.FromTextBox.Text = global::MsgKitTestTool.Properties.Settings.Default.From;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 362);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(124, 25);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "Importance:";
-            // 
-            // ImportanceComboBox
-            // 
-            this.ImportanceComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::MsgKitTestTool.Properties.Settings.Default, "Importance", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.ImportanceComboBox.FormattingEnabled = true;
-            this.ImportanceComboBox.Items.AddRange(new object[] {
-            "Low",
-            "Normal",
-            "High"});
-            this.ImportanceComboBox.Location = new System.Drawing.Point(139, 359);
-            this.ImportanceComboBox.Name = "ImportanceComboBox";
-            this.ImportanceComboBox.Size = new System.Drawing.Size(121, 33);
-            this.ImportanceComboBox.TabIndex = 19;
-            this.ImportanceComboBox.Text = global::MsgKitTestTool.Properties.Settings.Default.Importance;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(14, 567);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(182, 64);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "EML -> MSG";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Eml2MsgButton_Click);
-            // 
-            // ReadMsgFileButton
-            // 
-            this.ReadMsgFileButton.Location = new System.Drawing.Point(216, 567);
-            this.ReadMsgFileButton.Name = "ReadMsgFileButton";
-            this.ReadMsgFileButton.Size = new System.Drawing.Size(182, 64);
-            this.ReadMsgFileButton.TabIndex = 21;
-            this.ReadMsgFileButton.Text = "Read MSG";
-            this.ReadMsgFileButton.UseVisualStyleBackColor = true;
-            this.ReadMsgFileButton.Click += new System.EventHandler(this.ReadMsgFileButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1096, 655);
+            this.Controls.Add(this.DraftMessageCheckBox);
             this.Controls.Add(this.ReadMsgFileButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.ImportanceComboBox);
@@ -334,6 +349,7 @@
         private System.Windows.Forms.ComboBox ImportanceComboBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ReadMsgFileButton;
+        private System.Windows.Forms.CheckBox DraftMessageCheckBox;
     }
 }
 
