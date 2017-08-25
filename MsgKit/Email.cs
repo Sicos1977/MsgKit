@@ -338,6 +338,10 @@ namespace MsgKit
 
             propertiesStream.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
+            propertiesStream.AddProperty(PropertyTags.PR_ACCESS,
+                MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
+            propertiesStream.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
+            propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
 
             SetSubject();
             propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
