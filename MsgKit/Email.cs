@@ -328,8 +328,11 @@ namespace MsgKit
             var messageFlags = MessageFlags.MSGFLAG_UNMODIFIED;
 
             if (Draft)
+            {
                 messageFlags |= MessageFlags.MSGFLAG_UNSENT;
-                       
+                IconIndex = MessageIconIndex.UnsentMail;
+            }
+
             if (attachmentCount > 0)
                 messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
 
@@ -338,8 +341,7 @@ namespace MsgKit
 
             propertiesStream.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn);
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
-            propertiesStream.AddProperty(PropertyTags.PR_ACCESS,
-                MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
+            propertiesStream.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
             propertiesStream.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
             propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
 
