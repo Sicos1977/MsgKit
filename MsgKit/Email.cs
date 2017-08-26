@@ -329,7 +329,7 @@ namespace MsgKit
 
             if (Draft)
             {
-                messageFlags |= MessageFlags.MSGFLAG_UNSENT;
+                messageFlags |= MessageFlags.MSGFLAG_UNSENT | MessageFlags.MSGFLAG_FROMME;
                 IconIndex = MessageIconIndex.UnsentMail;
             }
 
