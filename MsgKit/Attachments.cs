@@ -418,6 +418,7 @@ namespace MsgKit
                     var cf = new CompoundFile(Stream);
                     Storage.Copy(cf.RootStorage, msgStorage);
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_ENCODING, 0);
                     break;
 
                 case AttachmentType.ATTACH_BY_REFERENCE:
