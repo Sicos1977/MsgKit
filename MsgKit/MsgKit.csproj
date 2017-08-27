@@ -75,6 +75,7 @@
     <Compile Include="Helpers\Exception.cs" />
     <Compile Include="Helpers\FileManager.cs" />
     <Compile Include="Helpers\Mapi.cs" />
+    <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Helpers\Stream.cs" />
     <Compile Include="Helpers\Strings.cs" />
     <Compile Include="Message.cs" />

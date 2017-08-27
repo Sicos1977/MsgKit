@@ -34,6 +34,7 @@ using MsgKit.Helpers;
 using MsgKit.Streams;
 using MsgKit.Structures;
 using OpenMcdf;
+using Stream = System.IO.Stream;
 
 namespace MsgKit
 {
@@ -107,9 +108,19 @@ namespace MsgKit
         {
             CheckAttachmentFileName(fileName, contentId);
             var file = new FileInfo(fileName);
-            
-            Add(new Attachment(file,
-                AttachmentType.ATTACH_BY_VALUE,
+            var stream = file.OpenRead();
+
+            var ext = Path.GetExtension(fileName);
+
+            var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
+                ? AttachmentType.ATTACH_EMBEDDED_MSG
+                : AttachmentType.ATTACH_BY_VALUE;
+
+            Add(new Attachment(stream,
+                file.Name,
+                file.CreationTime,
+                file.LastWriteTime,
+                type,
                 renderingPosition,
                 isInline,
                 contentId));
@@ -129,7 +140,7 @@ namespace MsgKit
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        public void Add(System.IO.Stream stream, 
+        public void Add(Stream stream, 
                         string fileName, 
                         long renderingPosition = -1,
                         bool isInline = false, 
@@ -140,12 +151,17 @@ namespace MsgKit
 
             CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
+            var ext = Path.GetExtension(fileName) ?? string.Empty;
+
+            var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
+                ? AttachmentType.ATTACH_EMBEDDED_MSG
+                : AttachmentType.ATTACH_BY_VALUE;
 
             Add(new Attachment(stream,
                 fileName,
                 dateTime,
                 dateTime,
-                AttachmentType.ATTACH_BY_VALUE,
+                type,
                 renderingPosition,
                 isInline,
                 contentId));
@@ -156,11 +172,11 @@ namespace MsgKit
         /// <summary>
         ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
         /// </summary>
-        /// <param name="fileName">The file to link with it's fully qualified path</param>
+        /// <param name="file">The <see cref="FileInfo"/></param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">Set to true to add the attachment inline</param>
         /// <param name="contentId">The id for the inline attachment when <paramref name="isInline" /> is set to true</param>
-        /// <exception cref="FileNotFoundException">Raised when the <paramref name="fileName" /> could not be found</exception>
+        /// <exception cref="FileNotFoundException">Raised when the <paramref name="file" /> could not be found</exception>
         /// <exception cref="MKAttachmentExists">Raised when an attachment with the same name already exists</exception>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
@@ -170,15 +186,17 @@ namespace MsgKit
         ///     Universal naming convention (UNC) names are recommended for fully-qualified paths, which should be used with 
         ///     <see cref="AttachmentType.ATTACH_BY_REF_ONLY" />. 
         /// </remarks>
-        public void AddLink(string fileName, 
+        public void AddLink(FileInfo file, 
                             long renderingPosition = -1,
                             bool isInline = false, 
                             string contentId = "")
         {
-            CheckAttachmentFileName(fileName, contentId);
-            var file = new FileInfo(fileName);
+            CheckAttachmentFileName(file.Name, contentId);
 
-            Add(new Attachment(file,
+            Add(new Attachment(null,
+                file.Name,
+                file.CreationTime,
+                file.LastWriteTime,
                 AttachmentType.ATTACH_BY_REF_ONLY,
                 renderingPosition,
                 isInline,
@@ -200,7 +218,7 @@ namespace MsgKit
         /// <summary>
         ///     The stream to the attachment
         /// </summary>
-        public System.IO.Stream Stream { get; }
+        public Stream Stream { get; }
 
         /// <summary>
         ///     The filename of the attachment
@@ -266,7 +284,7 @@ namespace MsgKit
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
         /// </exception>
-        internal Attachment(System.IO.Stream stream,
+        internal Attachment(Stream stream,
             string fileName,
             DateTime creationTime,
             DateTime lastModificationTime,
@@ -280,7 +298,7 @@ namespace MsgKit
             FileName = Path.GetFileName(fileName);
             CreationTime = creationTime;
             LastModificationTime = lastModificationTime;
-            Type = type;
+            Type =  type;
             RenderingPosition = renderingPosition;
             IsInline = isInline;
             ContentId = contentId;
@@ -293,11 +311,12 @@ namespace MsgKit
         /// <summary>
         ///     Creates a new attachment object and sets all its properties
         /// </summary>
-        /// <param name="file">The file to add</param>
+        /// <param name="file">The <see cref="FileInfo"/></param>
         /// <param name="type">The <see cref="AttachmentType"/></param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
         /// <param name="isInline">True when the attachment is inline</param>
         /// <param name="contentId">The id for the attachment when <paramref name="isInline" /> is set to true</param>
+        /// <param name="isContactPhoto">Set to <c>true</c> when the attachment is a contact photo</param>
         /// <exception cref="ArgumentNullException">
         ///     Raised when <paramref name="isInline" /> is set to true and
         ///     <paramref name="contentId" /> is null, white space or empty
@@ -306,11 +325,9 @@ namespace MsgKit
             AttachmentType type = AttachmentType.ATTACH_BY_VALUE,
             long renderingPosition = -1,
             bool isInline = false,
-            string contentId = "")
+            string contentId = "",
+            bool isContactPhoto = false)
         {
-            if (!file.Exists)
-                throw new FileNotFoundException("The file '" + file.FullName + "' does not exist");
-
             _file = file;
             Stream = file.OpenRead();
             FileName = file.Name;
@@ -320,6 +337,7 @@ namespace MsgKit
             RenderingPosition = renderingPosition;
             IsInline = isInline;
             ContentId = contentId;
+            IsContactPhoto = isContactPhoto;
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
                 throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
@@ -350,7 +368,7 @@ namespace MsgKit
 
         #region WriteProperties
         /// <summary>
-        ///     Writes all the string and binary <see cref="Structures.Property">properties</see> as a <see cref="CFStream" /> to the
+        ///     Writes all the string and binary <see cref="Property">properties</see> as a <see cref="CFStream" /> to the
         ///     given <paramref name="storage" />
         /// </summary>
         /// <param name="storage">The <see cref="CFStorage" /></param>
@@ -374,9 +392,9 @@ namespace MsgKit
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_LONG_FILENAME_W, FileName);
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
 
-                if (!string.IsNullOrEmpty(this.ContentId))
+                if (!string.IsNullOrEmpty(ContentId))
                 {
-                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_CONTENT_ID_W, this.ContentId);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_CONTENT_ID_W, ContentId);
                 }
             }
 
@@ -396,8 +414,10 @@ namespace MsgKit
                     break;
 
                 case AttachmentType.ATTACH_EMBEDDED_MSG:
-                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, new byte[0]);
-                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_OBJ, Stream.ToByteArray());
+                    var msgStorage = storage.AddStorage(PropertyTags.PR_ATTACH_DATA_BIN.Name);
+                    var cf = new CompoundFile(Stream);
+                    Storage.Copy(cf.RootStorage, msgStorage);
+                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
                     break;
 
                 case AttachmentType.ATTACH_BY_REFERENCE:

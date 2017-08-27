@@ -62,8 +62,9 @@ namespace MsgKitTestTool
                 }
 
                 email.IconIndex = MessageIconIndex.UnsentMail;
-                email.Attachments.Add("Images\\peterpan.jpg");
-                email.Attachments.Add("Images\\tinkerbell.jpg");
+                //email.Attachments.Add("Images\\peterpan.jpg");
+                //email.Attachments.Add("Images\\tinkerbell.jpg");
+                email.Attachments.Add(@"d:\naamloos.msg");
                 email.Save("test.msg");
             }
             System.Diagnostics.Process.Start("test.msg");
