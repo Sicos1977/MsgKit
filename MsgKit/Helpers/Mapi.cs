@@ -60,12 +60,6 @@ namespace MsgKit.Helpers
         /// <returns></returns>
         public static byte[] GenerateSearchKey(string addressType, string emailAddress)
         {
-            if (string.IsNullOrEmpty(addressType))
-                throw new ArgumentNullException("addressType");
-
-            if (string.IsNullOrEmpty(emailAddress))
-                throw new ArgumentNullException("emailAddress");
-
             var searchKey = addressType + emailAddress;
             return Encoding.Unicode.GetBytes(searchKey);
         }

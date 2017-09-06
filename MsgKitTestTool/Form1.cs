@@ -38,7 +38,7 @@ namespace MsgKitTestTool
                 new Representing("tinkerbell@neverland.com", "Tinkerbell"),
                 "Hello Neverland subject", DraftMessageCheckBox.Checked))
             {
-                email.Recipients.AddTo(FromTextBox.Text);
+                email.Recipients.AddTo("", "Kees");
                 email.Recipients.AddCc(ToTextBox.Text);
                 email.Recipients.AddBcc(BccTextBox.Text);
                 email.Subject = SubjectTextBox.Text;
@@ -64,7 +64,7 @@ namespace MsgKitTestTool
                 email.IconIndex = MessageIconIndex.UnsentMail;
                 //email.Attachments.Add("Images\\peterpan.jpg");
                 //email.Attachments.Add("Images\\tinkerbell.jpg");
-                email.Attachments.Add(@"d:\naamloos.msg");
+                //email.Attachments.Add(@"c:\naamloos.msg");
                 email.Save("test.msg");
             }
             System.Diagnostics.Process.Start("test.msg");
