@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="Appointment.cs" />
     <Compile Include="Attachments.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Enums\AttachmentType.cs" />
@@ -93,14 +94,13 @@
     <Compile Include="ReceivingRepresenting.cs" />
     <Compile Include="Representing.cs" />
     <Compile Include="Streams\GuidStream.cs" />
+    <Compile Include="Streams\NamedProperties.cs" />
     <Compile Include="Streams\StringStream.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Enums\AddressBookEntryId.cs" />
     <Compile Include="Enums\PropertyFlags.cs" />
     <Compile Include="Enums\PropertyType.cs" />
-    <Compile Include="Structures\PropertyNames.cs" />
-    <Compile Include="Structures\PropertyName_r.cs" />
-    <Compile Include="Structures\PropertyName.cs" />
+    <Compile Include="Structures\NamedProperty.cs" />
     <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />
