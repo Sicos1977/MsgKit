@@ -9,7 +9,7 @@ namespace MsgKitTestTool
 {
     public class AppointmentTest
     { 
-        void Run()
+        public void Run()
         {
             using (var appointment = new Appointment(
             new Sender("hello@haha.com", "Mickey Mouse"),

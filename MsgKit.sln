@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgKit", "MsgKit\MsgKit.csproj", "{F4DC97AC-B333-4DF0-9A5C-546C77A63AC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgKitTestTool", "MsgKitTestTool\MsgKitTestTool.csproj", "{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{BB01705A-329D-4140-A110-CC3098E172EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D26FD7-EF9C-40C2-891B-C6AB51A7A6DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB01705A-329D-4140-A110-CC3098E172EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB01705A-329D-4140-A110-CC3098E172EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB01705A-329D-4140-A110-CC3098E172EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB01705A-329D-4140-A110-CC3098E172EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

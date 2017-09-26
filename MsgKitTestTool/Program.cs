@@ -16,6 +16,7 @@ namespace MsgKitTestTool
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+            //new AppointmentTest().Run();
         }
     }
 }
