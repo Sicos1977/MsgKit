@@ -259,7 +259,7 @@ namespace MsgKit
         ///     this property should be the part of PR_SUBJECT following the prefix. If there is no prefix, this property 
         ///     becomes the same as PR_SUBJECT.
         /// </remarks>
-        private void SetSubject()
+        protected void SetSubject()
         {
             if (!string.IsNullOrEmpty(SubjectPrefix) && !string.IsNullOrEmpty(Subject))
             {

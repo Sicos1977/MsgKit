@@ -57,7 +57,7 @@ namespace MsgKit
 
         }
 
-        private new void WriteToStorage()
+        private void WriteToStorage()
         {
             var rootStorage = CompoundFile.RootStorage;
             long messageSize = 0;
@@ -178,23 +178,6 @@ namespace MsgKit
             nps.AddProperty(NamedPropertyTags.PidLidMeetingType, 0x00000001);
             nps.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
             nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, 1);
-
-            //Testing
-            /*
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentSequence, 0);
-            nps.AddProperty(NamedPropertyTags.PidLidBusyStatus, 0);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentAuxiliaryFlags, 0);
-            nps.AddProperty(NamedPropertyTags.PidLidResponseStatus, 1);
-            nps.AddProperty(NamedPropertyTags.PidLidTaskMode, 0);
-            nps.AddProperty(NamedPropertyTags.PidLidTimeZoneDescription, "(UTC-08:00) Pacific Time (US & Canada)");
-            nps.AddProperty(NamedPropertyTags.PidLidDirectory, "");
-            nps.AddProperty(NamedPropertyTags.PidLidPrivate,false);
-            nps.AddProperty(NamedPropertyTags.PidLidSendMeetingAsIcal, false);
-            nps.AddProperty(NamedPropertyTags.PidLidRecurring, false);
-            nps.AddProperty(NamedPropertyTags.PidLidConferencingType, 0);
-
-            nps.AddProperty(NamedPropertyTags.PidLidReminderSet, false);*/
-
 
             nps.WriteProperties(rootStorage);
 
