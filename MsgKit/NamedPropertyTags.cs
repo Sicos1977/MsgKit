@@ -1576,6 +1576,20 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     The client can set this property, but it has no impact on the Task-Related Objects
+        ///     protocol and is ignored by the server.
+        /// </summary>
+        internal static NamedPropertyTag PidLidTaskMode
+        {
+            get
+            {
+                return new NamedPropertyTag(0x8518, "PidLidTaskMode",
+                  new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG);
+            }
+        }
+
+
+        /// <summary>
         ///     
         /// </summary>
         internal static NamedPropertyTag PidLidTrustRecipientHighlights
@@ -1706,6 +1720,7 @@ namespace MsgKit
         {
             get { return new NamedPropertyTag(0x820D, "PidLidAppointmentStartWhole",
                     new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
+
         }
 
         /// <summary>
@@ -1715,7 +1730,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidLidAppointmentEndWhole
         {
             get { return new NamedPropertyTag(0x820E, "PidLidAppointmentEndWhole",
-                    new Guid("6ED8DA90-450B-101B-98DA-00AA003F1305"), PropertyType.PT_SYSTIME); }
+                    new Guid("00062002-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME); }
         }
 
         /// <summary>
@@ -2634,6 +2649,19 @@ namespace MsgKit
         {
             get { return new NamedPropertyTag(0x8906, "PidLidPostRssSubscription",
                     new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
+        }
+
+
+        /// <summary>
+        ///     Contains the user's preferred name for the subscription.
+        /// </summary>
+        internal static NamedPropertyTag PidLidPrivate
+        {
+            get
+            {
+                return new NamedPropertyTag(0x8506, "PidLidPrivate",
+                  new Guid("00062041-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN);
+            }
         }
 
         /// <summary>
@@ -4133,7 +4161,7 @@ namespace MsgKit
 
         /// <summary>
         ///     Contains textual annotations to a voice message after it has been delivered to the user's
-        //      mailbox.
+        ///      mailbox.
         /// </summary>
         internal static NamedPropertyTag PidNameAutomaticSpeechRecognitionData
         {

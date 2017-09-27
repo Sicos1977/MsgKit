@@ -229,7 +229,8 @@ namespace MsgKit.Structures
             
             // Make the properties stream
             binaryWriter.BaseStream.Position = 0;
-            storage.AddStream(PropertyTags.PropertiesStreamName).SetData(binaryWriter.BaseStream.ToByteArray());
+            var propertiesStream = storage.TryGetStream(PropertyTags.PropertiesStreamName) ?? storage.AddStream(PropertyTags.PropertiesStreamName);
+            propertiesStream.SetData(binaryWriter.BaseStream.ToByteArray());
             return size + binaryWriter.BaseStream.Length;
         }
         #endregion

@@ -54,7 +54,7 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage" /></param>
         internal void Write(CFStorage storage)
         {
-            var stream = storage.AddStream(PropertyTags.EntryStream);
+            var stream = storage.GetStream(PropertyTags.StringStream);
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
