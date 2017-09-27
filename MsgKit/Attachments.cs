@@ -403,6 +403,7 @@ namespace MsgKit
             switch (Type)
             {
                 case AttachmentType.ATTACH_BY_VALUE:
+                case AttachmentType.ATTACH_EMBEDDED_MSG:
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_DATA_BIN, Stream.ToByteArray());
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
                     break;
@@ -413,13 +414,13 @@ namespace MsgKit
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_LONG_PATHNAME_W, _file.FullName);
                     break;
 
-                case AttachmentType.ATTACH_EMBEDDED_MSG:
-                    var msgStorage = storage.AddStorage(PropertyTags.PR_ATTACH_DATA_BIN.Name);
-                    var cf = new CompoundFile(Stream);
-                    Storage.Copy(cf.RootStorage, msgStorage);
-                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
-                    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_ENCODING, 0);
-                    break;
+                //case AttachmentType.ATTACH_EMBEDDED_MSG:
+                //    var msgStorage = storage.AddStorage(PropertyTags.PR_ATTACH_DATA_BIN.Name);
+                //    var cf = new CompoundFile(Stream);
+                //    Storage.Copy(cf.RootStorage, msgStorage);
+                //    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_SIZE, Stream.Length);
+                //    propertiesStream.AddProperty(PropertyTags.PR_ATTACH_ENCODING, 0);
+                //    break;
 
                 case AttachmentType.ATTACH_BY_REFERENCE:
                 case AttachmentType.ATTACH_BY_REF_RESOLVE:

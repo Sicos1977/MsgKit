@@ -88,7 +88,7 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage"/> that containts the <see cref="PropertyTags.EntryStream"/></param>
         internal EntryStream(CFStorage storage)
         {
-            var stream = storage.GetStream(PropertyTags.EntryStream);
+            var stream = storage.TryGetStream(PropertyTags.EntryStream) ?? storage.AddStream(PropertyTags.EntryStream);
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
@@ -107,7 +107,7 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage" /></param>
         internal void Write(CFStorage storage)
         {
-            var stream = storage.AddStream(PropertyTags.EntryStream);
+            var stream = storage.GetStream(PropertyTags.EntryStream);
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
@@ -117,6 +117,19 @@ namespace MsgKit.Streams
                 stream.SetData(memoryStream.ToArray());
             }
         }
+        internal void Write(CFStorage storage, string streamName)
+        {
+            var stream = storage.TryGetStream(streamName) ?? storage.AddStream(streamName);
+            using (var memoryStream = new MemoryStream())
+            using (var binaryWriter = new BinaryWriter(memoryStream))
+            {
+                foreach (var entryStreamItem in this)
+                    entryStreamItem.Write(binaryWriter);
+
+                stream.SetData(memoryStream.ToArray());
+            }
+        }
+
         #endregion
     }
 
@@ -151,7 +164,7 @@ namespace MsgKit.Streams
         /// <param name="binaryReader">The <see cref="BinaryReader"/></param>
         internal EntryStreamItem(BinaryReader binaryReader)
         {
-            NameIdentifierOrStringOffset = binaryReader.ReadUInt32();
+            NameIdentifierOrStringOffset = binaryReader.ReadUInt16();
             NameIdentifierOrStringOffsetHex = string.Format("{0:X}", NameIdentifierOrStringOffset);
             IndexAndKindInformation = new IndexAndKindInformation(binaryReader);
         }
@@ -161,7 +174,7 @@ namespace MsgKit.Streams
         /// </summary>
         /// <param name="nameIdentifierOrStringOffset"><see cref="NameIdentifierOrStringOffset"/></param>
         /// <param name="indexAndKindInformation"><see cref="IndexAndKindInformation"/></param>
-        internal EntryStreamItem(uint nameIdentifierOrStringOffset,
+        internal EntryStreamItem(UInt16 nameIdentifierOrStringOffset,
                                  IndexAndKindInformation indexAndKindInformation)
         {
             NameIdentifierOrStringOffset = nameIdentifierOrStringOffset;
@@ -178,8 +191,9 @@ namespace MsgKit.Streams
         internal void Write(BinaryWriter binaryWriter)
         {
             binaryWriter.Write(NameIdentifierOrStringOffset);
-            binaryWriter.Write(IndexAndKindInformation.PropertyIndex);
-            binaryWriter.Write(IndexAndKindInformation.GuidIndex + (uint) IndexAndKindInformation.PropertyKind);
+            binaryWriter.Write((ushort)((IndexAndKindInformation.GuidIndex<<1) | (ushort) IndexAndKindInformation.PropertyKind));
+            binaryWriter.Write(IndexAndKindInformation.PropertyIndex); //Doesn't seem to be the case in the spec. 
+            //Fortunately section 3.2 clears this up. 
         }
         #endregion
     }
@@ -196,7 +210,7 @@ namespace MsgKit.Streams
         ///     Sequentially increasing, zero-based index. This MUST be 0 for the first
         ///     named property, 1 for the second, and so on.
         /// </summary>
-        public uint PropertyIndex { get; private set; }
+        public UInt16 PropertyIndex { get; private set; }
 
         /// <summary>
         ///     Index into the GUID stream. The possible values are shown in the following table.<br/>
@@ -208,7 +222,7 @@ namespace MsgKit.Streams
         ///         the third GUID(5 minus 3, resulting in a zero-based index of 2) is used as the GUID for the name<br/>
         ///         property being derived.
         /// </summary>
-        public uint GuidIndex { get; private set; }
+        public UInt16 GuidIndex { get; private set; }
 
         /// <summary>
         ///     Bit indicating the type of the property; zero (0) if numerical named property
@@ -248,7 +262,7 @@ namespace MsgKit.Streams
         {
             PropertyIndex = binaryReader.ReadUInt16();
             var bits = new BitArray(binaryReader.ReadBytes(2));
-            GuidIndex = GetUIntFromBitArray(bits, 1, 15);
+            GuidIndex = (UInt16)GetUIntFromBitArray(bits, 1, 15);
             PropertyKind = (PropertyKind)GetUIntFromBitArray(bits, 0, 1);
         }
 
@@ -258,8 +272,8 @@ namespace MsgKit.Streams
         /// <param name="propertyIndex"><see cref="PropertyIndex"/></param>
         /// <param name="guidIndex"><see cref="GuidIndex"/></param>
         /// <param name="propertyKind"><see cref="PropertyKind"/></param>
-        internal IndexAndKindInformation(uint propertyIndex,
-                                         uint guidIndex,
+        internal IndexAndKindInformation(ushort propertyIndex,
+                                         ushort guidIndex,
                                          PropertyKind propertyKind)
         {
             PropertyIndex = propertyIndex;

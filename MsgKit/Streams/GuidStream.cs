@@ -34,6 +34,7 @@ namespace MsgKit.Streams
         internal GuidStream(CFStorage storage)
         {
             var stream = storage.GetStream(PropertyTags.GuidStream);
+
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
@@ -52,7 +53,7 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage" /></param>
         internal void Write(CFStorage storage)
         {
-            var stream = storage.AddStream(PropertyTags.EntryStream);
+            var stream = storage.GetStream(PropertyTags.GuidStream);
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {
