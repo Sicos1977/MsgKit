@@ -1,62 +1,107 @@
-﻿using MsgKit.Enums;
-using MsgKit.Helpers;
-using MsgKit.Streams;
+﻿//
+// Email.cs
+//
+// Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
+//
+// Copyright (c) 2015-2017 Magic-Sessions. (www.magic-sessions.com)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
+using MsgKit.Enums;
+using MsgKit.Helpers;
+using MsgKit.Streams;
+using OpenMcdf;
+using Stream = System.IO.Stream;
 
 namespace MsgKit
 {
     /// <summary>
-    /// Inherits from Email, because it has quite a few of the same fields
+    ///     Inherits from Email, because it has quite a few of the same fields
     /// </summary>
     public class Appointment : Email
     {
+        #region Properties
         /// <summary>
-        /// Holds the location for the Appointment
+        ///     Holds the location for the Appointment
         /// </summary>
         public string Location { get; set; }
-        /// <summary>
-        /// Contains the checked All Day, converts appointment into Event. 
-        /// </summary>
-        public bool AllDay { get; set; }
-        /// <summary>
-        /// Holds meeting information for the appointment
-        /// </summary>
-        public DateTime MeetingStart { get; set; }
-        /// 
-        public DateTime MeetingEnd { get; set; }
 
         /// <summary>
-        /// Sends an appointment with sender, representing, subject, draft. 
+        ///     This property specifies whether or not the event is an all-day event, as 
+        ///     specified by the user. A value of <c>true</c> indicates that the event is an all-day 
+        ///     event, in which case the start time and end time must be midnight so that the 
+        ///     duration is a multiple of 24 hours and is at least 24 hours. A value of <c>false</c> 
+        ///     or the absence of this property indicates the event is not an all-day event. The 
+        ///     client or server must not infer the value as TRUE when a user happens to create an 
+        ///     event that is 24 hours, even if the event starts and ends at midnight.
+        /// </summary>
+        public bool AllDay { get; set; }
+
+        /// <summary>
+        ///     Holds meeting information for the appointment
+        /// </summary>
+        public DateTime MeetingStart { get; set; }
+
+        /// <summary>
+        ///     The end of the meeting
+        /// </summary>
+        public DateTime MeetingEnd { get; set; }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        ///     Sends an appointment with sender, representing, subject, draft.
         /// </summary>
         /// <param name="sender"> Contains sender name and email. </param>
         /// <param name="representing">Contains who this appointment is representing. </param>
         /// <param name="subject"> Contains the subject for this appointment. </param>
         /// <param name="draft"> Is this a draft?</param>
         public Appointment(Sender sender,
-                     Representing representing,
-                     string subject,
-                     bool draft = false) : base(sender,representing, subject,draft)
+            Representing representing,
+            string subject,
+            bool draft = false) : base(sender, representing, subject, draft)
         {
-
         }
 
         /// <summary>
-        /// Used to send without the representing structure. 
+        ///     Used to send without the representing structure.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="subject"></param>
         /// <param name="draft"></param>
         public Appointment(Sender sender,
-                     string subject,
-                     bool draft = false) : base(sender,subject, draft)
+            string subject,
+            bool draft = false) : base(sender, subject, draft)
         {
-
         }
+        #endregion
 
+        #region WriteToStorage
+        /// <summary>
+        ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="CFStorage"/>'s
+        ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
+        /// </summary>
         private void WriteToStorage()
         {
             var rootStorage = CompoundFile.RootStorage;
@@ -134,7 +179,6 @@ namespace MsgKit
                 var displayBcc = new List<string>();
 
                 foreach (var recipient in Recipients)
-                {
                     switch (recipient.RecipientType)
                     {
                         case RecipientType.To:
@@ -161,7 +205,6 @@ namespace MsgKit
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
-                }
 
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlags.PROPATTR_READABLE);
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlags.PROPATTR_READABLE);
@@ -175,21 +218,22 @@ namespace MsgKit
             nps.AddProperty(NamedPropertyTags.PidLidLocation, Location);
             nps.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
             nps.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
-            nps.AddProperty(NamedPropertyTags.PidLidMeetingType, 0x00000001);
+            nps.AddProperty(NamedPropertyTags.PidLidMeetingType, MeetingType.mtgRequest);
             nps.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, 1);
+            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
 
             nps.WriteProperties(rootStorage);
 
             propertiesStream.WriteProperties(rootStorage, messageSize);
         }
+        #endregion
 
         #region Save
         /// <summary>
         ///     Saves the message to the given <paramref name="stream" />
         /// </summary>
         /// <param name="stream"></param>
-        public new void Save(System.IO.Stream stream)
+        public new void Save(Stream stream)
         {
             WriteToStorage();
         }
@@ -203,9 +247,6 @@ namespace MsgKit
             WriteToStorage();
             CompoundFile.Save(fileName);
         }
-
         #endregion
-
-     
     }
 }
