@@ -1,5 +1,5 @@
 ﻿//
-// Email.cs
+// Appointment.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
 //
@@ -212,17 +212,16 @@ namespace MsgKit
             }
 
             propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
+            
+            var namedProperties = new NamedProperties(propertiesStream); //Uses the top level properties. 
+            namedProperties.AddProperty(NamedPropertyTags.PidLidLocation, Location);
+            namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
+            namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
+            namedProperties.AddProperty(NamedPropertyTags.PidLidMeetingType, MeetingType.mtgRequest);
+            namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
+            namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
 
-
-            var nps = new NamedProperties(propertiesStream); //Uses the top level properties. 
-            nps.AddProperty(NamedPropertyTags.PidLidLocation, Location);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
-            nps.AddProperty(NamedPropertyTags.PidLidMeetingType, MeetingType.mtgRequest);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
-
-            nps.WriteProperties(rootStorage);
+            namedProperties.WriteProperties(rootStorage);
 
             propertiesStream.WriteProperties(rootStorage, messageSize);
         }

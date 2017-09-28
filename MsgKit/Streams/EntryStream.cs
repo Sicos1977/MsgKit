@@ -1,7 +1,7 @@
 ﻿//
 // Entry.cs
 //
-// Author: Kees van Spelde <sicos2002@hotmail.com>
+// Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
 //
 // Copyright (c) 2015-2017 Magic-Sessions. (www.magic-sessions.com)
 //
@@ -28,35 +28,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using MsgKit.Enums;
 using MsgKit.Helpers;
 using OpenMcdf;
 
 namespace MsgKit.Streams
 {
-    #region Enum PropertyKind
-    /// <summary>
-    ///     Kind (1 byte): The possible values for the Kind field are in the following table.
-    /// </summary>
-    [Flags]
-    public enum PropertyKind
-    {
-        /// <summary>
-        ///     The property is identified by the LID field (numerical named property)
-        /// </summary>
-        Lid = 0x00,
-
-        /// <summary>
-        ///     The property is identified by the Name field (string named property)
-        /// </summary>
-        Name = 0x01,
-
-        /// <summary>
-        ///     The property does not have an associated PropertyName field.
-        /// </summary>
-        NotAssociated = 0xFF
-    }
-    #endregion
-
     /// <summary>
     ///     The entry stream MUST be named "__substg1.0_00030102" and consist of 8-byte entries, one for each
     ///     named property being stored. The properties are assigned unique numeric IDs (distinct from any property
@@ -148,6 +125,9 @@ namespace MsgKit.Streams
         /// </summary>
         public uint NameIdentifierOrStringOffset { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string NameIdentifierOrStringOffsetHex { get; }
 
         /// <summary>
@@ -174,7 +154,7 @@ namespace MsgKit.Streams
         /// </summary>
         /// <param name="nameIdentifierOrStringOffset"><see cref="NameIdentifierOrStringOffset"/></param>
         /// <param name="indexAndKindInformation"><see cref="IndexAndKindInformation"/></param>
-        internal EntryStreamItem(UInt16 nameIdentifierOrStringOffset,
+        internal EntryStreamItem(ushort nameIdentifierOrStringOffset,
                                  IndexAndKindInformation indexAndKindInformation)
         {
             NameIdentifierOrStringOffset = nameIdentifierOrStringOffset;
@@ -193,7 +173,7 @@ namespace MsgKit.Streams
             binaryWriter.Write(NameIdentifierOrStringOffset);
             binaryWriter.Write((ushort)((IndexAndKindInformation.GuidIndex<<1) | (ushort) IndexAndKindInformation.PropertyKind));
             binaryWriter.Write(IndexAndKindInformation.PropertyIndex); //Doesn't seem to be the case in the spec. 
-            //Fortunately section 3.2 clears this up. 
+            // Fortunately section 3.2 clears this up. 
         }
         #endregion
     }
@@ -262,7 +242,7 @@ namespace MsgKit.Streams
         {
             PropertyIndex = binaryReader.ReadUInt16();
             var bits = new BitArray(binaryReader.ReadBytes(2));
-            GuidIndex = (UInt16)GetUIntFromBitArray(bits, 1, 15);
+            GuidIndex = (ushort)GetUIntFromBitArray(bits, 1, 15);
             PropertyKind = (PropertyKind)GetUIntFromBitArray(bits, 0, 1);
         }
 

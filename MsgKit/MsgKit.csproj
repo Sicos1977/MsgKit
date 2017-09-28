@@ -97,6 +97,7 @@
     <Compile Include="Representing.cs" />
     <Compile Include="Streams\GuidStream.cs" />
     <Compile Include="Streams\NamedProperties.cs" />
+    <Compile Include="Enums\PropertyKind.cs" />
     <Compile Include="Streams\StringStream.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Enums\AddressBookEntryId.cs" />
