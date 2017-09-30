@@ -57,7 +57,7 @@ using (var email = new Email(
     email.Attachments.Add(@"d:\crocodile.jpg");
     email.Save(@"c:\email.msg");
 
-    // Show the message
+    // Show the E-mail
     System.Diagnostics.Process.Start(@"c:\email.msg");
 }
 ```
@@ -85,7 +85,7 @@ using (var appointment = new Appointment(
     appointment.Attachments.Add(@"d:\crocodile.jpg");
     appointment.Save(@"c:\appointment.msg");
 
-    // Show the appointment
+    // Show the Appointment
     System.Diagnostics.Process.Start(@"c:\appointment.msg");
 }
 ```
