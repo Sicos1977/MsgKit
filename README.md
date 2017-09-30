@@ -46,7 +46,6 @@ using (var email = new Email(
         new Representing("tinkerbell@neverland.com", "Tinkerbell"),
         "Hello Neverland subject"))
 {
-
     email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
     email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
     email.Subject = "This is the subject";
