@@ -7,6 +7,7 @@ MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be
 - Started in 2015
 - Picked up again in August 2016, adding all the know MAPI (Named) properties
 - Finished adding all the named properties
+- Appointment support added by Travis Semple in 2017
 
 ## License Information
 
