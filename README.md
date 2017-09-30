@@ -55,10 +55,10 @@ using (var email = new Email(
     email.Importance = MessageImportance.IMPORTANCE_HIGH;
     email.IconIndex = MessageIconIndex.ReadMail;
     email.Attachments.Add(@"d:\crocodile.jpg");
-    email.Save(@"c:\test.msg");
+    email.Save(@"c:\email.msg");
 
     // Show the message
-    System.Diagnostics.Process.Start(@"c:\test.msg");
+    System.Diagnostics.Process.Start(@"c:\email.msg");
 }
 ```
 
@@ -83,10 +83,10 @@ using (var appointment = new Appointment(
     appointment.Importance = MessageImportance.IMPORTANCE_NORMAL;
     appointment.IconIndex = MessageIconIndex.UnsentMail;
     appointment.Attachments.Add(@"d:\crocodile.jpg");
-    appointment.Save(@"c:\test.msg");
+    appointment.Save(@"c:\appointment.msg");
 
     // Show the appointment
-    System.Diagnostics.Process.Start(@"c:\test.msg");
+    System.Diagnostics.Process.Start(@"c:\appointment.msg");
 }
 ```
 
