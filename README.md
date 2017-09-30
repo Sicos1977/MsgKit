@@ -38,30 +38,62 @@ In Visual Studio's Package Manager Console, simply enter the following command:
 
     Install-Package MsgKit
 
-### Creating an Outlook Message file
+### Creating an E-mail
 
 ```csharp
-var email = new Email(
-	new Sender("peterpan@neverland.com", "Peter Pan"),
-	new Representing("tinkerbell@neverland.com", "Tinkerbell"), 
-	"Hello Neverland subject");
-					  
-email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
-email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
-email.Subject = "This is the subject";
-email.BodyText = "Hello Neverland text";
-email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
-email.Importance = MessageImportance.IMPORTANCE_HIGH;
-email.IconIndex = MessageIconIndex.ReadMail;
-email.Attachments.Add(@"d:\crocodile.jpg");
-email.Save(@"c:\test.msg");
+using (var email = new Email(
+        new Sender("peterpan@neverland.com", "Peter Pan"),
+        new Representing("tinkerbell@neverland.com", "Tinkerbell"),
+        "Hello Neverland subject"))
+{
 
-// Show the message
-System.Diagnostics.Process.Start(@"c:\test.msg");
+    email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    email.Subject = "This is the subject";
+    email.BodyText = "Hello Neverland text";
+    email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    email.Importance = MessageImportance.IMPORTANCE_HIGH;
+    email.IconIndex = MessageIconIndex.ReadMail;
+    email.Attachments.Add(@"d:\crocodile.jpg");
+    email.Save(@"c:\test.msg");
+
+    // Show the message
+    System.Diagnostics.Process.Start(@"c:\test.msg");
+}
 ```
+
+### Creating an Appointment
+
+```csharp
+using (var appointment = new Appointment(
+    new Sender("peterpan@neverland.com", "Peter Pan"),
+    new Representing("tinkerbell@neverland.com", "Tinkerbell"),
+    "Hello Neverland subject")) 
+{
+    appointment.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    appointment.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    appointment.Subject = "This is the subject";
+    appointment.Location = "Neverland";
+    appointment.MeetingStart = DateTime.Now.Date;
+    appointment.MeetingEnd = DateTime.Now.Date.AddDays(1).Date;
+    appointment.AllDay = true;
+    appointment.BodyText = "Hello Neverland text";
+    appointment.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    appointment.SentOn = DateTime.UtcNow;
+    appointment.Importance = MessageImportance.IMPORTANCE_NORMAL;
+    appointment.IconIndex = MessageIconIndex.UnsentMail;
+    appointment.Attachments.Add(@"d:\crocodile.jpg");
+    appointment.Save(@"c:\test.msg");
+
+    // Show the appointment
+    System.Diagnostics.Process.Start(@"c:\test.msg");
+}
+```
+
 Core Team
 =========
     Sicos1977 (Kees van Spelde)
+    Seeker25 (Travis Semple) - Implemented Appointment support
 
 Support
 =======
