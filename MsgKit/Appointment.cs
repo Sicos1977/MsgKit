@@ -69,6 +69,9 @@ namespace MsgKit
         public DateTime MeetingEnd { get; set; }
         #endregion
 
+        public string BodyRtf { get; set; }
+        public bool BodyRtfCompressed { get; set; }
+
         #region Constructors
         /// <summary>
         ///     Sends an appointment with sender, representing, subject, draft.
@@ -221,6 +224,21 @@ namespace MsgKit
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
 
+            if (BodyRtfCompressed)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RTFCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
+            }
+
+            var nps = new NamedProperties(propertiesStream); //Uses the top level properties. 
+            nps.AddProperty(NamedPropertyTags.PidLidLocation, Location);
+            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
+            nps.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
+            nps.AddProperty(NamedPropertyTags.PidLidMeetingType, 0x00000001);
+            nps.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
+            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, 1);
+
+            nps.WriteProperties(rootStorage);
             namedProperties.WriteProperties(rootStorage);
 
             propertiesStream.WriteProperties(rootStorage, messageSize);

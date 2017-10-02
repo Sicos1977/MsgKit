@@ -74,10 +74,12 @@
     <Compile Include="Exceptions\MKPropertyNotFound.cs" />
     <Compile Include="Exceptions\MKInvalidProperty.cs" />
     <Compile Include="Helpers\Conversion.cs" />
+    <Compile Include="Helpers\Crc32Calculator.cs" />
     <Compile Include="Helpers\EmailAddress.cs" />
     <Compile Include="Helpers\Exception.cs" />
     <Compile Include="Helpers\FileManager.cs" />
     <Compile Include="Helpers\Mapi.cs" />
+    <Compile Include="Helpers\RTFCompressor.cs" />
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Helpers\Stream.cs" />
     <Compile Include="Helpers\Strings.cs" />
@@ -132,6 +134,7 @@
     <None Include="_Documentation\[MS-OXMSG].pdf" />
     <None Include="_Documentation\[MS-OXOMSG].pdf" />
     <None Include="_Documentation\[MS-OXPROPS].pdf" />
+    <None Include="_Documentation\[MS-OXRTFCP].pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
