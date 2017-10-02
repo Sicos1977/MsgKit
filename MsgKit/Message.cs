@@ -67,24 +67,23 @@ namespace MsgKit
         /// </remarks>
         public MessageIconIndex IconIndex { get; set; }
 
-        /// <summary>
-        ///     Contains the sum, in bytes, of the sizes of all properties on a message object.
-        /// </summary>
-        /// <remarks>
-        ///     It is recommended that message objects expose this property. The message size indicates the approximate number of
-        ///     bytes that are transferred when the message is moved from one message store to another. Being the sum of the sizes
-        ///     of all properties on the message object, it is usually considerably greater than the message text alone.
-        /// </remarks>
-        public long MessageSize { get; private set; }
+        ///// <summary>
+        /////     Contains the sum, in bytes, of the sizes of all properties on a message object.
+        ///// </summary>
+        ///// <remarks>
+        /////     It is recommended that message objects expose this property. The message size indicates the approximate number of
+        /////     bytes that are transferred when the message is moved from one message store to another. Being the sum of the sizes
+        /////     of all properties on the message object, it is usually considerably greater than the message text alone.
+        ///// </remarks>
+        //public long MessageSize { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
         ///     Creates this object and sets all it's properties
         /// </summary>
-        internal Message(long messageSize)
+        internal Message()
         {
-            MessageSize = messageSize;
             CompoundFile = new CompoundFile();
 
             // In the preceding figure, the "__nameid_version1.0" named property mapping storage contains the 
