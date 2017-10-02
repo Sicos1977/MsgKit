@@ -29,6 +29,8 @@ namespace MsgKit
         /// 
         public DateTime MeetingEnd { get; set; }
 
+        public string BodyRtf { get; set; }
+        public bool BodyRtfCompressed { get; set; }
         /// <summary>
         /// Sends an appointment with sender, representing, subject, draft. 
         /// </summary>
@@ -170,6 +172,11 @@ namespace MsgKit
 
             propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
 
+            if (BodyRtfCompressed)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RTFCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
+            }
 
             var nps = new NamedProperties(propertiesStream); //Uses the top level properties. 
             nps.AddProperty(NamedPropertyTags.PidLidLocation, Location);

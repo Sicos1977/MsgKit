@@ -22,8 +22,8 @@ namespace MsgKitTestTool
                 appointment.MeetingStart = DateTime.Now.Date;
                 appointment.MeetingEnd = DateTime.Now.Date.AddDays(1).Date;
                 appointment.AllDay = true;
-                appointment.BodyText = "Best body ever";
-                appointment.BodyHtml = "<html> best body 2 ever </html>";
+                appointment.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}This line is the default color\line\cf2This line is red\line\cf1This line is the default color}";
+                appointment.BodyRtfCompressed = true;
                 appointment.SentOn = DateTime.UtcNow;
                 appointment.Importance = MessageImportance.IMPORTANCE_NORMAL;
                 appointment.IconIndex = MessageIconIndex.UnsentMail;
