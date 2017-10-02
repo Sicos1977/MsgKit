@@ -33,7 +33,7 @@ using MsgKit.Helpers;
 namespace MsgKit.Structures
 {
     /// <summary>
-    ///     The PidLidAppointmentUnsendableRecipients  property ([MS-OXPROPS] section 2.35) contains a list of
+    ///     The PidLidAppointmentUnsendableRecipients property ([MS-OXPROPS] section 2.35) contains a list of
     ///     unsendable attendees. This property is not required but SHOULD be set
     /// </summary>
     public class UnsendableRecipients : List<RecipientRow>

@@ -7,6 +7,7 @@ MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be
 - Started in 2015
 - Picked up again in August 2016, adding all the know MAPI (Named) properties
 - Finished adding all the named properties
+- Appointment support added by Travis Semple in 2017
 
 ## License Information
 
@@ -36,32 +37,63 @@ The easiest way to install MsgKit is via NuGet.
 
 In Visual Studio's Package Manager Console, simply enter the following command:
 
-    Install-Package MsgKit
+    Install-Package MsgKit -Version 1.1.5 
 
-### Creating an Outlook Message file
+### Creating an E-mail
 
 ```csharp
-var email = new Email(
-	new Sender("peterpan@neverland.com", "Peter Pan"),
-	new Representing("tinkerbell@neverland.com", "Tinkerbell"), 
-	"Hello Neverland subject");
-					  
-email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
-email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
-email.Subject = "This is the subject";
-email.BodyText = "Hello Neverland text";
-email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
-email.Importance = MessageImportance.IMPORTANCE_HIGH;
-email.IconIndex = MessageIconIndex.ReadMail;
-email.Attachments.Add(@"d:\crocodile.jpg");
-email.Save(@"c:\test.msg");
+using (var email = new Email(
+        new Sender("peterpan@neverland.com", "Peter Pan"),
+        new Representing("tinkerbell@neverland.com", "Tinkerbell"),
+        "Hello Neverland subject"))
+{
+    email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    email.Subject = "This is the subject";
+    email.BodyText = "Hello Neverland text";
+    email.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    email.Importance = MessageImportance.IMPORTANCE_HIGH;
+    email.IconIndex = MessageIconIndex.ReadMail;
+    email.Attachments.Add(@"d:\crocodile.jpg");
+    email.Save(@"c:\email.msg");
 
-// Show the message
-System.Diagnostics.Process.Start(@"c:\test.msg");
+    // Show the E-mail
+    System.Diagnostics.Process.Start(@"c:\email.msg");
+}
 ```
+
+### Creating an Appointment
+
+```csharp
+using (var appointment = new Appointment(
+    new Sender("peterpan@neverland.com", "Peter Pan"),
+    new Representing("tinkerbell@neverland.com", "Tinkerbell"),
+    "Hello Neverland subject")) 
+{
+    appointment.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    appointment.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    appointment.Subject = "This is the subject";
+    appointment.Location = "Neverland";
+    appointment.MeetingStart = DateTime.Now.Date;
+    appointment.MeetingEnd = DateTime.Now.Date.AddDays(1).Date;
+    appointment.AllDay = true;
+    appointment.BodyText = "Hello Neverland text";
+    appointment.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    appointment.SentOn = DateTime.UtcNow;
+    appointment.Importance = MessageImportance.IMPORTANCE_NORMAL;
+    appointment.IconIndex = MessageIconIndex.UnsentMail;
+    appointment.Attachments.Add(@"d:\crocodile.jpg");
+    appointment.Save(@"c:\appointment.msg");
+
+    // Show the Appointment
+    System.Diagnostics.Process.Start(@"c:\appointment.msg");
+}
+```
+
 Core Team
 =========
     Sicos1977 (Kees van Spelde)
+    Seeker25 (Travis Semple) - Implemented Appointment support
 
 Support
 =======

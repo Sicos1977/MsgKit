@@ -62,6 +62,8 @@
     <Compile Include="Appointment.cs" />
     <Compile Include="Attachments.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Enums\AppointmentState.cs" />
+    <Compile Include="Enums\MeetingType.cs" />
     <Compile Include="Enums\AttachmentType.cs" />
     <Compile Include="Enums\MapiAccess.cs" />
     <Compile Include="Enums\MapiObjectType.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Representing.cs" />
     <Compile Include="Streams\GuidStream.cs" />
     <Compile Include="Streams\NamedProperties.cs" />
+    <Compile Include="Enums\PropertyKind.cs" />
     <Compile Include="Streams\StringStream.cs" />
     <Compile Include="Structures\CLSID.cs" />
     <Compile Include="Enums\AddressBookEntryId.cs" />
