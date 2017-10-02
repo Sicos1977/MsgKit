@@ -50,12 +50,10 @@ namespace MsgKit
         /// <summary>
         ///     The message class
         /// </summary>
+        /// <remarks>
+        /// Not used yet, this property is for future use (when we are going to implement reading of MSG files)
+        /// </remarks>
         internal MessageClass Class;
-
-        /// <summary>
-        ///     The "__nameid_version1.0" storage
-        /// </summary>
-        private readonly CFStorage _nameIdStorage;
         #endregion
 
         #region Properties
@@ -84,22 +82,23 @@ namespace MsgKit
         /// <summary>
         ///     Creates this object and sets all it's properties
         /// </summary>
-        internal Message()
+        internal Message(long messageSize)
         {
+            MessageSize = messageSize;
             CompoundFile = new CompoundFile();
 
             // In the preceding figure, the "__nameid_version1.0" named property mapping storage contains the 
             // three streams  used to provide a mapping from property ID to property name 
             // ("__substg1.0_00020102", "__substg1.0_00030102", and "__substg1.0_00040102") and various other 
             // streams that provide a mapping from property names to property IDs.
-            _nameIdStorage = CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage) ??
-                             CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
+            var nameIdStorage = CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage) ??
+                                       CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
 
-            var entryStream = _nameIdStorage.AddStream(PropertyTags.EntryStream);
+            var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
             entryStream.SetData(new byte[0]);
-            var stringStream = _nameIdStorage.AddStream(PropertyTags.StringStream);
+            var stringStream = nameIdStorage.AddStream(PropertyTags.StringStream);
             stringStream.SetData(new byte[0]);
-            var guidStream = _nameIdStorage.AddStream(PropertyTags.GuidStream);
+            var guidStream = nameIdStorage.AddStream(PropertyTags.GuidStream);
             guidStream.SetData(new byte[0]);
         }
         #endregion
@@ -288,6 +287,9 @@ namespace MsgKit
         /// <param name="value">The value</param>
         /// <param name="guid">The <see cref="Guid"/> for the <see cref="NamedPropertyTags"/>, when
         /// left blank a new guid is generated automaticly</param>
+        /// <remarks>
+        /// Not used yet, this method is for future use
+        /// </remarks>
         public void AddNamedProperty(string name, string value, Guid? guid)
         {
             // Get next available property id from string stream
