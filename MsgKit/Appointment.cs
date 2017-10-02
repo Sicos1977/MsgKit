@@ -67,10 +67,17 @@ namespace MsgKit
         ///     The end of the meeting
         /// </summary>
         public DateTime MeetingEnd { get; set; }
-        #endregion
 
+        /// <summary>
+        ///     The compressed RTF body part
+        /// </summary>
         public string BodyRtf { get; set; }
+
+        /// <summary>
+        ///     Returns or set to <c>true</c> when <see cref="BodyRtf"/> is compressed
+        /// </summary>
         public bool BodyRtfCompressed { get; set; }
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -224,23 +231,13 @@ namespace MsgKit
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
 
-            if (BodyRtfCompressed)
+            if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
             {
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RTFCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
                 propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
             }
 
-            var nps = new NamedProperties(propertiesStream); //Uses the top level properties. 
-            nps.AddProperty(NamedPropertyTags.PidLidLocation, Location);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
-            nps.AddProperty(NamedPropertyTags.PidLidMeetingType, 0x00000001);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, 1);
-
-            nps.WriteProperties(rootStorage);
             namedProperties.WriteProperties(rootStorage);
-
             propertiesStream.WriteProperties(rootStorage, messageSize);
         }
         #endregion

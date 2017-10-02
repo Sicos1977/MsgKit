@@ -1,4 +1,30 @@
-﻿using System;
+﻿//
+// RtfCompressor.cs
+//
+// Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
+//
+// Copyright (c) 2015-2017 Magic-Sessions. (www.magic-sessions.com)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+
+using System;
 using System.IO;
 using System.Text;
 
@@ -8,7 +34,7 @@ namespace MsgKit.Helpers
     /// Used to compress RTF using LZFu by Microsoft.  Can be viewed in the [MS-OXRTFCP].pdf document. 
     /// https://msdn.microsoft.com/en-us/library/cc463890(v=exchg.80).aspx
     /// </summary>
-    internal static class RTFCompressor
+    internal static class RtfCompressor
     {
         #region CompressionPosition Class
         /// <summary>
@@ -22,12 +48,14 @@ namespace MsgKit.Helpers
         }
         #endregion
 
-        #region Fields
-        public const int INIT_DICT_SIZE = 207;
-        public const int MAX_DICT_SIZE = 4096;
-        public const string COMP_TYPE = "LZFu";
+        #region Consts
+        private const int InitDictSize = 207;
+        private const int MaxDictSize = 4096;
+        private const string CompType = "LZFu";
+        #endregion
 
-        static byte[] InitialDictionary;
+        #region Fields
+        private static byte[] _initialDictionary;
         #endregion
 
         #region FindLongestMatch
@@ -38,9 +66,8 @@ namespace MsgKit.Helpers
         /// <param name="streamReader">BinaryReader which is pointing at the input data. </param>
         /// <param name="writeOffset">Write offset</param>
         /// <returns> CompressionPositions class containing DictionaryOffset, LongestMatchLength, WriteOffset</returns>
-        static internal CompressionPositions FindLongestMatch(byte[] initialDictionary, BinaryReader streamReader, int writeOffset)
+        internal static CompressionPositions FindLongestMatch(byte[] initialDictionary, BinaryReader streamReader, int writeOffset)
         {
-            var chardict = Encoding.UTF8.GetString(initialDictionary).ToCharArray();
             var readCharacter = streamReader.Read();
             var positionData = new CompressionPositions() { WriteOffset = writeOffset };
             if (readCharacter == -1)
@@ -58,7 +85,7 @@ namespace MsgKit.Helpers
                     {
                         positionData.DictionaryOffset = dictionaryIndex - matchLength + 1;
                         initialDictionary[positionData.WriteOffset] = Convert.ToByte(readCharacter);
-                        positionData.WriteOffset = (positionData.WriteOffset + 1) % MAX_DICT_SIZE;
+                        positionData.WriteOffset = (positionData.WriteOffset + 1) % MaxDictSize;
                         positionData.LongestMatchLength = matchLength;
                     }
 
@@ -91,7 +118,7 @@ namespace MsgKit.Helpers
         /// </summary>
         /// <param name="data">Byte array containing data to be compressed.</param>
         /// <returns>Byte array containing the data that is compressed.</returns>
-        static internal byte[] Compress(byte[] data)
+        internal static byte[] Compress(byte[] data)
         {
             var builder = new StringBuilder();
             builder.Append(@"{\rtf1\ansi\mac\deff0\deftab720{\fonttbl;}");
@@ -99,29 +126,27 @@ namespace MsgKit.Helpers
             builder.Append(@"\fdecor MS Sans SerifSymbolArialTimes New RomanCourier{\colortbl\red0\green0\blue0");
             builder.Append("\r\n");
             builder.Append(@"\par \pard\plain\f0\fs20\b\i\u\tab\tx");
-            InitialDictionary = Encoding.UTF8.GetBytes(builder.ToString());
-            Array.Resize(ref InitialDictionary, MAX_DICT_SIZE);
+            _initialDictionary = Encoding.UTF8.GetBytes(builder.ToString());
+            Array.Resize(ref _initialDictionary, MaxDictSize);
 
-            var positionData = new CompressionPositions() { WriteOffset = INIT_DICT_SIZE };
+            var positionData = new CompressionPositions() { WriteOffset = InitDictSize };
             var inStream = new MemoryStream(data);
             var binaryReader = new BinaryReader(inStream);
             var controlByte = 0;
             var controlBit = 1;
             var tokenOffset = 0;
 
-            using (MemoryStream outStream = new MemoryStream())
-            using (MemoryStream tokenStream = new MemoryStream())
+            using (var outStream = new MemoryStream())
+            using (var tokenStream = new MemoryStream())
             {
                 while (true)
                 {
-                    var dictReference = 0;
-                    positionData = FindLongestMatch(InitialDictionary, binaryReader, positionData.WriteOffset);
-                    byte[] readChar;
+                    int dictReference;
+                    positionData = FindLongestMatch(_initialDictionary, binaryReader, positionData.WriteOffset);
 
                     if (binaryReader.PeekChar() < 0)
                     {
                         controlByte |= 1 << controlBit - 1;
-                        controlBit++;
                         tokenOffset += 2;
                         dictReference = (positionData.WriteOffset & 0xFFF) << 4;
                         var bytes = BitConverter.GetBytes((ushort)dictReference);
@@ -132,7 +157,7 @@ namespace MsgKit.Helpers
                         break;
                     }
 
-                    readChar = binaryReader.ReadBytes(positionData.LongestMatchLength > 1 ? positionData.LongestMatchLength : 1);
+                    var readChar = binaryReader.ReadBytes(positionData.LongestMatchLength > 1 ? positionData.LongestMatchLength : 1);
                     if (positionData.LongestMatchLength > 1)
                     {
                         controlByte |= 1 << controlBit - 1;
@@ -147,8 +172,8 @@ namespace MsgKit.Helpers
                     {
                         if (positionData.LongestMatchLength == 0)
                         {
-                            InitialDictionary[positionData.WriteOffset] = Convert.ToByte(readChar[0]);
-                            positionData.WriteOffset = (positionData.WriteOffset + 1) % MAX_DICT_SIZE;
+                            _initialDictionary[positionData.WriteOffset] = Convert.ToByte(readChar[0]);
+                            positionData.WriteOffset = (positionData.WriteOffset + 1) % MaxDictSize;
                         }
                         controlByte |= 0 << controlBit - 1;
                         controlBit++;
@@ -157,6 +182,7 @@ namespace MsgKit.Helpers
                     }
 
                     positionData.LongestMatchLength = 0;
+
                     if (controlBit > 8)
                     {
                         outStream.WriteByte((byte)controlByte);
@@ -176,7 +202,7 @@ namespace MsgKit.Helpers
                 {
                     resultStream.Write(BitConverter.GetBytes(compSize), 0, BitConverter.GetBytes(compSize).Length);
                     resultStream.Write(BitConverter.GetBytes(rawSize), 0, BitConverter.GetBytes(rawSize).Length);
-                    resultStream.Write(Encoding.UTF8.GetBytes(COMP_TYPE), 0, Encoding.UTF8.GetBytes(COMP_TYPE).Length);
+                    resultStream.Write(Encoding.UTF8.GetBytes(CompType), 0, Encoding.UTF8.GetBytes(CompType).Length);
                     resultStream.Write(BitConverter.GetBytes(crcValue), 0, BitConverter.GetBytes(crcValue).Length);
                     resultStream.Write(outStream.ToArray(), 0, outStream.ToArray().Length);
                     return resultStream.ToArray();
