@@ -67,10 +67,19 @@ namespace MsgKit
         ///     The end of the meeting
         /// </summary>
         public DateTime MeetingEnd { get; set; }
+
+        /// <summary>
+        /// Contains the body RTF String.
+        /// </summary>
+        public string BodyRtf { get; set; }
+        /// <summary>
+        /// Determines if this is compressed.
+        /// </summary>
+        public bool BodyRtfCompressed { get; set; }
+
         #endregion
 
-        public string BodyRtf { get; set; }
-        public bool BodyRtfCompressed { get; set; }
+
 
         #region Constructors
         /// <summary>
@@ -216,6 +225,13 @@ namespace MsgKit
 
             propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
             
+
+            if (BodyRtfCompressed)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RTFCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
+            }
+
             var namedProperties = new NamedProperties(propertiesStream); //Uses the top level properties. 
             namedProperties.AddProperty(NamedPropertyTags.PidLidLocation, Location);
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
@@ -224,21 +240,6 @@ namespace MsgKit
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
 
-            if (BodyRtfCompressed)
-            {
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RTFCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
-            }
-
-            var nps = new NamedProperties(propertiesStream); //Uses the top level properties. 
-            nps.AddProperty(NamedPropertyTags.PidLidLocation, Location);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
-            nps.AddProperty(NamedPropertyTags.PidLidMeetingType, 0x00000001);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
-            nps.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, 1);
-
-            nps.WriteProperties(rootStorage);
             namedProperties.WriteProperties(rootStorage);
 
             propertiesStream.WriteProperties(rootStorage, messageSize);

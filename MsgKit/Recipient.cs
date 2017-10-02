@@ -45,15 +45,22 @@ namespace MsgKit
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
+        /// <param name="objectType"><see cref="MapiObjectType"/></param>
+        /// <param name="displayType"><see cref="RecipientRowDisplayType"/></param>
         public void AddTo(string email, 
                                    string displayName = "",
-                                   AddressType addressType = AddressType.Smtp)
+                                   AddressType addressType = AddressType.Smtp, 
+                                   MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
+                                   RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
                               addressType,
-                              RecipientType.To));
+                              RecipientType.To,
+                              objectType,
+                              displayType
+                              ));
         }
 
         /// <summary>
@@ -62,15 +69,21 @@ namespace MsgKit
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
+        /// <param name="objectType"><see cref="MapiObjectType"/></param>
+        /// <param name="displayType"><see cref="RecipientRowDisplayType"/></param>
         public void AddCc(string email, 
                           string displayName = "",
-                          AddressType addressType = AddressType.Smtp)
+                          AddressType addressType = AddressType.Smtp,
+                          MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
+                          RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
                               addressType,
-                              RecipientType.Cc));
+                              RecipientType.Cc,
+                              objectType,
+                              displayType));
         }
 
         /// <summary>
@@ -79,15 +92,21 @@ namespace MsgKit
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
+        /// <param name="objectType"><see cref="MapiObjectType"/></param>
+        /// <param name="displayType"><see cref="RecipientRowDisplayType"/></param>
         public void AddBcc(string email, 
                            string displayName = "",
-                           AddressType addressType = AddressType.Smtp)
+                           AddressType addressType = AddressType.Smtp,
+                          MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
+                          RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
                               addressType,
-                              RecipientType.Bcc));
+                              RecipientType.Bcc,
+                              objectType,
+                              displayType));
         }
 
         /// <summary>
@@ -97,16 +116,22 @@ namespace MsgKit
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
         /// <param name="recipientType">The <see cref="RecipientType"/></param>
+        /// <param name="objectType">see <cref="MapiObjectType"/></param>
+        /// <param name="displayType">see <cref="RecipientRowDisplayType"/></param>
         public void AddRecipient(string email,
                                  string displayName, 
                                  AddressType addressType,
-                                 RecipientType recipientType)
+                                 RecipientType recipientType,
+                                 MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
+                                 RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
         {
             Add(new Recipient(Count,
                               email,
                               displayName,
                               addressType,
-                              recipientType));
+                              recipientType,
+                              objectType,
+                              displayType));
         }
         #endregion
 
@@ -155,6 +180,15 @@ namespace MsgKit
         ///     The <see cref="RecipientFlags"/>
         /// </summary>
         public RecipientFlags Flags { get; private set; }
+
+        /// <summary>
+        /// Contains the type of email object. 
+        /// </summary>
+        public MapiObjectType ObjectType { get; private set; }
+        /// <summary>
+        /// Contains the display type. 
+        /// </summary>
+        public RecipientRowDisplayType DisplayType { get; private set; }
         #endregion
 
         #region Constructor
@@ -166,17 +200,23 @@ namespace MsgKit
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="recipientType">The <see cref="RecipientType"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
+        /// <param name="objectType"><see cref="MapiObjectType"/></param>
+        /// <param name="displayType"><see cref="RecipientRowDisplayType"/></param>
         internal Recipient(long rowId,
                            string email, 
                            string displayName,
                            AddressType addressType,
-                           RecipientType recipientType) : base(email, displayName, addressType)
+                           RecipientType recipientType,
+                           MapiObjectType objectType,
+                           RecipientRowDisplayType displayType) : base(email, displayName, addressType)
         {
             RowId = rowId;
             Email = email;
             DisplayName = string.IsNullOrWhiteSpace(displayName) ? email : displayName;
             AddressType = addressType;
             RecipientType = recipientType;
+            DisplayType = displayType;
+            ObjectType = objectType;
         }
         #endregion
 
@@ -203,6 +243,8 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_RECIPIENT_TYPE, RecipientType);
             propertiesStream.AddProperty(PropertyTags.PR_ADDRTYPE_W, AddressTypeString);
             propertiesStream.AddProperty(PropertyTags.PR_EMAIL_ADDRESS_W, Email);
+            propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, ObjectType);
+            propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TYPE, DisplayType);
             propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, DisplayName);
             propertiesStream.AddProperty(PropertyTags.PR_SEARCH_KEY, Mapi.GenerateSearchKey(AddressTypeString, Email));
             return propertiesStream.WriteProperties(storage);
