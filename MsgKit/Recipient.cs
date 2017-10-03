@@ -116,8 +116,8 @@ namespace MsgKit
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
         /// <param name="addressType">The <see cref="AddressType"/></param>
         /// <param name="recipientType">The <see cref="RecipientType"/></param>
-        /// <param name="objectType">see <cref="MapiObjectType"/></param>
-        /// <param name="displayType">see <cref="RecipientRowDisplayType"/></param>
+        /// <param name="objectType"><see cref="MapiObjectType"/></param>
+        /// <param name="displayType"><see cref="RecipientRowDisplayType"/></param>
         public void AddRecipient(string email,
                                  string displayName, 
                                  AddressType addressType,

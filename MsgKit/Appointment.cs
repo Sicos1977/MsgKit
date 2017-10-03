@@ -76,10 +76,6 @@ namespace MsgKit
         /// <summary>
         ///     Returns or set to <c>true</c> when <see cref="BodyRtf"/> is compressed
         /// </summary>
-        public string BodyRtf { get; set; }
-        /// <summary>
-        /// Determines if this is compressed.
-        /// </summary>
         public bool BodyRtfCompressed { get; set; }
         #endregion
 

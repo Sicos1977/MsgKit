@@ -79,7 +79,7 @@ namespace MsgKit.Helpers
 
             while (true)
             {
-                if (initialDictionary[dictionaryIndex % MAX_DICT_SIZE] == readCharacter)
+                if (initialDictionary[dictionaryIndex % MaxDictSize] == readCharacter)
                 {
                     if (++matchLength <= 17 && matchLength > positionData.LongestMatchLength)
                     {
