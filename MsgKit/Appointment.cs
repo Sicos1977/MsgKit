@@ -69,15 +69,27 @@ namespace MsgKit
         public DateTime MeetingEnd { get; set; }
 
         /// <summary>
+<<<<<<< HEAD
         ///     The compressed RTF body part
         /// </summary>
         public string BodyRtf { get; set; }
 
         /// <summary>
         ///     Returns or set to <c>true</c> when <see cref="BodyRtf"/> is compressed
+=======
+        /// Contains the body RTF String.
+        /// </summary>
+        public string BodyRtf { get; set; }
+        /// <summary>
+        /// Determines if this is compressed.
+>>>>>>> f8b84377b2dbdc971c6278a784cfa586286e62fc
         /// </summary>
         public bool BodyRtfCompressed { get; set; }
         #endregion
+
+        #endregion
+
+
 
         #region Constructors
         /// <summary>
@@ -223,6 +235,15 @@ namespace MsgKit
 
             propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
             
+
+            if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
+            }
+
+<<<<<<< HEAD
+=======
             var namedProperties = new NamedProperties(propertiesStream); //Uses the top level properties. 
             namedProperties.AddProperty(NamedPropertyTags.PidLidLocation, Location);
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
@@ -231,12 +252,7 @@ namespace MsgKit
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
             namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
 
-            if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
-            {
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
-            }
-
+>>>>>>> f8b84377b2dbdc971c6278a784cfa586286e62fc
             namedProperties.WriteProperties(rootStorage);
             propertiesStream.WriteProperties(rootStorage, messageSize);
         }
