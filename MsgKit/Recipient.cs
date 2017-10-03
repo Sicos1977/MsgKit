@@ -185,6 +185,7 @@ namespace MsgKit
         /// Contains the type of email object. 
         /// </summary>
         public MapiObjectType ObjectType { get; private set; }
+
         /// <summary>
         /// Contains the display type. 
         /// </summary>
