@@ -45,6 +45,8 @@ namespace MsgKitTestTool
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
+                //email.BodyRtf = "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + HtmlBodyTextBox.Text + "}";
+                email.BodyRtfCompressed = true;
 
                 switch (ImportanceComboBox.Text)
                 {

@@ -375,8 +375,6 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
             propertiesStream.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
-            // "{\rtf1\ansi\ansicpg1252\fromhtml " + YourHTML + "}"
-            // Prefix the opening tag with \*\htmltag0 and the closing tag with \*\htmltag8.
             if (Sender != null) Sender.WriteProperties(propertiesStream);
             if (Receiving != null) Receiving.WriteProperties(propertiesStream);
             if (Representing != null) Representing.WriteProperties(propertiesStream);
@@ -428,6 +426,18 @@ namespace MsgKit
             if (!string.IsNullOrEmpty(BodyHtml))
             {
                 propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
+            }
+
+            if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
+            {
+                BodyRtf = "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + BodyHtml + "}";
+                BodyRtfCompressed = true;
+            }
+
+            if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
             }
 
             propertiesStream.WriteProperties(rootStorage, messageSize);
