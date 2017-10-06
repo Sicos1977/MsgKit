@@ -428,6 +428,7 @@ namespace MsgKit
                 propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
             }
 
+            // This is experimental code
             if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
                 BodyRtf = "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + BodyHtml + "}";
