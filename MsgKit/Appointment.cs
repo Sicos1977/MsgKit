@@ -67,16 +67,6 @@ namespace MsgKit
         ///     The end of the meeting
         /// </summary>
         public DateTime MeetingEnd { get; set; }
-
-        /// <summary>
-        ///     The compressed RTF body part
-        /// </summary>
-        public string BodyRtf { get; set; }
-
-        /// <summary>
-        ///     Returns or set to <c>true</c> when <see cref="BodyRtf"/> is compressed
-        /// </summary>
-        public bool BodyRtfCompressed { get; set; }
         #endregion
 
         #region Constructors

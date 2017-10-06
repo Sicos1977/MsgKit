@@ -155,6 +155,16 @@ namespace MsgKit
         ///     Returns or sets the html body of the E-mail
         /// </summary>
         public string BodyHtml { get; set; }
+        
+        /// <summary>
+        ///     The compressed RTF body part
+        /// </summary>
+        public string BodyRtf { get; set; }
+
+        /// <summary>
+        ///     Returns or set to <c>true</c> when <see cref="BodyRtf"/> is compressed
+        /// </summary>
+        public bool BodyRtfCompressed { get; set; }
 
         /// <summary>
         ///     The E-mail <see cref="Attachments" />
@@ -365,6 +375,8 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
             propertiesStream.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
+            // "{\rtf1\ansi\ansicpg1252\fromhtml " + YourHTML + "}"
+            // Prefix the opening tag with \*\htmltag0 and the closing tag with \*\htmltag8.
             if (Sender != null) Sender.WriteProperties(propertiesStream);
             if (Receiving != null) Receiving.WriteProperties(propertiesStream);
             if (Representing != null) Representing.WriteProperties(propertiesStream);
