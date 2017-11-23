@@ -44,7 +44,6 @@ namespace MsgKitTestTool
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
-                email.InternetMessageId = "<5a162525cd025_431564e5644ac1472368@wink7.mail>";
 
                 switch (ImportanceComboBox.Text)
                 {
@@ -63,7 +62,7 @@ namespace MsgKitTestTool
 
                 email.IconIndex = MessageIconIndex.UnsentMail;
                 email.Attachments.Add("Images\\peterpan.jpg");
-                email.Attachments.Add("Images\\tinkerbell.jpg");
+                email.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
                 //email.Attachments.Add(@"c:\naamloos.msg");
                 email.Save("d:\\test.msg");
             }
