@@ -117,7 +117,8 @@ namespace MsgKit
             AddressType addressType = AddressType.Smtp)
         {
             Email = email;
-            DisplayName = displayName;
+            DisplayName = string.IsNullOrWhiteSpace(displayName) ? email : displayName;
+
             AddressType = addressType;
         }
         #endregion

@@ -349,7 +349,7 @@ namespace MsgKit
             if (!SentOn.HasValue)
                 SentOn = DateTime.UtcNow;
 
-            propertiesStream.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn);
+            propertiesStream.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
             propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
             propertiesStream.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
             propertiesStream.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
@@ -431,13 +431,34 @@ namespace MsgKit
             // This is experimental code
             if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
-                BodyRtf = "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + BodyHtml + "}";
+                // Convert Unicode string to RTF according to specification
+                var rtfEscaped = new StringBuilder(BodyHtml.Length * 5);
+                var escapedChars = new int[] {'{', '}', '\\'};
+                foreach (var @char in BodyHtml)
+                {
+                    var intChar = Convert.ToInt32(@char);
+                    if (intChar <= 127)
+                    {
+                        if (escapedChars.Contains(intChar))
+                            rtfEscaped.Append('\\');
+                        rtfEscaped.Append(@char);
+                    }
+                    else
+                    {
+                        rtfEscaped.Append("\\u");
+                        rtfEscaped.Append(intChar);
+                        rtfEscaped.Append('?');
+                    }
+                }
+
+                BodyRtf = "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + rtfEscaped + "}";
                 BodyRtfCompressed = true;
             }
 
             if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
             {
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED,
+                    RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
                 propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
             }
 

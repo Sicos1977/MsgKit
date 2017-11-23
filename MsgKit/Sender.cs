@@ -47,7 +47,11 @@ namespace MsgKit
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email" /></param>
         /// <param name="addressType">The <see cref="Address.AddressType" /></param>
-        public Sender(string email, string displayName, AddressType addressType = AddressType.Smtp)
+        /// <param name="senderIsCreator">Set to <c>true</c> when the sender is also the creator of the message (default <c>true</c>)</param>
+        public Sender(string email, 
+                      string displayName, 
+                      AddressType addressType = AddressType.Smtp, 
+                      bool senderIsCreator = true)
             : base(email, displayName, addressType)
         {
         }
@@ -65,6 +69,13 @@ namespace MsgKit
         /// <param name="propertiesStream">The <see cref="TopLevelProperties"/></param>
         internal void WriteProperties(TopLevelProperties propertiesStream)
         {
+            propertiesStream.AddProperty(PropertyTags.PR_CreatorEmailAddr_W, Email);
+            propertiesStream.AddProperty(PropertyTags.PR_CreatorSimpleDispName_W, DisplayName);
+            propertiesStream.AddProperty(PropertyTags.PR_CreatorAddrType_W, AddressTypeString);
+
+            // TODO : Calculate sender entry id structure
+            propertiesStream.AddProperty(PropertyTags.PR_SENDER_ENTRYID, "");
+
             propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, DisplayName);
             propertiesStream.AddProperty(PropertyTags.PR_SENDER_ADDRTYPE_W, AddressTypeString);

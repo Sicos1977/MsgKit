@@ -34,17 +34,17 @@ namespace MsgKitTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             using (var email = new Email(
-                new Sender("peterpan@neverland.com", "Peter Pan"),
-                new Representing("tinkerbell@neverland.com", "Tinkerbell"),
-                "Hello Neverland subject", DraftMessageCheckBox.Checked))
+                new Sender(SenderTextBox.Text, "Kees"),
+                SubjectTextBox.Text, DraftMessageCheckBox.Checked))
             {
-                email.Recipients.AddTo("", "Kees");
-                email.Recipients.AddCc(ToTextBox.Text);
+                email.Recipients.AddTo(ToTextBox.Text);
+                email.Recipients.AddCc(CcTextBox.Text);
                 email.Recipients.AddBcc(BccTextBox.Text);
                 email.Subject = SubjectTextBox.Text;
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
+                email.InternetMessageId = "<5a162525cd025_431564e5644ac1472368@wink7.mail>";
 
                 switch (ImportanceComboBox.Text)
                 {
@@ -65,9 +65,9 @@ namespace MsgKitTestTool
                 email.Attachments.Add("Images\\peterpan.jpg");
                 email.Attachments.Add("Images\\tinkerbell.jpg");
                 //email.Attachments.Add(@"c:\naamloos.msg");
-                email.Save("test.msg");
+                email.Save("d:\\test.msg");
             }
-            System.Diagnostics.Process.Start("test.msg");
+            System.Diagnostics.Process.Start("d:\\test.msg");
         }
 
         private void Eml2MsgButton_Click(object sender, EventArgs e)

@@ -1039,7 +1039,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Contains the e-mail address of the sender of the first version of a messagE, that is, the message before being
+        ///     Contains the e-mail address of the sender of the first version of a message, that is, the message before being
         ///     forwarded or replied to. UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_ORIGINAL_SENDER_EMAIL_ADDRESS_W
@@ -1048,7 +1048,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Contains the e-mail address of the sender of the first version of a messagE, that is, the message before being
+        ///     Contains the e-mail address of the sender of the first version of a message, that is, the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_ORIGINAL_SENDER_EMAIL_ADDRESS_A
@@ -4418,6 +4418,38 @@ namespace MsgKit
         internal static PropertyTag PR_INTERNET_CPID
         {
             get { return new PropertyTag(0x3FDE, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     The creators address type
+        /// </summary>
+        internal static PropertyTag PR_CreatorAddrType_W
+        {
+            get { return new PropertyTag(0x4022, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     The creators e-mail address
+        /// </summary>
+        internal static PropertyTag PR_CreatorEmailAddr_W
+        {
+            get { return new PropertyTag(0x4023, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     The creators display name
+        /// </summary>
+        internal static PropertyTag PR_CreatorSimpleDispName_W
+        {
+            get { return new PropertyTag(0x4038, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     The senders display name
+        /// </summary>
+        internal static PropertyTag PR_SenderSimpleDispName_W
+        {
+            get { return new PropertyTag(0x4030, PropertyType.PT_UNICODE); }
         }
     }
 
