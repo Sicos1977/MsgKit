@@ -131,9 +131,9 @@ namespace MsgKit.Helpers
         /// <param name="str">The string to write</param>
         public static void WriteNullTerminatedUnicodeString(BinaryWriter binaryWriter, string str)
         {
-            binaryWriter.Write(str);
-            binaryWriter.Write(0x00);
-            binaryWriter.Write(0x00);
+            var bytes = Encoding.Unicode.GetBytes(str);
+            binaryWriter.Write(bytes);
+            binaryWriter.Write(new byte[2]);
         }
         #endregion
     }

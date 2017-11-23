@@ -24,8 +24,10 @@
 // THE SOFTWARE.
 //
 
+using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using MsgKit.Enums;
 using MsgKit.Helpers;
 
@@ -63,8 +65,7 @@ namespace MsgKit.Structures
                 binaryWriter.Write(new byte[] {0x81, 0x2B, 0x1F, 0xA4, 0xBE, 0xA3, 0x10, 0x19, 0x9D, 0x6E, 0x00, 0xDD, 0x01, 0x0F, 0x54, 0x02});
                 // Version (2 bytes): This value is set to 0x0000.
                 binaryWriter.Write(new byte[2]);
-                var bits = new byte[2];
-                var bitArray = new BitArray(bits);
+                var bitArray = new BitArray(new byte[2]);
                 // Pad(1 bit): (mask 0x8000) Reserved.This value is set to '0'.
                 bitArray.Set(0, false);
                 // MAE (2 bits): (mask 0x0C00) The encoding used for Macintosh-specific data attachments, as specified in 
@@ -108,7 +109,16 @@ namespace MsgKit.Structures
                 bitArray.Set(13, false);
                 bitArray.Set(14, false);
                 bitArray.Set(15, false);
-                binaryWriter.Write(bits);
+                var bits = new byte[2];
+                bitArray.CopyTo(bits, 0);
+
+                if (BitConverter.IsLittleEndian)
+                {
+                    bits = bits.Reverse().ToArray();
+                    binaryWriter.Write(bits);
+                }
+                else
+                    binaryWriter.Write(bits);
 
                 Strings.WriteNullTerminatedUnicodeString(binaryWriter, DisplayName);
                 Strings.WriteNullTerminatedUnicodeString(binaryWriter, AddressTypeString);
