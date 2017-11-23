@@ -40,6 +40,10 @@ namespace MsgKit
     /// </remarks>
     public class Sender : Address
     {
+        #region Fields
+        private readonly bool _senderIsCreator;
+        #endregion
+
         #region Constructor
         /// <summary>
         ///     Creates this object and sets all it's needed properties
@@ -54,6 +58,7 @@ namespace MsgKit
                       bool senderIsCreator = true)
             : base(email, displayName, addressType)
         {
+            _senderIsCreator = senderIsCreator;
         }
         #endregion
 
@@ -69,12 +74,16 @@ namespace MsgKit
         /// <param name="propertiesStream">The <see cref="TopLevelProperties"/></param>
         internal void WriteProperties(TopLevelProperties propertiesStream)
         {
-            propertiesStream.AddProperty(PropertyTags.PR_CreatorEmailAddr_W, Email);
-            propertiesStream.AddProperty(PropertyTags.PR_CreatorSimpleDispName_W, DisplayName);
-            propertiesStream.AddProperty(PropertyTags.PR_CreatorAddrType_W, AddressTypeString);
+            if (_senderIsCreator)
+            {
+                propertiesStream.AddProperty(PropertyTags.PR_CreatorEmailAddr_W, Email);
+                propertiesStream.AddProperty(PropertyTags.PR_CreatorSimpleDispName_W, DisplayName);
+                propertiesStream.AddProperty(PropertyTags.PR_CreatorAddrType_W, AddressTypeString);
+            }
 
-            // TODO : Calculate sender entry id structure
-            propertiesStream.AddProperty(PropertyTags.PR_SENDER_ENTRYID, "");
+            var senderEntryId = new OneOffEntryId(Email, DisplayName, AddressType);
+
+            propertiesStream.AddProperty(PropertyTags.PR_SENDER_ENTRYID, senderEntryId.ToByteArray());
 
             propertiesStream.AddProperty(PropertyTags.PR_SENDER_EMAIL_ADDRESS_W, Email);
             propertiesStream.AddProperty(PropertyTags.PR_SENDER_NAME_W, DisplayName);

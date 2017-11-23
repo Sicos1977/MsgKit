@@ -41,7 +41,7 @@ namespace MsgKit.Helpers
         /// <param name="binaryReader"></param>
         /// <param name="unicode"></param>
         /// <returns></returns>
-        public static string ReadNullTerminatedString(BinaryReader binaryReader, bool unicode)
+        public static string ReadNullTerminatedString(BinaryReader binaryReader, bool unicode = true)
         {
             return unicode ? ReadNullTerminatedUnicodeString(binaryReader) : ReadNullTerminatedAsciiString(binaryReader);
         }
@@ -87,6 +87,53 @@ namespace MsgKit.Helpers
             }
 
             return Encoding.Unicode.GetString(result.ToArray());
+        }
+        #endregion
+
+        #region WriteNullTerminatedString
+        /// <summary>
+        ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
+        /// </summary>
+        /// <param name="binaryWriter"></param>
+        /// <param name="str">The string to write</param>
+        /// <param name="unicode"></param>
+        public static void WriteNullTerminatedString(BinaryWriter binaryWriter, 
+                                                     string str,
+                                                     bool unicode = true)
+        {
+            if (unicode)
+                WriteNullTerminatedUnicodeString(binaryWriter, str);
+            else
+                WriteNullTerminatedAsciiString(binaryWriter, str);
+        }
+        #endregion
+
+        #region WriteNullTerminatedString
+        /// <summary>
+        ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
+        /// </summary>
+        /// <param name="binaryWriter"></param>
+        /// <param name="str">The string to write</param>
+        public static void WriteNullTerminatedAsciiString(BinaryWriter binaryWriter, string str)
+        {
+            var unicode = Encoding.Unicode.GetBytes(str);
+            var ascii = Encoding.ASCII.GetString(unicode);
+            binaryWriter.Write(ascii);
+            binaryWriter.Write(0x00);
+        }
+        #endregion
+
+        #region WriteNullTerminatedUnicodeString
+        /// <summary>
+        ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
+        /// </summary>
+        /// <param name="binaryWriter"></param>
+        /// <param name="str">The string to write</param>
+        public static void WriteNullTerminatedUnicodeString(BinaryWriter binaryWriter, string str)
+        {
+            binaryWriter.Write(str);
+            binaryWriter.Write(0x00);
+            binaryWriter.Write(0x00);
         }
         #endregion
     }

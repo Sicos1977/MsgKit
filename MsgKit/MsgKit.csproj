@@ -109,6 +109,7 @@
     <Compile Include="Enums\PropertyFlags.cs" />
     <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="Structures\NamedProperty.cs" />
+    <Compile Include="Structures\OneOffEntryId.cs" />
     <Compile Include="Structures\RecipientRow.cs" />
     <Compile Include="PropertyTags.cs" />
     <Compile Include="Sender.cs" />

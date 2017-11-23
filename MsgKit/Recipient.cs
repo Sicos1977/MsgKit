@@ -48,10 +48,10 @@ namespace MsgKit
         /// <param name="objectType"><see cref="MapiObjectType"/></param>
         /// <param name="displayType"><see cref="RecipientRowDisplayType"/></param>
         public void AddTo(string email, 
-                                   string displayName = "",
-                                   AddressType addressType = AddressType.Smtp, 
-                                   MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
-                                   RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
+                          string displayName = "",
+                          AddressType addressType = AddressType.Smtp, 
+                          MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
+                          RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
         {
             Add(new Recipient(Count,
                               email,
@@ -97,8 +97,8 @@ namespace MsgKit
         public void AddBcc(string email, 
                            string displayName = "",
                            AddressType addressType = AddressType.Smtp,
-                          MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
-                          RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
+                           MapiObjectType objectType = MapiObjectType.MAPI_MAILUSER,
+                           RecipientRowDisplayType displayType = RecipientRowDisplayType.MessagingUser)
         {
             Add(new Recipient(Count,
                               email,
@@ -179,6 +179,7 @@ namespace MsgKit
         /// <summary>
         ///     The <see cref="RecipientFlags"/>
         /// </summary>
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         public RecipientFlags Flags { get; private set; }
 
         /// <summary>
