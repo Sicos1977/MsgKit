@@ -4451,6 +4451,38 @@ namespace MsgKit
         {
             get { return new PropertyTag(0x4030, PropertyType.PT_UNICODE); }
         }
+
+        /// <summary>
+        ///     Indicates the type of Message object to which this attachment is linked.
+        /// </summary>
+        /// <remarks>
+        ///     Must be 0, unless overridden by other protocols that extend the 
+        ///     Message and Attachment Object Protocol as noted in [MS-OXCMSG].
+        /// </remarks>
+        internal static PropertyTag PR_ATTACHMENT_LINKID
+        {
+            get { return new PropertyTag(0x7FFA, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Indicates special handling for this Attachment object.
+        /// </summary>
+        /// <remarks>
+        ///     Must be 0x00000000, unless overridden by other protocols that extend the Message 
+        ///     and Attachment Object Protocol as noted in [MS-OXCMSG]
+        /// </remarks>
+        internal static PropertyTag PR_ATTACHMENT_FLAGS
+        {
+            get { return new PropertyTag(0x7FFD, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Indicates whether an attachment is hidden from the end user.
+        /// </summary>
+        internal static PropertyTag PR_ATTACHMENT_HIDDEN
+        {
+            get { return new PropertyTag(0x7FFE, PropertyType.PT_BOOLEAN); }
+        }
     }
 
     /// <summary>

@@ -74,6 +74,7 @@
     <Compile Include="Enums\MessageIconIndex.cs" />
     <Compile Include="Enums\AddressType.cs" />
     <Compile Include="Enums\RecipientFlags.cs" />
+    <Compile Include="Exceptions\MKAttachment.cs" />
     <Compile Include="Exceptions\MKAttachmentExists.cs" />
     <Compile Include="Exceptions\MKPropertyNotFound.cs" />
     <Compile Include="Exceptions\MKInvalidProperty.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Helpers\Exception.cs" />
     <Compile Include="Helpers\FileManager.cs" />
     <Compile Include="Helpers\Mapi.cs" />
+    <Compile Include="Helpers\MimeType.cs" />
     <Compile Include="Helpers\RtfCompressor.cs" />
     <Compile Include="Helpers\Storage.cs" />
     <Compile Include="Helpers\Stream.cs" />

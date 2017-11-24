@@ -106,6 +106,9 @@ namespace MsgKit
                         bool isInline = false, 
                         string contentId = "")
         {
+            if (Count >= 2048)
+                throw new MKAttachment("To many attachments, an msg file can have a maximum of 2048 attachment");
+
             CheckAttachmentFileName(fileName, contentId);
             var file = new FileInfo(fileName);
             var stream = file.OpenRead();
@@ -146,6 +149,9 @@ namespace MsgKit
                         bool isInline = false, 
                         string contentId = "")
         {
+            if (Count >= 2048)
+                throw new MKAttachment("To many attachments, an msg file can have a maximum of 2048 attachment");
+
             if (stream == null)
                 throw new ArgumentNullException("stream");
 
@@ -379,11 +385,22 @@ namespace MsgKit
         internal long WriteProperties(CFStorage storage, int index)
         {
             var propertiesStream = new AttachmentProperties();
-            
+
+            // PR_ATTACHMENT_FLAGS
+            // PR_ATTACHMENT_HIDDEN
+            // PR_ATTACHMENT_LINKID
+            // PR_ATTACH_ENCODING
+            // PR_ATTACH_FLAGS
+            // PR_ATTACH_MIME_TAG_W
+            // PR_ATTACH_NUM-- > 1 ?
+            // PR_OBJECT_TYPE
+
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlags.PROPATTR_READABLE);
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_LINKID, 0);
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_FLAGS, 0x00000000);
 
             if (!string.IsNullOrEmpty(FileName))
             {
@@ -393,9 +410,9 @@ namespace MsgKit
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACH_EXTENSION_W, Path.GetExtension(FileName));
 
                 if (!string.IsNullOrEmpty(ContentId))
-                {
                     propertiesStream.AddProperty(PropertyTags.PR_ATTACH_CONTENT_ID_W, ContentId);
-                }
+
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_MIME_TAG_W, MimeTypes.GetMimeType(FileName));
             }
 
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_METHOD, Type);
@@ -429,6 +446,9 @@ namespace MsgKit
                     throw new NotSupportedException("AttachByReference, AttachByRefResolve, NoAttachment and AttachOle are not supported");
             }
             
+            if (IsInline)
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_HIDDEN, true);
+
             var utcNow = DateTime.UtcNow;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
             propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
