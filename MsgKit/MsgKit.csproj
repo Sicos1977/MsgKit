@@ -70,6 +70,7 @@
     <Compile Include="Enums\AttachmentType.cs" />
     <Compile Include="Enums\MapiAccess.cs" />
     <Compile Include="Enums\MapiObjectType.cs" />
+    <Compile Include="Enums\MessageFormat.cs" />
     <Compile Include="Enums\MessageIconIndex.cs" />
     <Compile Include="Enums\AddressType.cs" />
     <Compile Include="Enums\RecipientFlags.cs" />

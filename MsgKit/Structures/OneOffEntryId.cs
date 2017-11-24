@@ -34,18 +34,47 @@ using MsgKit.Helpers;
 namespace MsgKit.Structures
 {
     /// <summary>
-    ///     A One-Off EntryID structure specifies a set of data representing recipients 
-    ///     that do not exist in the directory. All information about a one-off recipient 
-    ///     is contained in the EntryID. 
+    ///     A One-Off EntryID structure specifies a set of data representing recipients
+    ///     that do not exist in the directory. All information about a one-off recipient
+    ///     is contained in the EntryID.
     /// </summary>
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/ee202811(v=exchg.80).aspx
     /// </remarks>
     internal class OneOffEntryId : Address
     {
-        public OneOffEntryId(string email, string displayName, AddressType addressType = AddressType.Smtp) : base(email, displayName, addressType)
+        #region Fields
+        /// <summary>
+        ///     <see cref="MessageFormat" />
+        /// </summary>
+        private readonly MessageFormat _messageFormat;
+
+        /// <summary>
+        ///     A flag that indicates whether the server can look up an address in the
+        ///     address book
+        /// </summary>
+        private readonly bool _canLookupEmailAddress;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        ///     Creates this object and sets all it's needed properties
+        /// </summary>
+        /// <param name="email">The full E-mail address</param>
+        /// <param name="displayName">The displayname for the <paramref name="email" /></param>
+        /// <param name="addressType">The <see cref="Address.AddressType" /></param>
+        /// <param name="messageFormat"><see cref="MessageFormat"/></param>
+        /// <param name="canLookupEmailAddress"></param>
+        public OneOffEntryId(string email,
+            string displayName,
+            AddressType addressType = AddressType.Smtp,
+            MessageFormat messageFormat = MessageFormat.TextAndHtml,
+            bool canLookupEmailAddress = false) : base(email, displayName, addressType)
         {
+            _messageFormat = messageFormat;
+            _canLookupEmailAddress = canLookupEmailAddress;
         }
+        #endregion
 
         #region ToByteArray
         /// <summary>
@@ -62,7 +91,8 @@ namespace MsgKit.Structures
                 binaryWriter.Write(new byte[4]);
                 // ProviderUID (16 bytes): The identifier of the provider that created the EntryID. This value is used to 
                 // route EntryIDs to the correct provider and MUST be set to %x81.2B.1F.A4.BE.A3.10.19.9D.6E.00.DD.01.0F.54.02.
-                binaryWriter.Write(new byte[] {0x81, 0x2B, 0x1F, 0xA4, 0xBE, 0xA3, 0x10, 0x19, 0x9D, 0x6E, 0x00, 0xDD, 0x01, 0x0F, 0x54, 0x02});
+                binaryWriter.Write(new byte[]
+                    {0x81, 0x2B, 0x1F, 0xA4, 0xBE, 0xA3, 0x10, 0x19, 0x9D, 0x6E, 0x00, 0xDD, 0x01, 0x0F, 0x54, 0x02});
                 // Version (2 bytes): This value is set to 0x0000.
                 binaryWriter.Write(new byte[2]);
                 var bitArray = new BitArray(new byte[2]);
@@ -85,10 +115,31 @@ namespace MsgKit.Structures
                 // TextOnly      0x0006       b'0011'       Send a plain text message body.
                 // HtmlOnly      0x000E       b'0111'       Send an HTML message body.
                 // TextAndHtml   0x0016       b'1011'       Send a multipart / alternative body with both plain text and HTML.
-                bitArray.Set(3, true);
-                bitArray.Set(4, false);
-                bitArray.Set(5, true);
-                bitArray.Set(6, true);
+
+                switch (_messageFormat)
+                {
+                    case MessageFormat.TextOnly:
+                        bitArray.Set(3, false);
+                        bitArray.Set(4, false);
+                        bitArray.Set(5, true);
+                        bitArray.Set(6, true);
+                        break;
+
+                    case MessageFormat.HtmlOnly:
+                        bitArray.Set(3, false);
+                        bitArray.Set(4, true);
+                        bitArray.Set(5, true);
+                        bitArray.Set(6, true);
+                        break;
+
+                    case MessageFormat.TextAndHtml:
+                        bitArray.Set(3, true);
+                        bitArray.Set(4, false);
+                        bitArray.Set(5, true);
+                        bitArray.Set(6, true);
+                        break;
+                }
+
                 // M (1 bit): (mask 0x0100) A flag that indicates how messages are to be sent. If b'0', indicates messages are 
                 // to be sent to the recipient (1) in Transport Neutral Encapsulation Format (TNEF) format; if b'1', messages 
                 // are sent to the recipient (1) in pure MIME format.
@@ -103,7 +154,7 @@ namespace MsgKit.Structures
                 // L (1 bit): (mask 0x0010) A flag that indicates whether the server can look up an address in the address 
                 // book. If b'1', server cannot look up this user's email address in the address book. If b'0', server can 
                 // look up this user's email address in the address book.
-                bitArray.Set(11, false);
+                bitArray.Set(11, _canLookupEmailAddress);
                 // Pad (4 bits): (mask 0x000F) Reserved. This value is set to b'0000'.
                 bitArray.Set(12, false);
                 bitArray.Set(13, false);
