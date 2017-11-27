@@ -399,8 +399,6 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlags.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_LINKID, 0);
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_FLAGS, 0x00000000);
 
             if (!string.IsNullOrEmpty(FileName))
             {

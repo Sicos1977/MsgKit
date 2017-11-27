@@ -428,30 +428,9 @@ namespace MsgKit
                 propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
             }
 
-            // This is experimental code
             if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
-                // Convert Unicode string to RTF according to specification
-                var rtfEscaped = new StringBuilder(BodyHtml.Length * 5);
-                var escapedChars = new int[] {'{', '}', '\\'};
-                foreach (var @char in BodyHtml)
-                {
-                    var intChar = Convert.ToInt32(@char);
-                    if (intChar <= 127)
-                    {
-                        if (escapedChars.Contains(intChar))
-                            rtfEscaped.Append('\\');
-                        rtfEscaped.Append(@char);
-                    }
-                    else
-                    {
-                        rtfEscaped.Append("\\u");
-                        rtfEscaped.Append(intChar);
-                        rtfEscaped.Append('?');
-                    }
-                }
-
-                BodyRtf = "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + rtfEscaped + "}";
+                BodyRtf = Strings.GetEscapedRtf(BodyHtml);
                 BodyRtfCompressed = true;
             }
 
