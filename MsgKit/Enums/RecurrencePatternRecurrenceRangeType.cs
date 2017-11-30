@@ -1,5 +1,5 @@
 ﻿//
-// MessageFormat.cs
+// RecurrencePatternRecurrenceRangeType.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -26,24 +26,7 @@
 
 namespace MsgKit.Enums
 {
-    /// <summary>
-    ///     The messageformat to use
-    /// </summary>
-    public enum MessageFormat
+    public enum RecurrencePatternRecurrenceRangeType
     {
-        /// <summary>
-        ///     Send a plain text message body.
-        /// </summary>
-        TextOnly,
-
-        /// <summary>
-        ///     Send an HTML message body.
-        /// </summary>
-        HtmlOnly,
-
-        /// <summary>
-        ///     Send a multipart / alternative body with both plain text and HTML.
-        /// </summary>
-        TextAndHtml
     }
 }

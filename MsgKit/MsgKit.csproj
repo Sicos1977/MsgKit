@@ -75,6 +75,13 @@
     <Compile Include="Enums\MessageIconIndex.cs" />
     <Compile Include="Enums\AddressType.cs" />
     <Compile Include="Enums\RecipientFlags.cs" />
+    <Compile Include="Enums\RecurrencePatternCalendarType.cs" />
+    <Compile Include="Enums\RecurrencePatternFirstDateTimeFrequency.cs" />
+    <Compile Include="Enums\RecurrencePatternFirstDOWDay.cs" />
+    <Compile Include="Enums\RecurrencePatternFrequency.cs" />
+    <Compile Include="Enums\RecurrencePatternPatternType.cs" />
+    <Compile Include="Enums\RecurrencePatternRecurFrequency.cs" />
+    <Compile Include="Enums\RecurrencePatternRecurrenceRangeType.cs" />
     <Compile Include="Enums\TaskAcceptanceState.cs" />
     <Compile Include="Enums\TaskHistory.cs" />
     <Compile Include="Enums\TaskMode.cs" />

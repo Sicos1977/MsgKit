@@ -1,5 +1,5 @@
 ﻿//
-// MessageFormat.cs
+// RecurrencePatternFirstDOWDay.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -27,23 +27,43 @@
 namespace MsgKit.Enums
 {
     /// <summary>
-    ///     The messageformat to use
+    /// An integer that specifies the day on which the calendar week begins. The default value is Sunday (0x00000000). This field MUST be set to one of the values listed in the following table.
     /// </summary>
-    public enum MessageFormat
+    public enum RecurrencePatternFirstDOWDay
     {
         /// <summary>
-        ///     Send a plain text message body.
+        /// Sunday
         /// </summary>
-        TextOnly,
+        Sunday = 0x00000000,
 
         /// <summary>
-        ///     Send an HTML message body.
+        /// Monday
         /// </summary>
-        HtmlOnly,
+        Monday = 0x00000001,
 
         /// <summary>
-        ///     Send a multipart / alternative body with both plain text and HTML.
+        /// Tuesday
         /// </summary>
-        TextAndHtml
+        Tuesday = 0x00000002,
+
+        /// <summary>
+        /// Wednesday
+        /// </summary>
+        Wednesday = 0x00000003,
+
+        /// <summary>
+        /// Thursday
+        /// </summary>
+        Thursday = 0x00000004,
+
+        /// <summary>
+        /// Friday
+        /// </summary>
+        Friday = 0x00000005,
+
+        /// <summary>
+        /// Saterday
+        /// </summary>
+        Saturday = 0x00000006
     }
 }
