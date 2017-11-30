@@ -75,6 +75,13 @@
     <Compile Include="Enums\MessageIconIndex.cs" />
     <Compile Include="Enums\AddressType.cs" />
     <Compile Include="Enums\RecipientFlags.cs" />
+    <Compile Include="Enums\TaskAcceptanceState.cs" />
+    <Compile Include="Enums\TaskHistory.cs" />
+    <Compile Include="Enums\TaskMode.cs" />
+    <Compile Include="Enums\TaskMultipleRecipients .cs" />
+    <Compile Include="Enums\TaskOwnership.cs" />
+    <Compile Include="Enums\TaskState.cs" />
+    <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Exceptions\MKAttachment.cs" />
     <Compile Include="Exceptions\MKAttachmentExists.cs" />
     <Compile Include="Exceptions\MKPropertyNotFound.cs" />
