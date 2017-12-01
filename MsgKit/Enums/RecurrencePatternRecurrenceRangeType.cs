@@ -26,6 +26,12 @@
 
 namespace MsgKit.Enums
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+    /// </remarks>
     public enum RecurrencePatternRecurrenceRangeType
     {
     }

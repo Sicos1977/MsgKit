@@ -26,7 +26,28 @@
 
 namespace MsgKit.Enums
 {
+    /// <summary>
+    /// The value and meaning of the FirstDateTime field for each type of recurrence frequency are specified in the following table. For details about how the value is calculated, see section 2.2.1.44.1.1.
+    /// </summary>
+    /// <remarks>
+    /// See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+    /// </remarks>
     public enum RecurrencePatternFirstDateTimeFrequency
     {
+        /// <summary>
+        /// The number of minutes between midnight January 1, 1601, and the first ever day on which the event would occur.
+        /// </summary>
+        Daily,
+
+        /// <summary>
+        /// The number of minutes between midnight January 1, 1601, and the first day of the first ever week in which the event would occur.
+        /// </summary>
+        Weekly,
+
+        /// <summary>
+        /// The number of minutes between midnight January 1, 1601, and the first day of the first ever month in which the event would occur.
+        /// </summary>
+        Monthly
+
     }
 }

@@ -27,8 +27,12 @@
 namespace MsgKit.Enums
 {
     /// <summary>
-    /// An integer that specifies the day on which the calendar week begins. The default value is Sunday (0x00000000). This field MUST be set to one of the values listed in the following table.
+    /// An integer that specifies the day on which the calendar week begins. The default value is Sunday (0x00000000). 
+    /// This field MUST be set to one of the values listed in the following table.
     /// </summary>
+    /// <remarks>
+    /// See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+    /// </remarks>
     public enum RecurrencePatternFirstDOWDay
     {
         /// <summary>
