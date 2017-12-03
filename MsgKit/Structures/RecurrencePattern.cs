@@ -36,6 +36,9 @@ namespace MsgKit.Structures
     ///     The RecurrencePattern structure specifies a recurrence pattern. The fields of this structure are stored in
     ///     little-endian byte order.
     /// </summary>
+    /// <remarks>
+    ///     See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+    /// </remarks>
     public class RecurrencePattern
     {
         #region Properties
@@ -55,9 +58,9 @@ namespace MsgKit.Structures
         public RecurrencePatternCalendarType CalendarType { get; set; }
 
         /// <summary>
-        ///     <see cref="RecurrencePatternFrequency" />
+        ///     An integer that specifies the first ever day, week, or month of a recurring series, dating back to a reference date, which is January 1, 1601, for a Gregorian calendar. The value and its meaning depend on the value of the RecurFrequency field. The value of the FirstDateTime field is used to determine the valid dates of a recurring series, as specified in section 2.2.1.44.1.2.
         /// </summary>
-        public RecurrencePatternFrequency FirstDateTime { get; set; }
+        public DateTime FirstDateTime { get; set; }
 
         /// <summary>
         ///     An integer that specifies the interval at which the meeting pattern specified in PatternTypeSpecific field repeats.
@@ -119,7 +122,21 @@ namespace MsgKit.Structures
             using (var memoryStream = new MemoryStream())
             {
                 var binaryWriter = new BinaryWriter(memoryStream);
-                
+                // ReaderVersion (2 bytes):  This field MUST be set to 0x3004.
+                binaryWriter.Write((ushort)0x3004);
+                // WriterVersion (2 bytes):  This field MUST be set to 0x3004.
+                binaryWriter.Write(0x3004);
+                // RecurFrequency (2 bytes):  An integer that specifies the frequency of the recurring series
+                binaryWriter.Write((ushort)RecurFrequency);
+                // PatternType (2 bytes): An integer that specifies the type of recurrence pattern
+                binaryWriter.Write((ushort)PatternType);
+                //CalendarType (2 bytes): An integer that specifies the type of calendar that is used
+                binaryWriter.Write((ushort) CalendarType);
+                // FirstDateTime (4 bytes):  An integer that specifies the first ever day, week, or month of a recurring series, dating back to a reference date, which is January 1, 1601, for a Gregorian calendar. The value and its meaning depend on the value of the RecurFrequency field. The value of the FirstDateTime field is used to determine the valid dates of a recurring series, as specified in section 2.2.1.44.1.2.
+                binaryWriter.Write((int) FirstDateTime.ToFileTime());
+
+                // TODO : Write the rest of the properties https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+
                 //if (BitConverter.IsLittleEndian)
                 //{
                 //    bits = bits.Reverse().ToArray();
