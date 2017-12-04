@@ -201,6 +201,11 @@ namespace MsgKit
         }
         #endregion
 
+        public Task()
+        {
+            throw new NotImplementedException("This functionality is not yet completely implemented");
+        }
+
         #region Save
         /// <summary>
         ///     Saves the message to the given <paramref name="stream" />
@@ -209,6 +214,7 @@ namespace MsgKit
         public new void Save(Stream stream)
         {
             WriteToStorage();
+            base.Save(stream);
         }
 
         /// <summary>
@@ -218,7 +224,7 @@ namespace MsgKit
         public new void Save(string fileName)
         {
             WriteToStorage();
-            CompoundFile.Save(fileName);
+            base.Save(fileName);
         }
         #endregion
     }

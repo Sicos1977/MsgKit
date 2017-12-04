@@ -40,22 +40,22 @@ namespace MsgKit.Streams
         /// <summary>
         ///     The ID to use for naming the next Recipient object storage if one is created inside the .msg file
         /// </summary>
-        internal int NextRecipientId { get; private set; }
+        internal int NextRecipientId { get; set; }
 
         /// <summary>
         ///     The ID to use for naming the next Attachment object storage if one is created inside the .msg file
         /// </summary>
-        internal int NextAttachmentId { get; private set; }
+        internal int NextAttachmentId { get; set; }
 
         /// <summary>
         ///     The number of Recipient objects
         /// </summary>
-        internal int RecipientCount { get; private set; }
+        internal int RecipientCount { get; set; }
 
         /// <summary>
         ///     The number of Attachment objects
         /// </summary>
-        internal int AttachmentCount { get; private set; }
+        internal int AttachmentCount { get; set; }
         #endregion
 
         #region Constructor
@@ -80,27 +80,10 @@ namespace MsgKit.Streams
         }
 
         /// <summary>
-        ///     Creates this object and sets all its properties
+        ///     Creates this object
         /// </summary>
-        /// <param name="nextRecipientId">
-        ///     The ID to use for naming the next Recipient object storage if one is created inside the
-        ///     .msg file. If no Recipient object storages are contained in the .msg file, this field MUST be set to 0
-        /// </param>
-        /// <param name="nextAttachmentId">
-        ///     The ID to use for naming the next Attachment object storage if one is created inside the
-        ///     .msg file. If no Attachment object storages are contained in the .msg file, this field MUST be set to 0
-        /// </param>
-        /// <param name="recipientCount">The number of Recipient objects</param>
-        /// <param name="attachmentCount">The number of Attachment objects</param>
-        internal TopLevelProperties(int nextRecipientId,
-                                    int nextAttachmentId,
-                                    int recipientCount,
-                                    int attachmentCount)
+        internal TopLevelProperties()
         {
-            NextRecipientId = nextRecipientId;
-            NextAttachmentId = nextAttachmentId;
-            RecipientCount = recipientCount;
-            AttachmentCount = attachmentCount;
         }
         #endregion
 

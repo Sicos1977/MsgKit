@@ -59,22 +59,6 @@ namespace MsgKit.Enums
         ///     The message is a secure read receipt.
         /// </summary>
         IPM_Note_Receipt_SMIME,
-
-        /// <summary>
-        ///     An InfoPath form, as specified by [MS-IPFFX].
-        /// </summary>
-        IPM_InfoPathForm,
-
-        /// <summary>
-        ///     Meeting request.
-        /// </summary>
-        IPM_Schedule_Meeting,
-
-        /// <summary>
-        ///     Meeting notification.
-        /// </summary>
-        IPM_Notification_Meeting,
-
         /// <summary>
         ///     Post.
         /// </summary>
@@ -158,6 +142,16 @@ namespace MsgKit.Enums
         /// <summary>
         ///     Delivery receipt for an S/MIME clear-signed message.
         /// </summary>
-        REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_DR
+        REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_DR,
+
+        /// <summary>
+        ///     An appointment
+        /// </summary>
+        IPM_Appointment,
+
+        /// <summary>
+        ///     Task
+        /// </summary>
+        IPM_Task
     }
 }

@@ -32,7 +32,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MsgKit.Enums;
 using MsgKit.Helpers;
-using MsgKit.Streams;
 using OpenMcdf;
 using Stream = System.IO.Stream;
 
@@ -310,56 +309,68 @@ namespace MsgKit
         ///     Writes all the properties that are part of the <see cref="Email"/> object either as <see cref="CFStorage"/>'s
         ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
         /// </summary>
-        private void WriteToStorage()
+        internal void WriteToStorage()
         {
             var rootStorage = CompoundFile.RootStorage;
-            long messageSize = 0;
 
-            messageSize += Recipients.WriteToStorage(rootStorage);
-            messageSize += Attachments.WriteToStorage(rootStorage);
+            Class = MessageClass.IPM_Note;
+            MessageSize += Recipients.WriteToStorage(rootStorage);
+            MessageSize += Attachments.WriteToStorage(rootStorage);
 
             var recipientCount = Recipients.Count;
             var attachmentCount = Attachments.Count;
-            var propertiesStream = new TopLevelProperties(recipientCount,
-                                                          attachmentCount, 
-                                                          recipientCount, 
-                                                          attachmentCount);
+            TopLevelProperties.RecipientCount = recipientCount;
+            TopLevelProperties.AttachmentCount = attachmentCount;
+            TopLevelProperties.NextRecipientId = recipientCount; 
+            TopLevelProperties.NextAttachmentId = attachmentCount;
 
             if (!string.IsNullOrEmpty(InternetMessageId))
-                propertiesStream.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, InternetMessageId);
+                TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, InternetMessageId);
 
-            propertiesStream.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
-            propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
-            propertiesStream.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
+            TopLevelProperties.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
+            TopLevelProperties.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
+            TopLevelProperties.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
+            TopLevelProperties.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
+            TopLevelProperties.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
+            TopLevelProperties.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
 
             var messageFlags = MessageFlags.MSGFLAG_UNMODIFIED;
+
+            if (attachmentCount > 0)
+                messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
+
+            TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
+
+            TopLevelProperties.AddProperty(PropertyTags.PR_BODY_W, BodyText);
+            if (!string.IsNullOrEmpty(BodyHtml))
+                TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
 
             if (Draft)
             {
                 messageFlags |= MessageFlags.MSGFLAG_UNSENT | MessageFlags.MSGFLAG_FROMME;
                 IconIndex = MessageIconIndex.UnsentMail;
-            }
 
-            if (attachmentCount > 0)
-                messageFlags |= MessageFlags.MSGFLAG_HASATTACH;
+                if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
+                {
+                    BodyRtf = Strings.GetEscapedRtf(BodyHtml);
+                    BodyRtfCompressed = true;
+                }
+            }
 
             if (!SentOn.HasValue)
                 SentOn = DateTime.UtcNow;
 
-            propertiesStream.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
-            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
-            propertiesStream.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
-            propertiesStream.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
-            propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
+            TopLevelProperties.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
+            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
+            TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
+            TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
+            TopLevelProperties.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
 
             SetSubject();
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
-            propertiesStream.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, SubjectNormalized);
-            propertiesStream.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
-            propertiesStream.AddProperty(PropertyTags.PR_CONVERSATION_TOPIC_W, SubjectNormalized);
+            TopLevelProperties.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
+            TopLevelProperties.AddProperty(PropertyTags.PR_NORMALIZED_SUBJECT_W, SubjectNormalized);
+            TopLevelProperties.AddProperty(PropertyTags.PR_SUBJECT_PREFIX_W, SubjectPrefix);
+            TopLevelProperties.AddProperty(PropertyTags.PR_CONVERSATION_TOPIC_W, SubjectNormalized);
 
             // http://www.meridiandiscovery.com/how-to/e-mail-conversation-index-metadata-computer-forensics/
             // http://stackoverflow.com/questions/11860540/does-outlook-embed-a-messageid-or-equivalent-in-its-email-elements
@@ -367,18 +378,17 @@ namespace MsgKit
 
             // TODO: Change modification time when this message is opened and only modified
             var utcNow = DateTime.UtcNow;
-            propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
-            propertiesStream.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
-            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, "IPM.Note");
-            propertiesStream.AddProperty(PropertyTags.PR_PRIORITY, Priority);
-            propertiesStream.AddProperty(PropertyTags.PR_IMPORTANCE, Importance);
-            propertiesStream.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
-            propertiesStream.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
+            TopLevelProperties.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
+            TopLevelProperties.AddProperty(PropertyTags.PR_LAST_MODIFICATION_TIME, utcNow);
+            TopLevelProperties.AddProperty(PropertyTags.PR_PRIORITY, Priority);
+            TopLevelProperties.AddProperty(PropertyTags.PR_IMPORTANCE, Importance);
+            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
+            TopLevelProperties.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
-            if (Sender != null) Sender.WriteProperties(propertiesStream);
-            if (Receiving != null) Receiving.WriteProperties(propertiesStream);
-            if (Representing != null) Representing.WriteProperties(propertiesStream);
-            if (ReceivingRepresenting != null) ReceivingRepresenting.WriteProperties(propertiesStream);
+            if (Sender != null) Sender.WriteProperties(TopLevelProperties);
+            if (Receiving != null) Receiving.WriteProperties(TopLevelProperties);
+            if (Representing != null) Representing.WriteProperties(TopLevelProperties);
+            if (ReceivingRepresenting != null) ReceivingRepresenting.WriteProperties(TopLevelProperties);
 
             if (recipientCount > 0)
             {
@@ -416,32 +426,16 @@ namespace MsgKit
                     }
                 }
 
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlags.PROPATTR_READABLE);
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlags.PROPATTR_READABLE);
-                propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlags.PROPATTR_READABLE);
-            }
-
-            propertiesStream.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
-            propertiesStream.AddProperty(PropertyTags.PR_BODY_W, BodyText);
-            if (!string.IsNullOrEmpty(BodyHtml))
-            {
-                propertiesStream.AddProperty(PropertyTags.PR_HTML, BodyHtml);
-            }
-
-            if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
-            {
-                BodyRtf = Strings.GetEscapedRtf(BodyHtml);
-                BodyRtfCompressed = true;
+                TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlags.PROPATTR_READABLE);
+                TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlags.PROPATTR_READABLE);
+                TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlags.PROPATTR_READABLE);
             }
 
             if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
             {
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_COMPRESSED,
-                    RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
-                propertiesStream.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
+                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
             }
-
-            propertiesStream.WriteProperties(rootStorage, messageSize);
         }
         #endregion
 
