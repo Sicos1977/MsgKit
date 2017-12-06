@@ -25,11 +25,9 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using MsgKit.Enums;
-using MsgKit.Exceptions;
+using MsgKit.Streams;
 using OpenMcdf;
 
 // ReSharper disable InconsistentNaming
@@ -41,22 +39,80 @@ namespace MsgKit
     /// </summary>
     public class Message : IDisposable
     {
-        #region Fields
-        /// <summary>
-        ///     The <see cref="OpenMcdf.CompoundFile" />
-        /// </summary>
-        internal readonly CompoundFile CompoundFile;
-
-        /// <summary>
-        ///     The message class
-        /// </summary>
-        /// <remarks>
-        /// Not used yet, this property is for future use (when we are going to implement reading of MSG files)
-        /// </remarks>
-        internal MessageClass Class;
-        #endregion
-
         #region Properties
+        /// <summary>
+        ///     The <see cref="CompoundFile" />
+        /// </summary>
+        internal CompoundFile CompoundFile { get; private set; }
+
+        /// <summary>
+        ///     The <see cref="MessageClass"/>
+        /// </summary>
+        internal MessageClass Class;
+
+        /// <summary>
+        ///     Returns <see cref="Class"/> as a string that is written into the MSG file
+        /// </summary>
+        internal string ClassAsString
+        {
+            get
+            {
+                switch (Class)
+                {
+                    case MessageClass.Unknown:
+                        throw new ArgumentException("Class field is not set");
+                    case MessageClass.IPM_Note:
+                        return "IPM.Note";
+                    case MessageClass.IPM_Note_SMIME:
+                        return "IPM.Note.SMIME";
+                    case MessageClass.IPM_Note_SMIME_MultipartSigned:
+                        return "IPM.Note.SMIME.MultipartSigned";
+                    case MessageClass.IPM_Note_Receipt_SMIME:
+                        return "IPM.Note.Receipt.SMIME";
+                    case MessageClass.IPM_Post:
+                        return "IPM.Post";
+                    case MessageClass.IPM_Octel_Voice:
+                        return "IPM.Octel.Voice";
+                    case MessageClass.IPM_Voicenotes:
+                        return "IPM.Voicenotes";
+                    case MessageClass.IPM_Sharing:
+                        return "IPM.Sharing";
+                    case MessageClass.REPORT_IPM_NOTE_NDR:
+                        return "REPORT.IPM.NOTE.NDR";
+                    case MessageClass.REPORT_IPM_NOTE_DR:
+                        return "REPORT.IPM.NOTE.DR";
+                    case MessageClass.REPORT_IPM_NOTE_DELAYED:
+                        return "REPORT.IPM.NOTE.DELAYED";
+                    case MessageClass.REPORT_IPM_NOTE_IPNRN:
+                        return "*REPORT.IPM.NOTE.IPNRN";
+                    case MessageClass.REPORT_IPM_NOTE_IPNNRN:
+                        return "*REPORT.IPM.NOTE.IPNNRN";
+                    case MessageClass.REPORT_IPM_SCHEDULE_MEETING_REQUEST_NDR:
+                        return "REPORT.IPM.SCHEDULE. MEETING.REQUEST.NDR";
+                    case MessageClass.REPORT_IPM_SCHEDULE_MEETING_RESP_POS_NDR:
+                        return "REPORT.IPM.SCHEDULE.MEETING.RESP.POS.NDR";
+                    case MessageClass.REPORT_IPM_SCHEDULE_MEETING_RESP_TENT_NDR:
+                        return "REPORT.IPM.SCHEDULE.MEETING.RESP.TENT.NDR";
+                    case MessageClass.REPORT_IPM_SCHEDULE_MEETING_CANCELED_NDR:
+                        return "REPORT.IPM.SCHEDULE.MEETING.CANCELED.NDR";
+                    case MessageClass.REPORT_IPM_NOTE_SMIME_NDR:
+                        return "REPORT.IPM.NOTE.SMIME.NDR";
+                    case MessageClass.REPORT_IPM_NOTE_SMIME_DR:
+                        return "*REPORT.IPM.NOTE.SMIME.DR";
+                    case MessageClass.REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_NDR:
+                        return "*REPORT.IPM.NOTE.SMIME.MULTIPARTSIGNED.NDR";
+                    case MessageClass.REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_DR:
+                        return "*REPORT.IPM.NOTE.SMIME.MULTIPARTSIGNED.DR";
+                    case MessageClass.IPM_Appointment:
+                        return "IPM.Appointment";
+                    case MessageClass.IPM_Task:
+                        return "IPM.Task";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
         /// <summary>
         ///     Contains a number that indicates which icon to use when you display a group
         ///     of e-mail objects. Default set to <see cref="MessageIconIndex.NewMail" />
@@ -67,15 +123,20 @@ namespace MsgKit
         /// </remarks>
         public MessageIconIndex IconIndex { get; set; }
 
-        ///// <summary>
-        /////     Contains the sum, in bytes, of the sizes of all properties on a message object.
-        ///// </summary>
-        ///// <remarks>
-        /////     It is recommended that message objects expose this property. The message size indicates the approximate number of
-        /////     bytes that are transferred when the message is moved from one message store to another. Being the sum of the sizes
-        /////     of all properties on the message object, it is usually considerably greater than the message text alone.
-        ///// </remarks>
-        //public long MessageSize { get; private set; }
+        /// <summary>
+        ///     The size of the message
+        /// </summary>
+        public long MessageSize { get; internal set; }
+
+        /// <summary>
+        ///     The <see cref="TopLevelProperties"/>
+        /// </summary>
+        internal TopLevelProperties TopLevelProperties;
+        
+        /// <summary>
+        ///     The <see cref="NamedProperties"/>
+        /// </summary>
+        internal NamedProperties NamedProperties;
         #endregion
 
         #region Constructor
@@ -91,7 +152,7 @@ namespace MsgKit
             // ("__substg1.0_00020102", "__substg1.0_00030102", and "__substg1.0_00040102") and various other 
             // streams that provide a mapping from property names to property IDs.
             var nameIdStorage = CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage) ??
-                                       CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
+                                CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
 
             var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
             entryStream.SetData(new byte[0]);
@@ -99,16 +160,27 @@ namespace MsgKit
             stringStream.SetData(new byte[0]);
             var guidStream = nameIdStorage.AddStream(PropertyTags.GuidStream);
             guidStream.SetData(new byte[0]);
+
+            TopLevelProperties = new TopLevelProperties();
+            NamedProperties = new NamedProperties(TopLevelProperties);
         }
         #endregion
 
         #region Save
+        internal void Save()
+        {
+            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, ClassAsString);
+            TopLevelProperties.WriteProperties(CompoundFile.RootStorage, MessageSize);
+            NamedProperties.WriteProperties(CompoundFile.RootStorage);
+        }
+
         /// <summary>
         ///     Saves the message to the given <paramref name="fileName" />
         /// </summary>
         /// <param name="fileName"></param>
         internal void Save(string fileName)
         {
+            Save();
             CompoundFile.Save(fileName);
         }
 
@@ -118,182 +190,8 @@ namespace MsgKit
         /// <param name="stream"></param>
         internal void Save(Stream stream)
         {
+            Save();
             CompoundFile.Save(stream);
-        }
-        #endregion
-
-        #region GetString
-        /// <summary>
-        ///     Returns the string value for the given <paramref name="propertyTag" />.
-        ///     <c>null</c> is returned when the property does not exists or no valid value is found
-        /// </summary>
-        /// <param name="propertyTag">
-        ///     <see cref="PropertyTag" />
-        /// </param>
-        /// <returns></returns>
-        /// <exception cref="MKInvalidProperty">
-        ///     Raised when the <paramref name="propertyTag" /> is not of the type
-        ///     <see cref="PropertyType.PT_STRING8" /> or <see cref="PropertyType.PT_UNICODE" />
-        /// </exception>
-        internal string GetString(PropertyTag propertyTag)
-        {
-            return GetString(new List<PropertyTag> {propertyTag});
-        }
-
-        /// <summary>
-        ///     Returns the string value from the first item in the list of <paramref name="propertyTags" />
-        ///     that gives back a valid value. <c>null</c> is returned when the property does not exists or
-        ///     no valid value is found
-        /// </summary>
-        /// <param name="propertyTags">List of <see cref="PropertyTag" /></param>
-        /// <returns></returns>
-        /// <exception cref="MKInvalidProperty">
-        ///     Raised when the <paramref name="propertyTags" /> is not of the type
-        ///     <see cref="PropertyType.PT_STRING8" /> or <see cref="PropertyType.PT_UNICODE" />
-        /// </exception>
-        internal string GetString(List<PropertyTag> propertyTags)
-        {
-            string result = null;
-
-            foreach (var propertyTag in propertyTags)
-            {
-                var stream = CompoundFile.RootStorage.TryGetStream(propertyTag.Name);
-                if (stream != null)
-                {
-                    switch (propertyTag.Type)
-                    {
-                        case PropertyType.PT_STRING8:
-                            result = Encoding.Default.GetString(stream.GetData());
-                            break;
-
-                        case PropertyType.PT_UNICODE:
-                            result =
-                                Encoding.UTF8.GetString(CompoundFile.RootStorage.GetStream(propertyTag.Name).GetData());
-                            break;
-
-                        default:
-                            throw new MKInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(result))
-                    return result;
-            }
-
-            return null;
-        }
-        #endregion
-
-        #region AddString
-        /// <summary>
-        ///     Adds the given single value <paramref name="propertyTag" />
-        ///     to the message, any already existing <see cref="PropertyTag" /> is
-        ///     overwritten.
-        /// </summary>
-        /// <param name="propertyTag">
-        ///     <see cref="PropertyTag" />
-        /// </param>
-        /// <param name="value">The value</param>
-        /// <returns></returns>
-        /// <exception cref="MKInvalidProperty">
-        ///     Raised when the <paramref name="propertyTag" /> is not of the type
-        ///     <see cref="PropertyType.PT_STRING8" /> or <see cref="PropertyType.PT_UNICODE" />
-        /// </exception>
-        internal void AddString(PropertyTag propertyTag, string value)
-        {
-            var stream = CompoundFile.RootStorage.TryGetStream(propertyTag.Name);
-            if (stream != null)
-            {
-                switch (propertyTag.Type)
-                {
-                    case PropertyType.PT_STRING8:
-                    case PropertyType.PT_UNICODE:
-                        stream.SetData(Encoding.UTF8.GetBytes(value));
-                        break;
-
-                    default:
-                        throw new MKInvalidProperty("The property is not of the type PT_STRING8 or PT_UNICODE");
-                }
-            }
-            else
-            {
-                stream = CompoundFile.RootStorage.AddStream(propertyTag.Name);
-                stream.SetData(Encoding.Unicode.GetBytes(value));
-            }
-        }
-
-        /// <summary>
-        ///     Adds the given multivalue propertyTag to the message, any already existing <see cref="PropertyTag" /> is
-        ///     overwritten.
-        /// </summary>
-        /// <param name="propertyTag">List of <see cref="PropertyTag" /></param>
-        /// <param name="values">The values</param>
-        /// <returns></returns>
-        /// <exception cref="MKInvalidProperty">
-        ///     Raised when the <paramref name="propertyTag" /> is not of the type
-        ///     <see cref="PropertyType.PT_MV_STRING8" /> or <see cref="PropertyType.PT_MV_UNICODE" />
-        /// </exception>
-        internal void AddStrings(PropertyTag propertyTag, List<string> values)
-        {
-            //  “__substg1.0_<tag>-00000000”, “__substg1.0_<tag>-00000001”, etc…
-            var index = 0;
-
-            var name = propertyTag.Name + "-" + index.ToString().PadLeft(8, '0');
-            var stream = CompoundFile.RootStorage.TryGetStream(name);
-            while (stream != null)
-            {
-                index += 1;
-                name = propertyTag.Name + "-" + index.ToString().PadLeft(8, '0');
-                stream = CompoundFile.RootStorage.TryGetStream(name);
-                CompoundFile.RootStorage.Delete(name);
-            }
-
-            index = 0;
-
-            foreach (var value in values)
-            {
-                name = propertyTag.Name + "-" + index.ToString().PadLeft(8, '0');
-                stream = CompoundFile.RootStorage.TryGetStream(name);
-                if (stream != null)
-                {
-                    switch (propertyTag.Type)
-                    {
-                        case PropertyType.PT_MV_STRING8:
-                        case PropertyType.PT_MV_UNICODE:
-                            stream.SetData(Encoding.Unicode.GetBytes(value));
-                            break;
-
-                        default:
-                            throw new MKInvalidProperty("The property is not of the type PT_MV_STRING8 or PT_MV_UNICODE");
-                    }
-                }
-                else
-                {
-                    stream = CompoundFile.RootStorage.AddStream(propertyTag.Name);
-                    stream.SetData(Encoding.Unicode.GetBytes(value));
-                }
-
-                index += 1;
-            }
-        }
-        #endregion
-
-        #region AddNamedProperty
-        /// <summary>
-        ///     Add's a custom named property to the <see cref="Message"/>
-        /// </summary>
-        /// <param name="name">The property name</param>
-        /// <param name="value">The value</param>
-        /// <param name="guid">The <see cref="Guid"/> for the <see cref="NamedPropertyTags"/>, when
-        /// left blank a new guid is generated automaticly</param>
-        /// <remarks>
-        /// Not used yet, this method is for future use
-        /// </remarks>
-        public void AddNamedProperty(string name, string value, Guid? guid)
-        {
-            // Get next available property id from string stream
-            //var prop = new PropertyTag();
-            // TODO add NamedProperty class
         }
         #endregion
 

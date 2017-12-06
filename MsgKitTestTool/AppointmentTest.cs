@@ -30,11 +30,12 @@ namespace MsgKitTestTool
                 appointment.SentOn = DateTime.UtcNow;
                 appointment.Importance = MessageImportance.IMPORTANCE_NORMAL;
                 appointment.IconIndex = MessageIconIndex.UnsentMail;
-                appointment.Attachments.Add(@"d:\crocodile.jpg");
-                appointment.Save(@"c:\test.msg");
+                appointment.Attachments.Add("Images\\peterpan.jpg");
+                appointment.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
+                appointment.Save(@"d:\test.msg");
 
                 // Show the appointment
-                System.Diagnostics.Process.Start(@"c:\test.msg");
+                System.Diagnostics.Process.Start(@"d:\test.msg");
             }
 
         }
