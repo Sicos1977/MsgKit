@@ -37,7 +37,7 @@ The easiest way to install MsgKit is via NuGet.
 
 In Visual Studio's Package Manager Console, simply enter the following command:
 
-    Install-Package MsgKit -Version 1.1.5 
+    Install-Package MsgKit 
 
 ### Creating an E-mail
 
