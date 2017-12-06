@@ -113,17 +113,17 @@ namespace MsgKit
             var file = new FileInfo(fileName);
             var stream = file.OpenRead();
 
-            var ext = Path.GetExtension(fileName);
+            //var ext = Path.GetExtension(fileName);
 
-            var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
-                ? AttachmentType.ATTACH_EMBEDDED_MSG
-                : AttachmentType.ATTACH_BY_VALUE;
+            //var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
+            //    ? AttachmentType.ATTACH_EMBEDDED_MSG
+            //    : AttachmentType.ATTACH_BY_VALUE;
 
             Add(new Attachment(stream,
                 file.Name,
                 file.CreationTime,
                 file.LastWriteTime,
-                type,
+                AttachmentType.ATTACH_BY_VALUE,
                 renderingPosition,
                 isInline,
                 contentId));
@@ -157,17 +157,17 @@ namespace MsgKit
 
             CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
-            var ext = Path.GetExtension(fileName) ?? string.Empty;
+            //var ext = Path.GetExtension(fileName) ?? string.Empty;
 
-            var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
-                ? AttachmentType.ATTACH_EMBEDDED_MSG
-                : AttachmentType.ATTACH_BY_VALUE;
+            //var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
+            //    ? AttachmentType.ATTACH_EMBEDDED_MSG
+            //    : AttachmentType.ATTACH_BY_VALUE;
 
             Add(new Attachment(stream,
                 fileName,
                 dateTime,
                 dateTime,
-                type,
+                AttachmentType.ATTACH_BY_VALUE,
                 renderingPosition,
                 isInline,
                 contentId));
