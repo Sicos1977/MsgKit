@@ -333,6 +333,7 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
             TopLevelProperties.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
             TopLevelProperties.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
+            TopLevelProperties.AddProperty(PropertyTags.PR_TRANSPORT_MESSAGE_HEADERS_W, TransportMessageHeaders);
 
             var messageFlags = MessageFlags.MSGFLAG_UNMODIFIED;
 
