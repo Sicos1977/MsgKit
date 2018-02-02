@@ -37,6 +37,7 @@ namespace MsgKit
     /// </summary>
     public static class Converter
     {
+        #region ConvertEmlToMsg
         /// <summary>
         ///     Converts an EML file to MSG format
         /// </summary>
@@ -91,19 +92,19 @@ namespace MsgKit
 
             foreach (var to in eml.To)
             {
-                var mailAddress = ((MailboxAddress)to);
+                var mailAddress = (MailboxAddress)to;
                 msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
             }
 
             foreach (var cc in eml.Cc)
             {
-                var mailAddress = ((MailboxAddress)cc);
+                var mailAddress = (MailboxAddress)cc;
                 msg.Recipients.AddCc(mailAddress.Address, mailAddress.Name);
             }
 
             foreach (var bcc in eml.Bcc)
             {
-                var mailAddress = ((MailboxAddress)bcc);
+                var mailAddress = (MailboxAddress)bcc;
                 msg.Recipients.AddBcc(mailAddress.Address, mailAddress.Name);
             }
 
@@ -179,16 +180,19 @@ namespace MsgKit
 
             msg.Save(msgFileName);
         }
+        #endregion
 
-        ///// <summary>
-        /////     Converts an MSG file to EML format
-        ///// </summary>
-        ///// <param name="msgFileName">The MSG file</param>
-        ///// <param name="emlFileName">The EML (MIME) file</param>
-        //public static void ConvertMsgToEml(string msgFileName, string emlFileName)
-        //{
-        //    //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-        //    throw new NotImplementedException("Not yet done");
-        //}
+        #region ConvertMsgToEml
+        /// <summary>
+        ///     Converts an MSG file to EML format
+        /// </summary>
+        /// <param name="msgFileName">The MSG file</param>
+        /// <param name="emlFileName">The EML (MIME) file</param>
+        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
+        {
+            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
+            throw new NotImplementedException("Not yet done");
+        }
+        #endregion
     }
 }
