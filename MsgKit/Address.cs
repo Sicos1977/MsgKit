@@ -116,7 +116,7 @@ namespace MsgKit
             string displayName,
             AddressType addressType = AddressType.Smtp)
         {
-            Email = email;
+            Email = email ?? string.Empty;
             DisplayName = string.IsNullOrWhiteSpace(displayName) ? email : displayName;
 
             AddressType = addressType;
