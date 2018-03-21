@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Magic-Sessions.com - Kees van Spelde")]
 [assembly: AssemblyProduct("MsgKit")]
-[assembly: AssemblyCopyright("Copyright © 2015 - 2017")]
+[assembly: AssemblyCopyright("Copyright © 2015 - 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
