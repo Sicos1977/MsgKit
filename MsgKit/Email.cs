@@ -188,7 +188,7 @@ namespace MsgKit
         /// <remarks>
         ///     This property has to be set to UTC datetime
         /// </remarks>
-        public DateTime? ReceivedOn { get; private set; }
+        public DateTime? ReceivedOn { get; set; }
 
         /// <summary>
         ///     Returns or sets the Internet Message Id
