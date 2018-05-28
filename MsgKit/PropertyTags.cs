@@ -2154,6 +2154,17 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     Contains a bitmask of flags for an attachment.
+        /// </summary>
+        /// <remarks>
+        ///     If the PR_ATTACH_FLAGS property is zero or absent, the attachment is to be processed by all applications.
+        /// </remarks>
+        internal static PropertyTag PR_ATTACH_FLAGS
+        {
+            get { return new PropertyTag(0x3714, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
         ///     Contains TRUE if the message requires preprocessing.
         /// </summary>
         internal static PropertyTag PR_PREPROCESS

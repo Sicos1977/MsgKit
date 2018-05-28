@@ -68,6 +68,7 @@
     <Compile Include="Attachments.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Enums\AppointmentState.cs" />
+    <Compile Include="Enums\AttachmentFlags.cs" />
     <Compile Include="Enums\MeetingType.cs" />
     <Compile Include="Enums\AttachmentType.cs" />
     <Compile Include="Enums\MapiAccess.cs" />

@@ -399,7 +399,9 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlags.PROPATTR_READABLE);
-
+            propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_ATTACH);
+            propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_LINKID, 0);
+            
             if (!string.IsNullOrEmpty(FileName))
             {
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);
@@ -443,9 +445,12 @@ namespace MsgKit
                 case AttachmentType.ATTACH_OLE:
                     throw new NotSupportedException("AttachByReference, AttachByRefResolve, NoAttachment and AttachOle are not supported");
             }
-            
+
             if (IsInline)
+            {
                 propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_HIDDEN, true);
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACH_FLAGS, AttachmentFlags.ATT_MHTML_REF);
+            }
 
             var utcNow = DateTime.UtcNow;
             propertiesStream.AddProperty(PropertyTags.PR_CREATION_TIME, utcNow);
