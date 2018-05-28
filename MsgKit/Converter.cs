@@ -133,12 +133,11 @@ namespace MsgKit
                 var fileName = bodyPart.ContentType.Name;
                 var extension = string.Empty;
 
-                if (bodyPart is MessagePart)
+                if (bodyPart is MessagePart messagePart)
                 {
-                    var part = (MessagePart) bodyPart;
-                    part.Message.WriteTo(attachmentStream);
-                    if (part.Message != null)
-                        fileName = part.Message.Subject;
+                    messagePart.Message.WriteTo(attachmentStream);
+                    if (messagePart.Message != null)
+                        fileName = messagePart.Message.Subject;
 
                     extension = ".eml";
                 }
