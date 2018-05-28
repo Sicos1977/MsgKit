@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using MsgKit;
 using MsgKit.Enums;
 using MsgKitTestTool.Properties;
-using OpenMcdf;
 
 /*
    Copyright 2015 - 2016 Kees van Spelde
@@ -96,8 +95,8 @@ namespace MsgKitTestTool
 
         private void ReadMsgFileButton_Click(object sender, EventArgs e)
         {
-            var msg = new CompoundFile(@"d:\naamloos.msg");
-            var storage = msg.RootStorage.GetStorage("__nameid_version1.0");
+            //var msg = new CompoundFile(@"d:\naamloos.msg");
+            //var storage = msg.RootStorage.GetStorage("__nameid_version1.0");
             //var namedProperties = new NamedProperties(storage);
         }
     }
