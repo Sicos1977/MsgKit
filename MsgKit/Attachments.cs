@@ -54,6 +54,7 @@ namespace MsgKit
         /// <param name="contentId"></param>
         private void CheckAttachmentFileName(string fileName, string contentId)
         {
+            if (contentId == null) throw new ArgumentNullException(nameof(contentId));
             var file = Path.GetFileName(fileName);
 
             if (this.Any(
@@ -400,7 +401,6 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_ATTACH);
-            propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_LINKID, 0);
             
             if (!string.IsNullOrEmpty(FileName))
             {

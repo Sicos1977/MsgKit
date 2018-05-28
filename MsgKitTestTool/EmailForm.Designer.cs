@@ -154,8 +154,8 @@
             this.HtmlBodyTextBox.Size = new System.Drawing.Size(258, 116);
             this.HtmlBodyTextBox.TabIndex = 9;
             this.HtmlBodyTextBox.Text = "<html>\r\n   <head>\r\n      <title>Peter Pann</title>\r\n   </head>\r\n   <body>\r\n      " +
-    "<b>Hello Neverland html</b><br/>\r\n     <img src=\"tinkerbell.jpg\">\r\n   </body>\r\n<" +
-    "/html>";
+    "<b>Hello Neverland html</b><br/>\r\n     <img src=\"cid:tinkerbell.jpg\">\r\n   </body" +
+    ">\r\n</html>";
             // 
             // label8
             // 
