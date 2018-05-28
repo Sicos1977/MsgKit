@@ -156,7 +156,7 @@ namespace MsgKit
                 else
                 {
                     var part = (MimePart) bodyPart;
-                    part.ContentObject.DecodeTo(attachmentStream);
+                    part.Content.DecodeTo(attachmentStream);
                     fileName = part.FileName;
                     bodyPart.WriteTo(attachmentStream);
                 }
