@@ -413,12 +413,6 @@ namespace MsgKit
             if (MessageEditorFormat != MessageEditorFormat.EDITOR_FORMAT_DONTKNOW)
                 TopLevelProperties.AddProperty(PropertyTags.PR_MSG_EDITOR_FORMAT, MessageEditorFormat);
 
-            if (Draft)
-            {
-                messageFlags |= MessageFlags.MSGFLAG_UNSENT;
-                IconIndex = MessageIconIndex.UnsentMail;
-            }
-
             if (!SentOn.HasValue)
                 SentOn = DateTime.UtcNow;
 
@@ -426,7 +420,6 @@ namespace MsgKit
                 TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_DELIVERY_TIME, ReceivedOn.Value.ToUniversalTime());
 
             TopLevelProperties.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
-            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
             TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
             TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
             TopLevelProperties.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
@@ -448,6 +441,14 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_PRIORITY, Priority);
             TopLevelProperties.AddProperty(PropertyTags.PR_IMPORTANCE, Importance);
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
+
+            if (Draft)
+            {
+                messageFlags |= MessageFlags.MSGFLAG_UNSENT;
+                IconIndex = MessageIconIndex.UnsentMail;
+            }
+
+            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
             TopLevelProperties.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
             Sender?.WriteProperties(TopLevelProperties);
