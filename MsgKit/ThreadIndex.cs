@@ -22,7 +22,7 @@ namespace MsgKit
         /// <summary>
         ///     The RAW base64 encoded thread index
         /// </summary>
-        public string Raw { get; private set; }
+        public string Raw { get; }
 
         /// <summary>
         ///     Returns <c>true</c> when the thread index is valid
@@ -81,7 +81,7 @@ namespace MsgKit
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Id: {0}, Date: {1}", Id, Date.ToLocalTime());
+            return $"Id: {Id}, Date: {Date.ToLocalTime()}";
         }
         #endregion
     }

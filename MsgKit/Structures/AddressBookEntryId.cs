@@ -27,7 +27,7 @@
 using System.IO;
 using MsgKit.Helpers;
 
-namespace MsgKit.Enums
+namespace MsgKit.Structures
 {
     /// <summary>
     ///     An Address Book EntryID structure specifies several types of Address Book objects, including
@@ -44,7 +44,7 @@ namespace MsgKit.Enums
         /// <summary>
         ///     Flags (4 bytes): This value MUST be set to 0x00000000. Bits in this field indicate under
         /// </summary>
-        public byte[] Flags { get; private set; }
+        public byte[] Flags { get; }
 
         /// <summary>
         ///     The X500 DN of the Address Book object.
@@ -53,7 +53,7 @@ namespace MsgKit.Enums
         ///     A distinguished name (DN), in Teletex form, of an object that is in an address book. An X500 DN can be more limited
         ///     in the size and number of relative distinguished names (RDNs) than a full DN.
         /// </remarks>
-        public string X500Dn { get; private set; }
+        public string X500Dn { get; }
         #endregion
 
         #region Constructor

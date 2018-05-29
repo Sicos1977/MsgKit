@@ -71,7 +71,7 @@ namespace MsgKit
         /// <summary>
         ///     Returns the sender of the E-mail from the <see cref="Recipients" />
         /// </summary>
-        public Sender Sender { get; private set; }
+        public Sender Sender { get; }
 
         /// <summary>
         ///     Contains the e-mail address for the messaging user represented by the <see cref="Sender"/>.
@@ -82,7 +82,7 @@ namespace MsgKit
         ///     authorization or verification of the delegate. If no messaging user is being represented, these properties should
         ///     be set to the e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
         /// </remarks>
-        public Representing Representing { get; private set; }
+        public Representing Representing { get; }
 
         /// <summary>
         ///     Returns the E-mail <see cref="Recipients" />
@@ -208,7 +208,7 @@ namespace MsgKit
         /// <summary>
         ///     Returns <c>true</c> when the message is set as a draft message
         /// </summary>
-        public bool Draft { get; private set; }
+        public bool Draft { get; }
         #endregion
 
         #region Constructor
@@ -389,10 +389,10 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
             TopLevelProperties.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
-            if (Sender != null) Sender.WriteProperties(TopLevelProperties);
-            if (Receiving != null) Receiving.WriteProperties(TopLevelProperties);
-            if (Representing != null) Representing.WriteProperties(TopLevelProperties);
-            if (ReceivingRepresenting != null) ReceivingRepresenting.WriteProperties(TopLevelProperties);
+            Sender?.WriteProperties(TopLevelProperties);
+            Receiving?.WriteProperties(TopLevelProperties);
+            Representing?.WriteProperties(TopLevelProperties);
+            ReceivingRepresenting?.WriteProperties(TopLevelProperties);
 
             if (recipientCount > 0)
             {

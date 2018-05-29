@@ -122,7 +122,7 @@
     <Compile Include="Enums\PropertyKind.cs" />
     <Compile Include="Streams\StringStream.cs" />
     <Compile Include="Structures\CLSID.cs" />
-    <Compile Include="Enums\AddressBookEntryId.cs" />
+    <Compile Include="Structures\AddressBookEntryId.cs" />
     <Compile Include="Enums\PropertyFlags.cs" />
     <Compile Include="Enums\PropertyType.cs" />
     <Compile Include="Structures\NamedProperty.cs" />

@@ -40,22 +40,22 @@ namespace MsgKit.Streams
         /// <summary>
         ///     The ID to use for naming the next Recipient object storage if one is created inside the .msg file
         /// </summary>
-        internal int NextRecipientId { get; private set; }
+        internal int NextRecipientId { get; }
 
         /// <summary>
         ///     The ID to use for naming the next Attachment object storage if one is created inside the .msg file
         /// </summary>
-        internal int NextAttachmentId { get; private set; }
+        internal int NextAttachmentId { get; }
 
         /// <summary>
         ///     The number of Recipient objects
         /// </summary>
-        internal int RecipientCount { get; private set; }
+        internal int RecipientCount { get; }
 
         /// <summary>
         ///     The number of Attachment objects
         /// </summary>
-        internal int AttachmentCount { get; private set; }
+        internal int AttachmentCount { get; }
         #endregion
 
         #region Constructors

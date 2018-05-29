@@ -154,7 +154,7 @@ namespace MsgKit
                 throw new MKAttachment("To many attachments, an msg file can have a maximum of 2048 attachment");
 
             if (stream == null)
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
 
             CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
@@ -248,12 +248,12 @@ namespace MsgKit
         /// <summary>
         ///     True when the attachment is inline
         /// </summary>
-        public bool IsInline { get; private set; }
+        public bool IsInline { get; }
 
         /// <summary>
         ///     The content id for an inline attachment
         /// </summary>
-        public string ContentId { get; private set; }
+        public string ContentId { get; }
 
         /// <summary>
         ///     Returns <c>true</c> when the attachment is a contact photo
@@ -261,17 +261,17 @@ namespace MsgKit
         /// <remarks>
         ///     Only valid when the message is a contact card, otherwise always <c>false</c>
         /// </remarks>
-        public bool IsContactPhoto { get; private set; }
+        public bool IsContactPhoto { get; }
 
         /// <summary>
         ///     Tthe date and time when the attachment was created
         /// </summary>
-        public DateTime CreationTime { get; private set; }
+        public DateTime CreationTime { get; }
 
         /// <summary>
         ///     The date and time when the attachment was last modified
         /// </summary>
-        public DateTime LastModificationTime { get; private set; }
+        public DateTime LastModificationTime { get; }
         #endregion
 
         #region Constructor
@@ -312,7 +312,7 @@ namespace MsgKit
             IsContactPhoto = isContactPhoto;
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
-                throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
+                throw new ArgumentNullException(nameof(contentId), "The content id cannot be empty when isInline is set to true");
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace MsgKit
             IsContactPhoto = isContactPhoto;
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
-                throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
+                throw new ArgumentNullException(nameof(contentId), "The content id cannot be empty when isInline is set to true");
         }
         #endregion
 
