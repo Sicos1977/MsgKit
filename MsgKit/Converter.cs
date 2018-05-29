@@ -64,6 +64,12 @@ namespace MsgKit
                 InternetMessageId = eml.MessageId
             };
 
+            using (var memoryStream = new MemoryStream())
+            {
+                eml.Headers.WriteTo(memoryStream);
+                msg.TransportMessageHeaders = Encoding.ASCII.GetString(memoryStream.ToArray());
+            }
+
             switch (eml.Priority)
             {
                 case MessagePriority.NonUrgent:
@@ -174,7 +180,6 @@ namespace MsgKit
                 
                 attachmentStream.Position = 0;
                 msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
-
             }
 
             msg.Save(msgFileName);

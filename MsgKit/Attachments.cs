@@ -52,9 +52,9 @@ namespace MsgKit
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="contentId"></param>
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private void CheckAttachmentFileName(string fileName, string contentId)
         {
-            if (contentId == null) throw new ArgumentNullException(nameof(contentId));
             var file = Path.GetFileName(fileName);
 
             if (this.Any(

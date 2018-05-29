@@ -444,5 +444,28 @@ namespace MsgKit.Structures
             Add(new Property(uId, (PropertyType) uType, PropertyFlags.PROPATTR_READABLE, stream.GetData()));
         }
         #endregion
+
+        #region AddOrReplaceProperty
+        /// <summary>
+        ///     Adds a property when it not exists, otherwise it is replaced
+        /// </summary>
+        /// <param name="mapiTag">The <see cref="PropertyTag" /></param>
+        /// <param name="obj">The value for the mapi tag</param>
+        /// <param name="flags">
+        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
+        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
+        /// </param>
+        /// <exception cref="ArgumentNullException">Raised when <paramref name="obj" /> is <c>null</c></exception>
+        internal void AddOrReplaceProperty(PropertyTag mapiTag,
+            object obj,
+            PropertyFlags flags = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
+        {
+            var index = FindIndex(m => m.Id == mapiTag.Id);
+            if (index >= 0)
+                RemoveAt(index);
+
+            AddProperty(mapiTag, obj, flags);
+        }
+        #endregion
     }
 }
