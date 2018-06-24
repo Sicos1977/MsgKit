@@ -389,10 +389,10 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
             TopLevelProperties.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
-            if (Sender != null) Sender.WriteProperties(TopLevelProperties);
-            if (Receiving != null) Receiving.WriteProperties(TopLevelProperties);
-            if (Representing != null) Representing.WriteProperties(TopLevelProperties);
-            if (ReceivingRepresenting != null) ReceivingRepresenting.WriteProperties(TopLevelProperties);
+            Sender?.WriteProperties(TopLevelProperties);
+            Receiving?.WriteProperties(TopLevelProperties);
+            Representing?.WriteProperties(TopLevelProperties);
+            ReceivingRepresenting?.WriteProperties(TopLevelProperties);
 
             if (recipientCount > 0)
             {

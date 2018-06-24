@@ -154,7 +154,7 @@ namespace MsgKit
                 throw new MKAttachment("To many attachments, an msg file can have a maximum of 2048 attachment");
 
             if (stream == null)
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
 
             CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
@@ -312,7 +312,7 @@ namespace MsgKit
             IsContactPhoto = isContactPhoto;
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
-                throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
+                throw new ArgumentNullException(nameof(contentId), "The content id cannot be empty when isInline is set to true");
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace MsgKit
             IsContactPhoto = isContactPhoto;
 
             if (isInline && string.IsNullOrWhiteSpace(contentId))
-                throw new ArgumentNullException("contentId", "The content id cannot be empty when isInline is set to true");
+                throw new ArgumentNullException(nameof(contentId), "The content id cannot be empty when isInline is set to true");
         }
         #endregion
 

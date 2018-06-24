@@ -26,7 +26,6 @@
 
 using System;
 using MsgKit.Enums;
-using MsgKit.Streams;
 using OpenMcdf;
 
 namespace MsgKit

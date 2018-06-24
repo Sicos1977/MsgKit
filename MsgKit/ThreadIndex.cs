@@ -81,7 +81,7 @@ namespace MsgKit
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("Id: {0}, Date: {1}", Id, Date.ToLocalTime());
+            return $"Id: {Id}, Date: {Date.ToLocalTime()}";
         }
         #endregion
     }

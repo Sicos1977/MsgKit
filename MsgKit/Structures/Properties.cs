@@ -419,7 +419,7 @@ namespace MsgKit.Structures
             PropertyFlags flagses = PropertyFlags.PROPATTR_READABLE & PropertyFlags.PROPATTR_WRITABLE)
         {
             if (data.Length != 8)
-                throw new ArgumentOutOfRangeException("data", "The data should always have an 8 byte size");
+                throw new ArgumentOutOfRangeException(nameof(data), "The data should always have an 8 byte size");
 
             Add(new Property(id, type, flagses, data));
         }
@@ -435,7 +435,7 @@ namespace MsgKit.Structures
         internal void AddProperty(CFStream stream)
         {
             if (!stream.Name.StartsWith("__substg1.0_"))
-                throw new ArgumentOutOfRangeException("stream", "The stream name needs to start with '__substg1.0_'");
+                throw new ArgumentOutOfRangeException(nameof(stream), "The stream name needs to start with '__substg1.0_'");
 
             var id = stream.Name.Substring(12, 4);
             var type = stream.Name.Substring(16, 4);

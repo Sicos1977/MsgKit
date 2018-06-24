@@ -201,8 +201,7 @@ namespace MsgKit
         /// </summary>
         public void Dispose()
         {
-            if (CompoundFile != null)
-                CompoundFile.Close();
+            CompoundFile?.Close();
         }
         #endregion
     }

@@ -145,7 +145,7 @@ namespace MsgKit.Streams
         internal EntryStreamItem(BinaryReader binaryReader)
         {
             NameIdentifierOrStringOffset = binaryReader.ReadUInt16();
-            NameIdentifierOrStringOffsetHex = string.Format("{0:X}", NameIdentifierOrStringOffset);
+            NameIdentifierOrStringOffsetHex = $"{NameIdentifierOrStringOffset:X}";
             IndexAndKindInformation = new IndexAndKindInformation(binaryReader);
         }
 
@@ -158,7 +158,7 @@ namespace MsgKit.Streams
                                  IndexAndKindInformation indexAndKindInformation)
         {
             NameIdentifierOrStringOffset = nameIdentifierOrStringOffset;
-            NameIdentifierOrStringOffsetHex = string.Format("{0:X}", nameIdentifierOrStringOffset);
+            NameIdentifierOrStringOffsetHex = $"{nameIdentifierOrStringOffset:X}";
             IndexAndKindInformation = indexAndKindInformation;
         }
         #endregion
