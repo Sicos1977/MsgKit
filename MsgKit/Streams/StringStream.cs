@@ -76,7 +76,7 @@ namespace MsgKit.Streams
         /// <summary>
         ///     The length of the following <see cref="Name"/> field in bytes.
         /// </summary>
-        public uint Length { get; private set; }
+        public uint Length { get; }
 
         /// <summary>
         ///     A Unicode string that is the name of the property. A new entry MUST always start
@@ -85,7 +85,7 @@ namespace MsgKit.Streams
         ///     until the 4-byte boundary is reached.The Name Length field for the next entry will then start at
         ///     the beginning of the next 4-byte boundary
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
         #endregion
 
         #region Constructors

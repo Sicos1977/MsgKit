@@ -48,7 +48,7 @@ namespace MsgKit.Structures
         /// <summary>
         /// The <see cref="RecipientType"/> or null when not available
         /// </summary>
-        public RecipientType RecipientType { get; private set; }
+        public RecipientType RecipientType { get; }
 
         /// <summary>
         ///     The <see cref="RecipientRowAddressType" />
@@ -58,12 +58,12 @@ namespace MsgKit.Structures
         /// <summary>
         ///     The address prefix used
         /// </summary>
-        public uint AddressPrefixUsed { get; private set; }
+        public uint AddressPrefixUsed { get; }
 
         /// <summary>
         ///     The <see cref="RecipientRowDisplayType" />
         /// </summary>
-        public RecipientRowDisplayType RecipientRowDisplayType { get; private set; }
+        public RecipientRowDisplayType RecipientRowDisplayType { get; }
 
         /// <summary>
         ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags
@@ -74,14 +74,14 @@ namespace MsgKit.Structures
         ///     A distinguished name (DN), in Teletex form, of an object that is in an address book. An X500 DN can be more limited
         ///     in the size and number of relative distinguished names (RDNs) than a full DN.
         /// </remarks>
-        public string X500Dn { get; private set; }
+        public string X500Dn { get; }
 
         /// <summary>
         ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
         ///     PersonalDistributionList1 (0x6) or PersonalDistributionList2 (0x7). This field MUST
         ///     NOT be present otherwise. This value specifies the size of the EntryID field.
         /// </summary>
-        public uint EntryIdSize { get; private set; }
+        public uint EntryIdSize { get; }
 
         /// <summary>
         ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
@@ -89,7 +89,7 @@ namespace MsgKit.Structures
         ///     number of bytes in this field MUST be the same as specified in the EntryIdSize field. This array specifies the
         ///     address book EntryID structure, as specified in section 2.2.5.2, of the distribution list.
         /// </summary>
-        public AddressBookEntryId EntryId { get; private set; }
+        public AddressBookEntryId EntryId { get; }
 
         /// <summary>
         ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the RecipientFlags field is set to
@@ -105,7 +105,7 @@ namespace MsgKit.Structures
         ///     is specified in the SearchKeySize field and can be 0. This array specifies the search
         ///     key of the distribution list.
         /// </summary>
-        public byte[] SearchKey { get; private set; }
+        public byte[] SearchKey { get; }
 
         /// <summary>
         ///     This field MUST be present when the <see cref="RecipientRowAddressType" /> field of the
@@ -113,7 +113,7 @@ namespace MsgKit.Structures
         ///     is set. This field MUST NOT be present otherwise. This string specifies the address type
         ///     of the recipient (1).
         /// </summary>
-        public string AddresType { get; private set; }
+        public string AddresType { get; }
 
         /// <summary>
         ///     A null-terminated string. This field MUST be present when the E flag of the RecipientsFlags
@@ -121,7 +121,7 @@ namespace MsgKit.Structures
         ///     characters if the U flag of the RecipientsFlags field is set and in the 8-bit character set
         ///     otherwise. This string specifies the email address of the recipient (1).
         /// </summary>
-        public string EmailAddress { get; private set; }
+        public string EmailAddress { get; }
 
         /// <summary>
         ///     This field MUST be present when the D flag of the RecipientsFlags
@@ -137,14 +137,14 @@ namespace MsgKit.Structures
         ///     field is set and in the 8-bit character set otherwise. This string specifies the email address of the recipient
         ///     (1).
         /// </summary>
-        public string SimpleDisplayName { get; private set; }
+        public string SimpleDisplayName { get; }
 
         /// <summary>
         ///     This field MUST be present when the T flag of the RecipientsFlags field is set and MUST NOT be present otherwise.
         ///     This field MUST be specified in Unicode characters if the U flag of the RecipientsFlags field is set and in the
         ///     8-bit character set otherwise. This string specifies the email address of the recipient (1).
         /// </summary>
-        public string TransmittableDisplayName { get; private set; }
+        public string TransmittableDisplayName { get; }
 
         /// <summary>
         ///     PropertyRow structures, as specified in section 2.8.1. The columns used for this row are those specified in
@@ -155,7 +155,7 @@ namespace MsgKit.Structures
         /// <summary>
         ///     Specifies that the recipient does support receiving rich text messages.
         /// </summary>
-        public bool SupportsRtf { get; private set; }
+        public bool SupportsRtf { get; }
         #endregion
 
         #region Constructor

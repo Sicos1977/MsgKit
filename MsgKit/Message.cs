@@ -43,7 +43,7 @@ namespace MsgKit
         /// <summary>
         ///     The <see cref="CompoundFile" />
         /// </summary>
-        internal CompoundFile CompoundFile { get; private set; }
+        internal CompoundFile CompoundFile { get; }
 
         /// <summary>
         ///     The <see cref="MessageClass"/>

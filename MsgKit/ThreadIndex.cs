@@ -22,7 +22,7 @@ namespace MsgKit
         /// <summary>
         ///     The RAW base64 encoded thread index
         /// </summary>
-        public string Raw { get; private set; }
+        public string Raw { get; }
 
         /// <summary>
         ///     Returns <c>true</c> when the thread index is valid

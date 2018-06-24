@@ -123,7 +123,7 @@ namespace MsgKit.Streams
         ///     property, this value is the offset in bytes into the strings stream where the value of the Name field of
         ///     the PropertyName structure is located.
         /// </summary>
-        public uint NameIdentifierOrStringOffset { get; private set; }
+        public uint NameIdentifierOrStringOffset { get; }
 
         /// <summary>
         /// 
@@ -134,7 +134,7 @@ namespace MsgKit.Streams
         ///     The following structure specifies the stream indexes and whether the property is a numerical named
         ///     property or a string named property
         /// </summary>
-        public IndexAndKindInformation IndexAndKindInformation { get; private set; }
+        public IndexAndKindInformation IndexAndKindInformation { get; }
         #endregion
 
         #region Constructors
@@ -190,7 +190,7 @@ namespace MsgKit.Streams
         ///     Sequentially increasing, zero-based index. This MUST be 0 for the first
         ///     named property, 1 for the second, and so on.
         /// </summary>
-        public UInt16 PropertyIndex { get; private set; }
+        public UInt16 PropertyIndex { get; }
 
         /// <summary>
         ///     Index into the GUID stream. The possible values are shown in the following table.<br/>
@@ -202,13 +202,13 @@ namespace MsgKit.Streams
         ///         the third GUID(5 minus 3, resulting in a zero-based index of 2) is used as the GUID for the name<br/>
         ///         property being derived.
         /// </summary>
-        public UInt16 GuidIndex { get; private set; }
+        public UInt16 GuidIndex { get; }
 
         /// <summary>
         ///     Bit indicating the type of the property; zero (0) if numerical named property
         ///     and 1 if string named property.
         /// </summary>
-        public PropertyKind PropertyKind { get; private set; }
+        public PropertyKind PropertyKind { get; }
         #endregion
 
         #region GetUIntFromBitArray

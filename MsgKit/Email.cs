@@ -33,6 +33,8 @@ using System.Text.RegularExpressions;
 using MsgKit.Enums;
 using MsgKit.Helpers;
 using OpenMcdf;
+using MessageImportance = MsgKit.Enums.MessageImportance;
+using MessagePriority = MsgKit.Enums.MessagePriority;
 using Stream = System.IO.Stream;
 
 namespace MsgKit
@@ -71,7 +73,7 @@ namespace MsgKit
         /// <summary>
         ///     Returns the sender of the E-mail from the <see cref="Recipients" />
         /// </summary>
-        public Sender Sender { get; private set; }
+        public Sender Sender { get; }
 
         /// <summary>
         ///     Contains the e-mail address for the messaging user represented by the <see cref="Sender"/>.
@@ -82,7 +84,7 @@ namespace MsgKit
         ///     authorization or verification of the delegate. If no messaging user is being represented, these properties should
         ///     be set to the e-mail address contained in the PR_RECEIVED_BY_EMAIL_ADDRESS (PidTagReceivedByEmailAddress) property.
         /// </remarks>
-        public Representing Representing { get; private set; }
+        public Representing Representing { get; }
 
         /// <summary>
         ///     Returns the E-mail <see cref="Recipients" />
@@ -136,12 +138,12 @@ namespace MsgKit
         public string SubjectNormalized { get; private set; }
 
         /// <summary>
-        ///     Returns or sets the <see cref="MessagePriority"/>
+        ///     Returns or sets the <see cref="Enums.MessagePriority"/>
         /// </summary>
         public MessagePriority Priority { get; set; }
 
         /// <summary>
-        ///     Returns or sets the <see cref="MessageImportance"/>
+        ///     Returns or sets the <see cref="Enums.MessageImportance"/>
         /// </summary>
         public MessageImportance Importance { get; set; }
 
@@ -158,6 +160,9 @@ namespace MsgKit
         /// <summary>
         ///     The compressed RTF body part
         /// </summary>
+        /// <remarks>
+        ///     When not set then the RTF is generated from <see cref="BodyHtml"/> (when this property is set)
+        /// </remarks>
         public string BodyRtf { get; set; }
 
         /// <summary>
@@ -178,7 +183,8 @@ namespace MsgKit
         ///     <see cref="Message"/>
         /// </summary>
         /// <remarks>
-        ///     This property has to be set to UTC datetime
+        ///     This property has to be set to UTC datetime. When not set then the current date 
+        ///     and time is used
         /// </remarks>
         public DateTime? SentOn { get; set; }
 
@@ -194,9 +200,29 @@ namespace MsgKit
         ///     Returns or sets the Internet Message Id
         /// </summary>
         /// <remarks>
-        ///     Corresponds to the message ID field as specified in [RFC2822].
+        ///     Corresponds to the message ID field as specified in [RFC2822].<br/><br/>
+        ///     If set then this value will be used, when not set the value will be read from the
+        ///     <see cref="TransportMessageHeaders"/> when this property is set
         /// </remarks>
         public string InternetMessageId { get; set; }
+
+        /// <summary>
+        ///     Returns or set the the value of a Multipurpose Internet Mail Extensions (MIME) message's References header field
+        /// </summary>
+        /// <remarks>
+        ///     If set then this value will be used, when not set the value will be read from the
+        ///     <see cref="TransportMessageHeaders"/> when this property is set
+        /// </remarks>
+        public string InternetReferences { get; set; }
+        
+        /// <summary>
+        ///     Returns or sets the original message's PR_INTERNET_MESSAGE_ID (PidTagInternetMessageId) property value
+        /// </summary>
+        /// <remarks>
+        ///     If set then this value will be used, when not set the value will be read from the
+        ///     <see cref="TransportMessageHeaders"/> when this property is set
+        /// </remarks>
+        public string InReplyToId { get; set; }
 
         /// <summary>
         ///     Returns or sets the transport message headers. These are only present when
@@ -208,7 +234,12 @@ namespace MsgKit
         /// <summary>
         ///     Returns <c>true</c> when the message is set as a draft message
         /// </summary>
-        public bool Draft { get; private set; }
+        public bool Draft { get; }
+
+        /// <summary>
+        ///     Specifies the format for an editor to use to display a message.   
+        /// </summary>
+        public MessageEditorFormat MessageEditorFormat { get; set; }
         #endregion
 
         #region Constructor
@@ -324,9 +355,6 @@ namespace MsgKit
             TopLevelProperties.NextRecipientId = recipientCount; 
             TopLevelProperties.NextAttachmentId = attachmentCount;
 
-            if (!string.IsNullOrEmpty(InternetMessageId))
-                TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, InternetMessageId);
-
             TopLevelProperties.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
             TopLevelProperties.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
             TopLevelProperties.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
@@ -334,6 +362,29 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
             TopLevelProperties.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
             TopLevelProperties.AddProperty(PropertyTags.PR_TRANSPORT_MESSAGE_HEADERS_W, TransportMessageHeaders);
+
+            if (!string.IsNullOrWhiteSpace(TransportMessageHeaders))
+            {
+                var headers = Mime.Header.HeaderExtractor.GetHeaders(TransportMessageHeaders);
+
+                if (!string.IsNullOrWhiteSpace(headers.MessageId))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, headers.MessageId);
+
+                if (headers.References.Any())
+                    TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_REFERENCES_W, headers.References.Last());
+
+                if (headers.InReplyTo.Any())
+                    TopLevelProperties.AddProperty(PropertyTags.PR_IN_REPLY_TO_ID_W, headers.InReplyTo.Last());
+            }
+
+            if (!string.IsNullOrWhiteSpace(InternetMessageId))
+                TopLevelProperties.AddOrReplaceProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, InternetMessageId);
+
+            if (!string.IsNullOrWhiteSpace(InternetReferences))
+                TopLevelProperties.AddOrReplaceProperty(PropertyTags.PR_INTERNET_REFERENCES_W, InternetReferences);
+
+            if (!string.IsNullOrWhiteSpace(InReplyToId))
+                TopLevelProperties.AddOrReplaceProperty(PropertyTags.PR_IN_REPLY_TO_ID_W, InReplyToId);
 
             var messageFlags = MessageFlags.MSGFLAG_UNMODIFIED;
 
@@ -343,20 +394,24 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_CPID, Encoding.UTF8.CodePage);
 
             TopLevelProperties.AddProperty(PropertyTags.PR_BODY_W, BodyText);
+
             if (!string.IsNullOrEmpty(BodyHtml))
                 TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
 
-            if (Draft)
+            if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
-                messageFlags |= MessageFlags.MSGFLAG_UNSENT | MessageFlags.MSGFLAG_FROMME;
-                IconIndex = MessageIconIndex.UnsentMail;
-
-                if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
-                {
-                    BodyRtf = Strings.GetEscapedRtf(BodyHtml);
-                    BodyRtfCompressed = true;
-                }
+                BodyRtf = Strings.GetEscapedRtf(BodyHtml);
+                BodyRtfCompressed = true;
             }
+            
+            if (!string.IsNullOrWhiteSpace(BodyRtf))
+            {
+                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, BodyRtfCompressed);
+            }
+            
+            if (MessageEditorFormat != MessageEditorFormat.EDITOR_FORMAT_DONTKNOW)
+                TopLevelProperties.AddProperty(PropertyTags.PR_MSG_EDITOR_FORMAT, MessageEditorFormat);
 
             if (!SentOn.HasValue)
                 SentOn = DateTime.UtcNow;
@@ -365,7 +420,6 @@ namespace MsgKit
                 TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_DELIVERY_TIME, ReceivedOn.Value.ToUniversalTime());
 
             TopLevelProperties.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
-            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
             TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
             TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
             TopLevelProperties.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
@@ -387,6 +441,14 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_PRIORITY, Priority);
             TopLevelProperties.AddProperty(PropertyTags.PR_IMPORTANCE, Importance);
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_LOCALE_ID, CultureInfo.CurrentCulture.LCID);
+
+            if (Draft)
+            {
+                messageFlags |= MessageFlags.MSGFLAG_UNSENT;
+                IconIndex = MessageIconIndex.UnsentMail;
+            }
+
+            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);
             TopLevelProperties.AddProperty(PropertyTags.PR_ICON_INDEX, IconIndex);
 
             Sender?.WriteProperties(TopLevelProperties);
@@ -433,12 +495,6 @@ namespace MsgKit
                 TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlags.PROPATTR_READABLE);
                 TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlags.PROPATTR_READABLE);
                 TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlags.PROPATTR_READABLE);
-            }
-
-            if (!string.IsNullOrEmpty(BodyRtf) && BodyRtfCompressed)
-            {
-                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, RtfCompressor.Compress(Encoding.ASCII.GetBytes(BodyRtf)));
-                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, true);
             }
         }
         #endregion

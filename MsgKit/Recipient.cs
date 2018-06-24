@@ -169,12 +169,12 @@ namespace MsgKit
         /// <summary>
         ///     Returns or sets a unique identifier for a recipient in a recipient table or status table.
         /// </summary>
-        public long RowId { get; private set; }
+        public long RowId { get; }
 
         /// <summary>
         ///     The <see cref="RecipientType"/>
         /// </summary>
-        public RecipientType RecipientType { get; private set; }
+        public RecipientType RecipientType { get; }
 
         /// <summary>
         ///     The <see cref="RecipientFlags"/>
@@ -185,12 +185,12 @@ namespace MsgKit
         /// <summary>
         /// Contains the type of email object. 
         /// </summary>
-        public MapiObjectType ObjectType { get; private set; }
+        public MapiObjectType ObjectType { get; }
 
         /// <summary>
         /// Contains the display type. 
         /// </summary>
-        public RecipientRowDisplayType DisplayType { get; private set; }
+        public RecipientRowDisplayType DisplayType { get; }
         #endregion
 
         #region Constructor

@@ -44,7 +44,7 @@ namespace MsgKit.Structures
         /// <summary>
         ///     The id of the property
         /// </summary>
-        internal ushort Id { get; private set; }
+        internal ushort Id { get; }
 
         /// <summary>
         ///     Returns the Property as a readable string
@@ -67,18 +67,18 @@ namespace MsgKit.Structures
         /// <summary>
         ///     The <see cref="PropertyType" />
         /// </summary>
-        internal PropertyType Type { get; private set; }
+        internal PropertyType Type { get; }
 
         /// <summary>
         ///     The <see cref="PropertyFlags">property flags</see> that have been set
         ///     in its <see cref="uint" /> raw form
         /// </summary>
-        internal uint Flags { get; private set; }
+        internal uint Flags { get; }
 
         /// <summary>
         ///     Returns <c>true</c> when this property is part of a multivalue property
         /// </summary>
-        internal bool MultiValue { get; private set; }
+        internal bool MultiValue { get; }
 
         /// <summary>
         ///     The <see cref="PropertyFlags">property flags</see> that have been set
@@ -106,7 +106,7 @@ namespace MsgKit.Structures
         /// <summary>
         ///     The property data
         /// </summary>
-        internal byte[] Data { get; private set; }
+        internal byte[] Data { get; }
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an integer when <see cref="Type" /> is set to

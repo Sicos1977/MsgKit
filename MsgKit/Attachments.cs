@@ -52,9 +52,9 @@ namespace MsgKit
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="contentId"></param>
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private void CheckAttachmentFileName(string fileName, string contentId)
         {
-            if (contentId == null) throw new ArgumentNullException(nameof(contentId));
             var file = Path.GetFileName(fileName);
 
             if (this.Any(
@@ -248,12 +248,12 @@ namespace MsgKit
         /// <summary>
         ///     True when the attachment is inline
         /// </summary>
-        public bool IsInline { get; private set; }
+        public bool IsInline { get; }
 
         /// <summary>
         ///     The content id for an inline attachment
         /// </summary>
-        public string ContentId { get; private set; }
+        public string ContentId { get; }
 
         /// <summary>
         ///     Returns <c>true</c> when the attachment is a contact photo
@@ -261,17 +261,17 @@ namespace MsgKit
         /// <remarks>
         ///     Only valid when the message is a contact card, otherwise always <c>false</c>
         /// </remarks>
-        public bool IsContactPhoto { get; private set; }
+        public bool IsContactPhoto { get; }
 
         /// <summary>
         ///     Tthe date and time when the attachment was created
         /// </summary>
-        public DateTime CreationTime { get; private set; }
+        public DateTime CreationTime { get; }
 
         /// <summary>
         ///     The date and time when the attachment was last modified
         /// </summary>
-        public DateTime LastModificationTime { get; private set; }
+        public DateTime LastModificationTime { get; }
         #endregion
 
         #region Constructor

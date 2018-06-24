@@ -1530,7 +1530,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Corresponds to the message ID field as specified in [RFC2822].
+        ///     Corresponds to the message ID field as specified in [RFC2822]. 
         /// </summary>
         /// <remarks>
         ///     These properties should be present on all e-mail messages.
@@ -1541,7 +1541,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Corresponds to the message ID field as specified in [RFC2822].
+        ///     Corresponds to the message ID field as specified in [RFC2822]. UNICODE compilation.
         /// </summary>
         /// <remarks>
         ///     These properties should be present on all e-mail messages.
@@ -1549,6 +1549,57 @@ namespace MsgKit
         internal static PropertyTag PR_INTERNET_MESSAGE_ID_W
         {
             get { return new PropertyTag(0x1035, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the original message's PR_INTERNET_MESSAGE_ID (PidTagInternetMessageId) property value.
+        /// </summary>
+        /// <remarks>
+        ///     These properties must be set on all message replies.
+        /// </remarks>
+        internal static PropertyTag PR_IN_REPLY_TO_ID_A
+        {
+            get { return new PropertyTag(0x1042, PropertyType.PT_STRING8); }
+        }
+
+
+        /// <summary>
+        ///     Contains the original message's PR_INTERNET_MESSAGE_ID (PidTagInternetMessageId) property value. UNICODE compilation.
+        /// </summary>
+        /// <remarks>
+        ///     These properties should be present on all e-mail messages.
+        /// </remarks>
+        internal static PropertyTag PR_IN_REPLY_TO_ID_W
+        {
+            get { return new PropertyTag(0x1042, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the value of a Multipurpose Internet Mail Extensions (MIME) message's References header field.
+        /// </summary>
+        /// <remarks>
+        ///     To generate a References header field, clients must set these properties to the desired value. MIME writers must copy 
+        ///     the value of these properties to the References header field. To set the value of these properties, MIME clients must 
+        ///     write the desired value to a References header field. MIME readers must copy the value of the References header field 
+        ///     to these properties. MIME readers may truncate the value of these properties if it exceeds 64KB in length.
+        /// </remarks>
+        internal static PropertyTag PR_INTERNET_REFERENCES_A
+        {
+            get { return new PropertyTag(0x1039, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the value of a Multipurpose Internet Mail Extensions (MIME) message's References header field. UNICODE compilation.
+        /// </summary>
+        /// <remarks>
+        ///     To generate a References header field, clients must set these properties to the desired value. MIME writers must copy 
+        ///     the value of these properties to the References header field. To set the value of these properties, MIME clients must 
+        ///     write the desired value to a References header field. MIME readers must copy the value of the References header field 
+        ///     to these properties. MIME readers may truncate the value of these properties if it exceeds 64KB in length.
+        /// </remarks>
+        internal static PropertyTag PR_INTERNET_REFERENCES_W
+        {
+            get { return new PropertyTag(0x1039, PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -4493,6 +4544,23 @@ namespace MsgKit
         internal static PropertyTag PR_ATTACHMENT_HIDDEN
         {
             get { return new PropertyTag(0x7FFE, PropertyType.PT_BOOLEAN); }
+        }
+
+        /// <summary>
+        ///     Specifies the format for an editor to use to display a message.
+        /// </summary>
+        /// <remarks>
+        ///     By default, mail messages (with the message class IPM.Note or with a custom message 
+        ///     class derived from IPM.Note) sent from a POP3/SMTP mail account are sent in the Transport 
+        ///     Neutral Encapsulation Format (TNEF). The PR_MSG_EDITOR_FORMAT property can be used to enforce 
+        ///     only plain text, and not TNEF, when sending a message. If PR_MSG_EDITOR_FORMAT is set to 
+        ///     EDITOR_FORMAT_PLAINTEXT, the message is sent as plain text without TNEF. If PR_MSG_EDITOR_FORMAT 
+        ///     is set to EDITOR_FORMAT_RTF, TNEF encoding is implicitly enabled, and the message is sent by using 
+        ///     the default Internet format that is specified in the Outlook client.
+        /// </remarks>
+        internal static PropertyTag PR_MSG_EDITOR_FORMAT
+        {
+            get { return new PropertyTag(0x5909, PropertyType.PT_LONG); }
         }
     }
 
