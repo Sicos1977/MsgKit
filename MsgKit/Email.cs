@@ -32,6 +32,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MsgKit.Enums;
 using MsgKit.Helpers;
+using MsgKit.Mime.Header;
 using OpenMcdf;
 using MessageImportance = MsgKit.Enums.MessageImportance;
 using MessagePriority = MsgKit.Enums.MessagePriority;
@@ -225,11 +226,20 @@ namespace MsgKit
         public string InReplyToId { get; set; }
 
         /// <summary>
+        ///     Sets the <see cref="TransportMessageHeaders"/> property. This property expects
+        ///     the headers as a string 
+        /// </summary>
+        public string TransportMessageHeadersString
+        {
+            set { TransportMessageHeaders = HeaderExtractor.GetHeaders(value); }
+        }
+
+        /// <summary>
         ///     Returns or sets the transport message headers. These are only present when
         ///     the message has been sent outside an Exchange environment to another mailserver
         ///     <c>null</c> will be returned when not present
         /// </summary>
-        public string TransportMessageHeaders { get; set; }
+        public MessageHeader TransportMessageHeaders { get; set; }
 
         /// <summary>
         ///     Returns <c>true</c> when the message is set as a draft message
@@ -361,20 +371,19 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
             TopLevelProperties.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
             TopLevelProperties.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
-            TopLevelProperties.AddProperty(PropertyTags.PR_TRANSPORT_MESSAGE_HEADERS_W, TransportMessageHeaders);
 
-            if (!string.IsNullOrWhiteSpace(TransportMessageHeaders))
+            if (TransportMessageHeaders != null)
             {
-                var headers = Mime.Header.HeaderExtractor.GetHeaders(TransportMessageHeaders);
+                TopLevelProperties.AddProperty(PropertyTags.PR_TRANSPORT_MESSAGE_HEADERS_W, TransportMessageHeaders.);
 
-                if (!string.IsNullOrWhiteSpace(headers.MessageId))
-                    TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, headers.MessageId);
+                if (!string.IsNullOrWhiteSpace(TransportMessageHeaders.MessageId))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, TransportMessageHeaders.MessageId);
 
-                if (headers.References.Any())
-                    TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_REFERENCES_W, headers.References.Last());
+                if (TransportMessageHeaders.References.Any())
+                    TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_REFERENCES_W, TransportMessageHeaders.References.Last());
 
-                if (headers.InReplyTo.Any())
-                    TopLevelProperties.AddProperty(PropertyTags.PR_IN_REPLY_TO_ID_W, headers.InReplyTo.Last());
+                if (TransportMessageHeaders.InReplyTo.Any())
+                    TopLevelProperties.AddProperty(PropertyTags.PR_IN_REPLY_TO_ID_W, TransportMessageHeaders.InReplyTo.Last());
             }
 
             if (!string.IsNullOrWhiteSpace(InternetMessageId))
