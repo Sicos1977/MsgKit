@@ -239,6 +239,18 @@ namespace MsgKit
         ///     the message has been sent outside an Exchange environment to another mailserver
         ///     <c>null</c> will be returned when not present
         /// </summary>
+        /// <remarks>
+        ///     Use the <see cref="TransportMessageHeaders"/> property if you want to set
+        ///     the headers directly from a string otherwise see the example code below.
+        /// </remarks>
+        /// <example> 
+        ///     <code>
+        ///     var email = new Email();
+        ///     email.TransportMessageHeaders = new MessageHeader();
+        ///     // ... do something with it, for example
+        ///     email.TransportMessageHeaders.SetHeaderValue("X-MY-CUSTOM-HEADER", "EXAMPLE VALUE");
+        ///     </code>
+        /// </example>
         public MessageHeader TransportMessageHeaders { get; set; }
 
         /// <summary>
@@ -374,7 +386,7 @@ namespace MsgKit
 
             if (TransportMessageHeaders != null)
             {
-                TopLevelProperties.AddProperty(PropertyTags.PR_TRANSPORT_MESSAGE_HEADERS_W, TransportMessageHeaders.);
+                TopLevelProperties.AddProperty(PropertyTags.PR_TRANSPORT_MESSAGE_HEADERS_W, TransportMessageHeaders.ToString());
 
                 if (!string.IsNullOrWhiteSpace(TransportMessageHeaders.MessageId))
                     TopLevelProperties.AddProperty(PropertyTags.PR_INTERNET_MESSAGE_ID_W, TransportMessageHeaders.MessageId);

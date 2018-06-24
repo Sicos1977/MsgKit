@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 
@@ -27,20 +26,17 @@ namespace MsgKit.Mime.Header
 
         #region ExtractHeaders
         /// <summary>
-        ///     Method that takes a full message and extract the headers from it.
+        /// Method that takes a full message and extract the headers from it.
         /// </summary>
-        /// <param name="messageContent">
-        ///     The message to extract headers from. Does not need the body part. Needs the empty headers
-        ///     end line.
-        /// </param>
+        /// <param name="messageContent">The message to extract headers from. Does not need the body part. Needs the empty headers end line.</param>
         /// <returns>A collection of Name and Value pairs of headers</returns>
-        /// <exception cref="ArgumentNullException">If <paramref name="messageContent" /> is <see langword="null" /></exception>
-        public static NameValueCollection ExtractHeaders(string messageContent)
+        /// <exception cref="ArgumentNullException">If <paramref name="messageContent"/> is <see langword="null"/></exception>
+        private static Dictionary<string, List<string>> ExtractHeaders(string messageContent)
         {
             if (messageContent == null)
                 throw new ArgumentNullException(nameof(messageContent));
 
-            var headers = new NameValueCollection();
+            var headers = new Dictionary<string, List<string>>();
 
             using (var messageReader = new StringReader(messageContent))
             {
@@ -53,8 +49,6 @@ namespace MsgKit.Mime.Header
                 {
                     // Split into name and value
                     var header = SeparateHeaderNameAndValue(line);
-
-                    // First index is header name
                     var headerName = header.Key;
 
                     // Second index is the header value.
@@ -62,7 +56,7 @@ namespace MsgKit.Mime.Header
                     var headerValue = new StringBuilder(header.Value);
 
                     // Keep reading until we would hit next header
-                    // This if for handling multi line headers
+                    // This is for handling multi line headers
                     while (IsMoreLinesInHeaderValue(messageReader))
                     {
                         // Unfolding is accomplished by simply removing any CRLF
@@ -71,18 +65,15 @@ namespace MsgKit.Mime.Header
                         // See http://tools.ietf.org/html/rfc822#section-3.1.1 for more information
                         var moreHeaderValue = messageReader.ReadLine();
 
-                        // If this exception is ever raised, there is an serious algorithm failure
-                        // IsMoreLinesInHeaderValue does not return true if the next line does not exist
-                        // This check is only included to stop the nagging "possibly null" code analysis hint
-                        if (moreHeaderValue == null)
-                            throw new ArgumentException("This will never happen");
-
                         // Simply append the line just read to the header value
                         headerValue.Append(moreHeaderValue);
                     }
 
                     // Now we have the name and full value. Add it
-                    headers.Add(headerName, headerValue.ToString());
+                    if (!headers.ContainsKey(headerName))
+                        headers.Add(headerName, new List<string> { headerValue.ToString() });
+                    else
+                        headers[headerName].Add(headerValue.ToString());
                 }
             }
 
@@ -92,19 +83,19 @@ namespace MsgKit.Mime.Header
 
         #region IsMoreLinesInHeaderValue
         /// <summary>
-        ///     Check if the next line is part of the current header value we are parsing by
-        ///     peeking on the next character of the <see cref="TextReader" />.<br />
-        ///     This should only be called while parsing headers.
+        /// Check if the next line is part of the current header value we are parsing by
+        /// peeking on the next character of the <see cref="TextReader"/>.<br/>
+        /// This should only be called while parsing headers.
         /// </summary>
         /// <param name="reader">The reader from which the header is read from</param>
-        /// <returns><see langword="true" /> if multi-line header. <see langword="false" /> otherwise</returns>
+        /// <returns><see langword="true"/> if multi-line header. <see langword="false"/> otherwise</returns>
         private static bool IsMoreLinesInHeaderValue(TextReader reader)
         {
             var peek = reader.Peek();
             if (peek == -1)
                 return false;
 
-            var peekChar = (char) peek;
+            var peekChar = (char)peek;
 
             // A multi line header must have a whitespace character
             // on the next line if it is to be continued
@@ -114,11 +105,11 @@ namespace MsgKit.Mime.Header
 
         #region SeparateHeaderNameAndValue
         /// <summary>
-        ///     Separate a full header line into a header name and a header value.
+        /// Separate a full header line into a header name and a header value.
         /// </summary>
         /// <param name="rawHeader">The raw header line to be separated</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="rawHeader" /> is <see langword="null" /></exception>
-        internal static KeyValuePair<string, string> SeparateHeaderNameAndValue(string rawHeader)
+        /// <exception cref="ArgumentNullException">If <paramref name="rawHeader"/> is <see langword="null"/></exception>
+        private static KeyValuePair<string, string> SeparateHeaderNameAndValue(string rawHeader)
         {
             if (rawHeader == null)
                 throw new ArgumentNullException(nameof(rawHeader));

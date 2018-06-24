@@ -67,7 +67,7 @@ namespace MsgKit
             using (var memoryStream = new MemoryStream())
             {
                 eml.Headers.WriteTo(memoryStream);
-                msg.TransportMessageHeaders = Encoding.ASCII.GetString(memoryStream.ToArray());
+                msg.TransportMessageHeadersString = Encoding.ASCII.GetString(memoryStream.ToArray());
             }
 
             switch (eml.Priority)
@@ -118,7 +118,7 @@ namespace MsgKit
             {
                 eml.Headers.WriteTo(headerStream);
                 headerStream.Position = 0;
-                msg.TransportMessageHeaders = Encoding.ASCII.GetString(headerStream.ToArray());
+                msg.TransportMessageHeadersString = Encoding.ASCII.GetString(headerStream.ToArray());
             }
 
             msg.BodyHtml = eml.HtmlBody;
