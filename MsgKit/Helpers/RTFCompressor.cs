@@ -34,7 +34,7 @@ namespace MsgKit.Helpers
     /// Used to compress RTF using LZFu by Microsoft.  Can be viewed in the [MS-OXRTFCP].pdf document. 
     /// https://msdn.microsoft.com/en-us/library/cc463890(v=exchg.80).aspx
     /// </summary>
-    internal static class RtfCompressor
+    internal class RtfCompressor
     {
         #region CompressionPosition Class
         /// <summary>
@@ -55,7 +55,20 @@ namespace MsgKit.Helpers
         #endregion
 
         #region Fields
-        private static byte[] _initialDictionary;
+        private byte[] _initialDictionary;
+        #endregion
+
+        #region Constructor
+        internal RtfCompressor()
+        {
+            var builder = new StringBuilder();
+            builder.Append(@"{\rtf1\ansi\mac\deff0\deftab720{\fonttbl;}");
+            builder.Append(@"{\f0\fnil \froman \fswiss \fmodern \fscript ");
+            builder.Append(@"\fdecor MS Sans SerifSymbolArialTimes New RomanCourier{\colortbl\red0\green0\blue0");
+            builder.Append("\r\n");
+            builder.Append(@"\par \pard\plain\f0\fs20\b\i\u\tab\tx");
+            _initialDictionary = Encoding.UTF8.GetBytes(builder.ToString());
+        }
         #endregion
 
         #region FindLongestMatch
@@ -66,7 +79,7 @@ namespace MsgKit.Helpers
         /// <param name="streamReader">BinaryReader which is pointing at the input data. </param>
         /// <param name="writeOffset">Write offset</param>
         /// <returns> CompressionPositions class containing DictionaryOffset, LongestMatchLength, WriteOffset</returns>
-        internal static CompressionPositions FindLongestMatch(byte[] initialDictionary, BinaryReader streamReader, int writeOffset)
+        internal CompressionPositions FindLongestMatch(byte[] initialDictionary, BinaryReader streamReader, int writeOffset)
         {
             var readCharacter = streamReader.Read();
             var positionData = new CompressionPositions() { WriteOffset = writeOffset };
@@ -118,18 +131,11 @@ namespace MsgKit.Helpers
         /// </summary>
         /// <param name="data">Byte array containing data to be compressed.</param>
         /// <returns>Byte array containing the data that is compressed.</returns>
-        internal static byte[] Compress(byte[] data)
+        internal byte[] Compress(byte[] data)
         {
-            var builder = new StringBuilder();
-            builder.Append(@"{\rtf1\ansi\mac\deff0\deftab720{\fonttbl;}");
-            builder.Append(@"{\f0\fnil \froman \fswiss \fmodern \fscript ");
-            builder.Append(@"\fdecor MS Sans SerifSymbolArialTimes New RomanCourier{\colortbl\red0\green0\blue0");
-            builder.Append("\r\n");
-            builder.Append(@"\par \pard\plain\f0\fs20\b\i\u\tab\tx");
-            _initialDictionary = Encoding.UTF8.GetBytes(builder.ToString());
             Array.Resize(ref _initialDictionary, MaxDictSize);
 
-            var positionData = new CompressionPositions() { WriteOffset = InitDictSize };
+            var positionData = new CompressionPositions { WriteOffset = InitDictSize };
             var inStream = new MemoryStream(data);
             var binaryReader = new BinaryReader(inStream);
             var controlByte = 0;
