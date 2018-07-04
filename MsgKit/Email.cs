@@ -46,7 +46,7 @@ namespace MsgKit
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/office/cc979231.aspx
     /// </remarks>
-    public class Email : Message
+    public class Email : Message, IDisposable
     {
         #region Fields
         /// <summary>
@@ -416,8 +416,8 @@ namespace MsgKit
 
             TopLevelProperties.AddProperty(PropertyTags.PR_BODY_W, BodyText);
 
-            if (!string.IsNullOrEmpty(BodyHtml))
-                TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
+            //if (!string.IsNullOrEmpty(BodyHtml))
+            //    TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
 
             if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
