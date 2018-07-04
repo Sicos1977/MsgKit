@@ -55,7 +55,7 @@ namespace MsgKit.Helpers
         #endregion
 
         #region Fields
-        private byte[] _initialDictionary;
+        private readonly byte[] _initialDictionary;
         #endregion
 
         #region Constructor
@@ -68,6 +68,7 @@ namespace MsgKit.Helpers
             builder.Append("\r\n");
             builder.Append(@"\par \pard\plain\f0\fs20\b\i\u\tab\tx");
             _initialDictionary = Encoding.UTF8.GetBytes(builder.ToString());
+            Array.Resize(ref _initialDictionary, MaxDictSize);
         }
         #endregion
 
@@ -133,85 +134,90 @@ namespace MsgKit.Helpers
         /// <returns>Byte array containing the data that is compressed.</returns>
         internal byte[] Compress(byte[] data)
         {
-            Array.Resize(ref _initialDictionary, MaxDictSize);
-
-            var positionData = new CompressionPositions { WriteOffset = InitDictSize };
-            var inStream = new MemoryStream(data);
-            var binaryReader = new BinaryReader(inStream);
-            var controlByte = 0;
-            var controlBit = 1;
-            var tokenOffset = 0;
-
-            using (var outStream = new MemoryStream())
-            using (var tokenStream = new MemoryStream())
+            using(var inStream = new MemoryStream(data))
+            using (var binaryReader = new BinaryReader(inStream))
             {
-                while (true)
+                var positionData = new CompressionPositions {WriteOffset = InitDictSize};
+                var controlByte = 0;
+                var controlBit = 1;
+                var tokenOffset = 0;
+
+                using (var outStream = new MemoryStream())
+                using (var tokenStream = new MemoryStream())
                 {
-                    int dictReference;
-                    positionData = FindLongestMatch(_initialDictionary, binaryReader, positionData.WriteOffset);
+                    while (true)
+                    {
+                        int dictReference;
+                        positionData = FindLongestMatch(_initialDictionary, binaryReader, positionData.WriteOffset);
 
-                    if (binaryReader.PeekChar() < 0)
-                    {
-                        controlByte |= 1 << controlBit - 1;
-                        tokenOffset += 2;
-                        dictReference = (positionData.WriteOffset & 0xFFF) << 4;
-                        var bytes = BitConverter.GetBytes((ushort)dictReference);
-                        Array.Reverse(bytes);
-                        tokenStream.Write(bytes, 0, 2);
-                        outStream.WriteByte((byte)controlByte);
-                        outStream.Write(tokenStream.ToArray(), 0, tokenOffset);
-                        break;
-                    }
-
-                    var readChar = binaryReader.ReadBytes(positionData.LongestMatchLength > 1 ? positionData.LongestMatchLength : 1);
-                    if (positionData.LongestMatchLength > 1)
-                    {
-                        controlByte |= 1 << controlBit - 1;
-                        controlBit++;
-                        tokenOffset += 2;
-                        dictReference = (positionData.DictionaryOffset & 0xFFF) << 4 | (positionData.LongestMatchLength - 2) & 0xf;
-                        var bytes = BitConverter.GetBytes((ushort)dictReference);
-                        Array.Reverse(bytes);
-                        tokenStream.Write(bytes, 0, 2);
-                    }
-                    else
-                    {
-                        if (positionData.LongestMatchLength == 0)
+                        if (binaryReader.PeekChar() < 0)
                         {
-                            _initialDictionary[positionData.WriteOffset] = Convert.ToByte(readChar[0]);
-                            positionData.WriteOffset = (positionData.WriteOffset + 1) % MaxDictSize;
+                            controlByte |= 1 << controlBit - 1;
+                            tokenOffset += 2;
+                            dictReference = (positionData.WriteOffset & 0xFFF) << 4;
+                            var bytes = BitConverter.GetBytes((ushort) dictReference);
+                            Array.Reverse(bytes);
+                            tokenStream.Write(bytes, 0, 2);
+                            outStream.WriteByte((byte) controlByte);
+                            outStream.Write(tokenStream.ToArray(), 0, tokenOffset);
+                            break;
                         }
-                        controlByte |= 0 << controlBit - 1;
-                        controlBit++;
-                        tokenOffset++;
-                        tokenStream.Write(readChar, 0, readChar.Length);
+
+                        var readChar = binaryReader.ReadBytes(positionData.LongestMatchLength > 1
+                            ? positionData.LongestMatchLength
+                            : 1);
+                        if (positionData.LongestMatchLength > 1)
+                        {
+                            controlByte |= 1 << controlBit - 1;
+                            controlBit++;
+                            tokenOffset += 2;
+                            dictReference = (positionData.DictionaryOffset & 0xFFF) << 4 |
+                                            (positionData.LongestMatchLength - 2) & 0xf;
+                            var bytes = BitConverter.GetBytes((ushort) dictReference);
+                            Array.Reverse(bytes);
+                            tokenStream.Write(bytes, 0, 2);
+                        }
+                        else
+                        {
+                            if (positionData.LongestMatchLength == 0)
+                            {
+                                _initialDictionary[positionData.WriteOffset] = Convert.ToByte(readChar[0]);
+                                positionData.WriteOffset = (positionData.WriteOffset + 1) % MaxDictSize;
+                            }
+
+                            controlByte |= 0 << controlBit - 1;
+                            controlBit++;
+                            tokenOffset++;
+                            tokenStream.Write(readChar, 0, readChar.Length);
+                        }
+
+                        positionData.LongestMatchLength = 0;
+
+                        if (controlBit > 8)
+                        {
+                            outStream.WriteByte((byte) controlByte);
+                            outStream.Write(tokenStream.ToArray(), 0, tokenOffset);
+                            controlByte = 0;
+                            controlBit = 1;
+                            tokenOffset = 0;
+                            tokenStream.SetLength(0);
+                        }
                     }
 
-                    positionData.LongestMatchLength = 0;
+                    var compSize = (uint) outStream.Length + 12;
+                    var rawSize = (uint) data.Length;
+                    var crcValue = Crc32Calculator.CalculateCrc32(outStream.ToArray());
 
-                    if (controlBit > 8)
+                    using (var resultStream = new MemoryStream())
                     {
-                        outStream.WriteByte((byte)controlByte);
-                        outStream.Write(tokenStream.ToArray(), 0, tokenOffset);
-                        controlByte = 0;
-                        controlBit = 1;
-                        tokenOffset = 0;
-                        tokenStream.SetLength(0);
+                        resultStream.Write(BitConverter.GetBytes(compSize), 0, BitConverter.GetBytes(compSize).Length);
+                        resultStream.Write(BitConverter.GetBytes(rawSize), 0, BitConverter.GetBytes(rawSize).Length);
+                        resultStream.Write(Encoding.UTF8.GetBytes(CompType), 0,
+                            Encoding.UTF8.GetBytes(CompType).Length);
+                        resultStream.Write(BitConverter.GetBytes(crcValue), 0, BitConverter.GetBytes(crcValue).Length);
+                        resultStream.Write(outStream.ToArray(), 0, outStream.ToArray().Length);
+                        return resultStream.ToArray();
                     }
-                }
-
-                var compSize = (uint)outStream.Length + 12;
-                var rawSize = (uint)data.Length;
-                var crcValue = Crc32Calculator.CalculateCrc32(outStream.ToArray());
-
-                using (var resultStream = new MemoryStream())
-                {
-                    resultStream.Write(BitConverter.GetBytes(compSize), 0, BitConverter.GetBytes(compSize).Length);
-                    resultStream.Write(BitConverter.GetBytes(rawSize), 0, BitConverter.GetBytes(rawSize).Length);
-                    resultStream.Write(Encoding.UTF8.GetBytes(CompType), 0, Encoding.UTF8.GetBytes(CompType).Length);
-                    resultStream.Write(BitConverter.GetBytes(crcValue), 0, BitConverter.GetBytes(crcValue).Length);
-                    resultStream.Write(outStream.ToArray(), 0, outStream.ToArray().Length);
-                    return resultStream.ToArray();
                 }
             }
         }

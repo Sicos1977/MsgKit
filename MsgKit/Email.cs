@@ -226,12 +226,16 @@ namespace MsgKit
         public string InReplyToId { get; set; }
 
         /// <summary>
-        ///     Sets the <see cref="TransportMessageHeaders"/> property. This property expects
-        ///     the headers as a string 
+        ///     Sets or returns the <see cref="TransportMessageHeaders"/> property as a string (text).
+        ///     This property expects the headers as a string 
         /// </summary>
-        public string TransportMessageHeadersString
+        public string TransportMessageHeadersText
         {
-            set { TransportMessageHeaders = HeaderExtractor.GetHeaders(value); }
+            set
+            {
+                TransportMessageHeaders = HeaderExtractor.GetHeaders(value);
+            }
+            get { return TransportMessageHeaders != null ? TransportMessageHeaders.ToString() : string.Empty; }
         }
 
         /// <summary>
