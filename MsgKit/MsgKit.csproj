@@ -157,6 +157,7 @@
     <Compile Include="Enums\RecipientRowAddressType.cs" />
     <Compile Include="Enums\RecipientRowDisplayType.cs" />
     <Compile Include="Structures\RecurrencePattern.cs" />
+    <Compile Include="Structures\ReportTag.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="ThreadIndex.cs" />
     <Compile Include="TranslateTags.cs" />
