@@ -4567,7 +4567,7 @@ namespace MsgKit
     /// <summary>
     ///     Used to hold exactly one property tag
     /// </summary>
-    internal class PropertyTag
+    public class PropertyTag
     {
         #region Properties
         /// <summary>

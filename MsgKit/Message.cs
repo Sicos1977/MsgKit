@@ -27,6 +27,7 @@
 using System;
 using System.IO;
 using MsgKit.Enums;
+using MsgKit.Exceptions;
 using MsgKit.Streams;
 using OpenMcdf;
 
@@ -39,6 +40,13 @@ namespace MsgKit
     /// </summary>
     public class Message : IDisposable
     {
+        #region Fields
+        /// <summary>
+        ///     A flag to keep track if the message already has been saved
+        /// </summary>
+        private bool _saved;
+        #endregion
+
         #region Properties
         /// <summary>
         ///     The <see cref="CompoundFile" />
@@ -172,6 +180,7 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, ClassAsString);
             TopLevelProperties.WriteProperties(CompoundFile.RootStorage, MessageSize);
             NamedProperties.WriteProperties(CompoundFile.RootStorage);
+            _saved = true;
         }
 
         /// <summary>
@@ -192,6 +201,23 @@ namespace MsgKit
         {
             Save();
             CompoundFile.Save(stream);
+        }
+        #endregion
+
+        #region AddProperty
+        /// <summary>
+        ///     Add's a custom property to the message or replaces it when it already exists
+        /// </summary>
+        /// <param name="propertyTag"><see cref="PropertyTag"/></param>
+        /// <param name="value">The value of the property</param>
+        /// <param name="flags"><see cref="PropertyFlags"/></param>
+        /// <exception cref="MKMessageSaved">Raised when the mesage has already been saved with the Save method</exception>
+        public void AddProperty(PropertyTag propertyTag, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
+        {
+            if (_saved)
+                throw new MKMessageSaved("The message can't be modified when it already has been saved");
+
+            TopLevelProperties.AddOrReplaceProperty(propertyTag, value, flags);
         }
         #endregion
 

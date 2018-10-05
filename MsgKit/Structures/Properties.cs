@@ -425,7 +425,7 @@ namespace MsgKit.Structures
         }
 
         /// <summary>
-        ///     Adds a CFStream and converts it to a property
+        ///     Adds a CFStream and converts it into a property
         /// </summary>
         /// <param name="stream">The <see cref="CFStream" /></param>
         /// <exception cref="ArgumentOutOfRangeException">

@@ -89,6 +89,7 @@
     <Compile Include="Enums\TaskOwnership.cs" />
     <Compile Include="Enums\TaskState.cs" />
     <Compile Include="Enums\TaskStatus.cs" />
+    <Compile Include="Exceptions\MKMessageSaved.cs" />
     <Compile Include="Exceptions\MKAttachment.cs" />
     <Compile Include="Exceptions\MKAttachmentExists.cs" />
     <Compile Include="Exceptions\MKPropertyNotFound.cs" />
