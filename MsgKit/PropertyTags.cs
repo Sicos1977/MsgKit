@@ -33,7 +33,7 @@ namespace MsgKit
     /// <summary>
     ///     A class that holds all the known mapi tags
     /// </summary>
-    internal static class PropertyTags
+    public static class PropertyTags
     {
         /// <summary>
         ///     The prefix for an <see cref="Recipient" /> <see cref="OpenMcdf.CFStorage" />
