@@ -107,7 +107,10 @@ namespace MsgKit
             get { return new PropertyTag(0x0004, PropertyType.PT_UNICODE); }
         }
 
-        public static PropertyTag PR_AUTO_FORWARD_COMMENT_A
+        /// <summary>
+        ///     Contains a comment added by the auto-forwarding agent.
+        /// </summary>
+        internal static PropertyTag PR_AUTO_FORWARD_COMMENT_A
         {
             get { return new PropertyTag(0x0004, PropertyType.PT_STRING8); }
         }
@@ -147,7 +150,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a ANSI key value that enables the message recipient to identify its content.
         /// </summary>
-        public static PropertyTag PR_CONTENT_IDENTIFIER_A
+        internal static PropertyTag PR_CONTENT_IDENTIFIER_A
         {
             get { return new PropertyTag(0x0008, PropertyType.PT_STRING8); }
         }
@@ -300,7 +303,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a text string that identifies the sender-defined message class, such as IPM.Note.
         /// </summary>
-        public static PropertyTag PR_MESSAGE_CLASS_A
+        internal static PropertyTag PR_MESSAGE_CLASS_A
         {
             get { return new PropertyTag(0x001A, PropertyType.PT_STRING8); }
         }
@@ -465,7 +468,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an ASCII list of the languages incorporated in a message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_LANGUAGES_A
+        internal static PropertyTag PR_LANGUAGES_A
         {
             get { return new PropertyTag(0x002F, PropertyType.PT_STRING8); }
         }
@@ -537,7 +540,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the full subject, encoded in ANSI standard, of a message.
         /// </summary>
-        public static PropertyTag PR_SUBJECT_A
+        internal static PropertyTag PR_SUBJECT_A
         {
             get { return new PropertyTag(0x0037, PropertyType.PT_STRING8); }
         }
@@ -569,7 +572,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the ANSI display name for the recipient that should get reports for this message.
         /// </summary>
-        public static PropertyTag PR_REPORT_NAME_A
+        internal static PropertyTag PR_REPORT_NAME_A
         {
             get { return new PropertyTag(0x003A, PropertyType.PT_STRING8); }
         }
@@ -601,7 +604,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a ANSI subject prefix that typically indicates some action on a messagE, such as "FW: " for forwarding.
         /// </summary>
-        public static PropertyTag PR_SUBJECT_PREFIX_A
+        internal static PropertyTag PR_SUBJECT_PREFIX_A
         {
             get { return new PropertyTag(0x003D, PropertyType.PT_STRING8); }
         }
@@ -633,7 +636,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display name of the messaging user that actually receives the message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RECEIVED_BY_NAME_A
+        internal static PropertyTag PR_RECEIVED_BY_NAME_A
         {
             get { return new PropertyTag(0x0040, PropertyType.PT_STRING8); }
         }
@@ -657,7 +660,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display name for the messaging user represented by the sender. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SENT_REPRESENTING_NAME_A
+        internal static PropertyTag PR_SENT_REPRESENTING_NAME_A
         {
             get { return new PropertyTag(0x0042, PropertyType.PT_STRING8); }
         }
@@ -673,7 +676,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display name for the messaging user represented by the receiving user. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RCVD_REPRESENTING_NAME_A
+        internal static PropertyTag PR_RCVD_REPRESENTING_NAME_A
         {
             get { return new PropertyTag(0x0044, PropertyType.PT_STRING8); }
         }
@@ -722,7 +725,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the subject of an original message for use in a report about the message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SUBJECT_A
+        internal static PropertyTag PR_ORIGINAL_SUBJECT_A
         {
             get { return new PropertyTag(0x0049, PropertyType.PT_STRING8); }
         }
@@ -746,7 +749,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the class of the original message for use in a report. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIG_MESSAGE_CLASS_A
+        internal static PropertyTag PR_ORIG_MESSAGE_CLASS_A
         {
             get { return new PropertyTag(0x004B, PropertyType.PT_STRING8); }
         }
@@ -773,7 +776,7 @@ namespace MsgKit
         ///     Contains the display name of the author of the first version of a messagE, that is, the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_AUTHOR_NAME_A
+        internal static PropertyTag PR_ORIGINAL_AUTHOR_NAME_A
         {
             get { return new PropertyTag(0x004D, PropertyType.PT_STRING8); }
         }
@@ -805,7 +808,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a list of display names for recipients that are to get a reply. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_REPLY_RECIPIENT_NAMES_A
+        internal static PropertyTag PR_REPLY_RECIPIENT_NAMES_A
         {
             get { return new PropertyTag(0x0050, PropertyType.PT_STRING8); }
         }
@@ -900,7 +903,7 @@ namespace MsgKit
         ///     Contains the display name of the sender of the first version of a messagE, that is, the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SENDER_NAME_A
+        internal static PropertyTag PR_ORIGINAL_SENDER_NAME_A
         {
             get { return new PropertyTag(0x005A, PropertyType.PT_STRING8); }
         }
@@ -935,7 +938,7 @@ namespace MsgKit
         ///     Contains the display name of the messaging user on whose behalf the original message was sent. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SENT_REPRESENTING_NAME_A
+        internal static PropertyTag PR_ORIGINAL_SENT_REPRESENTING_NAME_A
         {
             get { return new PropertyTag(0x005D, PropertyType.PT_STRING8); }
         }
@@ -999,7 +1002,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the address type for the messaging user represented by the sender. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SENT_REPRESENTING_ADDRTYPE_A
+        internal static PropertyTag PR_SENT_REPRESENTING_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0064, PropertyType.PT_STRING8); }
         }
@@ -1015,7 +1018,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the e-mail address for the messaging user represented by the sender. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SENT_REPRESENTING_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_SENT_REPRESENTING_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0065, PropertyType.PT_STRING8); }
         }
@@ -1033,7 +1036,7 @@ namespace MsgKit
         ///     Contains the address type of the sender of the first version of a messagE, that is, the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SENDER_ADDRTYPE_A
+        internal static PropertyTag PR_ORIGINAL_SENDER_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0066, PropertyType.PT_STRING8); }
         }
@@ -1051,7 +1054,7 @@ namespace MsgKit
         ///     Contains the e-mail address of the sender of the first version of a message, that is, the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SENDER_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_ORIGINAL_SENDER_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0067, PropertyType.PT_STRING8); }
         }
@@ -1068,7 +1071,7 @@ namespace MsgKit
         ///     Contains the address type of the messaging user on whose behalf the original message was sent. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SENT_REPRESENTING_ADDRTYPE_A
+        internal static PropertyTag PR_ORIGINAL_SENT_REPRESENTING_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0068, PropertyType.PT_STRING8); }
         }
@@ -1086,7 +1089,7 @@ namespace MsgKit
         ///     Contains the e-mail address of the messaging user on whose behalf the original message was sent. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_SENT_REPRESENTING_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_ORIGINAL_SENT_REPRESENTING_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0069, PropertyType.PT_STRING8); }
         }
@@ -1102,7 +1105,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the topic of the first message in a conversation thread. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_CONVERSATION_TOPIC_A
+        internal static PropertyTag PR_CONVERSATION_TOPIC_A
         {
             get { return new PropertyTag(0x0070, PropertyType.PT_STRING8); }
         }
@@ -1130,7 +1133,7 @@ namespace MsgKit
         ///     Contains the display names of any blind carbon copy (BCC) recipients of the original message. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_DISPLAY_BCC_A
+        internal static PropertyTag PR_ORIGINAL_DISPLAY_BCC_A
         {
             get { return new PropertyTag(0x0072, PropertyType.PT_STRING8); }
         }
@@ -1146,7 +1149,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display names of any carbon copy (CC) recipients of the original message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_DISPLAY_CC_A
+        internal static PropertyTag PR_ORIGINAL_DISPLAY_CC_A
         {
             get { return new PropertyTag(0x0073, PropertyType.PT_STRING8); }
         }
@@ -1162,7 +1165,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display names of the primary (To) recipients of the original message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_DISPLAY_TO_A
+        internal static PropertyTag PR_ORIGINAL_DISPLAY_TO_A
         {
             get { return new PropertyTag(0x0074, PropertyType.PT_STRING8); }
         }
@@ -1180,7 +1183,7 @@ namespace MsgKit
         ///     Contains the e-mail address typE, such as SMTP, for the messaging user that actually receives the message.
         ///     Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RECEIVED_BY_ADDRTYPE_A
+        internal static PropertyTag PR_RECEIVED_BY_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0075, PropertyType.PT_STRING8); }
         }
@@ -1196,7 +1199,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the e-mail address for the messaging user that actually receives the message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RECEIVED_BY_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_RECEIVED_BY_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0076, PropertyType.PT_STRING8); }
         }
@@ -1214,7 +1217,7 @@ namespace MsgKit
         ///     Contains the address type for the messaging user represented by the user actually receiving the message.
         ///     Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RCVD_REPRESENTING_ADDRTYPE_A
+        internal static PropertyTag PR_RCVD_REPRESENTING_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0077, PropertyType.PT_STRING8); }
         }
@@ -1230,7 +1233,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the e-mail address for the messaging user represented by the receiving user. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RCVD_REPRESENTING_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_RCVD_REPRESENTING_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0078, PropertyType.PT_STRING8); }
         }
@@ -1248,7 +1251,7 @@ namespace MsgKit
         ///     Contains the address type of the author of the first version of a message. That is — the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_AUTHOR_ADDRTYPE_A
+        internal static PropertyTag PR_ORIGINAL_AUTHOR_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0079, PropertyType.PT_STRING8); }
         }
@@ -1266,7 +1269,7 @@ namespace MsgKit
         ///     Contains the e-mail address of the author of the first version of a message. That is — the message before being
         ///     forwarded or replied to. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_AUTHOR_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_ORIGINAL_AUTHOR_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x007A, PropertyType.PT_STRING8); }
         }
@@ -1283,7 +1286,7 @@ namespace MsgKit
         ///     Contains the address type of the originally intended recipient of an autoforwarded message. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINALLY_INTENDED_RECIP_ADDRTYPE_A
+        internal static PropertyTag PR_ORIGINALLY_INTENDED_RECIP_ADDRTYPE_A
         {
             get { return new PropertyTag(0x007B, PropertyType.PT_STRING8); }
         }
@@ -1300,7 +1303,7 @@ namespace MsgKit
         ///     Contains the e-mail address of the originally intended recipient of an autoforwarded message. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINALLY_INTENDED_RECIP_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_ORIGINALLY_INTENDED_RECIP_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x007C, PropertyType.PT_STRING8); }
         }
@@ -1308,7 +1311,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains transport-specific message envelope information. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_TRANSPORT_MESSAGE_HEADERS_A
+        internal static PropertyTag PR_TRANSPORT_MESSAGE_HEADERS_A
         {
             get { return new PropertyTag(0x007D, PropertyType.PT_STRING8); }
         }
@@ -1370,7 +1373,7 @@ namespace MsgKit
         ///     systems.
         ///     The value for this property must be expressed in the code page of the operating system that MAPI is running on.
         /// </remarks>
-        public static PropertyTag PR_BODY_A
+        internal static PropertyTag PR_BODY_A
         {
             get { return new PropertyTag(0x1000, PropertyType.PT_STRING8); }
         }
@@ -1386,7 +1389,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains optional text for a report generated by the messaging system. NON-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_REPORT_TEXT_A
+        internal static PropertyTag PR_REPORT_TEXT_A
         {
             get { return new PropertyTag(0x1001, PropertyType.PT_STRING8); }
         }
@@ -1442,7 +1445,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains significant characters that appear at the beginning of the message text. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RTF_SYNC_BODY_TAG_A
+        internal static PropertyTag PR_RTF_SYNC_BODY_TAG_A
         {
             get { return new PropertyTag(0x1008, PropertyType.PT_STRING8); }
         }
@@ -1490,7 +1493,7 @@ namespace MsgKit
         ///     Mapidefs.h included with Microsoft® Exchange 2000 Server and earlier. If <see cref="StoreSupportMask.STORE_HTML_OK" /> 
         ///     is undefined, use the value 0x00010000 instead.
         /// </remarks>
-        public static PropertyTag PR_BODY_HTML_A
+        internal static PropertyTag PR_BODY_HTML_A
         {
             get { return new PropertyTag(0x1013, PropertyType.PT_STRING8); }
         }
@@ -1511,7 +1514,7 @@ namespace MsgKit
         ///     field on a MIME entity that maps to a message body. MIME readers should copy the value of a Content-Location 
         ///     header field on such a MIME entity to the value of these properties
         /// </remarks>
-        public static PropertyTag PR_BODY_CONTENT_LOCATION_A
+        internal static PropertyTag PR_BODY_CONTENT_LOCATION_A
         {
             get { return new PropertyTag(0x1014, PropertyType.PT_STRING8); }
         }
@@ -1535,7 +1538,7 @@ namespace MsgKit
         /// <remarks>
         ///     These properties should be present on all e-mail messages.
         /// </remarks>
-        public static PropertyTag PR_INTERNET_MESSAGE_ID_A
+        internal static PropertyTag PR_INTERNET_MESSAGE_ID_A
         {
             get { return new PropertyTag(0x1035, PropertyType.PT_STRING8); }
         }
@@ -1557,7 +1560,7 @@ namespace MsgKit
         /// <remarks>
         ///     These properties must be set on all message replies.
         /// </remarks>
-        public static PropertyTag PR_IN_REPLY_TO_ID_A
+        internal static PropertyTag PR_IN_REPLY_TO_ID_A
         {
             get { return new PropertyTag(0x1042, PropertyType.PT_STRING8); }
         }
@@ -1583,7 +1586,7 @@ namespace MsgKit
         ///     write the desired value to a References header field. MIME readers must copy the value of the References header field 
         ///     to these properties. MIME readers may truncate the value of these properties if it exceeds 64KB in length.
         /// </remarks>
-        public static PropertyTag PR_INTERNET_REFERENCES_A
+        internal static PropertyTag PR_INTERNET_REFERENCES_A
         {
             get { return new PropertyTag(0x1039, PropertyType.PT_STRING8); }
         }
@@ -1767,7 +1770,7 @@ namespace MsgKit
         ///     This property contains a message recipient's telephone number to call to advise of the physical delivery of a
         ///     message. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RECIPIENT_NUMBER_FOR_ADVICE_A
+        internal static PropertyTag PR_RECIPIENT_NUMBER_FOR_ADVICE_A
         {
             get { return new PropertyTag(0x0C14, PropertyType.PT_STRING8); }
         }
@@ -1824,7 +1827,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the message sender's display name. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SENDER_NAME_A
+        internal static PropertyTag PR_SENDER_NAME_A
         {
             get { return new PropertyTag(0x0C1A, PropertyType.PT_STRING8); }
         }
@@ -1840,7 +1843,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains additional information for use in a report. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SUPPLEMENTARY_INFO_A
+        internal static PropertyTag PR_SUPPLEMENTARY_INFO_A
         {
             get { return new PropertyTag(0x0C1B, PropertyType.PT_STRING8); }
         }
@@ -1872,7 +1875,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the message sender's e-mail address type. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SENDER_ADDRTYPE_A
+        internal static PropertyTag PR_SENDER_ADDRTYPE_A
         {
             get { return new PropertyTag(0x0C1E, PropertyType.PT_STRING8); }
         }
@@ -1888,7 +1891,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the message sender's e-mail address, encoded in Non-Unicode standard.
         /// </summary>
-        public static PropertyTag PR_SENDER_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_SENDER_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x0C1F, PropertyType.PT_STRING8); }
         }
@@ -1922,7 +1925,7 @@ namespace MsgKit
         ///     Contains an ASCII list of the display names of any blind carbon copy (BCC) message recipients, separated by
         ///     semicolons (;). Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_DISPLAY_BCC_A
+        internal static PropertyTag PR_DISPLAY_BCC_A
         {
             get { return new PropertyTag(0x0E02, PropertyType.PT_STRING8); }
         }
@@ -1940,7 +1943,7 @@ namespace MsgKit
         ///     Contains an ASCII list of the display names of any carbon copy (CC) message recipients, separated by semicolons
         ///     (;). Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_DISPLAY_CC_A
+        internal static PropertyTag PR_DISPLAY_CC_A
         {
             get { return new PropertyTag(0x0E03, PropertyType.PT_STRING8); }
         }
@@ -1958,7 +1961,7 @@ namespace MsgKit
         ///     Contains a list of the display names of the primary (To) message recipients, separated by semicolons (;).
         ///     Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_DISPLAY_TO_A
+        internal static PropertyTag PR_DISPLAY_TO_A
         {
             get { return new PropertyTag(0x0E04, PropertyType.PT_STRING8); }
         }
@@ -1974,7 +1977,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display name of the folder in which a message was found during a search. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_PARENT_DISPLAY_A
+        internal static PropertyTag PR_PARENT_DISPLAY_A
         {
             get { return new PropertyTag(0x0E05, PropertyType.PT_STRING8); }
         }
@@ -2175,7 +2178,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the message subject with any prefix removed. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_NORMALIZED_SUBJECT_A
+        internal static PropertyTag PR_NORMALIZED_SUBJECT_A
         {
             get { return new PropertyTag(0x0E1D, PropertyType.PT_STRING8); }
         }
@@ -2383,7 +2386,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the value of the <see cref="PR_DISPLAY_NAME_W"/> (PidTagDisplayName) property. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RECIPIENT_DISPLAY_NAME_A
+        internal static PropertyTag PR_RECIPIENT_DISPLAY_NAME_A
         {
             get { return new PropertyTag(0x5FF6, PropertyType.PT_STRING8); }
         }
@@ -2410,7 +2413,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display name for a given MAPI object. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_DISPLAY_NAME_A
+        internal static PropertyTag PR_DISPLAY_NAME_A
         {
             get { return new PropertyTag(0x3001, PropertyType.PT_STRING8); }
         }
@@ -2433,7 +2436,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the messaging user's e-mail address type such as SMTP. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ADDRTYPE_A
+        internal static PropertyTag PR_ADDRTYPE_A
         {
             get { return new PropertyTag(0x3002, PropertyType.PT_STRING8); }
         }
@@ -2449,7 +2452,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the messaging user's SMTP e-mail address. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SMTP_ADDRESS_A
+        internal static PropertyTag PR_SMTP_ADDRESS_A
         {
             get { return new PropertyTag(0x39FE, PropertyType.PT_STRING8); }
         }
@@ -2465,7 +2468,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the messaging user's 7bit e-mail address. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_7BIT_DISPLAY_NAME_A
+        internal static PropertyTag PR_7BIT_DISPLAY_NAME_A
         {
             get { return new PropertyTag(0x39FF, PropertyType.PT_STRING8); }
         }
@@ -2481,7 +2484,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the messaging user's e-mail address. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_EMAIL_ADDRESS_A
+        internal static PropertyTag PR_EMAIL_ADDRESS_A
         {
             get { return new PropertyTag(0x3003, PropertyType.PT_STRING8); }
         }
@@ -2497,7 +2500,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a comment about the purpose or content of an object. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_COMMENT_A
+        internal static PropertyTag PR_COMMENT_A
         {
             get { return new PropertyTag(0x3004, PropertyType.PT_STRING8); }
         }
@@ -2521,7 +2524,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the vendor-defined display name for a service provider. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_PROVIDER_DISPLAY_A
+        internal static PropertyTag PR_PROVIDER_DISPLAY_A
         {
             get { return new PropertyTag(0x3006, PropertyType.PT_STRING8); }
         }
@@ -2561,7 +2564,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the base file name of the MAPI service provider dynamic-link library (DLL). Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_PROVIDER_DLL_NAME_A
+        internal static PropertyTag PR_PROVIDER_DLL_NAME_A
         {
             get { return new PropertyTag(0x300A, PropertyType.PT_STRING8); }
         }
@@ -2601,7 +2604,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the version of a form. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_FORM_VERSION_A
+        internal static PropertyTag PR_FORM_VERSION_A
         {
             get { return new PropertyTag(0x3301, PropertyType.PT_STRING8); }
         }
@@ -2625,7 +2628,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of a contact for information about a form. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_FORM_CONTACT_NAME_A
+        internal static PropertyTag PR_FORM_CONTACT_NAME_A
         {
             get { return new PropertyTag(0x3303, PropertyType.PT_STRING8); }
         }
@@ -2641,7 +2644,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the category of a form. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_FORM_CATEGORY_A
+        internal static PropertyTag PR_FORM_CATEGORY_A
         {
             get { return new PropertyTag(0x3304, PropertyType.PT_STRING8); }
         }
@@ -2657,7 +2660,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the subcategory of a form, as defined by a client application. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_FORM_CATEGORY_SUB_A
+        internal static PropertyTag PR_FORM_CATEGORY_SUB_A
         {
             get { return new PropertyTag(0x3305, PropertyType.PT_STRING8); }
         }
@@ -2689,7 +2692,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the display name for the object that is used to design the form. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_FORM_DESIGNER_NAME_A
+        internal static PropertyTag PR_FORM_DESIGNER_NAME_A
         {
             get { return new PropertyTag(0x3308, PropertyType.PT_STRING8); }
         }
@@ -2956,7 +2959,7 @@ namespace MsgKit
         ///     Contains a string value for use in a property restriction on an address book container contents table. Non-UNICODE
         ///     compilation
         /// </summary>
-        public static PropertyTag PR_ANR_A
+        internal static PropertyTag PR_ANR_A
         {
             get { return new PropertyTag(0x360C, PropertyType.PT_STRING8); }
         }
@@ -3024,7 +3027,7 @@ namespace MsgKit
         ///     Microsoft® Exchange Server prior to Exchange Server 2003 Mailbox Manager expect this property to be present.
         ///     Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_CONTAINER_CLASS_A
+        internal static PropertyTag PR_CONTAINER_CLASS_A
         {
             get { return new PropertyTag(0x3613, PropertyType.PT_STRING8); }
         }
@@ -3083,7 +3086,7 @@ namespace MsgKit
         ///     Contains the content identification header of a MIME message attachment. This property is used for MHTML support.
         ///     It represents the content identification header for the appropriate MIME body part. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_CONTENT_ID_A
+        internal static PropertyTag PR_ATTACH_CONTENT_ID_A
         {
             get { return new PropertyTag(0x3712, PropertyType.PT_STRING8); }
         }
@@ -3101,7 +3104,7 @@ namespace MsgKit
         ///     Contains the content location header of a MIME message attachment. This property is used for MHTML support. It
         ///     represents the content location header for the appropriate MIME body part. UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_CONTENT_LOCATION_A
+        internal static PropertyTag PR_ATTACH_CONTENT_LOCATION_A
         {
             get { return new PropertyTag(0x3713, PropertyType.PT_STRING8); }
         }
@@ -3141,7 +3144,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a filename extension that indicates the document type of an attachment. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_EXTENSION_A
+        internal static PropertyTag PR_ATTACH_EXTENSION_A
         {
             get { return new PropertyTag(0x3703, PropertyType.PT_STRING8); }
         }
@@ -3157,7 +3160,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an attachment's base filename and extension, excluding path. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_FILENAME_A
+        internal static PropertyTag PR_ATTACH_FILENAME_A
         {
             get { return new PropertyTag(0x3704, PropertyType.PT_STRING8); }
         }
@@ -3181,7 +3184,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an attachment's long filename and extension, excluding path. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_LONG_FILENAME_A
+        internal static PropertyTag PR_ATTACH_LONG_FILENAME_A
         {
             get { return new PropertyTag(0x3707, PropertyType.PT_STRING8); }
         }
@@ -3197,7 +3200,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an attachment's fully qualified path and filename. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_PATHNAME_A
+        internal static PropertyTag PR_ATTACH_PATHNAME_A
         {
             get { return new PropertyTag(0x3708, PropertyType.PT_STRING8); }
         }
@@ -3239,7 +3242,7 @@ namespace MsgKit
         ///     Contains the name of an attachment file modified so that it can be correlated with TNEF messages. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_TRANSPORT_NAME_A
+        internal static PropertyTag PR_ATTACH_TRANSPORT_NAME_A
         {
             get { return new PropertyTag(0x370C, PropertyType.PT_STRING8); }
         }
@@ -3255,7 +3258,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an attachment's fully qualified long path and filename. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_LONG_PATHNAME_A
+        internal static PropertyTag PR_ATTACH_LONG_PATHNAME_A
         {
             get { return new PropertyTag(0x370D, PropertyType.PT_STRING8); }
         }
@@ -3273,7 +3276,7 @@ namespace MsgKit
         ///     Contains formatting information about a Multipurpose Internet Mail Extensions (MIME) attachment. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_ATTACH_MIME_TAG_A
+        internal static PropertyTag PR_ATTACH_MIME_TAG_A
         {
             get { return new PropertyTag(0x370E, PropertyType.PT_STRING8); }
         }
@@ -3330,7 +3333,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's account name. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ACCOUNT_A
+        internal static PropertyTag PR_ACCOUNT_A
         {
             get { return new PropertyTag(0x3A00, PropertyType.PT_STRING8); }
         }
@@ -3354,7 +3357,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a telephone number that the message recipient can use to reach the sender. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_CALLBACK_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_CALLBACK_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A02, PropertyType.PT_STRING8); }
         }
@@ -3386,7 +3389,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a generational abbreviation that follows the full name of the recipient. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_GENERATION_A
+        internal static PropertyTag PR_GENERATION_A
         {
             get { return new PropertyTag(0x3A05, PropertyType.PT_STRING8); }
         }
@@ -3402,7 +3405,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the first or given name of the recipient. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_GIVEN_NAME_A
+        internal static PropertyTag PR_GIVEN_NAME_A
         {
             get { return new PropertyTag(0x3A06, PropertyType.PT_STRING8); }
         }
@@ -3418,7 +3421,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a government identifier for the recipient. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_GOVERNMENT_ID_NUMBER_A
+        internal static PropertyTag PR_GOVERNMENT_ID_NUMBER_A
         {
             get { return new PropertyTag(0x3A07, PropertyType.PT_STRING8); }
         }
@@ -3434,7 +3437,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the primary telephone number of the recipient's place of business. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_BUSINESS_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_BUSINESS_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A08, PropertyType.PT_STRING8); }
         }
@@ -3450,7 +3453,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the primary telephone number of the recipient's home. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_HOME_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_HOME_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A09, PropertyType.PT_STRING8); }
         }
@@ -3466,7 +3469,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the initials for parts of the full name of the recipient. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_INITIALS_A
+        internal static PropertyTag PR_INITIALS_A
         {
             get { return new PropertyTag(0x3A0A, PropertyType.PT_STRING8); }
         }
@@ -3482,7 +3485,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a keyword that identifies the recipient to the recipient's system administrator. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_KEYWORD_A
+        internal static PropertyTag PR_KEYWORD_A
         {
             get { return new PropertyTag(0x3A0B, PropertyType.PT_STRING8); }
         }
@@ -3499,7 +3502,7 @@ namespace MsgKit
         ///     Contains a value that indicates the language in which the messaging user is writing messages. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_LANGUAGE_A
+        internal static PropertyTag PR_LANGUAGE_A
         {
             get { return new PropertyTag(0x3A0C, PropertyType.PT_STRING8); }
         }
@@ -3517,7 +3520,7 @@ namespace MsgKit
         ///     Contains the location of the recipient in a format that is useful to the recipient's organization. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_LOCATION_A
+        internal static PropertyTag PR_LOCATION_A
         {
             get { return new PropertyTag(0x3A0D, PropertyType.PT_STRING8); }
         }
@@ -3541,7 +3544,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the common name of the message handling system. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_MHS_COMMON_NAME_A
+        internal static PropertyTag PR_MHS_COMMON_NAME_A
         {
             get { return new PropertyTag(0x3A0F, PropertyType.PT_STRING8); }
         }
@@ -3557,7 +3560,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an organizational ID number for the contact, such as an employee ID number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORGANIZATIONAL_ID_NUMBER_A
+        internal static PropertyTag PR_ORGANIZATIONAL_ID_NUMBER_A
         {
             get { return new PropertyTag(0x3A10, PropertyType.PT_STRING8); }
         }
@@ -3573,7 +3576,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the last or surname of the recipient. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_SURNAME_A
+        internal static PropertyTag PR_SURNAME_A
         {
             get { return new PropertyTag(0x3A11, PropertyType.PT_STRING8); }
         }
@@ -3600,7 +3603,7 @@ namespace MsgKit
         ///     Contains the original display name for an entry copied from an address book to a personal address book or other
         ///     writable address book. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ORIGINAL_DISPLAY_NAME_A
+        internal static PropertyTag PR_ORIGINAL_DISPLAY_NAME_A
         {
             get { return new PropertyTag(0x3A13, PropertyType.PT_STRING8); }
         }
@@ -3625,7 +3628,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's postal address. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_POSTAL_ADDRESS_A
+        internal static PropertyTag PR_POSTAL_ADDRESS_A
         {
             get { return new PropertyTag(0x3A15, PropertyType.PT_STRING8); }
         }
@@ -3641,7 +3644,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's company name. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_COMPANY_NAME_A
+        internal static PropertyTag PR_COMPANY_NAME_A
         {
             get { return new PropertyTag(0x3A16, PropertyType.PT_STRING8); }
         }
@@ -3657,7 +3660,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's job title. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_TITLE_A
+        internal static PropertyTag PR_TITLE_A
         {
             get { return new PropertyTag(0x3A17, PropertyType.PT_STRING8); }
         }
@@ -3673,7 +3676,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a name for the department in which the recipient works. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_DEPARTMENT_NAME_A
+        internal static PropertyTag PR_DEPARTMENT_NAME_A
         {
             get { return new PropertyTag(0x3A18, PropertyType.PT_STRING8); }
         }
@@ -3689,7 +3692,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's office location. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_OFFICE_LOCATION_A
+        internal static PropertyTag PR_OFFICE_LOCATION_A
         {
             get { return new PropertyTag(0x3A19, PropertyType.PT_STRING8); }
         }
@@ -3705,7 +3708,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's primary telephone number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_PRIMARY_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_PRIMARY_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1A, PropertyType.PT_STRING8); }
         }
@@ -3721,7 +3724,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a secondary telephone number at the recipient's place of business. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_BUSINESS2_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_BUSINESS2_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1B, PropertyType.PT_STRING8); }
         }
@@ -3737,7 +3740,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's cellular telephone number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_MOBILE_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_MOBILE_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1C, PropertyType.PT_STRING8); }
         }
@@ -3753,7 +3756,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's radio telephone number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RADIO_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_RADIO_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1D, PropertyType.PT_STRING8); }
         }
@@ -3769,7 +3772,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's car telephone number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_CAR_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_CAR_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1E, PropertyType.PT_STRING8); }
         }
@@ -3785,7 +3788,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an alternate telephone number for the recipient. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_OTHER_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_OTHER_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1F, PropertyType.PT_STRING8); }
         }
@@ -3801,7 +3804,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a recipient's display name in a secure form that cannot be changed. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_TRANSMITABLE_DISPLAY_NAME_A
+        internal static PropertyTag PR_TRANSMITABLE_DISPLAY_NAME_A
         {
             get { return new PropertyTag(0x3A20, PropertyType.PT_STRING8); }
         }
@@ -3817,7 +3820,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's pager telephone number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_PAGER_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_PAGER_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A21, PropertyType.PT_STRING8); }
         }
@@ -3841,7 +3844,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the telephone number of the recipient's primary fax machine. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_PRIMARY_FAX_NUMBER_A
+        internal static PropertyTag PR_PRIMARY_FAX_NUMBER_A
         {
             get { return new PropertyTag(0x3A23, PropertyType.PT_STRING8); }
         }
@@ -3857,7 +3860,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the telephone number of the recipient's business fax machine. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_BUSINESS_FAX_NUMBER_A
+        internal static PropertyTag PR_BUSINESS_FAX_NUMBER_A
         {
             get { return new PropertyTag(0x3A24, PropertyType.PT_STRING8); }
         }
@@ -3873,7 +3876,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the telephone number of the recipient's home fax machine. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_HOME_FAX_NUMBER_A
+        internal static PropertyTag PR_HOME_FAX_NUMBER_A
         {
             get { return new PropertyTag(0x3A25, PropertyType.PT_STRING8); }
         }
@@ -3889,7 +3892,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's country/region. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_COUNTRY_A
+        internal static PropertyTag PR_COUNTRY_A
         {
             get { return new PropertyTag(0x3A26, PropertyType.PT_STRING8); }
         }
@@ -3905,7 +3908,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's locality, such as the town or city. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_LOCALITY_A
+        internal static PropertyTag PR_LOCALITY_A
         {
             get { return new PropertyTag(0x3A27, PropertyType.PT_STRING8); }
         }
@@ -3921,7 +3924,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's state or province. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_STATE_OR_PROVINCE_A
+        internal static PropertyTag PR_STATE_OR_PROVINCE_A
         {
             get { return new PropertyTag(0x3A28, PropertyType.PT_STRING8); }
         }
@@ -3937,7 +3940,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's street address. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_STREET_ADDRESS_A
+        internal static PropertyTag PR_STREET_ADDRESS_A
         {
             get { return new PropertyTag(0x3A29, PropertyType.PT_STRING8); }
         }
@@ -3953,7 +3956,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the postal code for the recipient's postal address. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_POSTAL_CODE_A
+        internal static PropertyTag PR_POSTAL_CODE_A
         {
             get { return new PropertyTag(0x3A2A, PropertyType.PT_STRING8); }
         }
@@ -3969,7 +3972,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the number or identifier of the recipient's post office box. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_POST_OFFICE_BOX_A
+        internal static PropertyTag PR_POST_OFFICE_BOX_A
         {
             get { return new PropertyTag(0x3A2B, PropertyType.PT_STRING8); }
         }
@@ -3985,7 +3988,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's telex number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_TELEX_NUMBER_A
+        internal static PropertyTag PR_TELEX_NUMBER_A
         {
             get { return new PropertyTag(0x3A2C, PropertyType.PT_STRING8); }
         }
@@ -4001,7 +4004,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's ISDN-capable telephone number. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ISDN_NUMBER_A
+        internal static PropertyTag PR_ISDN_NUMBER_A
         {
             get { return new PropertyTag(0x3A2D, PropertyType.PT_STRING8); }
         }
@@ -4017,7 +4020,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the telephone number of the recipient's administrative assistant. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ASSISTANT_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_ASSISTANT_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A2E, PropertyType.PT_STRING8); }
         }
@@ -4033,7 +4036,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a secondary telephone number at the recipient's home. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_HOME2_TELEPHONE_NUMBER_A
+        internal static PropertyTag PR_HOME2_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A2F, PropertyType.PT_STRING8); }
         }
@@ -4049,7 +4052,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's administrative assistant. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_ASSISTANT_A
+        internal static PropertyTag PR_ASSISTANT_A
         {
             get { return new PropertyTag(0x3A30, PropertyType.PT_STRING8); }
         }
@@ -4138,7 +4141,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the ANSI name of a message service as set by the user in the MapiSvc.inf file.
         /// </summary>
-        public static PropertyTag PR_SERVICE_NAME_A
+        internal static PropertyTag PR_SERVICE_NAME_A
         {
             get { return new PropertyTag(0x3D09, PropertyType.PT_STRING8); }
         }
@@ -4156,7 +4159,7 @@ namespace MsgKit
         ///     Contains the ANSI filename of the DLL containing the message service provider entry point function to call for
         ///     configuration.
         /// </summary>
-        public static PropertyTag PR_SERVICE_DLL_NAME_A
+        internal static PropertyTag PR_SERVICE_DLL_NAME_A
         {
             get { return new PropertyTag(0x3D0A, PropertyType.PT_STRING8); }
         }
@@ -4196,7 +4199,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a ANSI list of the files that belong to the message service.
         /// </summary>
-        public static PropertyTag PR_SERVICE_SUPPORT_FILES_A
+        internal static PropertyTag PR_SERVICE_SUPPORT_FILES_A
         {
             get { return new PropertyTag(0x3D0F, PropertyType.PT_MV_STRING8); }
         }
@@ -4212,7 +4215,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a list of filenames that are to be deleted when the message service is uninstalled.
         /// </summary>
-        public static PropertyTag PR_SERVICE_DELETE_FILES_A
+        internal static PropertyTag PR_SERVICE_DELETE_FILES_A
         {
             get { return new PropertyTag(0x3D10, PropertyType.PT_MV_STRING8); }
         }
@@ -4228,7 +4231,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the ANSI name of the profile.
         /// </summary>
-        public static PropertyTag PR_PROFILE_NAME_A
+        internal static PropertyTag PR_PROFILE_NAME_A
         {
             get { return new PropertyTag(0x3D12, PropertyType.PT_STRING8); }
         }
@@ -4254,7 +4257,7 @@ namespace MsgKit
         ///     Contains the display name for a service provider's identity as defined within a messaging system. Non-UNICODE
         ///     compilation.
         /// </summary>
-        public static PropertyTag PR_IDENTITY_DISPLAY_A
+        internal static PropertyTag PR_IDENTITY_DISPLAY_A
         {
             get { return new PropertyTag(0x3E00, PropertyType.PT_STRING8); }
         }
@@ -4320,7 +4323,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains a path to the service provider's server. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_RESOURCE_PATH_A
+        internal static PropertyTag PR_RESOURCE_PATH_A
         {
             get { return new PropertyTag(0x3E07, PropertyType.PT_STRING8); }
         }
@@ -4336,7 +4339,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an ASCII message indicating the current status of a session resource. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_STATUS_STRING_A
+        internal static PropertyTag PR_STATUS_STRING_A
         {
             get { return new PropertyTag(0x3E08, PropertyType.PT_STRING8); }
         }
@@ -4378,7 +4381,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains an ASCII string indicating the status of a remote transfer. Non-UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_REMOTE_PROGRESS_TEXT_A
+        internal static PropertyTag PR_REMOTE_PROGRESS_TEXT_A
         {
             get { return new PropertyTag(0x3E0C, PropertyType.PT_STRING8); }
         }
