@@ -33,6 +33,7 @@ using System.Text.RegularExpressions;
 using MsgKit.Enums;
 using MsgKit.Helpers;
 using MsgKit.Mime.Header;
+using MsgKit.Structures;
 using OpenMcdf;
 using MessageImportance = MsgKit.Enums.MessageImportance;
 using MessagePriority = MsgKit.Enums.MessagePriority;
@@ -263,6 +264,11 @@ namespace MsgKit
         public bool Draft { get; }
 
         /// <summary>
+        ///     Returns <c>true</c> when a read receipt is requested
+        /// </summary>
+        public bool ReadRecipient { get; }
+
+        /// <summary>
         ///     Specifies the format for an editor to use to display a message.   
         /// </summary>
         public MessageEditorFormat MessageEditorFormat { get; set; }
@@ -275,15 +281,18 @@ namespace MsgKit
         /// <param name="sender">The <see cref="Sender"/> of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
         /// <param name="draft">Set to <c>true</c> to save the E-mail as a draft message</param>
+        /// <param name="readReceipt">Set to <c>true</c> to request a read receipt for the E-mail</param>
         public Email(Sender sender, 
                      string subject,
-                     bool draft = false)
+                     bool draft = false,
+                     bool readReceipt = false)
         {
             Sender = sender;
             Subject = subject;
             Importance = MessageImportance.IMPORTANCE_NORMAL;
             IconIndex = MessageIconIndex.NewMail;
             Draft = draft;
+            ReadRecipient = readReceipt;
         }
 
         /// <summary>
@@ -293,10 +302,12 @@ namespace MsgKit
         /// <param name="representing">The <see cref="MsgKit.Representing"/> sender of the E-mail</param>
         /// <param name="subject">The subject of the E-mail</param>
         /// <param name="draft">Set to <c>true</c> to save the E-mail as a draft message</param>
+        /// <param name="readReceipt">Set to <c>true</c> to request a read receipt for the E-mail</param>
         public Email(Sender sender,
                      Representing representing,
                      string subject,
-                     bool draft = false)
+                     bool draft = false,
+                     bool readReceipt = false)
         {
             Sender = sender;
             Representing = representing;
@@ -304,6 +315,7 @@ namespace MsgKit
             Importance = MessageImportance.IMPORTANCE_NORMAL;
             IconIndex = MessageIconIndex.NewMail;
             Draft = draft;
+            ReadRecipient = readReceipt;
         }
         #endregion
 
@@ -471,6 +483,14 @@ namespace MsgKit
             {
                 messageFlags |= MessageFlags.MSGFLAG_UNSENT;
                 IconIndex = MessageIconIndex.UnsentMail;
+            }
+
+            if (ReadRecipient)
+            {
+                TopLevelProperties.AddProperty(PropertyTags.PR_READ_RECEIPT_REQUESTED, true);
+                var reportTag = new ReportTag {ANSIText = Subject};
+                TopLevelProperties.AddProperty(PropertyTags.PR_REPORT_TAG, reportTag.ToByteArray());
+                
             }
 
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_FLAGS, messageFlags);

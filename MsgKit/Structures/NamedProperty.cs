@@ -39,7 +39,7 @@ namespace MsgKit.Structures
     {
         #region Properties
         /// <summary>
-        /// This should be the ID of the built in property name we are attaching to.
+        ///     This should be the ID of the built in property name we are attaching to.
         /// </summary>
         public ushort NameIdentifier { get; internal set; }
 
@@ -68,7 +68,7 @@ namespace MsgKit.Structures
         public string Name { get; internal set; }
 
         /// <summary>
-        ///     A <see cref="Guid"/>
+        ///     A <see cref="Guid" />
         /// </summary>
         public Guid Guid { get; internal set; }
         #endregion

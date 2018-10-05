@@ -43,6 +43,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.ReadMsgFileButton = new System.Windows.Forms.Button();
+            this.ReadReceiptCheckBox = new System.Windows.Forms.CheckBox();
             this.DraftMessageCheckBox = new System.Windows.Forms.CheckBox();
             this.ImportanceComboBox = new System.Windows.Forms.ComboBox();
             this.SenderTextBox = new System.Windows.Forms.TextBox();
@@ -210,6 +211,19 @@
             this.ReadMsgFileButton.Visible = false;
             this.ReadMsgFileButton.Click += new System.EventHandler(this.ReadMsgFileButton_Click);
             // 
+            // ReadReceiptCheckBox
+            // 
+            this.ReadReceiptCheckBox.AutoSize = true;
+            this.ReadReceiptCheckBox.Checked = global::MsgKitTestTool.Properties.Settings.Default.ReadReceiptCheckBox;
+            this.ReadReceiptCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::MsgKitTestTool.Properties.Settings.Default, "ReadReceiptCheckBox", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ReadReceiptCheckBox.Location = new System.Drawing.Point(70, 237);
+            this.ReadReceiptCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.ReadReceiptCheckBox.Name = "ReadReceiptCheckBox";
+            this.ReadReceiptCheckBox.Size = new System.Drawing.Size(87, 17);
+            this.ReadReceiptCheckBox.TabIndex = 23;
+            this.ReadReceiptCheckBox.Text = "Read receipt";
+            this.ReadReceiptCheckBox.UseVisualStyleBackColor = true;
+            // 
             // DraftMessageCheckBox
             // 
             this.DraftMessageCheckBox.AutoSize = true;
@@ -316,6 +330,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 341);
+            this.Controls.Add(this.ReadReceiptCheckBox);
             this.Controls.Add(this.DraftMessageCheckBox);
             this.Controls.Add(this.ReadMsgFileButton);
             this.Controls.Add(this.button1);
@@ -377,6 +392,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ReadMsgFileButton;
         private System.Windows.Forms.CheckBox DraftMessageCheckBox;
+        private System.Windows.Forms.CheckBox ReadReceiptCheckBox;
     }
 }
 

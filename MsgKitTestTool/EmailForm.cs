@@ -33,8 +33,10 @@ namespace MsgKitTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             using (var email = new Email(
-                new Sender(SenderTextBox.Text, "Kees"),
-                SubjectTextBox.Text, DraftMessageCheckBox.Checked))
+                new Sender(SenderTextBox.Text, string.Empty),
+                SubjectTextBox.Text, 
+                DraftMessageCheckBox.Checked,
+                ReadReceiptCheckBox.Checked))
             {
                 email.Recipients.AddTo(ToTextBox.Text);
                 email.Recipients.AddCc(CcTextBox.Text);
