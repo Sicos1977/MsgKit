@@ -109,7 +109,7 @@ namespace MsgKit.Helpers
         }
         #endregion
 
-        #region GenerateInstanceKey
+        #region GenerateEntryId
         /// <summary>
         ///     The PR_ENTRYID property contains a MAPI entry identifier used to open and edit properties of a particular MAPI
         ///     object.
