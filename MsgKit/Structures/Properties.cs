@@ -410,18 +410,18 @@ namespace MsgKit.Structures
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="data"></param>
-        /// <param name="flagses">
+        /// <param name="flags">
         ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
         ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">Raised when <paramref name="data" /> is not 8 bytes</exception>
         internal void AddProperty(ushort id, PropertyType type, byte[] data,
-            PropertyFlags flagses = PropertyFlags.PROPATTR_READABLE & PropertyFlags.PROPATTR_WRITABLE)
+            PropertyFlags flags = PropertyFlags.PROPATTR_READABLE & PropertyFlags.PROPATTR_WRITABLE)
         {
             if (data.Length != 8)
                 throw new ArgumentOutOfRangeException(nameof(data), "The data should always have an 8 byte size");
 
-            Add(new Property(id, type, flagses, data));
+            Add(new Property(id, type, flags, data));
         }
 
         /// <summary>
