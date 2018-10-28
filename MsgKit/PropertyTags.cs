@@ -1,4 +1,5 @@
-﻿//
+﻿// ReSharper disable CommentTypo
+//
 // PropertyTags.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
@@ -27,6 +28,7 @@
 using MsgKit.Enums;
 // ReSharper disable InconsistentNaming
 // ReSharper disable ConvertPropertyToExpressionBody
+// ReSharper disable IdentifierTypo
 
 namespace MsgKit
 {
@@ -207,6 +209,9 @@ namespace MsgKit
             get { return new PropertyTag(0x000E, PropertyType.PT_BINARY); }
         }
 
+        /// <summary>
+        ///     	Contains the date and time when a message sender wants a message delivered.
+        /// </summary>
         public static PropertyTag PR_DEFERRED_DELIVERY_TIME
         {
             get { return new PropertyTag(0x000F, PropertyType.PT_SYSTIME); }
