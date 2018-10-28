@@ -45,7 +45,6 @@ namespace MsgKitTestTool
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
-                email.AddProperty(PropertyTags.PR_AUTO_FORWARDED, );
 
                 switch (ImportanceComboBox.Text)
                 {

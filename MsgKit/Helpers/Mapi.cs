@@ -48,7 +48,7 @@ namespace MsgKit.Helpers
         ///     of  the message's data. Message store providers furnish a message's <see cref="PropertyTags.PR_SEARCH_KEY" />
         ///     property at message creation time.The search key of an address book entry is computed from its address type(
         ///     <see cref="PropertyTags.PR_ADDRTYPE_W" /> (PidTagAddressType)) and address
-        ///     (<see cref="PropertyTags.PR_EMAIL_ADDRESS_W" /> (PidTagEmailAddress)). If the address book entry is writeable, 
+        ///     (<see cref="PropertyTags.PR_EMAIL_ADDRESS_W" /> (PidTagEmailAddress)). If the address book entry is writable, 
         ///     its search key might not be available until the address type and address have been set by using the 
         ///     IMAPIProp::SetProps method and the entry has been saved by using the IMAPIProp::SaveChanges method.When these
         ///     address properties change, it is possible for the corresponding search key not to be synchronized with the new
