@@ -1,6 +1,6 @@
 ## What is MsgKit?
 
-MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation and parsing (in the near future) of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
+MsgKit is a 100% managed C# .NET library that supports C# .NET 4.5 and Standard 2.0 (no PINVOKE or whatsoever) which may be used for the creation and parsing (in the near future) of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
 
 ## History
 
