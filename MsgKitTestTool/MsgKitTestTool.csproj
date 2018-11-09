@@ -84,18 +84,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MsgKit\MsgKit.csproj">
-      <Project>{f4dc97ac-b333-4df0-9a5c-546c77a63ac8}</Project>
-      <Name>MsgKit</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Images\peterpan.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\tinkerbell.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MsgKitCore\MsgKit.csproj">
+      <Project>{5e7b97ea-fbdb-4996-959e-972fef61f70d}</Project>
+      <Name>MsgKit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
