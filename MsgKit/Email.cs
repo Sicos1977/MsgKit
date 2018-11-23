@@ -432,21 +432,23 @@ namespace MsgKit
 
             TopLevelProperties.AddProperty(PropertyTags.PR_BODY_W, BodyText);
 
-            //if (!string.IsNullOrEmpty(BodyHtml))
-            //    TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
-
-            if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
+            if (!string.IsNullOrEmpty(BodyHtml))
+            {
+                TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
+                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, false);
+            }
+            else if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
                 BodyRtf = Strings.GetEscapedRtf(BodyHtml);
                 BodyRtfCompressed = true;
             }
-            
+
             if (!string.IsNullOrWhiteSpace(BodyRtf))
             {
                 TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, new RtfCompressor().Compress(Encoding.ASCII.GetBytes(BodyRtf)));
                 TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, BodyRtfCompressed);
             }
-            
+
             if (MessageEditorFormat != MessageEditorFormat.EDITOR_FORMAT_DONTKNOW)
                 TopLevelProperties.AddProperty(PropertyTags.PR_MSG_EDITOR_FORMAT, MessageEditorFormat);
 

@@ -38,7 +38,7 @@ namespace MsgKit.Helpers
     {
         #region CompressionPosition Class
         /// <summary>
-        /// Holder for compression positions, aren't relevent to other parts of the project thus inside of RTFCompressor class. 
+        /// Holder for compression positions, aren't relevant to other parts of the project thus inside of RTFCompressor class. 
         /// </summary>
         internal class CompressionPositions
         {
@@ -212,8 +212,7 @@ namespace MsgKit.Helpers
                     {
                         resultStream.Write(BitConverter.GetBytes(compSize), 0, BitConverter.GetBytes(compSize).Length);
                         resultStream.Write(BitConverter.GetBytes(rawSize), 0, BitConverter.GetBytes(rawSize).Length);
-                        resultStream.Write(Encoding.UTF8.GetBytes(CompType), 0,
-                            Encoding.UTF8.GetBytes(CompType).Length);
+                        resultStream.Write(Encoding.UTF8.GetBytes(CompType), 0, Encoding.UTF8.GetBytes(CompType).Length);
                         resultStream.Write(BitConverter.GetBytes(crcValue), 0, BitConverter.GetBytes(crcValue).Length);
                         resultStream.Write(outStream.ToArray(), 0, outStream.ToArray().Length);
                         return resultStream.ToArray();
