@@ -174,7 +174,8 @@ namespace MsgKit.Helpers
                 }
             }
 
-            return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + rtfEscaped + "}";
+            return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 {\\*\\htmltag1 " + rtfEscaped + " }}";
+            //return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + rtfEscaped + "}";
         }
         #endregion
     }
