@@ -382,7 +382,9 @@ namespace MsgKit
         {
             var rootStorage = CompoundFile.RootStorage;
 
-            Class = MessageClass.IPM_Note;
+            if (Class == MessageClass.Unknown)
+                Class = MessageClass.IPM_Note;
+
             MessageSize += Recipients.WriteToStorage(rootStorage);
             MessageSize += Attachments.WriteToStorage(rootStorage);
 

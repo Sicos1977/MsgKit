@@ -37,7 +37,6 @@ namespace MsgKitTestTool
                 // Show the appointment
                 System.Diagnostics.Process.Start(@"d:\test.msg");
             }
-
         }
     }
 }

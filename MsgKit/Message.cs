@@ -56,7 +56,7 @@ namespace MsgKit
         /// <summary>
         ///     The <see cref="MessageClass"/>
         /// </summary>
-        internal MessageClass Class;
+        internal MessageClass Class = MessageClass.Unknown;
 
         /// <summary>
         ///     Returns <see cref="Class"/> as a string that is written into the MSG file

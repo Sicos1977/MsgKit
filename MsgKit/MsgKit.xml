@@ -2850,7 +2850,7 @@
         </member>
         <member name="T:MsgKit.Helpers.RtfCompressor.CompressionPositions">
             <summary>
-            Holder for compression positions, aren't relevent to other parts of the project thus inside of RTFCompressor class. 
+            Holder for compression positions, aren't relevant to other parts of the project thus inside of RTFCompressor class. 
             </summary>
         </member>
         <member name="M:MsgKit.Helpers.RtfCompressor.FindLongestMatch(System.Byte[],System.IO.BinaryReader,System.Int32)">
