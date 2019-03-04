@@ -434,7 +434,7 @@ namespace MsgKit
 
             TopLevelProperties.AddProperty(PropertyTags.PR_BODY_W, BodyText);
 
-            if (!string.IsNullOrEmpty(BodyHtml))
+            if (!string.IsNullOrEmpty(BodyHtml) && !Draft)
             {
                 TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
                 TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, false);
