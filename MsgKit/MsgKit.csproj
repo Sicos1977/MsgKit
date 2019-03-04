@@ -6,7 +6,7 @@
     <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation and parsing (in the near future) of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
     <Company>Kees van Spelde</Company>
-    <Copyright>(c)2018 - Kees van Spelde</Copyright>
+    <Copyright>(C) 2015-2019 Magic-Sessions</Copyright>
 	<PackageProjectUrl>https://github.com/Sicos1977/MsgKit</PackageProjectUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
     <PackageIconUrl>http://icons.iconarchive.com/icons/carlosjj/microsoft-office-2013/64/Outlook-icon.png</PackageIconUrl>
