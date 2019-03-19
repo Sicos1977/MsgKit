@@ -45,12 +45,26 @@ namespace MsgKit
         /// <param name="msgFileName">The MSG file</param>
         public static void ConvertEmlToMsg(string emlFileName, string msgFileName)
         {
-            var eml = MimeMessage.Load(emlFileName);
+            using (var emlFile = new FileStream(emlFileName, FileMode.Open))
+            using (var msgFile = new FileStream(msgFileName, FileMode.CreateNew))
+            {
+                ConvertEmlToMsg(emlFile, msgFile);
+            }
+        }
+
+        /// <summary>
+        ///     Converts an EML file to MSG format
+        /// </summary>
+        /// <param name="emlFile">The EML (MIME) input stream</param>
+        /// <param name="msgFile">The MSG file output stream</param>
+        public static void ConvertEmlToMsg(Stream emlFile, Stream msgFile)
+        {
+            var eml = MimeMessage.Load(emlFile);
             var sender = new Sender(string.Empty, string.Empty);
 
             if (eml.From.Count > 0)
             {
-                var mailAddress = ((MailboxAddress) eml.From[0]);
+                var mailAddress = ((MailboxAddress)eml.From[0]);
                 sender = new Sender(mailAddress.Address, mailAddress.Name);
             }
 
@@ -149,24 +163,24 @@ namespace MsgKit
                 }
                 else if (bodyPart is MessageDispositionNotification)
                 {
-                    var part = (MessageDispositionNotification) bodyPart;
+                    var part = (MessageDispositionNotification)bodyPart;
                     fileName = part.FileName;
                 }
                 else if (bodyPart is MessageDeliveryStatus)
                 {
-                    var part = (MessageDeliveryStatus) bodyPart;
+                    var part = (MessageDeliveryStatus)bodyPart;
                     fileName = "details";
                     extension = ".txt";
                     part.WriteTo(FormatOptions.Default, attachmentStream, true);
                 }
                 else
                 {
-                    var part = (MimePart) bodyPart;
+                    var part = (MimePart)bodyPart;
                     part.Content.DecodeTo(attachmentStream);
                     fileName = part.FileName;
                     bodyPart.WriteTo(attachmentStream);
                 }
-               
+
                 fileName = string.IsNullOrWhiteSpace(fileName)
                     ? "Nameless"
                     : FileManager.RemoveInvalidFileNameChars(fileName);
@@ -177,12 +191,12 @@ namespace MsgKit
                 var inline = bodyPart.ContentDisposition != null &&
                     bodyPart.ContentDisposition.Disposition.Equals("inline",
                         StringComparison.InvariantCultureIgnoreCase);
-                
+
                 attachmentStream.Position = 0;
                 msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
             }
 
-            msg.Save(msgFileName);
+            msg.Save(msgFile);
         }
         #endregion
 
