@@ -135,65 +135,87 @@ namespace MsgKit
                 msg.TransportMessageHeadersText = Encoding.ASCII.GetString(headerStream.ToArray());
             }
 
-            msg.BodyHtml = eml.HtmlBody;
-            msg.BodyText = eml.TextBody;
+            int namelessCount = 0;
 
-            var skipFirst = true;
-
+            // This loops through the top-level parts (i.e. it doesn't open up attachments and continue to traverse).
+            // As such, any included messages are just attachments here.
             foreach (var bodyPart in eml.BodyParts)
             {
-                // We always skip the first bodypart because that is normaly the html, text or rtf body
-                if (skipFirst)
+                var handled = false;
+
+                // The first text/plain part (that's not an attachment) is the body part.
+                if(!bodyPart.IsAttachment && bodyPart is TextPart text)
                 {
-                    skipFirst = false;
-                    continue;
+                    // Sets the first matching inline content type for body parts.
+
+                    if(msg.BodyText == null && text.IsPlain)
+                    {
+                        msg.BodyText = text.Text;
+                        handled = true;
+                    }
+
+                    if(msg.BodyHtml == null && text.IsHtml)
+                    {
+                        msg.BodyHtml = text.Text;
+                        handled = true;
+                    }
+
+                    if(msg.BodyRtf == null && text.IsRichText)
+                    {
+                        msg.BodyRtf = text.Text;
+                        handled = true;
+                    }
                 }
 
-                var attachmentStream = new MemoryStream();
-                var fileName = bodyPart.ContentType.Name;
-                var extension = string.Empty;
-
-                if (bodyPart is MessagePart messagePart)
+                // If the part hasn't previously been handled by "body" part handling
+                if (!handled)
                 {
-                    messagePart.Message.WriteTo(attachmentStream);
-                    if (messagePart.Message != null)
-                        fileName = messagePart.Message.Subject;
+                    var attachmentStream = new MemoryStream();
+                    var fileName = bodyPart.ContentType.Name;
+                    var extension = string.Empty;
 
-                    extension = ".eml";
+                    if (bodyPart is MessagePart messagePart)
+                    {
+                        messagePart.Message.WriteTo(attachmentStream);
+                        if (messagePart.Message != null)
+                            fileName = messagePart.Message.Subject;
+
+                        extension = ".eml";
+                    }
+                    else if (bodyPart is MessageDispositionNotification)
+                    {
+                        var part = (MessageDispositionNotification)bodyPart;
+                        fileName = part.FileName;
+                    }
+                    else if (bodyPart is MessageDeliveryStatus)
+                    {
+                        var part = (MessageDeliveryStatus)bodyPart;
+                        fileName = "details";
+                        extension = ".txt";
+                        part.WriteTo(FormatOptions.Default, attachmentStream, true);
+                    }
+                    else
+                    {
+                        var part = (MimePart)bodyPart;
+                        part.Content.DecodeTo(attachmentStream);
+                        fileName = part.FileName;
+                        bodyPart.WriteTo(attachmentStream);
+                    }
+
+                    fileName = string.IsNullOrWhiteSpace(fileName)
+                        ? $"part_{++namelessCount:00}"
+                        : FileManager.RemoveInvalidFileNameChars(fileName);
+
+                    if (!string.IsNullOrEmpty(extension))
+                        fileName += extension;
+
+                    var inline = bodyPart.ContentDisposition != null &&
+                        bodyPart.ContentDisposition.Disposition.Equals("inline",
+                            StringComparison.InvariantCultureIgnoreCase);
+
+                    attachmentStream.Position = 0;
+                    msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
                 }
-                else if (bodyPart is MessageDispositionNotification)
-                {
-                    var part = (MessageDispositionNotification)bodyPart;
-                    fileName = part.FileName;
-                }
-                else if (bodyPart is MessageDeliveryStatus)
-                {
-                    var part = (MessageDeliveryStatus)bodyPart;
-                    fileName = "details";
-                    extension = ".txt";
-                    part.WriteTo(FormatOptions.Default, attachmentStream, true);
-                }
-                else
-                {
-                    var part = (MimePart)bodyPart;
-                    part.Content.DecodeTo(attachmentStream);
-                    fileName = part.FileName;
-                    bodyPart.WriteTo(attachmentStream);
-                }
-
-                fileName = string.IsNullOrWhiteSpace(fileName)
-                    ? "Nameless"
-                    : FileManager.RemoveInvalidFileNameChars(fileName);
-
-                if (!string.IsNullOrEmpty(extension))
-                    fileName += extension;
-
-                var inline = bodyPart.ContentDisposition != null &&
-                    bodyPart.ContentDisposition.Disposition.Equals("inline",
-                        StringComparison.InvariantCultureIgnoreCase);
-
-                attachmentStream.Position = 0;
-                msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
             }
 
             msg.Save(msgFile);
