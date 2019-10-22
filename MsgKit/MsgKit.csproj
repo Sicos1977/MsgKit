@@ -22,19 +22,19 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
-    <DocumentationFile>D:\Progsoft\_GitHub_\MSGKit\MsgKit\MsgKit.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\MsgKit.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <DocumentationFile>D:\Progsoft\_GitHub_\MSGKit\MsgKit\MsgKit.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\MsgKit.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2|AnyCPU'">
-    <DocumentationFile>D:\Progsoft\_GitHub_\MSGKit\MsgKit\MsgKit.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\MsgKit.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>D:\Progsoft\_GitHub_\MSGKit\MsgKit\MsgKit.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\MsgKit.xml</DocumentationFile>
   </PropertyGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45'">
