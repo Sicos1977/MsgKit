@@ -55,7 +55,7 @@ namespace MsgKitTestTool
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
-
+                
                 switch (ImportanceComboBox.Text)
                 {
                     case "Low":

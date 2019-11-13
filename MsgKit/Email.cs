@@ -61,6 +61,11 @@ namespace MsgKit
         private Recipients _recipients;
 
         /// <summary>
+        ///     The E-mail <see cref="Recipients" />
+        /// </summary>
+        private Recipients _replyToRecipients;
+
+        /// <summary>
         ///     The E-mail <see cref="Attachments" />
         /// </summary>
         private Attachments _attachments;
@@ -94,6 +99,14 @@ namespace MsgKit
         public Recipients Recipients
         {
             get { return _recipients ?? (_recipients = new Recipients()); }
+        }
+
+        /// <summary>
+        ///     Returns the E-mail <see cref="Recipients" />
+        /// </summary>
+        public Recipients ReplyToRecipients
+        {
+            get { return _replyToRecipients ?? (_replyToRecipients = new Recipients()); }
         }
 
         /// <summary>
@@ -541,9 +554,17 @@ namespace MsgKit
                     }
                 }
 
+                var replyToRecipients = new List<string>();
+                
+                foreach (var recipient in ReplyToRecipients)
+                {
+                    replyToRecipients.Add(recipient.Email);
+                }
+
                 TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_TO_W, string.Join(";", displayTo), PropertyFlags.PROPATTR_READABLE);
                 TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_CC_W, string.Join(";", displayCc), PropertyFlags.PROPATTR_READABLE);
                 TopLevelProperties.AddProperty(PropertyTags.PR_DISPLAY_BCC_W, string.Join(";", displayBcc), PropertyFlags.PROPATTR_READABLE);
+                TopLevelProperties.AddProperty(PropertyTags.PR_REPLY_RECIPIENT_NAMES_W, string.Join(";", replyToRecipients), PropertyFlags.PROPATTR_READABLE);
             }
         }
         #endregion

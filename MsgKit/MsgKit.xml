@@ -329,6 +329,11 @@
                 The E-mail <see cref="P:MsgKit.Email.Recipients" />
             </summary>
         </member>
+        <member name="F:MsgKit.Email._replyToRecipients">
+            <summary>
+                The E-mail <see cref="P:MsgKit.Email.Recipients" />
+            </summary>
+        </member>
         <member name="F:MsgKit.Email._attachments">
             <summary>
                 The E-mail <see cref="P:MsgKit.Email.Attachments" />
@@ -356,6 +361,11 @@
             </remarks>
         </member>
         <member name="P:MsgKit.Email.Recipients">
+            <summary>
+                Returns the E-mail <see cref="P:MsgKit.Email.Recipients" />
+            </summary>
+        </member>
+        <member name="P:MsgKit.Email.ReplyToRecipients">
             <summary>
                 Returns the E-mail <see cref="P:MsgKit.Email.Recipients" />
             </summary>
