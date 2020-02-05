@@ -199,7 +199,7 @@ namespace MsgKit
                         var part = (MimePart)bodyPart;
                         part.Content.DecodeTo(attachmentStream);
                         fileName = part.FileName;
-                        bodyPart.WriteTo(attachmentStream);
+                        //bodyPart.WriteTo(attachmentStream);
                     }
 
                     fileName = string.IsNullOrWhiteSpace(fileName)
