@@ -2,23 +2,25 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>2.4.0</Version>
-    <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation and parsing (in the near future) of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
+    <Version>2.4.1</Version>
+    <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
     <Company>Kees van Spelde</Company>
     <Copyright>(C) 2015-2020 Magic-Sessions</Copyright>
 	<PackageProjectUrl>https://github.com/Sicos1977/MsgKit</PackageProjectUrl>
-    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <PackageIconUrl>http://icons.iconarchive.com/icons/carlosjj/microsoft-office-2013/64/Outlook-icon.png</PackageIconUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/Sicos1977/MsgKit</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Outlook MSG E-mail Appointment</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>- Fixesan issue where the ConvertEmlToMsg method in the Converter class was doubling all attachments in size</PackageReleaseNotes>
+    <PackageReleaseNotes>- Nuget packes and code upgraded</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>2.4.0.0</AssemblyVersion>
-    <FileVersion>2.4.0.0</FileVersion>
+    <AssemblyVersion>2.4.1.0</AssemblyVersion>
+    <FileVersion>2.4.1.0</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
@@ -38,13 +40,20 @@
   </PropertyGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45'">
-    <PackageReference Include="MimeKit" Version="2.5.2" />
+    <PackageReference Include="MimeKit" Version="2.6.0" />
     <PackageReference Include="OpenMcdf" Version="2.2.1.4" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="MimeKit" Version="2.0.7" />
-    <PackageReference Include="OpenMcdf" Version="2.2.1.3" />
+    <PackageReference Include="MimeKit" Version="2.6.0" />
+    <PackageReference Include="OpenMcdf" Version="2.2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>

@@ -65,7 +65,9 @@ namespace MsgKit.Streams
         /// <param name="storage">The <see cref="CFStorage"/> that containts the <see cref="PropertyTags.EntryStream"/></param>
         internal EntryStream(CFStorage storage)
         {
-            var stream = storage.TryGetStream(PropertyTags.EntryStream) ?? storage.AddStream(PropertyTags.EntryStream);
+            if (!storage.TryGetStream(PropertyTags.EntryStream, out var stream)) 
+                stream = storage.AddStream(PropertyTags.EntryStream);
+
             using (var memoryStream = new MemoryStream(stream.GetData()))
             using (var binaryReader = new BinaryReader(memoryStream))
                 while (!binaryReader.Eos())
@@ -96,7 +98,9 @@ namespace MsgKit.Streams
         }
         internal void Write(CFStorage storage, string streamName)
         {
-            var stream = storage.TryGetStream(streamName) ?? storage.AddStream(streamName);
+            if(!storage.TryGetStream(streamName, out var stream))
+                stream = storage.AddStream(streamName);
+
             using (var memoryStream = new MemoryStream())
             using (var binaryWriter = new BinaryWriter(memoryStream))
             {

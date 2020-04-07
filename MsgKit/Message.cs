@@ -159,8 +159,8 @@ namespace MsgKit
             // three streams  used to provide a mapping from property ID to property name 
             // ("__substg1.0_00020102", "__substg1.0_00030102", and "__substg1.0_00040102") and various other 
             // streams that provide a mapping from property names to property IDs.
-            var nameIdStorage = CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage) ??
-                                CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
+            if (!CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage, out var nameIdStorage))
+                nameIdStorage = CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
 
             var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
             entryStream.SetData(new byte[0]);

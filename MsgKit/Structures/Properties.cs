@@ -229,7 +229,9 @@ namespace MsgKit.Structures
             
             // Make the properties stream
             binaryWriter.BaseStream.Position = 0;
-            var propertiesStream = storage.TryGetStream(PropertyTags.PropertiesStreamName) ?? storage.AddStream(PropertyTags.PropertiesStreamName);
+            if(!storage.TryGetStream(PropertyTags.PropertiesStreamName, out var propertiesStream))
+                propertiesStream = storage.AddStream(PropertyTags.PropertiesStreamName);
+
             propertiesStream.SetData(binaryWriter.BaseStream.ToByteArray());
             return size + binaryWriter.BaseStream.Length;
         }
@@ -252,7 +254,6 @@ namespace MsgKit.Structures
         {
             if (obj == null)
                 return;
-                //throw new ArgumentNullException("mapiTag", "Obj can not be null");
 
             var data = new byte[] {};
 
