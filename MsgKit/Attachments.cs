@@ -251,7 +251,7 @@ namespace MsgKit
         public bool IsContactPhoto { get; }
 
         /// <summary>
-        ///     Tthe date and time when the attachment was created
+        ///     The date and time when the attachment was created
         /// </summary>
         public DateTime CreationTime { get; }
 
