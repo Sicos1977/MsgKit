@@ -72,6 +72,7 @@ namespace MsgKitTestTool
                 }
 
                 email.IconIndex = MessageIconIndex.UnsentMail;
+                email.Attachments.Add("d:\\welkom.docx");
                 email.Attachments.Add("Images\\peterpan.jpg");
                 email.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
                 //email.Attachments.Add("d:\\test2.msg");

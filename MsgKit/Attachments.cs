@@ -374,15 +374,6 @@ namespace MsgKit
         {
             var propertiesStream = new AttachmentProperties();
 
-            // PR_ATTACHMENT_FLAGS
-            // PR_ATTACHMENT_HIDDEN
-            // PR_ATTACHMENT_LINKID
-            // PR_ATTACH_ENCODING
-            // PR_ATTACH_FLAGS
-            // PR_ATTACH_MIME_TAG_W
-            // PR_ATTACH_NUM-- > 1 ?
-            // PR_OBJECT_TYPE
-
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_RECORD_KEY, Mapi.GenerateRecordKey(), PropertyFlags.PROPATTR_READABLE);
