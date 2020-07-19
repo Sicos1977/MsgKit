@@ -224,8 +224,8 @@ namespace MsgKit
                     {
                         var tempFileName = Path.GetFileNameWithoutExtension(fileName);
                         var tempExtension = Path.GetExtension(fileName);
-
                         msg.Attachments.Add(attachmentStream, $"{tempFileName}({index}){tempExtension}", -1, inline, bodyPart.ContentId);
+                        index += 1;
                     }
                 }
             }
