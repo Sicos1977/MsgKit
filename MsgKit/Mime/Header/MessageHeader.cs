@@ -505,7 +505,7 @@ namespace MsgKit.Mime.Header
             else
                 RawHeaders[headerName] = new List<string> {headerValue};
 
-            ParseHeaders(RawHeaders);
+            ParseHeader(headerName, headerValue);
         }
         #endregion
 
