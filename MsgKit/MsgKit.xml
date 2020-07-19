@@ -137,7 +137,7 @@
         </member>
         <member name="M:MsgKit.Attachments.Add(System.String,System.Int64,System.Boolean,System.String)">
             <summary>
-                Add's an <see cref="T:MsgKit.Attachment" /> by <see cref="F:MsgKit.Enums.AttachmentType.ATTACH_BY_VALUE" /> (default)
+                Adds an <see cref="T:MsgKit.Attachment" /> by <see cref="F:MsgKit.Enums.AttachmentType.ATTACH_BY_VALUE" /> (default)
             </summary>
             <param name="fileName">The file to add with it's full path</param>
             <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -152,7 +152,7 @@
         </member>
         <member name="M:MsgKit.Attachments.Add(System.IO.Stream,System.String,System.Int64,System.Boolean,System.String)">
             <summary>
-                Add's an <see cref="T:MsgKit.Attachment" /> stream by <see cref="F:MsgKit.Enums.AttachmentType.ATTACH_BY_VALUE" /> (default)
+                Adds an <see cref="T:MsgKit.Attachment" /> stream by <see cref="F:MsgKit.Enums.AttachmentType.ATTACH_BY_VALUE" /> (default)
             </summary>
             <param name="stream">The stream to the attachment</param>
             <param name="fileName">The name for the attachment</param>
@@ -168,7 +168,7 @@
         </member>
         <member name="M:MsgKit.Attachments.AddLink(System.IO.FileInfo,System.Int64,System.Boolean,System.String)">
             <summary>
-                Add's an <see cref="T:MsgKit.Attachment" /> by <see cref="F:MsgKit.Enums.AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
+                Adds an <see cref="T:MsgKit.Attachment" /> by <see cref="F:MsgKit.Enums.AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
             </summary>
             <param name="file">The <see cref="T:System.IO.FileInfo"/></param>
             <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -3047,7 +3047,7 @@
         </member>
         <member name="M:MsgKit.Message.AddProperty(MsgKit.PropertyTag,System.Object,MsgKit.Enums.PropertyFlags)">
             <summary>
-                Add's a custom property to the message or replaces it when it already exists
+                Adds a custom property to the message or replaces it when it already exists
             </summary>
             <param name="propertyTag"><see cref="T:MsgKit.PropertyTag"/></param>
             <param name="value">The value of the property</param>
@@ -3990,7 +3990,7 @@
         </member>
         <member name="M:MsgKit.Mime.Header.MessageHeader.SetHeaderValue(System.String,System.String)">
             <summary>
-                Add's a single header or updates it if it already exists
+                Adds a single header or updates it if it already exists
             </summary>
             <param name="headerName">The name of the header</param>
             <param name="headerValue">The value for the header</param>
@@ -9513,7 +9513,7 @@
         </member>
         <member name="M:MsgKit.Recipients.AddTo(System.String,System.String,MsgKit.Enums.AddressType,MsgKit.Enums.MapiObjectType,MsgKit.Enums.RecipientRowDisplayType)">
             <summary>
-                Add's an <see cref="F:MsgKit.Enums.RecipientType.To"/> <see cref="T:MsgKit.Recipient"/>
+                Adds an <see cref="F:MsgKit.Enums.RecipientType.To"/> <see cref="T:MsgKit.Recipient"/>
             </summary>
             <param name="email">The full E-mail address</param>
             <param name="displayName">The displayname for the <paramref name="email"/></param>
@@ -9523,7 +9523,7 @@
         </member>
         <member name="M:MsgKit.Recipients.AddCc(System.String,System.String,MsgKit.Enums.AddressType,MsgKit.Enums.MapiObjectType,MsgKit.Enums.RecipientRowDisplayType)">
             <summary>
-                Add's an <see cref="F:MsgKit.Enums.RecipientType.Cc"/> <see cref="T:MsgKit.Recipient"/>
+                Adds an <see cref="F:MsgKit.Enums.RecipientType.Cc"/> <see cref="T:MsgKit.Recipient"/>
             </summary>
             <param name="email">The full E-mail address</param>
             <param name="displayName">The displayname for the <paramref name="email"/></param>
@@ -9533,7 +9533,7 @@
         </member>
         <member name="M:MsgKit.Recipients.AddBcc(System.String,System.String,MsgKit.Enums.AddressType,MsgKit.Enums.MapiObjectType,MsgKit.Enums.RecipientRowDisplayType)">
             <summary>
-                Add's an <see cref="F:MsgKit.Enums.RecipientType.Bcc"/> <see cref="T:MsgKit.Recipient"/>
+                Adds an <see cref="F:MsgKit.Enums.RecipientType.Bcc"/> <see cref="T:MsgKit.Recipient"/>
             </summary>
             <param name="email">The full E-mail address</param>
             <param name="displayName">The displayname for the <paramref name="email"/></param>
@@ -9543,7 +9543,7 @@
         </member>
         <member name="M:MsgKit.Recipients.AddRecipient(System.String,System.String,MsgKit.Enums.AddressType,MsgKit.Enums.RecipientType,MsgKit.Enums.MapiObjectType,MsgKit.Enums.RecipientRowDisplayType)">
             <summary>
-                Add's an <see cref="T:MsgKit.Recipient"/>
+                Adds an <see cref="T:MsgKit.Recipient"/>
             </summary>
             <param name="email">The full E-mail address</param>
             <param name="displayName">The displayname for the <paramref name="email"/></param>

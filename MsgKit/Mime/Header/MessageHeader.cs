@@ -494,7 +494,7 @@ namespace MsgKit.Mime.Header
 
         #region SetHeaderValue
         /// <summary>
-        ///     Add's a single header or updates it if it already exists
+        ///     Adds a single header or updates it if it already exists
         /// </summary>
         /// <param name="headerName">The name of the header</param>
         /// <param name="headerValue">The value for the header</param>
