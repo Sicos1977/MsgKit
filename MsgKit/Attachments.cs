@@ -177,7 +177,7 @@ namespace MsgKit
 
         #region AddLink
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
+        ///     Adds an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
         /// </summary>
         /// <param name="file">The <see cref="FileInfo"/></param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -200,10 +200,8 @@ namespace MsgKit
         {
             CheckAttachmentFileName(file.Name, contentId);
 
-            Add(new Attachment(null,
-                file.Name,
-                file.CreationTime,
-                file.LastWriteTime,
+            Add(new Attachment(
+                file,
                 AttachmentType.ATTACH_BY_REF_ONLY,
                 renderingPosition,
                 isInline,
