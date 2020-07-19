@@ -90,7 +90,7 @@ namespace MsgKit
 
         #region AddAttachment
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
+        ///     Adds an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
         /// </summary>
         /// <param name="fileName">The file to add with it's full path</param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -114,12 +114,6 @@ namespace MsgKit
             var file = new FileInfo(fileName);
             var stream = file.OpenRead();
 
-            //var ext = Path.GetExtension(fileName);
-
-            //var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
-            //    ? AttachmentType.ATTACH_EMBEDDED_MSG
-            //    : AttachmentType.ATTACH_BY_VALUE;
-
             Add(new Attachment(stream,
                 file.Name,
                 file.CreationTime,
@@ -131,7 +125,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> stream by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
+        ///     Adds an <see cref="Attachment" /> stream by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
         /// </summary>
         /// <param name="stream">The stream to the attachment</param>
         /// <param name="fileName">The name for the attachment</param>
@@ -158,11 +152,6 @@ namespace MsgKit
 
             CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
-            //var ext = Path.GetExtension(fileName) ?? string.Empty;
-
-            //var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
-            //    ? AttachmentType.ATTACH_EMBEDDED_MSG
-            //    : AttachmentType.ATTACH_BY_VALUE;
 
             Add(new Attachment(stream,
                 fileName,
