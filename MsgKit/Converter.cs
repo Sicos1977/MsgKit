@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Text;
 using MimeKit;
+using MsgKit.Exceptions;
 using MsgKit.Helpers;
 
 namespace MsgKit
@@ -64,7 +65,7 @@ namespace MsgKit
 
             if (eml.From.Count > 0)
             {
-                var mailAddress = ((MailboxAddress)eml.From[0]);
+                var mailAddress = (MailboxAddress)eml.From[0];
                 sender = new Sender(mailAddress.Address, mailAddress.Name);
             }
 
@@ -135,7 +136,8 @@ namespace MsgKit
                 msg.TransportMessageHeadersText = Encoding.ASCII.GetString(headerStream.ToArray());
             }
 
-            int namelessCount = 0;
+            var namelessCount = 0;
+            var index = 1;
 
             // This loops through the top-level parts (i.e. it doesn't open up attachments and continue to traverse).
             // As such, any included messages are just attachments here.
@@ -199,7 +201,6 @@ namespace MsgKit
                         var part = (MimePart)bodyPart;
                         part.Content.DecodeTo(attachmentStream);
                         fileName = part.FileName;
-                        //bodyPart.WriteTo(attachmentStream);
                     }
 
                     fileName = string.IsNullOrWhiteSpace(fileName)
@@ -214,7 +215,18 @@ namespace MsgKit
                             StringComparison.InvariantCultureIgnoreCase);
 
                     attachmentStream.Position = 0;
-                    msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
+
+                    try
+                    {
+                        msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
+                    }
+                    catch (MKAttachmentExists)
+                    {
+                        var tempFileName = Path.GetFileNameWithoutExtension(fileName);
+                        var tempExtension = Path.GetExtension(fileName);
+                        msg.Attachments.Add(attachmentStream, $"{tempFileName}({index}){tempExtension}", -1, inline, bodyPart.ContentId);
+                        index += 1;
+                    }
                 }
             }
 

@@ -90,7 +90,7 @@ namespace MsgKit
 
         #region AddAttachment
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
+        ///     Adds an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
         /// </summary>
         /// <param name="fileName">The file to add with it's full path</param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -114,12 +114,6 @@ namespace MsgKit
             var file = new FileInfo(fileName);
             var stream = file.OpenRead();
 
-            //var ext = Path.GetExtension(fileName);
-
-            //var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
-            //    ? AttachmentType.ATTACH_EMBEDDED_MSG
-            //    : AttachmentType.ATTACH_BY_VALUE;
-
             Add(new Attachment(stream,
                 file.Name,
                 file.CreationTime,
@@ -131,7 +125,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> stream by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
+        ///     Adds an <see cref="Attachment" /> stream by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
         /// </summary>
         /// <param name="stream">The stream to the attachment</param>
         /// <param name="fileName">The name for the attachment</param>
@@ -158,11 +152,6 @@ namespace MsgKit
 
             CheckAttachmentFileName(fileName, contentId);
             var dateTime = DateTime.Now;
-            //var ext = Path.GetExtension(fileName) ?? string.Empty;
-
-            //var type = ext.Equals(".msg", StringComparison.InvariantCultureIgnoreCase)
-            //    ? AttachmentType.ATTACH_EMBEDDED_MSG
-            //    : AttachmentType.ATTACH_BY_VALUE;
 
             Add(new Attachment(stream,
                 fileName,
@@ -177,7 +166,7 @@ namespace MsgKit
 
         #region AddLink
         /// <summary>
-        ///     Add's an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
+        ///     Adds an <see cref="Attachment" /> by <see cref="AttachmentType.ATTACH_BY_REF_ONLY" /> as a link
         /// </summary>
         /// <param name="file">The <see cref="FileInfo"/></param>
         /// <param name="renderingPosition">Indicates how an attachment should be displayed in a rich text message</param>
@@ -200,10 +189,8 @@ namespace MsgKit
         {
             CheckAttachmentFileName(file.Name, contentId);
 
-            Add(new Attachment(null,
-                file.Name,
-                file.CreationTime,
-                file.LastWriteTime,
+            Add(new Attachment(
+                file,
                 AttachmentType.ATTACH_BY_REF_ONLY,
                 renderingPosition,
                 isInline,
@@ -264,7 +251,7 @@ namespace MsgKit
         public bool IsContactPhoto { get; }
 
         /// <summary>
-        ///     Tthe date and time when the attachment was created
+        ///     The date and time when the attachment was created
         /// </summary>
         public DateTime CreationTime { get; }
 
@@ -386,15 +373,6 @@ namespace MsgKit
         internal long WriteProperties(CFStorage storage, int index)
         {
             var propertiesStream = new AttachmentProperties();
-
-            // PR_ATTACHMENT_FLAGS
-            // PR_ATTACHMENT_HIDDEN
-            // PR_ATTACHMENT_LINKID
-            // PR_ATTACH_ENCODING
-            // PR_ATTACH_FLAGS
-            // PR_ATTACH_MIME_TAG_W
-            // PR_ATTACH_NUM-- > 1 ?
-            // PR_OBJECT_TYPE
 
             propertiesStream.AddProperty(PropertyTags.PR_ATTACH_NUM, index, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey(), PropertyFlags.PROPATTR_READABLE);

@@ -40,7 +40,7 @@ namespace MsgKit
     {
         #region Add
         /// <summary>
-        ///     Add's an <see cref="RecipientType.To"/> <see cref="Recipient"/>
+        ///     Adds an <see cref="RecipientType.To"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
@@ -64,7 +64,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Add's an <see cref="RecipientType.Cc"/> <see cref="Recipient"/>
+        ///     Adds an <see cref="RecipientType.Cc"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
@@ -87,7 +87,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Add's an <see cref="RecipientType.Bcc"/> <see cref="Recipient"/>
+        ///     Adds an <see cref="RecipientType.Bcc"/> <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>
@@ -110,7 +110,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Add's an <see cref="Recipient"/>
+        ///     Adds an <see cref="Recipient"/>
         /// </summary>
         /// <param name="email">The full E-mail address</param>
         /// <param name="displayName">The displayname for the <paramref name="email"/></param>

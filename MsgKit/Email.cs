@@ -598,7 +598,7 @@ namespace MsgKit
         public new void Dispose()
         {
             foreach (var attachment in _attachments)
-                attachment.Stream.Dispose();
+                attachment.Stream?.Dispose();
 
             base.Dispose();
         }

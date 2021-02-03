@@ -206,7 +206,7 @@ namespace MsgKit
 
         #region AddProperty
         /// <summary>
-        ///     Add's a custom property to the message or replaces it when it already exists
+        ///     Adds a custom property to the message or replaces it when it already exists
         /// </summary>
         /// <param name="propertyTag"><see cref="PropertyTag"/></param>
         /// <param name="value">The value of the property</param>
