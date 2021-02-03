@@ -73,6 +73,12 @@ namespace MsgKit.Enums
         /// <summary>
         ///     The attachment is an embedded OLE object
         /// </summary>
-        ATTACH_OLE = 0x0006
+        ATTACH_OLE = 0x0006,
+
+        /// <summary>
+        ///     The <see cref="PropertyTags.PR_ATTACH_LONG_PATHNAME_W" /> property contains a fully qualified path identifying the attachment.
+        ///     The <see cref="PropertyTags.PR_NAME_A" /> PidNameAttachmentProviderType defines the web service API manipulating the attachment.
+        /// </summary>
+        ATTACH_BY_WEB_REFERENCE = 0x0007
     }
 }
