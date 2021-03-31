@@ -61,7 +61,7 @@ namespace MsgKit
         /// <summary>
         ///     Returns <see cref="Class"/> as a string that is written into the MSG file
         /// </summary>
-        internal string ClassAsString
+        private string ClassAsString
         {
             get
             {
@@ -115,6 +115,9 @@ namespace MsgKit
                         return "IPM.Appointment";
                     case MessageClass.IPM_Task:
                         return "IPM.Task";
+                    case MessageClass.IPM_Contact:
+                        return "IPM.Contact";
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

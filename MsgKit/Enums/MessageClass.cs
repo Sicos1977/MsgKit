@@ -152,6 +152,11 @@ namespace MsgKit.Enums
         /// <summary>
         ///     Task
         /// </summary>
-        IPM_Task
+        IPM_Task,
+
+        /// <summary>
+        ///     A contact
+        /// </summary>
+        IPM_Contact
     }
 }

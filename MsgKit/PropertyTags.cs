@@ -3647,6 +3647,22 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     Contains the recipient's companys main phone number. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_COMPANY_MAIN_PHONE_NUMBER_W
+        {
+            get { return new PropertyTag(0x3A57, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's companys main phone number. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_COMPANY_MAIN_PHONE_NUMBER_A
+        {
+            get { return new PropertyTag(0x3A57, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
         ///     Contains the recipient's company name. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_COMPANY_NAME_A
