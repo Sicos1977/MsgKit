@@ -29,6 +29,9 @@ using OpenMcdf;
 
 namespace MsgKit
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Contact : Email
     {
         #region Properties
@@ -38,7 +41,7 @@ namespace MsgKit
         public string CompanyName { get; set; }
 
         /// <summary>
-        ///     The companys main phone number
+        ///     The company's main phone number
         /// </summary>
         public string CompanyMainPhoneNumber { get; set; } 
 
