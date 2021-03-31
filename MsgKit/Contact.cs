@@ -24,7 +24,6 @@
 // THE SOFTWARE.
 //
 
-using System;
 using MsgKit.Enums;
 using OpenMcdf;
 
@@ -44,9 +43,24 @@ namespace MsgKit
         public string CompanyMainPhoneNumber { get; set; } 
 
         /// <summary>
-        ///     
+        ///     The job title    
         /// </summary>
         public string JobTitle { get; set; }
+
+        /// <summary>
+        ///     E-mail address 1
+        /// </summary>
+        public Address Email1 { get; set; }
+
+        /// <summary>
+        ///     E-mail address 2
+        /// </summary>
+        public Address Email2 { get; set; }
+
+        /// <summary>
+        ///     E-mail address 3
+        /// </summary>
+        public Address Email3 { get; set; }
         #endregion
 
         #region Constructors
@@ -94,6 +108,32 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_NAME_W, CompanyName);
             TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_MAIN_PHONE_NUMBER_W, CompanyMainPhoneNumber);
             TopLevelProperties.AddProperty(PropertyTags.PR_TITLE_W, JobTitle);
+
+            if (Email1 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email1.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email1.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailType, Email1.AddressTypeString);
+                // Figure out if the entry id also needs to be added
+            }
+
+            if (Email2 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email2.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email2.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailType, Email2.AddressTypeString);
+                // Figure out if the entry id also needs to be added
+            }
+
+            if (Email3 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email3.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email3.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailType, Email3.AddressTypeString);
+                // Figure out if the entry id also needs to be added
+            }
+
+            // Etc ...
         }
         #endregion
 
