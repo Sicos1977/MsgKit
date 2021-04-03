@@ -64,6 +64,76 @@ namespace MsgKit
         ///     E-mail address 3
         /// </summary>
         public Address Email3 { get; set; }
+
+        /// <summary>
+        ///     Fax 1
+        /// </summary>
+        public Address Fax1 { get; set; }
+
+        /// <summary>
+        ///     Fax 2
+        /// </summary>
+        public Address Fax2 { get; set; }
+
+        /// <summary>
+        ///     Fax  3
+        /// </summary>
+        public Address Fax3 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddress { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressCity { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressStreet { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressCountry { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressCountryCode { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressPostalCode { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressPostOfficeBox { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WorkAddressState { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string HomeAddress { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string OtherAddress { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string WebPage { get; set; }
         #endregion
 
         #region Constructors
@@ -112,27 +182,68 @@ namespace MsgKit
             TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_MAIN_PHONE_NUMBER_W, CompanyMainPhoneNumber);
             TopLevelProperties.AddProperty(PropertyTags.PR_TITLE_W, JobTitle);
 
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddress, WorkAddress);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCity, WorkAddressCity);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressStreet, WorkAddressStreet);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCountry, WorkAddressCountry);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCountryCode, WorkAddressCountryCode);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressPostalCode, WorkAddressPostalCode);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressPostOfficeBox, WorkAddressPostOfficeBox);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressState, WorkAddressState);
+
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddress, WorkAddress);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddressCountryCode, WorkAddress);
+            
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddress, OtherAddress);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddressCountryCode, OtherAddress);
+            
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, WebPage);
+            
             if (Email1 != null)
             {
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email1.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email1.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailType, Email1.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1AddressType, Email1.AddressTypeString);
                 // Figure out if the entry id also needs to be added
             }
 
             if (Email2 != null)
             {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email2.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email2.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailType, Email2.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2EmailAddress, Email2.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2DisplayName, Email2.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2AddressType, Email2.AddressTypeString);
                 // Figure out if the entry id also needs to be added
             }
 
             if (Email3 != null)
             {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email3.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email3.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailType, Email3.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3EmailAddress, Email3.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3DisplayName, Email3.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3AddressType, Email3.AddressTypeString);
+                // Figure out if the entry id also needs to be added
+            }
+
+            if (Fax1 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, Fax1.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, Fax1.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, Fax1.AddressTypeString);
+                // Figure out if the entry id also needs to be added
+            }
+
+            if (Fax2 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Fax2.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, Fax2.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, Fax2.AddressTypeString);
+                // Figure out if the entry id also needs to be added
+            }
+
+            if (Fax3 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Fax3.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, Fax3.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, Fax3.AddressTypeString);
                 // Figure out if the entry id also needs to be added
             }
 

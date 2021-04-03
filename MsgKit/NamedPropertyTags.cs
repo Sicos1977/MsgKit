@@ -948,15 +948,6 @@ namespace MsgKit
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        internal static NamedPropertyTag PidLidEmail1EmailType
-        {
-            get { return new NamedPropertyTag(0x8087, "PidLidEmail1EmailType",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
-        }
-
-        /// <summary>
         ///     Specifies the user-readable display name for the e-mail address.
         /// </summary>
         internal static NamedPropertyTag PidLidEmail2DisplayName
