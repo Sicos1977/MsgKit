@@ -212,7 +212,6 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2EmailAddress, Email2.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2DisplayName, Email2.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2AddressType, Email2.AddressTypeString);
-                // Figure out if the entry id also needs to be added
             }
 
             if (Email3 != null)
@@ -220,7 +219,6 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3EmailAddress, Email3.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3DisplayName, Email3.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3AddressType, Email3.AddressTypeString);
-                // Figure out if the entry id also needs to be added
             }
 
             if (Fax1 != null)
@@ -228,7 +226,6 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, Fax1.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, Fax1.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, Fax1.AddressTypeString);
-                // Figure out if the entry id also needs to be added
             }
 
             if (Fax2 != null)
@@ -236,7 +233,6 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Fax2.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, Fax2.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, Fax2.AddressTypeString);
-                // Figure out if the entry id also needs to be added
             }
 
             if (Fax3 != null)
@@ -244,7 +240,6 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Fax3.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, Fax3.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, Fax3.AddressTypeString);
-                // Figure out if the entry id also needs to be added
             }
 
             // Etc ...
