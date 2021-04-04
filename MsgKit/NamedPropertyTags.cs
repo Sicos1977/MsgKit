@@ -27,6 +27,9 @@
 using System;
 using MsgKit.Enums;
 using MsgKit.Structures;
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 // ReSharper disable ConvertPropertyToExpressionBody
 // ReSharper disable InconsistentNaming

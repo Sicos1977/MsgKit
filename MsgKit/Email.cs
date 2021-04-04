@@ -184,10 +184,7 @@ namespace MsgKit
         /// <summary>
         ///     The E-mail <see cref="Attachments" />
         /// </summary>
-        public Attachments Attachments
-        {
-            get { return _attachments ?? (_attachments = new Attachments()); }
-        }
+        public Attachments Attachments => _attachments ?? (_attachments = new Attachments());
 
         /// <summary>
         ///     Returns or sets the UTC date and time the <see cref="Sender"/> has submitted the 
