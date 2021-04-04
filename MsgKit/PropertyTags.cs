@@ -3637,6 +3637,22 @@ namespace MsgKit
         {
             get { return new PropertyTag(0x3A15, PropertyType.PT_STRING8); }
         }
+        
+        /// <summary>
+        ///     Contains the recipient's home page. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_BUSINESS_HOME_PAGE_W
+        {
+            get { return new PropertyTag(0x3A51, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's home page. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_BUSINESS_HOME_PAGE_A
+        {
+            get { return new PropertyTag(0x3A51, PropertyType.PT_STRING8); }
+        }
 
         /// <summary>
         ///     Contains the recipient's company name. UNICODE compilation.
@@ -3663,13 +3679,93 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     Contains the recipient's city address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_CITY_A
+        {
+            get { return new PropertyTag(0x3A59, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's city address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_CITY_W
+        {
+            get { return new PropertyTag(0x3A59, PropertyType.PT_UNICODE); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's city address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_COUNTRY_A
+        {
+            get { return new PropertyTag(0x3A5A, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's country address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_COUNTRY_W
+        {
+            get { return new PropertyTag(0x3A5A, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's country address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_STREET_A
+        {
+            get { return new PropertyTag(0x3A5D, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's street address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_STREET_W
+        {
+            get { return new PropertyTag(0x3A5D, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's city address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_POSTAL_CODE_A
+        {
+            get { return new PropertyTag(0x3A5B, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's city address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_POSTAL_CODE_W
+        {
+            get { return new PropertyTag(0x3A5B, PropertyType.PT_UNICODE); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's city address. UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_STATE_OR_PROVINCE_A
+        {
+            get { return new PropertyTag(0x3A5C, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's city address. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_HOME_ADDRESS_STATE_OR_PROVINCE_W
+        {
+            get { return new PropertyTag(0x3A5C, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
         ///     Contains the recipient's company name. Non-UNICODE compilation.
         /// </summary>
         internal static PropertyTag PR_COMPANY_NAME_A
         {
             get { return new PropertyTag(0x3A16, PropertyType.PT_STRING8); }
         }
-
+       
         /// <summary>
         ///     Contains the recipient's job title. UNICODE compilation.
         /// </summary>
@@ -3780,6 +3876,87 @@ namespace MsgKit
         internal static PropertyTag PR_RADIO_TELEPHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A1D, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's other street. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_OTHER_ADDRESS_STREET_W
+        {
+            get { return new PropertyTag(0x3A63, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's other street. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_OTHER_ADDRESS_STREET_A
+        {
+            get { return new PropertyTag(0x3A63, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's other postal code. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_OTHER_ADDRESS_POSTAL_CODE_W
+        {
+            get { return new PropertyTag(0x3A61, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's other postal code. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_OTHER_ADDRESS_POSTAL_CODE_A
+        {
+            get { return new PropertyTag(0x3A61, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's other city. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_OTHER_ADDRESS_CITY_W
+        {
+            get { return new PropertyTag(0x3A5F, PropertyType.PT_UNICODE); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's other city. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_OTHER_ADDRESS_CITY_A
+        {
+            get { return new PropertyTag(0x3A5F, PropertyType.PT_STRING8); }
+        }
+        
+        /// <summary>
+        ///     Contains the recipient's other country. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_OTHER_ADDRESS_COUNTRY_W
+        {
+            get { return new PropertyTag(0x3A60, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's other country. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_OTHER_ADDRESS_COUNTRY_A
+        {
+            get { return new PropertyTag(0x3A60, PropertyType.PT_STRING8); }
+        }
+       
+                
+        /// <summary>
+        ///     Contains the recipient's other state or provence. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_OTHER_ADDRESS_STATE_OR_PROVINCE_W
+        {
+            get { return new PropertyTag(0x3A62, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the recipient's other state or provence. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_OTHER_ADDRESS_STATE_OR_PROVINCE_A
+        {
+            get { return new PropertyTag(0x3A62, PropertyType.PT_STRING8); }
         }
 
         /// <summary>
@@ -3905,7 +4082,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's country/region. UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_COUNTRY_W
+        public static PropertyTag PR_BUSINESS_ADDRESS_COUNTRY_W
         {
             get { return new PropertyTag(0x3A26, PropertyType.PT_UNICODE); }
         }
@@ -3913,7 +4090,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's country/region. Non-UNICODE compilation.
         /// </summary>
-        internal static PropertyTag PR_COUNTRY_A
+        internal static PropertyTag PR_BUSINESS_ADDRESS_COUNTRY_A
         {
             get { return new PropertyTag(0x3A26, PropertyType.PT_STRING8); }
         }
@@ -3921,7 +4098,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's locality, such as the town or city. UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_LOCALITY_W
+        public static PropertyTag PR_BUSINESS_ADDRESS_CITY_W
         {
             get { return new PropertyTag(0x3A27, PropertyType.PT_UNICODE); }
         }
@@ -3929,7 +4106,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's locality, such as the town or city. Non-UNICODE compilation.
         /// </summary>
-        internal static PropertyTag PR_LOCALITY_A
+        internal static PropertyTag PR_BUSINESS_ADDRESS_CITY_A
         {
             get { return new PropertyTag(0x3A27, PropertyType.PT_STRING8); }
         }
@@ -3937,7 +4114,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's state or province. UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_STATE_OR_PROVINCE_W
+        public static PropertyTag PR_BUSINESS_ADDRESS_STATE_OR_PROVINCE_W
         {
             get { return new PropertyTag(0x3A28, PropertyType.PT_UNICODE); }
         }
@@ -3945,7 +4122,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the name of the recipient's state or province. Non-UNICODE compilation.
         /// </summary>
-        internal static PropertyTag PR_STATE_OR_PROVINCE_A
+        internal static PropertyTag PR_BUSINESS_ADDRESS_STATE_OR_PROVINCE_A
         {
             get { return new PropertyTag(0x3A28, PropertyType.PT_STRING8); }
         }
@@ -3953,7 +4130,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's street address. UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_STREET_ADDRESS_W
+        public static PropertyTag PR_BUSINESS_ADDRESS_STREET_W
         {
             get { return new PropertyTag(0x3A29, PropertyType.PT_UNICODE); }
         }
@@ -3961,7 +4138,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the recipient's street address. Non-UNICODE compilation.
         /// </summary>
-        internal static PropertyTag PR_STREET_ADDRESS_A
+        internal static PropertyTag PR_BUSINESS_ADDRESS_STREET_A
         {
             get { return new PropertyTag(0x3A29, PropertyType.PT_STRING8); }
         }
@@ -3969,7 +4146,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the postal code for the recipient's postal address. UNICODE compilation.
         /// </summary>
-        public static PropertyTag PR_POSTAL_CODE_W
+        public static PropertyTag PR_BUSINESS_ADDRESS_POSTAL_CODE_W
         {
             get { return new PropertyTag(0x3A2A, PropertyType.PT_UNICODE); }
         }
@@ -3977,7 +4154,7 @@ namespace MsgKit
         /// <summary>
         ///     Contains the postal code for the recipient's postal address. Non-UNICODE compilation.
         /// </summary>
-        internal static PropertyTag PR_POSTAL_CODE_A
+        internal static PropertyTag PR_BUSINESS_ADDRESS_POSTAL_CODE_A
         {
             get { return new PropertyTag(0x3A2A, PropertyType.PT_STRING8); }
         }

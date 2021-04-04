@@ -693,18 +693,6 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Specifies the state or province portion of the work address of the contact.
-        /// </summary>
-        internal static NamedPropertyTag PidLidWorkAddressState
-        {
-            get
-            {
-                return new NamedPropertyTag(0x8047, "PidLidWorkAddressCity",
-                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
-            }
-        }
-
-        /// <summary>
         /// Specifies the postal code (ZIP code) portion of the work address of the contact.
         /// </summary>
         internal static NamedPropertyTag PidLidWorkAddressPostalCode

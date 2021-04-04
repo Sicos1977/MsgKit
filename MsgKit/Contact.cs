@@ -81,59 +81,24 @@ namespace MsgKit
         public Address Fax3 { get; set; }
 
         /// <summary>
-        /// 
+        ///     The work details
         /// </summary>
-        public string WorkAddress { get; set; }
+        public ContactWork Work { get; set; }
 
         /// <summary>
-        /// 
+        ///     The business details
         /// </summary>
-        public string WorkAddressCity { get; set; }
+        public ContactBusiness Business { get; set; }
 
         /// <summary>
-        /// 
+        ///     The home details
         /// </summary>
-        public string WorkAddressStreet { get; set; }
+        public ContactHome Home { get; set; }
 
         /// <summary>
-        /// 
+        ///     The other address
         /// </summary>
-        public string WorkAddressCountry { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string WorkAddressCountryCode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string WorkAddressPostalCode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string WorkAddressPostOfficeBox { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string WorkAddressState { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string HomeAddress { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string OtherAddress { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string WebPage { get; set; }
+        public ContactOther Other{ get; set; }
         #endregion
 
         #region Constructors
@@ -178,24 +143,113 @@ namespace MsgKit
         private new void WriteToStorage()
         {
             Class = MessageClass.IPM_Contact;
-            TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_NAME_W, CompanyName);
-            TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_MAIN_PHONE_NUMBER_W, CompanyMainPhoneNumber);
-            TopLevelProperties.AddProperty(PropertyTags.PR_TITLE_W, JobTitle);
 
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddress, WorkAddress);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCity, WorkAddressCity);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressStreet, WorkAddressStreet);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCountry, WorkAddressCountry);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCountryCode, WorkAddressCountryCode);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressPostalCode, WorkAddressPostalCode);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressPostOfficeBox, WorkAddressPostOfficeBox);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressState, WorkAddressState);
+            if (!string.IsNullOrWhiteSpace(CompanyName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_NAME_W, CompanyName);
 
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddress, WorkAddress);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddressCountryCode, WorkAddress);
+            if (!string.IsNullOrWhiteSpace(CompanyMainPhoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_MAIN_PHONE_NUMBER_W, CompanyMainPhoneNumber);
+
+            if (!string.IsNullOrWhiteSpace(JobTitle))
+                TopLevelProperties.AddProperty(PropertyTags.PR_TITLE_W, JobTitle);
+
+            if (Work != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Work.Street))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressStreet, Work.Street);
+
+                if (!string.IsNullOrWhiteSpace(Work.PostalCode))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressPostalCode, Work.PostalCode);
+
+                if (!string.IsNullOrWhiteSpace(Work.PostOfficeBox))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressPostOfficeBox, Work.PostOfficeBox);
+
+                if (!string.IsNullOrWhiteSpace(Work.City))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCity, Work.City);
+
+                if (!string.IsNullOrWhiteSpace(Work.Country))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCountry, Work.Country);
+
+                if (!string.IsNullOrWhiteSpace(Work.CountryCode))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressCountryCode, Work.CountryCode);
+            }
+
+            if (Business != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Business.Street))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_ADDRESS_STREET_W, Business.Street);
+
+                if (!string.IsNullOrWhiteSpace(Business.City))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_ADDRESS_CITY_W, Business.City);
+
+                if (!string.IsNullOrWhiteSpace(Business.Country))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_ADDRESS_COUNTRY_W, Business.Country);
+
+                if (!string.IsNullOrWhiteSpace(Business.PostalCode))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_ADDRESS_POSTAL_CODE_W, Business.PostalCode);
+
+                if (!string.IsNullOrWhiteSpace(Business.State))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_ADDRESS_STATE_OR_PROVINCE_W, Business.State);
+
+                if (!string.IsNullOrWhiteSpace(Business.HomePage))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_HOME_PAGE_W, Business.HomePage);
+
+                if (!string.IsNullOrWhiteSpace(Business.TelePhoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_TELEPHONE_NUMBER_W, Business.TelePhoneNumber);
+                
+                if (!string.IsNullOrWhiteSpace(Business.FaxNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_FAX_NUMBER_W, Business.FaxNumber);
+            }
             
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddress, OtherAddress);
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddressCountryCode, OtherAddress);
+            if (Home != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Home.Street))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_ADDRESS_STREET_W, Home.Street);
+
+                if (!string.IsNullOrWhiteSpace(Home.PostalCode))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_ADDRESS_POSTAL_CODE_W, Home.PostalCode);
+
+                if (!string.IsNullOrWhiteSpace(Home.City))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_ADDRESS_CITY_W, Home.City);
+
+                if (!string.IsNullOrWhiteSpace(Home.Country))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_ADDRESS_COUNTRY_W, Home.Country);
+
+                if (!string.IsNullOrWhiteSpace(Home.TelePhoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_TELEPHONE_NUMBER_W, Home.TelePhoneNumber);
+
+                if (!string.IsNullOrWhiteSpace(Home.TelePhoneNumber2))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME2_TELEPHONE_NUMBER_W, Home.TelePhoneNumber2);
+
+                if (!string.IsNullOrWhiteSpace(Home.FaxNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_FAX_NUMBER_W, Home.FaxNumber);
+            }
+
+            if (Other != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Other.Street))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_STREET_W, Other.Street);
+
+                if (!string.IsNullOrWhiteSpace(Other.PostalCode))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_POSTAL_CODE_W, Other.PostalCode);
+
+                if (!string.IsNullOrWhiteSpace(Other.City))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_CITY_W, Other.City);
+
+                if (!string.IsNullOrWhiteSpace(Other.Country))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_COUNTRY_W, Other.Country);
+
+                if (!string.IsNullOrWhiteSpace(Other.State))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_STATE_OR_PROVINCE_W, Other.State);
+
+                if (!string.IsNullOrWhiteSpace(Other.TelePhoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_TELEPHONE_NUMBER_W, Other.TelePhoneNumber);
+            }
+
+            //NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddress, WorkAddress);
+            //NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddressCountryCode, WorkAddress);
+            //NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddress, OtherAddress);
+            //NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddressCountryCode, OtherAddress);
             
             NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, WebPage);
             
