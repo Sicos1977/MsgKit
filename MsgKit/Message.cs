@@ -142,12 +142,12 @@ namespace MsgKit
         /// <summary>
         ///     The <see cref="TopLevelProperties"/>
         /// </summary>
-        internal TopLevelProperties TopLevelProperties;
+        internal readonly TopLevelProperties TopLevelProperties;
         
         /// <summary>
         ///     The <see cref="NamedProperties"/>
         /// </summary>
-        internal NamedProperties NamedProperties;
+        internal readonly NamedProperties NamedProperties;
         #endregion
 
         #region Constructor

@@ -26,6 +26,8 @@
 
 using MsgKit.Enums;
 using OpenMcdf;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace MsgKit
 {
@@ -250,8 +252,7 @@ namespace MsgKit
             //NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddressCountryCode, WorkAddress);
             //NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddress, OtherAddress);
             //NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddressCountryCode, OtherAddress);
-            
-            NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, WebPage);
+            //NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, WebPage);
             
             if (Email1 != null)
             {

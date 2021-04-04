@@ -24,6 +24,7 @@
 // THE SOFTWARE.
 //
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 namespace MsgKit
 {
     /// <summary>
@@ -31,6 +32,7 @@ namespace MsgKit
     /// </summary>
     public class ContactHome : ContactOther
     {
+        #region Properties
         /// <summary>
         ///     The fax number
         /// </summary>
@@ -40,5 +42,6 @@ namespace MsgKit
         ///     The telephone 2 number
         /// </summary>
         public string TelePhoneNumber2 { get; set; }
+        #endregion
     }
 }

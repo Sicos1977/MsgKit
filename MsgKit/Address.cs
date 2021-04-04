@@ -59,7 +59,7 @@ namespace MsgKit
         /// </summary>
         public AddressType AddressType
         {
-            get { return _addressType; }
+            get => _addressType;
             internal set
             {
                 _addressType = value;

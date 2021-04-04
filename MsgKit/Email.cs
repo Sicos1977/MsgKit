@@ -38,6 +38,8 @@ using OpenMcdf;
 using MessageImportance = MsgKit.Enums.MessageImportance;
 using MessagePriority = MsgKit.Enums.MessagePriority;
 using Stream = System.IO.Stream;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace MsgKit
 {
@@ -96,18 +98,12 @@ namespace MsgKit
         /// <summary>
         ///     Returns the E-mail <see cref="Recipients" />
         /// </summary>
-        public Recipients Recipients
-        {
-            get { return _recipients ?? (_recipients = new Recipients()); }
-        }
+        public Recipients Recipients => _recipients ?? (_recipients = new Recipients());
 
         /// <summary>
         ///     Returns the E-mail <see cref="Recipients" />
         /// </summary>
-        public Recipients ReplyToRecipients
-        {
-            get { return _replyToRecipients ?? (_replyToRecipients = new Recipients()); }
-        }
+        public Recipients ReplyToRecipients => _replyToRecipients ?? (_replyToRecipients = new Recipients());
 
         /// <summary>
         ///     Contains the e-mail address for the messaging user who receives the message.
@@ -139,7 +135,7 @@ namespace MsgKit
         /// </summary>
         public string Subject
         {
-            get { return _subject; }
+            get => _subject;
             set
             {
                 _subject = value;
@@ -245,11 +241,8 @@ namespace MsgKit
         /// </summary>
         public string TransportMessageHeadersText
         {
-            set
-            {
-                TransportMessageHeaders = HeaderExtractor.GetHeaders(value);
-            }
-            get { return TransportMessageHeaders != null ? TransportMessageHeaders.ToString() : string.Empty; }
+            set => TransportMessageHeaders = HeaderExtractor.GetHeaders(value);
+            get => TransportMessageHeaders != null ? TransportMessageHeaders.ToString() : string.Empty;
         }
 
         /// <summary>

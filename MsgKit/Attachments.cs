@@ -35,6 +35,9 @@ using MsgKit.Streams;
 using MsgKit.Structures;
 using OpenMcdf;
 using Stream = System.IO.Stream;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit
 {
