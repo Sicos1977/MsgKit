@@ -32,16 +32,5 @@ namespace MsgKit
     /// </summary>
     public class ContactCompanyMain : ContactAssistant
     {
-        #region Properties
-        /// <summary>
-        ///     The name of the assistant
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        ///     The telephone number of the assistant
-        /// </summary>
-        public string TelephoneNumber{ get; set; }
-        #endregion
     }
 }

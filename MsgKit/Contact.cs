@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MsgKit.Enums;
-using MsgKit.Structures;
 using OpenMcdf;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -50,11 +49,6 @@ namespace MsgKit
         ///     File the contact card as ...
         /// </summary>
         public string FileUnder { get; set; }
-
-        /// <summary>
-        ///     The HTML page
-        /// </summary>
-        public string Html { get; set; }
 
         /// <summary>
         ///     The instant messaging address
@@ -236,17 +230,17 @@ namespace MsgKit
         /// <summary>
         ///     Fax 1
         /// </summary>
-        public Address Fax1 { get; set; }
+        public string Fax1 { get; set; }
 
         /// <summary>
         ///     Fax 2
         /// </summary>
-        public Address Fax2 { get; set; }
+        public string Fax2 { get; set; }
 
         /// <summary>
         ///     Fax  3
         /// </summary>
-        public Address Fax3 { get; set; }
+        public string Fax3 { get; set; }
 
         /// <summary>
         ///     Yomi name and Yomi company name are fields for entering the phonetic equivalent for Japanese names.
@@ -329,9 +323,6 @@ namespace MsgKit
 
             if (!string.IsNullOrWhiteSpace(FileUnder))
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidFileUnder, FileUnder);
-            
-            if (!string.IsNullOrWhiteSpace(Html))
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, Html);
                         
             if (!string.IsNullOrWhiteSpace(InstantMessagingAddress))
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidInstantMessagingAddress, InstantMessagingAddress);
@@ -388,10 +379,7 @@ namespace MsgKit
 
             if (!string.IsNullOrWhiteSpace(Initials))
                 TopLevelProperties.AddProperty(PropertyTags.PR_INITIALS_W, Initials);
-
-            if (!string.IsNullOrWhiteSpace(Initials))
-                TopLevelProperties.AddProperty(PropertyTags.PR_INITIALS_W, Initials);
-
+            
             if (!string.IsNullOrWhiteSpace(ISDNNumber))
                 TopLevelProperties.AddProperty(PropertyTags.PR_ISDN_NUMBER_W, ISDNNumber);
 
@@ -476,28 +464,31 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3OriginalEntryId, Email3.OneOffEntryId.ToByteArray());
             }
 
-            if (Fax1 != null)
+            if (!string.IsNullOrWhiteSpace(Fax1))
             {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, Fax1.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, Fax1.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, Fax1.AddressTypeString);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalEntryId, Fax1.OneOffEntryId.ToByteArray());
+                var fax1 = new Address(Fax1, SubjectNormalized, AddressType.Fax);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, fax1.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, fax1.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, fax1.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalEntryId, fax1.OneOffEntryId.ToByteArray());
             }
 
-            if (Fax2 != null)
+            if (!string.IsNullOrWhiteSpace(Fax2))
             {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2EmailAddress, Fax2.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, Fax2.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, Fax2.AddressTypeString);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalEntryId, Fax2.OneOffEntryId.ToByteArray());
+                var fax2 = new Address(Fax2, SubjectNormalized, AddressType.Fax);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2EmailAddress, fax2.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, fax2.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, fax2.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalEntryId, fax2.OneOffEntryId.ToByteArray());
             }
 
-            if (Fax3 != null)
+            if (!string.IsNullOrWhiteSpace(Fax3))
             {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3EmailAddress, Fax3.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, Fax3.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, Fax3.AddressTypeString);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalEntryId, Fax3.OneOffEntryId.ToByteArray());
+                var fax3 = new Address(Fax3, SubjectNormalized, AddressType.Fax);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3EmailAddress, fax3.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, fax3.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, fax3.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalEntryId, fax3.OneOffEntryId.ToByteArray());
             }
 
             if (Yomi != null)

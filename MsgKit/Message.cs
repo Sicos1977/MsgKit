@@ -178,7 +178,7 @@ namespace MsgKit
         #endregion
 
         #region Save
-        internal void Save()
+        private void Save()
         {
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, ClassAsString);
             TopLevelProperties.WriteProperties(CompoundFile.RootStorage, MessageSize);

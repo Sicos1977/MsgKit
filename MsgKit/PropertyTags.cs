@@ -3644,7 +3644,7 @@ namespace MsgKit
         /// </summary>
         internal static PropertyTag PR_BUSINESS_HOME_PAGE_W
         {
-            get { return new PropertyTag(0x3A51, PropertyType.PT_STRING8); }
+            get { return new PropertyTag(0x3A51, PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -3668,7 +3668,7 @@ namespace MsgKit
         /// </summary>
         internal static PropertyTag PR_TTYTDD_PHONE_NUMBER_W
         {
-            get { return new PropertyTag(0x3A4B, PropertyType.PT_STRING8); }
+            get { return new PropertyTag(0x3A4B, PropertyType.PT_UNICODE); }
         }
 
         /// <summary>

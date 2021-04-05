@@ -25,6 +25,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using MsgKit;
@@ -144,46 +145,81 @@ namespace MsgKitTestTool
                         break;
                 }
 
+                contact.FileUnder = "File under";
+                contact.InstantMessagingAddress = "Instant messaging address";
+                contact.Private = false;
+                contact.BirthDay = DateTime.Now;
+                contact.WeddingAnniversary = DateTime.Now;
+                contact.Assistant = new ContactAssistant {Name = "Assistant name", TelephoneNumber = "Assistant telephone number"};
+                contact.CallBackTelePhoneNumber = "callback telephone number";
+                contact.CarTelePhoneNumber = "car telephone number";
+                contact.ChildrensNames = new List<string> {"First child name", "Second child name", "Third child name"};
+                contact.CompanyMain = new ContactCompanyMain { Name = "Company main name", TelephoneNumber = "Company main telephone number"};
+                contact.DepartmentName = "Department name";
+                contact.Generation = "Generation";
+                contact.GivenName = "GivenName";
+                contact.Initials = "Initials";
+                contact.ISDNNumber = "ISDN number";
+                contact.Language = "Language";
+                contact.Location = "Location";
+                contact.ManagerName = "Manager name";
+                contact.MiddleName = "Middle name";
+                contact.MobileTelephoneNumber = "Mobile telephone number";
+                contact.NickName = "Nick name";
+                contact.OfficeLocation = "Office location";
+                contact.PersonalHomePage = "Personal home-page";
+                contact.PostalAddress = "Postal address";
+                contact.PrimaryFaxNumber = "Primary fax number";
+                contact.PrimaryTelephoneNumber = "Primary telephone number";
+                contact.Profession = "Profession";
+                contact.RadioTelephoneNumber = "Radio telephone number";
+                contact.SpouseName = "Spouse name";
+                contact.SurName = "Sur name";
+                contact.TelexNumber = "Telex number";
+                contact.Title = "Title";
+                contact.TTYTDDPhoneNumber = "TTYTDD phone number";
+                contact.Email1 = new Address("email1@neverland.com", "email1");
+                contact.Email2 = new Address("emai21@neverland.com", "email2");
+                contact.Email3 = new Address("email3@neverland.com", "email3");
+                contact.Fax1 = "fax1@1234567890";
+                contact.Fax2 = "fax2@1234567890";
+                contact.Fax3 = "fax3@1234567890";
+                contact.Yomi = new ContactYomi { CompanyName = "Yomi company name", FirstName = "Yomi first name", LastName = "Yomi last name"};
+
                 contact.Work = new ContactWork
                 {
-                    City = "City",
-                    Country = "Country",
-                    CountryCode = "Country code",
-                    PostOfficeBox = "Post office box",
-                    PostalCode = "Postal code",
-                    Street = "Street",
+                    City = "Contact city",
+                    Country = "Contact country",
+                    CountryCode = "Contact country code",
+                    PostOfficeBox = "Contact post office box",
+                    PostalCode = "Contact postal code",
+                    Street = "Contact street",
+                    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                };
+
+                contact.Business = new ContactBusiness
+                {
+                    FaxNumber = "Business fax number",
+                    HomePage = "Business home-page",
+                    City = "Business city",
+                    Country = "Business country",
+                    PostalCode = "Business postal code",
+                    State = "Business state",
+                    Street = "Business street",
                     Address = "Bla bla\nBla die bla\nBLa die bla die bla"
                 };
 
                 contact.Home = new ContactHome
                 {
-                    FaxNumber = "Faxnumber",
-                    City = "City",
-                    Country = "Country",
-                    PostalCode = "Postal code",
-                    State = "State",
-                    Street = "Street",
+                    FaxNumber = "Home faxnumber",
+                    City = "Home city",
+                    Country = "Home country",
+                    PostalCode = "Home postal code",
+                    State = "Home state",
+                    Street = "Home street",
                     Address = "Bla bla\nBla die bla\nBLa die bla die bla"
                 };
 
-                //contact.Business = new ContactBusiness
-                //{
-                //    FaxNumber = "Faxnumber",
-                //    HomePage = "Home page",
-                //    City = "City",
-                //    Country = "Country",
-                //    PostalCode = "Postal code",
-                //    State = "State",
-                //    Street = "Street",
-                //    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
-                //};
-
-                contact.Email1 = new Address("email1@neverland.com", "email1");
-                contact.Email2 = new Address("emai21@neverland.com", "email2");
-                contact.Email3 = new Address("email3@neverland.com", "email3");
-                contact.Fax1 = new Address("fax1@neverland.com", "fax1");
-                contact.Fax2 = new Address("fax2@neverland.com", "fax2");
-                contact.Fax3 = new Address("fax3@neverland.com", "fax3");
 
                 contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
                 contact.IconIndex = MessageIconIndex.UnsentMail;
