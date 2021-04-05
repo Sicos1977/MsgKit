@@ -1,5 +1,5 @@
 ﻿//
-// ContactOther.cs
+// ContactYomi.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -30,21 +30,23 @@ namespace MsgKit
     /// <summary>
     ///     Placeholder for a <see cref="Contact"/> other address
     /// </summary>
-    public class ContactOther : ContactCommon
+    public class ContactYomi
     {
         #region Properties
         /// <summary>
-        ///     The way the home address is displayed in the contact card<br/>
-        ///     Some Street<br/>
-        ///     Zip code Place<br/>
-        ///     Some land<br/>
+        ///     The first name
         /// </summary>
-        public string Address { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
-        ///     The state for the address
+        ///     The last name
         /// </summary>
-        public string State { get; set; }
+        public string LastName{ get; set; }
+
+        /// <summary>
+        ///     The company name
+        /// </summary>
+        public string CompanyName { get; set; }
         #endregion
     }
 }

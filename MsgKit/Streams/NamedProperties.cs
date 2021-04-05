@@ -137,7 +137,7 @@ namespace MsgKit.Streams
         /// <param name="guidTarget"></param>
         /// <param name="propertyKind"></param>
         /// <returns></returns>
-        internal string GenerateStreamString(uint nameIdentifier, uint guidTarget, PropertyKind propertyKind)
+        private string GenerateStreamString(uint nameIdentifier, uint guidTarget, PropertyKind propertyKind)
         {
             switch (propertyKind)
             {

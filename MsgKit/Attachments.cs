@@ -63,7 +63,7 @@ namespace MsgKit
             if (this.Any(
                 attachment => attachment.FileName.Equals(fileName, StringComparison.InvariantCultureIgnoreCase)
                 && string.Equals(attachment.ContentId, contentId, StringComparison.InvariantCultureIgnoreCase)))
-                throw new MKAttachmentExists("The attachment with the name '" + file + "' already exists");
+                throw new MKAttachmentExists($"The attachment with the name '{file}' already exists");
         }
         #endregion
 
@@ -165,6 +165,32 @@ namespace MsgKit
                 isInline,
                 contentId));
         }
+
+        /// <summary>
+        ///     Adds an <see cref="Attachment" /> stream by <see cref="AttachmentType.ATTACH_BY_VALUE" /> (default)
+        /// </summary>
+        /// <param name="stream">The stream to the attachment</param>
+        /// <param name="fileName">The name for the attachment</param>
+        /// <exception cref="ArgumentNullException">Raised when the stream is null</exception>
+        /// <exception cref="MKAttachmentExists">Raised when an attachment with the same name already exists</exception>
+        internal void AddContactPhoto(Stream stream, string fileName)
+        {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
+            var dateTime = DateTime.Now;
+
+            Add(new Attachment(stream,
+                fileName,
+                dateTime,
+                dateTime,
+                AttachmentType.ATTACH_BY_VALUE,
+                -1,
+                false,
+                string.Empty,
+                true));
+        }
+
         #endregion
 
         #region AddLink
@@ -383,6 +409,9 @@ namespace MsgKit
             propertiesStream.AddProperty(PropertyTags.PR_RENDERING_POSITION, RenderingPosition, PropertyFlags.PROPATTR_READABLE);
             propertiesStream.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_ATTACH);
             
+            if (IsContactPhoto)
+                propertiesStream.AddProperty(PropertyTags.PR_ATTACHMENT_CONTACTPHOTO, true, PropertyFlags.PROPATTR_READABLE);
+                
             if (!string.IsNullOrEmpty(FileName))
             {
                 propertiesStream.AddProperty(PropertyTags.PR_DISPLAY_NAME_W, FileName);

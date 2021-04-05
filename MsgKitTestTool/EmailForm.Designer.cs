@@ -53,11 +53,12 @@
             this.CcTextBox = new System.Windows.Forms.TextBox();
             this.ToTextBox = new System.Windows.Forms.TextBox();
             this.FromTextBox = new System.Windows.Forms.TextBox();
+            this.ContactButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // EmailButton
             // 
-            this.EmailButton.Location = new System.Drawing.Point(442, 295);
+            this.EmailButton.Location = new System.Drawing.Point(446, 295);
             this.EmailButton.Margin = new System.Windows.Forms.Padding(2);
             this.EmailButton.Name = "EmailButton";
             this.EmailButton.Size = new System.Drawing.Size(91, 33);
@@ -325,11 +326,23 @@
             this.FromTextBox.TabIndex = 2;
             this.FromTextBox.Text = global::MsgKitTestTool.Properties.Settings.Default.From;
             // 
+            // ContactButton
+            // 
+            this.ContactButton.Location = new System.Drawing.Point(351, 295);
+            this.ContactButton.Margin = new System.Windows.Forms.Padding(2);
+            this.ContactButton.Name = "ContactButton";
+            this.ContactButton.Size = new System.Drawing.Size(91, 33);
+            this.ContactButton.TabIndex = 24;
+            this.ContactButton.Text = "Contact";
+            this.ContactButton.UseVisualStyleBackColor = true;
+            this.ContactButton.Click += new System.EventHandler(this.ContactButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 341);
+            this.Controls.Add(this.ContactButton);
             this.Controls.Add(this.ReadReceiptCheckBox);
             this.Controls.Add(this.DraftMessageCheckBox);
             this.Controls.Add(this.ReadMsgFileButton);
@@ -393,6 +406,7 @@
         private System.Windows.Forms.Button ReadMsgFileButton;
         private System.Windows.Forms.CheckBox DraftMessageCheckBox;
         private System.Windows.Forms.CheckBox ReadReceiptCheckBox;
+        private System.Windows.Forms.Button ContactButton;
     }
 }
 

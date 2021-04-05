@@ -1,5 +1,5 @@
 ﻿//
-// ContactOther.cs
+// ContactAssistant.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -28,23 +28,20 @@
 namespace MsgKit
 {
     /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> other address
+    ///     Placeholder for a <see cref="Contact"/> company main info
     /// </summary>
-    public class ContactOther : ContactCommon
+    public class ContactCompanyMain : ContactAssistant
     {
         #region Properties
         /// <summary>
-        ///     The way the home address is displayed in the contact card<br/>
-        ///     Some Street<br/>
-        ///     Zip code Place<br/>
-        ///     Some land<br/>
+        ///     The name of the assistant
         /// </summary>
-        public string Address { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        ///     The state for the address
+        ///     The telephone number of the assistant
         /// </summary>
-        public string State { get; set; }
+        public string TelephoneNumber{ get; set; }
         #endregion
     }
 }

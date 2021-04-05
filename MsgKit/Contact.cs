@@ -24,7 +24,11 @@
 // THE SOFTWARE.
 //
 
+using System;
+using System.Collections.Generic;
+using System.IO;
 using MsgKit.Enums;
+using MsgKit.Structures;
 using OpenMcdf;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -32,25 +36,187 @@ using OpenMcdf;
 namespace MsgKit
 {
     /// <summary>
-    /// 
+    ///     A class used to make a new Outlook contact MSG file
     /// </summary>
     public class Contact : Email
     {
         #region Properties
         /// <summary>
-        ///     The name of the company
+        ///     The contact image, this needs to be an JPG file
         /// </summary>
-        public string CompanyName { get; set; }
+        public byte[] ContactPicture { get; set; }
 
         /// <summary>
-        ///     The company's main phone number
+        ///     File the contact card as ...
         /// </summary>
-        public string CompanyMainPhoneNumber { get; set; } 
+        public string FileUnder { get; set; }
 
         /// <summary>
-        ///     The job title    
+        ///     The HTML page
         /// </summary>
-        public string JobTitle { get; set; }
+        public string Html { get; set; }
+
+        /// <summary>
+        ///     The instant messaging address
+        /// </summary>
+        public string InstantMessagingAddress { get; set; }
+
+        /// <summary>
+        ///     Indicates whether the end-user wants this message object hidden from other users who have access to the message object
+        /// </summary>
+        public bool Private { get; set; }
+
+        /// <summary>
+        ///     The birth day
+        /// </summary>
+        public DateTime? BirthDay { get; set; }
+
+        /// <summary>
+        ///     Specifies the wedding anniversary
+        /// </summary>
+        public DateTime? WeddingAnniversary { get; set; }
+
+        /// <summary>
+        ///     Information about the assistant
+        /// </summary>
+        public ContactAssistant Assistant { get; set; }
+
+        /// <summary>
+        ///     Contains a telephone number that the message recipient can use to reach the sender
+        /// </summary>
+        public string CallBackTelePhoneNumber { get; set; }
+
+        /// <summary>
+        ///     Contains the recipient's car telephone number
+        /// </summary>
+        public string CarTelePhoneNumber { get; set; }
+
+        /// <summary>
+        ///     The names of the childrens
+        /// </summary>
+        public List<string> ChildrensNames { get; set; }
+
+        /// <summary>
+        ///     The company's main info
+        /// </summary>
+        public ContactCompanyMain CompanyMain { get; set; }
+
+        /// <summary>
+        ///     The department name
+        /// </summary>
+        public string DepartmentName { get; set; }
+
+        /// <summary>
+        ///     Contains a generational abbreviation that follows the full name of the recipient
+        /// </summary>
+        public string Generation { get; set; }
+
+        /// <summary>
+        ///     ontains the first or given name of the recipient
+        /// </summary>
+        public string GivenName { get; set; }
+
+        /// <summary>
+        ///     Contains the initials for parts of the full name of the recipient
+        /// </summary>
+        public string Initials { get;set; }
+
+        /// <summary>
+        ///     Contains the recipient's ISDN-capable telephone number
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        public string ISDNNumber { get; set; }
+
+        /// <summary>
+        ///     Contains a value that indicates the language in which the messaging user is writing messages
+        /// </summary>
+        public string Language { get; set; }
+
+        /// <summary>
+        ///     Contains the location of the recipient in a format that is useful to the recipient's organization.
+        /// </summary>
+        public string Location { get; set; }
+
+        /// <summary>
+        ///     Contains the name of the recipient's manager
+        /// </summary>
+        public string ManagerName { get; set; }
+
+        /// <summary>
+        ///     Contains the middle name of a contact
+        /// </summary>
+        public string MiddleName { get; set; }
+
+        /// <summary>
+        ///     Contains the recipient's cellular telephone number
+        /// </summary>
+        public string MobileTelephoneNumber { get; set; }
+
+        /// <summary>
+        ///     Contains the nickname of the contact
+        /// </summary>
+        public string NickName { get; set; }
+
+        /// <summary>
+        ///     Contains the recipient's office location
+        /// </summary>
+        public string OfficeLocation { get; set; }
+
+        /// <summary>
+        ///     Contains the URL of a user's personal home page
+        /// </summary>
+        public string PersonalHomePage { get;set; }
+
+        /// <summary>
+        ///     Contains the recipient's postal address
+        /// </summary>
+        public string PostalAddress { get; set; }
+
+        /// <summary>
+        ///     Contains the telephone number of the recipient's primary fax machine
+        /// </summary>
+        public string PrimaryFaxNumber { get; set; }
+        
+        /// <summary>
+        ///     Contains the recipient's primary telephone number
+        /// </summary>
+        public string PrimaryTelephoneNumber { get; set; }
+
+        /// <summary>
+        ///     Contains the profession of the user
+        /// </summary>
+        public string Profession { get; set; }
+
+        /// <summary>
+        ///     Contains the recipient's radio telephone number
+        /// </summary>
+        public string RadioTelephoneNumber { get; set; }
+
+        /// <summary>
+        ///     Contains the user's spouse name
+        /// </summary>
+        public string SpouseName { get; set; }
+
+        /// <summary>
+        ///     Contains the last or surname of the recipient
+        /// </summary>
+        public string SurName { get; set; }
+
+        /// <summary>
+        ///     Contains the recipient's telex number
+        /// </summary>
+        public string TelexNumber { get; set; }
+
+        /// <summary>
+        ///      Contains the recipient's job title
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        ///     Contains the telephone number for the contact's text telephone (TTY) or telecommunication device for the deaf (TDD)
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        public string TTYTDDPhoneNumber { get; set; }
 
         /// <summary>
         ///     E-mail address 1
@@ -83,10 +249,16 @@ namespace MsgKit
         public Address Fax3 { get; set; }
 
         /// <summary>
+        ///     Yomi name and Yomi company name are fields for entering the phonetic equivalent for Japanese names.
+        ///     In Japan, there is commonly a Furigana equivalent for the Kanji name that is used for sorting and searching.
+        /// </summary>
+        public ContactYomi Yomi { get; set; }
+
+        /// <summary>
         ///     The work details
         /// </summary>
         public ContactWork Work { get; set; }
-
+        
         /// <summary>
         ///     The business details
         /// </summary>
@@ -146,17 +318,205 @@ namespace MsgKit
         {
             Class = MessageClass.IPM_Contact;
 
-            if (!string.IsNullOrWhiteSpace(CompanyName))
-                TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_NAME_W, CompanyName);
+            if (ContactPicture != null)
+            {
+                var memoryStream = new MemoryStream(ContactPicture);
+                Attachments.AddContactPhoto(memoryStream, "ContactPicture.jpg");
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidHasPicture, true);
+            }
+            else
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidHasPicture, false);
 
-            if (!string.IsNullOrWhiteSpace(CompanyMainPhoneNumber))
-                TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_MAIN_PHONE_NUMBER_W, CompanyMainPhoneNumber);
+            if (!string.IsNullOrWhiteSpace(FileUnder))
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFileUnder, FileUnder);
+            
+            if (!string.IsNullOrWhiteSpace(Html))
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, Html);
+                        
+            if (!string.IsNullOrWhiteSpace(InstantMessagingAddress))
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidInstantMessagingAddress, InstantMessagingAddress);
 
-            if (!string.IsNullOrWhiteSpace(JobTitle))
-                TopLevelProperties.AddProperty(PropertyTags.PR_TITLE_W, JobTitle);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidPrivate, Private);
+
+            if (BirthDay.HasValue)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidBirthdayLocal, BirthDay);
+                TopLevelProperties.AddProperty(PropertyTags.PR_BIRTHDAY, BirthDay);
+            }
+
+            if (WeddingAnniversary.HasValue)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidWeddingAnniversaryLocal, WeddingAnniversary);
+                TopLevelProperties.AddProperty(PropertyTags.PR_WEDDING_ANNIVERSARY, WeddingAnniversary);
+            }
+
+            if (Assistant != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Assistant.Name))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_ASSISTANT_W, Assistant.Name);
+
+                if (!string.IsNullOrWhiteSpace(Assistant.TelephoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_ASSISTANT_TELEPHONE_NUMBER_W, Assistant.TelephoneNumber);
+            }
+
+            if (!string.IsNullOrWhiteSpace(CallBackTelePhoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_CALLBACK_TELEPHONE_NUMBER_W, CallBackTelePhoneNumber);
+
+            if (!string.IsNullOrWhiteSpace(CarTelePhoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_CAR_TELEPHONE_NUMBER_W, CarTelePhoneNumber);
+
+            if (ChildrensNames != null)
+                TopLevelProperties.AddProperty(PropertyTags.PR_CHILDRENS_NAMES_W, string.Join(", ", ChildrensNames));
+
+            if (CompanyMain != null)
+            {
+                if (!string.IsNullOrWhiteSpace(CompanyMain.Name))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_NAME_W, CompanyMain.Name);
+
+                if (!string.IsNullOrWhiteSpace(CompanyMain.TelephoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_COMPANY_MAIN_PHONE_NUMBER_W, CompanyMain.TelephoneNumber);
+            }
+
+            if (!string.IsNullOrWhiteSpace(DepartmentName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_DEPARTMENT_NAME_W, DepartmentName);
+            
+            if (!string.IsNullOrWhiteSpace(Generation))
+                TopLevelProperties.AddProperty(PropertyTags.PR_GENERATION_W, Generation);
+                        
+            if (!string.IsNullOrWhiteSpace(GivenName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_GIVEN_NAME_W, GivenName);
+
+            if (!string.IsNullOrWhiteSpace(Initials))
+                TopLevelProperties.AddProperty(PropertyTags.PR_INITIALS_W, Initials);
+
+            if (!string.IsNullOrWhiteSpace(Initials))
+                TopLevelProperties.AddProperty(PropertyTags.PR_INITIALS_W, Initials);
+
+            if (!string.IsNullOrWhiteSpace(ISDNNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_ISDN_NUMBER_W, ISDNNumber);
+
+            if (!string.IsNullOrWhiteSpace(Language))
+                TopLevelProperties.AddProperty(PropertyTags.PR_LANGUAGE_W, Language);
+
+            if (!string.IsNullOrWhiteSpace(Location))
+                TopLevelProperties.AddProperty(PropertyTags.PR_LOCATION_W, Location);
+
+            if (!string.IsNullOrWhiteSpace(ManagerName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_MANAGER_NAME_W, ManagerName);
+
+            if (!string.IsNullOrWhiteSpace(MiddleName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_MIDDLE_NAME_W, MiddleName);
+            
+            if (!string.IsNullOrWhiteSpace(MobileTelephoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_MOBILE_TELEPHONE_NUMBER_W, MobileTelephoneNumber);
+
+            if (!string.IsNullOrWhiteSpace(NickName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_NICKNAME_W, NickName);
+            
+            if (!string.IsNullOrWhiteSpace(OfficeLocation))
+                TopLevelProperties.AddProperty(PropertyTags.PR_OFFICE_LOCATION_W, OfficeLocation);
+                        
+            if (!string.IsNullOrWhiteSpace(PersonalHomePage))
+                TopLevelProperties.AddProperty(PropertyTags.PR_PERSONAL_HOME_PAGE_W, PersonalHomePage);
+                                    
+            if (!string.IsNullOrWhiteSpace(PostalAddress))
+                TopLevelProperties.AddProperty(PropertyTags.PR_POSTAL_ADDRESS_W, PostalAddress);
+                                    
+            if (!string.IsNullOrWhiteSpace(PrimaryFaxNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_PRIMARY_FAX_NUMBER_W, PrimaryFaxNumber);
+                                                
+            if (!string.IsNullOrWhiteSpace(PrimaryTelephoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_PRIMARY_TELEPHONE_NUMBER_W, PrimaryTelephoneNumber);
+            
+            if (!string.IsNullOrWhiteSpace(Profession))
+                TopLevelProperties.AddProperty(PropertyTags.PR_PROFESSION_W, Profession);
+            
+            if (!string.IsNullOrWhiteSpace(RadioTelephoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_RADIO_TELEPHONE_NUMBER_W, RadioTelephoneNumber);
+            
+            if (!string.IsNullOrWhiteSpace(SpouseName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_SPOUSE_NAME_W, SpouseName);
+            
+            if (!string.IsNullOrWhiteSpace(SurName))
+                TopLevelProperties.AddProperty(PropertyTags.PR_SURNAME_W, SurName);
+            
+            if (!string.IsNullOrWhiteSpace(TelexNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_TELEX_NUMBER_W, TelexNumber);
+            
+            if (!string.IsNullOrWhiteSpace(Title))
+                TopLevelProperties.AddProperty(PropertyTags.PR_TITLE_W, Title);
+                        
+            if (!string.IsNullOrWhiteSpace(TTYTDDPhoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_TTYTDD_PHONE_NUMBER_W, TTYTDDPhoneNumber);
+
+            if (Email1 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email1.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email1.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1OriginalDisplayName, Email1.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1AddressType, Email1.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1OriginalEntryId, Email1.OneOffEntryId.ToByteArray());
+            }
+
+            if (Email2 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2EmailAddress, Email2.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2DisplayName, Email2.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2OriginalDisplayName, Email1.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2AddressType, Email2.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2OriginalEntryId, Email2.OneOffEntryId.ToByteArray());
+            }
+
+            if (Email3 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3EmailAddress, Email3.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3DisplayName, Email3.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3OriginalDisplayName, Email3.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3AddressType, Email3.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3OriginalEntryId, Email3.OneOffEntryId.ToByteArray());
+            }
+
+            if (Fax1 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, Fax1.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, Fax1.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, Fax1.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalEntryId, Fax1.OneOffEntryId.ToByteArray());
+            }
+
+            if (Fax2 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2EmailAddress, Fax2.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, Fax2.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, Fax2.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalEntryId, Fax2.OneOffEntryId.ToByteArray());
+            }
+
+            if (Fax3 != null)
+            {
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3EmailAddress, Fax3.Email);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, Fax3.DisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, Fax3.AddressTypeString);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalEntryId, Fax3.OneOffEntryId.ToByteArray());
+            }
+
+            if (Yomi != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Yomi.FirstName))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidYomiFirstName, Yomi.FirstName);
+
+                if (!string.IsNullOrWhiteSpace(Yomi.LastName))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidYomiLastName, Yomi.LastName);
+
+                if (!string.IsNullOrWhiteSpace(Yomi.CompanyName))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidYomiCompanyName, Yomi.CompanyName);
+            }
 
             if (Work != null)
             {
+                if (!string.IsNullOrWhiteSpace(Work.Address))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddress, Work.Address);
+
                 if (!string.IsNullOrWhiteSpace(Work.Street))
                     NamedProperties.AddProperty(NamedPropertyTags.PidLidWorkAddressStreet, Work.Street);
 
@@ -205,6 +565,9 @@ namespace MsgKit
             
             if (Home != null)
             {
+                if (!string.IsNullOrWhiteSpace(Home.Address))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddress, Home.Address);
+
                 if (!string.IsNullOrWhiteSpace(Home.Street))
                     TopLevelProperties.AddProperty(PropertyTags.PR_HOME_ADDRESS_STREET_W, Home.Street);
 
@@ -229,6 +592,9 @@ namespace MsgKit
 
             if (Other != null)
             {
+                if (!string.IsNullOrWhiteSpace(Other.Address))
+                    NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddress, Other.Address);
+                
                 if (!string.IsNullOrWhiteSpace(Other.Street))
                     TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_STREET_W, Other.Street);
 
@@ -247,57 +613,6 @@ namespace MsgKit
                 if (!string.IsNullOrWhiteSpace(Other.TelePhoneNumber))
                     TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_TELEPHONE_NUMBER_W, Other.TelePhoneNumber);
             }
-
-            //NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddress, WorkAddress);
-            //NamedProperties.AddProperty(NamedPropertyTags.PidLidHomeAddressCountryCode, WorkAddress);
-            //NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddress, OtherAddress);
-            //NamedProperties.AddProperty(NamedPropertyTags.PidLidOtherAddressCountryCode, OtherAddress);
-            //NamedProperties.AddProperty(NamedPropertyTags.PidLidHtml, WebPage);
-            
-            if (Email1 != null)
-            {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email1.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email1.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1AddressType, Email1.AddressTypeString);
-                // Figure out if the entry id also needs to be added
-            }
-
-            if (Email2 != null)
-            {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2EmailAddress, Email2.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2DisplayName, Email2.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2AddressType, Email2.AddressTypeString);
-            }
-
-            if (Email3 != null)
-            {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3EmailAddress, Email3.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3DisplayName, Email3.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3AddressType, Email3.AddressTypeString);
-            }
-
-            if (Fax1 != null)
-            {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, Fax1.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, Fax1.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, Fax1.AddressTypeString);
-            }
-
-            if (Fax2 != null)
-            {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Fax2.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, Fax2.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, Fax2.AddressTypeString);
-            }
-
-            if (Fax3 != null)
-            {
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Fax3.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, Fax3.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, Fax3.AddressTypeString);
-            }
-
-            // Etc ...
         }
         #endregion
 
@@ -306,7 +621,7 @@ namespace MsgKit
         ///     Saves the message to the given <paramref name="stream" />
         /// </summary>
         /// <param name="stream"></param>
-        public new void Save(System.IO.Stream stream)
+        public new void Save(Stream stream)
         {
             WriteToStorage();
             base.Save(stream);

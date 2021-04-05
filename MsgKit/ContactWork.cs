@@ -34,6 +34,14 @@ namespace MsgKit
     {
         #region Properties
         /// <summary>
+        ///     The way the work address is displayed in the contact card<br/>
+        ///     Some Street<br/>
+        ///     Zip code Place<br/>
+        ///     Some land<br/>
+        /// </summary>
+        public string Address { get; set; }
+
+        /// <summary>
         ///     The post office box for the address
         /// </summary>
         public string PostOfficeBox { get; set; }

@@ -76,9 +76,10 @@ namespace MsgKitTestTool
                 email.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
                 //email.Attachments.Add("d:\\test2.msg");
                 //email.Attachments.Add(@"c:\naamloos.msg");
-                email.Save("d:\\test.msg");
+                email.Save("c:\\email.msg");
             }
-            System.Diagnostics.Process.Start("d:\\test.msg");
+
+            System.Diagnostics.Process.Start("c:\\email.msg");
         }
 
         private void Eml2MsgButton_Click(object sender, EventArgs e)
@@ -110,6 +111,86 @@ namespace MsgKitTestTool
             //var msg = new CompoundFile(@"d:\naamloos.msg");
             //var storage = msg.RootStorage.GetStorage("__nameid_version1.0");
             //var namedProperties = new NamedProperties(storage);
+        }
+
+        private void ContactButton_Click(object sender, EventArgs e)
+        {
+            using (var contact = new Contact(
+                new Sender(SenderTextBox.Text, string.Empty),
+                SubjectTextBox.Text,
+                DraftMessageCheckBox.Checked,
+                ReadReceiptCheckBox.Checked))
+            {
+                contact.Recipients.AddTo(ToTextBox.Text);
+                contact.Recipients.AddCc(CcTextBox.Text);
+                contact.Recipients.AddBcc(BccTextBox.Text);
+                contact.Subject = SubjectTextBox.Text;
+                contact.BodyText = TextBodyTextBox.Text;
+                contact.BodyHtml = HtmlBodyTextBox.Text;
+                contact.SentOn = SentOnDatePicker.Value.ToUniversalTime();
+
+                switch (ImportanceComboBox.Text)
+                {
+                    case "Low":
+                        contact.Importance = MessageImportance.IMPORTANCE_LOW;
+                        break;
+
+                    case "High":
+                        contact.Importance = MessageImportance.IMPORTANCE_HIGH;
+                        break;
+
+                    default:
+                        contact.Importance = MessageImportance.IMPORTANCE_NORMAL;
+                        break;
+                }
+
+                contact.Work = new ContactWork
+                {
+                    City = "City",
+                    Country = "Country",
+                    CountryCode = "Country code",
+                    PostOfficeBox = "Post office box",
+                    PostalCode = "Postal code",
+                    Street = "Street",
+                    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                };
+
+                contact.Home = new ContactHome
+                {
+                    FaxNumber = "Faxnumber",
+                    City = "City",
+                    Country = "Country",
+                    PostalCode = "Postal code",
+                    State = "State",
+                    Street = "Street",
+                    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                };
+
+                //contact.Business = new ContactBusiness
+                //{
+                //    FaxNumber = "Faxnumber",
+                //    HomePage = "Home page",
+                //    City = "City",
+                //    Country = "Country",
+                //    PostalCode = "Postal code",
+                //    State = "State",
+                //    Street = "Street",
+                //    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                //};
+
+                contact.Email1 = new Address("email1@neverland.com", "email1");
+                contact.Email2 = new Address("emai21@neverland.com", "email2");
+                contact.Email3 = new Address("email3@neverland.com", "email3");
+                contact.Fax1 = new Address("fax1@neverland.com", "fax1");
+                contact.Fax2 = new Address("fax2@neverland.com", "fax2");
+                contact.Fax3 = new Address("fax3@neverland.com", "fax3");
+
+                contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
+                contact.IconIndex = MessageIconIndex.UnsentMail;
+                contact.Save("c:\\contact.msg");
+            }
+
+            System.Diagnostics.Process.Start("c:\\contact.msg");
         }
     }
 }

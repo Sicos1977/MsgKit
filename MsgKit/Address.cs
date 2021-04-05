@@ -26,6 +26,7 @@
 
 using System;
 using MsgKit.Enums;
+using MsgKit.Structures;
 
 namespace MsgKit
 {
@@ -52,6 +53,11 @@ namespace MsgKit
         ///     The displayname for the <see cref="Email"/>
         /// </summary>
         public string DisplayName { get; internal set; }
+
+        /// <summary>
+        ///     The original displayname for the <see cref="Email"/>
+        /// </summary>
+        public string OriginalDisplayName => AddressType == AddressType.Smtp ? Email : DisplayName;
 
         /// <summary>
         ///     Returns the messaging user's e-mail address type. Use <see cref="AddressTypeString"/>
@@ -103,6 +109,11 @@ namespace MsgKit
         ///     Returns the <see cref="Enums.AddressType"/> as a string
         /// </summary>
         public string AddressTypeString { get; private set; }
+
+        /// <summary>
+        ///     <see cref="OneOffEntryId"/>
+        /// </summary>
+        internal OneOffEntryId OneOffEntryId => new OneOffEntryId(Email, DisplayName, AddressType);
         #endregion
         
         #region Constructor

@@ -620,7 +620,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidHtml
         {
-            get { return new NamedPropertyTag(0x802B, "PidLidHtml", new Guid(""), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802B, "PidLidHtml", new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -628,7 +628,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidYomiFirstName
         {
-            get { return new NamedPropertyTag(0x802C, "PidLidYomiFirstName", new Guid(""), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802C, "PidLidYomiFirstName", new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -636,7 +636,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidYomiLastName
         {
-            get { return new NamedPropertyTag(0x802D, "PidLidYomiLastName", new Guid(""), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802D, "PidLidYomiLastName", new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -644,7 +644,7 @@ namespace MsgKit
         /// </summary>
         internal static NamedPropertyTag PidLidYomiCompanyName
         {
-            get { return new NamedPropertyTag(0x802E, "PidLidYomiCompanyName", new Guid(""), PropertyType.PT_UNICODE); }
+            get { return new NamedPropertyTag(0x802E, "PidLidYomiCompanyName", new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE); }
         }
 
         /// <summary>
@@ -2644,7 +2644,7 @@ namespace MsgKit
 
 
         /// <summary>
-        ///     Contains the user's preferred name for the subscription.
+        ///     Indicates whether the end-user wants this message object hidden from other users who have access to the message object.
         /// </summary>
         internal static NamedPropertyTag PidLidPrivate
         {

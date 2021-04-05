@@ -34,6 +34,14 @@ namespace MsgKit
     {
         #region Properties
         /// <summary>
+        ///     The way the home address is displayed in the contact card<br/>
+        ///     Some Street<br/>
+        ///     Zip code Place<br/>
+        ///     Some land<br/>
+        /// </summary>
+        public string Address { get; set; }
+
+        /// <summary>
         ///     The fax number
         /// </summary>
         public string FaxNumber { get; set; }

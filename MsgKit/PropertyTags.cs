@@ -29,6 +29,7 @@ using MsgKit.Enums;
 // ReSharper disable InconsistentNaming
 // ReSharper disable ConvertPropertyToExpressionBody
 // ReSharper disable IdentifierTypo
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit
 {
@@ -92,7 +93,7 @@ namespace MsgKit
         {
             get { return new PropertyTag(0x0002, PropertyType.PT_BOOLEAN); }
         }
-
+        
         /// <summary>
         ///     Contains a list of entry identifiers for users who have authorized the sending of a message.
         /// </summary>
@@ -3663,6 +3664,22 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     Contains the telephone number for the contact's text telephone (TTY) or telecommunication device for the deaf (TDD). UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_TTYTDD_PHONE_NUMBER_W
+        {
+            get { return new PropertyTag(0x3A4B, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the telephone number for the contact's text telephone (TTY) or telecommunication device for the deaf (TDD). Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_TTYTDD_PHONE_NUMBER_A
+        {
+            get { return new PropertyTag(0x3A4B, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
         ///     Contains the recipient's companys main phone number. UNICODE compilation.
         /// </summary>
         public static PropertyTag PR_COMPANY_MAIN_PHONE_NUMBER_W
@@ -3671,11 +3688,27 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Contains the recipient's companys main phone number. UNICODE compilation.
+        ///     Contains the recipient's companys main phone number. NON-UNICODE compilation.
         /// </summary>
         public static PropertyTag PR_COMPANY_MAIN_PHONE_NUMBER_A
         {
             get { return new PropertyTag(0x3A57, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains a list of names of children. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_CHILDRENS_NAMES_W
+        {
+            get { return new PropertyTag(0x3A58, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains a list of names of children. NON-UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_CHILDRENS_NAMES_A
+        {
+            get { return new PropertyTag(0x3A58, PropertyType.PT_STRING8); }
         }
 
         /// <summary>
@@ -4265,6 +4298,118 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     Contains the date of a user's wedding anniversary
+        /// </summary>
+        public static PropertyTag PR_WEDDING_ANNIVERSARY
+        {
+            get { return new PropertyTag(0x3A41, PropertyType.PT_SYSTIME); }
+        }
+
+        /// <summary>
+        ///     Contains the birtday of the contact
+        /// </summary>
+        public static PropertyTag PR_BIRTHDAY
+        {
+            get { return new PropertyTag(0x3A42, PropertyType.PT_SYSTIME); }
+        }
+
+        /// <summary>
+        ///     Contains the middle name of a contact. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_MIDDLE_NAME_W
+        {
+            get { return new PropertyTag(0x3A44, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the middle name of a contact. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_MIDDLE_NAME_A
+        {
+            get { return new PropertyTag(0x3A44, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the profession of the user.
+        /// </summary>
+        public static PropertyTag PR_PROFESSION_W
+        {
+            get { return new PropertyTag(0x3A46, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the profession of the user.
+        /// </summary>
+        internal static PropertyTag PR_PROFESSION_A
+        {
+            get { return new PropertyTag(0x3A46, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the user's spouse name
+        /// </summary>
+        public static PropertyTag PR_SPOUSE_NAME_W
+        {
+            get { return new PropertyTag(0x3A48, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the user's spouse name
+        /// </summary>
+        internal static PropertyTag PR_SPOUSE_NAME_A
+        {
+            get { return new PropertyTag(0x3A48, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the name of the recipient's manager. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_MANAGER_NAME_W
+        {
+            get { return new PropertyTag(0x3A4E, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the name of the recipient's manager. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_MANAGER_NAME_A
+        {
+            get { return new PropertyTag(0x3A4E, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the nickname of the contact. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_NICKNAME_W
+        {
+            get { return new PropertyTag(0x3A4F, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///     Contains the nickname of the contact. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_NICKNAME_A
+        {
+            get { return new PropertyTag(0x3A4F, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
+        ///     Contains the URL of a user's personal home page. UNICODE compilation.
+        /// </summary>
+        public static PropertyTag PR_PERSONAL_HOME_PAGE_W
+        {
+            get { return new PropertyTag(0x3A50, PropertyType.PT_UNICODE); }
+        }
+
+        /// <summary>
+        ///    Contains the URL of a user's personal home page. Non-UNICODE compilation.
+        /// </summary>
+        internal static PropertyTag PR_PERSONAL_HOME_PAGE_A
+        {
+            get { return new PropertyTag(0x3A50, PropertyType.PT_STRING8); }
+        }
+
+        /// <summary>
         ///     Contains a list of identifiers of message store providers in the current profile.
         /// </summary>
         public static PropertyTag PR_STORE_PROVIDERS
@@ -4762,6 +4907,14 @@ namespace MsgKit
         public static PropertyTag PR_MSG_EDITOR_FORMAT
         {
             get { return new PropertyTag(0x5909, PropertyType.PT_LONG); }
+        }
+
+        /// <summary>
+        ///     Indicates the existence of a photo attachment for a contact.
+        /// </summary>
+        public static PropertyTag PR_ATTACHMENT_CONTACTPHOTO
+        {
+            get { return new PropertyTag(0x7FFF, PropertyType.PT_BOOLEAN); }
         }
     }
 
