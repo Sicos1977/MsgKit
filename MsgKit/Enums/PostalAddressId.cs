@@ -49,11 +49,11 @@ namespace MsgKit.Enums
         /// <summary>
         ///     The Work Address is the mailing address.
         /// </summary>
-        WORK_ADDRESS = 0x00000001,
+        WORK_ADDRESS = 0x00000002,
 
         /// <summary>
         ///     The Other Address is the mailing address
         /// </summary>
-        OTHER_ADDRESS = 0x00000001,
+        OTHER_ADDRESS = 0x00000003,
     }
 }
