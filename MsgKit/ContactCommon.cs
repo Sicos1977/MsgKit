@@ -56,7 +56,7 @@ namespace MsgKit
         /// <summary>
         ///     The telephone number
         /// </summary>
-        public string TelePhoneNumber { get; set; }
+        public string TelephoneNumber { get; set; }
         #endregion
     }
 }

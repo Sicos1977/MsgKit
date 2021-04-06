@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MsgKit.Enums;
 using OpenMcdf;
 // ReSharper disable MemberCanBePrivate.Global
@@ -157,6 +158,11 @@ namespace MsgKit
         public string OfficeLocation { get; set; }
 
         /// <summary>
+        ///     Contains the recipient's office location
+        /// </summary>
+        public string OfficeTelephoneNumber { get; set; }
+        
+        /// <summary>
         ///     Contains the URL of a user's personal home page
         /// </summary>
         public string PersonalHomePage { get;set; }
@@ -213,6 +219,11 @@ namespace MsgKit
         public string TTYTDDPhoneNumber { get; set; }
 
         /// <summary>
+        ///     Contains the recipient's pager telephone number
+        /// </summary>
+        public string PagerTelephoneNumber { get; set; }
+
+        /// <summary>
         ///     E-mail address 1
         /// </summary>
         public Address Email1 { get; set; }
@@ -227,20 +238,20 @@ namespace MsgKit
         /// </summary>
         public Address Email3 { get; set; }
 
-        /// <summary>
-        ///     Fax 1
-        /// </summary>
-        public string Fax1 { get; set; }
+        ///// <summary>
+        /////     Fax 1
+        ///// </summary>
+        //public string Fax1 { get; set; }
 
-        /// <summary>
-        ///     Fax 2
-        /// </summary>
-        public string Fax2 { get; set; }
+        ///// <summary>
+        /////     Fax 2
+        ///// </summary>
+        //public string Fax2 { get; set; }
 
-        /// <summary>
-        ///     Fax  3
-        /// </summary>
-        public string Fax3 { get; set; }
+        ///// <summary>
+        /////     Fax  3
+        ///// </summary>
+        //public string Fax3 { get; set; }
 
         /// <summary>
         ///     Yomi name and Yomi company name are fields for entering the phonetic equivalent for Japanese names.
@@ -267,6 +278,11 @@ namespace MsgKit
         ///     The other address
         /// </summary>
         public ContactOther Other{ get; set; }
+
+        /// <summary>
+        ///     Specifies which physical address is the contact's mailing address
+        /// </summary>
+        public PostalAddressId PostalAddressId { get; set; }
         #endregion
 
         #region Constructors
@@ -317,6 +333,7 @@ namespace MsgKit
                 var memoryStream = new MemoryStream(ContactPicture);
                 Attachments.AddContactPhoto(memoryStream, "ContactPicture.jpg");
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidHasPicture, true);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidSmartNoAttach, true);
             }
             else
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidHasPicture, false);
@@ -404,15 +421,23 @@ namespace MsgKit
             if (!string.IsNullOrWhiteSpace(OfficeLocation))
                 TopLevelProperties.AddProperty(PropertyTags.PR_OFFICE_LOCATION_W, OfficeLocation);
                         
+            if (!string.IsNullOrWhiteSpace(OfficeTelephoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS2_TELEPHONE_NUMBER_W, OfficeTelephoneNumber);
+
             if (!string.IsNullOrWhiteSpace(PersonalHomePage))
                 TopLevelProperties.AddProperty(PropertyTags.PR_PERSONAL_HOME_PAGE_W, PersonalHomePage);
                                     
             if (!string.IsNullOrWhiteSpace(PostalAddress))
                 TopLevelProperties.AddProperty(PropertyTags.PR_POSTAL_ADDRESS_W, PostalAddress);
-                                    
+
+            var addressBookProviderEmailList = new List<long>();
+
             if (!string.IsNullOrWhiteSpace(PrimaryFaxNumber))
+            {
                 TopLevelProperties.AddProperty(PropertyTags.PR_PRIMARY_FAX_NUMBER_W, PrimaryFaxNumber);
-                                                
+                addressBookProviderEmailList.Add(5);
+            }
+
             if (!string.IsNullOrWhiteSpace(PrimaryTelephoneNumber))
                 TopLevelProperties.AddProperty(PropertyTags.PR_PRIMARY_TELEPHONE_NUMBER_W, PrimaryTelephoneNumber);
             
@@ -437,8 +462,15 @@ namespace MsgKit
             if (!string.IsNullOrWhiteSpace(TTYTDDPhoneNumber))
                 TopLevelProperties.AddProperty(PropertyTags.PR_TTYTDD_PHONE_NUMBER_W, TTYTDDPhoneNumber);
 
+            if (!string.IsNullOrWhiteSpace(PagerTelephoneNumber))
+                TopLevelProperties.AddProperty(PropertyTags.PR_PAGER_TELEPHONE_NUMBER_W, PagerTelephoneNumber);
+
+            var emailList = new List<long>();
+
             if (Email1 != null)
             {
+                emailList.Add(NamedPropertyTags.PidLidEmail1DisplayName.Id);
+                addressBookProviderEmailList.Add(0);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1EmailAddress, Email1.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1DisplayName, Email1.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail1OriginalDisplayName, Email1.OriginalDisplayName);
@@ -448,15 +480,19 @@ namespace MsgKit
 
             if (Email2 != null)
             {
+                emailList.Add(NamedPropertyTags.PidLidEmail2DisplayName.Id);
+                addressBookProviderEmailList.Add(1);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2EmailAddress, Email2.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2DisplayName, Email2.DisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2OriginalDisplayName, Email1.OriginalDisplayName);
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2OriginalDisplayName, Email2.OriginalDisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2AddressType, Email2.AddressTypeString);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail2OriginalEntryId, Email2.OneOffEntryId.ToByteArray());
             }
 
             if (Email3 != null)
             {
+                emailList.Add(NamedPropertyTags.PidLidEmail3DisplayName.Id);
+                addressBookProviderEmailList.Add(2);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3EmailAddress, Email3.Email);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3DisplayName, Email3.DisplayName);
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3OriginalDisplayName, Email3.OriginalDisplayName);
@@ -464,32 +500,35 @@ namespace MsgKit
                 NamedProperties.AddProperty(NamedPropertyTags.PidLidEmail3OriginalEntryId, Email3.OneOffEntryId.ToByteArray());
             }
 
-            if (!string.IsNullOrWhiteSpace(Fax1))
-            {
-                var fax1 = new Address(Fax1, SubjectNormalized, AddressType.Fax);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, fax1.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, fax1.OriginalDisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, fax1.AddressTypeString);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalEntryId, fax1.OneOffEntryId.ToByteArray());
-            }
+            if (emailList.Any())
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidEmailList, emailList.ToArray());
 
-            if (!string.IsNullOrWhiteSpace(Fax2))
-            {
-                var fax2 = new Address(Fax2, SubjectNormalized, AddressType.Fax);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2EmailAddress, fax2.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, fax2.OriginalDisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, fax2.AddressTypeString);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalEntryId, fax2.OneOffEntryId.ToByteArray());
-            }
+            //if (!string.IsNullOrWhiteSpace(Fax1))
+            //{
+            //    var fax1 = new Address(Fax1, SubjectNormalized, AddressType.Fax);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1EmailAddress, fax1.Email);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalDisplayName, fax1.OriginalDisplayName);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1AddressType, fax1.AddressTypeString);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax1OriginalEntryId, fax1.OneOffEntryId.ToByteArray());
+            //}
 
-            if (!string.IsNullOrWhiteSpace(Fax3))
-            {
-                var fax3 = new Address(Fax3, SubjectNormalized, AddressType.Fax);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3EmailAddress, fax3.Email);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, fax3.OriginalDisplayName);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, fax3.AddressTypeString);
-                NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalEntryId, fax3.OneOffEntryId.ToByteArray());
-            }
+            //if (!string.IsNullOrWhiteSpace(Fax2))
+            //{
+            //    var fax2 = new Address(Fax2, SubjectNormalized, AddressType.Fax);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2EmailAddress, fax2.Email);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalDisplayName, fax2.OriginalDisplayName);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2AddressType, fax2.AddressTypeString);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax2OriginalEntryId, fax2.OneOffEntryId.ToByteArray());
+            //}
+
+            //if (!string.IsNullOrWhiteSpace(Fax3))
+            //{
+            //    var fax3 = new Address(Fax3, SubjectNormalized, AddressType.Fax);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3EmailAddress, fax3.Email);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalDisplayName, fax3.OriginalDisplayName);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3AddressType, fax3.AddressTypeString);
+            //    NamedProperties.AddProperty(NamedPropertyTags.PidLidFax3OriginalEntryId, fax3.OneOffEntryId.ToByteArray());
+            //}
 
             if (Yomi != null)
             {
@@ -547,11 +586,14 @@ namespace MsgKit
                 if (!string.IsNullOrWhiteSpace(Business.HomePage))
                     TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_HOME_PAGE_W, Business.HomePage);
 
-                if (!string.IsNullOrWhiteSpace(Business.TelePhoneNumber))
-                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_TELEPHONE_NUMBER_W, Business.TelePhoneNumber);
-                
+                if (!string.IsNullOrWhiteSpace(Business.TelephoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_TELEPHONE_NUMBER_W, Business.TelephoneNumber);
+
                 if (!string.IsNullOrWhiteSpace(Business.FaxNumber))
+                {
                     TopLevelProperties.AddProperty(PropertyTags.PR_BUSINESS_FAX_NUMBER_W, Business.FaxNumber);
+                    addressBookProviderEmailList.Add(3);
+                }
             }
             
             if (Home != null)
@@ -571,15 +613,21 @@ namespace MsgKit
                 if (!string.IsNullOrWhiteSpace(Home.Country))
                     TopLevelProperties.AddProperty(PropertyTags.PR_HOME_ADDRESS_COUNTRY_W, Home.Country);
 
-                if (!string.IsNullOrWhiteSpace(Home.TelePhoneNumber))
-                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_TELEPHONE_NUMBER_W, Home.TelePhoneNumber);
+                if (!string.IsNullOrWhiteSpace(Home.TelephoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME_TELEPHONE_NUMBER_W, Home.TelephoneNumber);
 
-                if (!string.IsNullOrWhiteSpace(Home.TelePhoneNumber2))
-                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME2_TELEPHONE_NUMBER_W, Home.TelePhoneNumber2);
+                if (!string.IsNullOrWhiteSpace(Home.TelephoneNumber2))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_HOME2_TELEPHONE_NUMBER_W, Home.TelephoneNumber2);
 
                 if (!string.IsNullOrWhiteSpace(Home.FaxNumber))
+                {
                     TopLevelProperties.AddProperty(PropertyTags.PR_HOME_FAX_NUMBER_W, Home.FaxNumber);
+                    addressBookProviderEmailList.Add(4);
+                }
             }
+
+            if (addressBookProviderEmailList.Any())
+                NamedProperties.AddProperty(NamedPropertyTags.PidLidAddressBookProviderEmailList, addressBookProviderEmailList.OrderBy(m => m).ToArray());
 
             if (Other != null)
             {
@@ -601,8 +649,8 @@ namespace MsgKit
                 if (!string.IsNullOrWhiteSpace(Other.State))
                     TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_ADDRESS_STATE_OR_PROVINCE_W, Other.State);
 
-                if (!string.IsNullOrWhiteSpace(Other.TelePhoneNumber))
-                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_TELEPHONE_NUMBER_W, Other.TelePhoneNumber);
+                if (!string.IsNullOrWhiteSpace(Other.TelephoneNumber))
+                    TopLevelProperties.AddProperty(PropertyTags.PR_OTHER_TELEPHONE_NUMBER_W, Other.TelephoneNumber);
             }
         }
         #endregion

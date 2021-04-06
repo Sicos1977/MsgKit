@@ -26,8 +26,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using MsgKit.Enums;
 using MsgKit.Helpers;
@@ -149,6 +149,21 @@ namespace MsgKit.Structures
                         size += property.Data.LongLength;
                         break;
 
+                    case PropertyType.PT_MV_UNICODE:
+                    case PropertyType.PT_MV_STRING8:
+                    case PropertyType.PT_MV_LONG:
+                    case PropertyType.PT_MV_DOUBLE:
+                    case PropertyType.PT_MV_SHORT:
+                    case PropertyType.PT_MV_FLOAT:
+                        if (!property.IsMultiValueData)
+                        {
+                            binaryWriter.Write(property.Data.Length);
+                            binaryWriter.Write(new byte[4]);
+                            size += property.Data.LongLength;
+                        }
+                        storage.AddStream(property.Name).SetData(property.Data);
+                        break;
+
                     case PropertyType.PT_CLSID:
                         binaryWriter.Write(property.Data);
                         break;
@@ -168,31 +183,10 @@ namespace MsgKit.Structures
                         size += property.Data.LongLength;
                         break;
 
-                    case PropertyType.PT_MV_SHORT:
-                        break;
-                    case PropertyType.PT_MV_LONG:
-                        break;
-
-                    case PropertyType.PT_MV_FLOAT:
-                        break;
-
-                    case PropertyType.PT_MV_DOUBLE:
-                        break;
-
-                    case PropertyType.PT_MV_CURRENCY:
-                        break;
-
                     case PropertyType.PT_MV_APPTIME:
                         break;
 
                     case PropertyType.PT_MV_LONGLONG:
-                        break;
-
-                    case PropertyType.PT_MV_UNICODE:
-                        // PropertyType.PT_MV_TSTRING
-                        break;
-
-                    case PropertyType.PT_MV_STRING8:
                         break;
 
                     case PropertyType.PT_MV_SYSTIME:
@@ -255,17 +249,145 @@ namespace MsgKit.Structures
             if (obj == null)
                 return;
 
-            var data = new byte[] {};
+            var data = AsBytes(mapiTag.Type, obj);
+
+            var existingProp = this.FirstOrDefault(p => p.Id == mapiTag.Id && p.Type == mapiTag.Type);
+            if (existingProp != null)
+                Remove(existingProp);
+
+            Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
 
             switch (mapiTag.Type)
             {
+                case PropertyType.PT_MV_UNICODE:
+                case PropertyType.PT_MV_STRING8:
+                    AddMultiValueStreams<string>(mapiTag, obj, flags);
+                    break;
+            }
+        }
+        #endregion
+
+        #region AddOrReplaceProperty
+        /// <summary>
+        ///     Adds a property when it not exists, otherwise it is replaced
+        /// </summary>
+        /// <param name="mapiTag">The <see cref="PropertyTag" /></param>
+        /// <param name="obj">The value for the mapi tag</param>
+        /// <param name="flags">
+        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
+        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
+        /// </param>
+        /// <exception cref="ArgumentNullException">Raised when <paramref name="obj" /> is <c>null</c></exception>
+        internal void AddOrReplaceProperty(PropertyTag mapiTag,
+            object obj,
+            PropertyFlags flags = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
+        {
+            var index = FindIndex(m => m.Id == mapiTag.Id);
+            if (index >= 0)
+                RemoveAt(index);
+
+            AddProperty(mapiTag, obj, flags);
+        }
+        #endregion
+
+        #region MultiValue
+        /// <summary>
+        ///     Returns the given <paramref name="obj"/> as a byte array
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"><see cref="PropertyType"/></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private byte[] MultiValue<T>(PropertyType type, object obj)
+        {
+            var values = (T[])obj;
+            if (!values.Any()) 
+                return null;
+
+            var nullTerminator = NullTerminator(type);
+
+            switch (type)
+            {
+                case PropertyType.PT_UNICODE:
+                case PropertyType.PT_STRING8:
+                {
+                    var byteCount = 4 * values.Length;
+                    var result = new byte[byteCount];
+                    var currentIndex = 0;
+
+                    foreach (var value in values)
+                    {
+                        var bytes = AsBytes(type, value);
+                        var lengthInBytes = BitConverter.GetBytes((uint) (bytes.Length + nullTerminator.Length));
+                        // ReSharper disable once AssignNullToNotNullAttribute
+                        Array.Copy(lengthInBytes, 0, result, currentIndex, lengthInBytes.Length);
+                        currentIndex += lengthInBytes.Length;
+                    }
+
+                    return result;
+                }
+
+                case PropertyType.PT_LONG:
+                    using(var memoryStream = new MemoryStream())
+                    using (var binaryWriter = new BinaryWriter(memoryStream))
+                    {
+                        foreach (var value in values)
+                        {
+                            var bytes = AsBytes(type, value);
+                            binaryWriter.Write(bytes);
+                        }
+
+                        return memoryStream.ToArray();
+                    }
+
+                default:
+                    throw new System.Exception($"The property type '{type}' is not yet supported in the MultiValue method");
+            }
+        }
+        #endregion
+
+        #region AddMultiValueStreams
+        private void AddMultiValueStreams<T>(PropertyTag mapiTag, object obj, PropertyFlags flags)
+        {
+            var values = (T[])obj;
+            var singleValueType = GetSingleTypeFromMultiValueType(mapiTag.Type);
+            var index = 0;
+
+            foreach (var val in values)
+            {
+                var nullTerminator = NullTerminator(singleValueType);
+                
+                Add(new Property(
+                    mapiTag.Id, 
+                    mapiTag.Type,
+                    flags,
+                    AsBytes(singleValueType, val).Concat(nullTerminator).ToArray(), 
+                    index));
+                index++;
+            }
+        }
+        #endregion
+
+        #region AsBytes
+        /// <summary>
+        ///     Returns the given <paramref name="obj"/> as a byte array
+        /// </summary>
+        /// <param name="type"><see cref="PropertyType"/></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private byte[] AsBytes(PropertyType type, object obj)
+        {
+            var data = new byte[] { };
+
+            switch (type)
+            {
                 case PropertyType.PT_APPTIME:
-                    var oaDate = ((DateTime) obj).ToOADate();
+                    var oaDate = ((DateTime)obj).ToOADate();
                     data = BitConverter.GetBytes(oaDate);
                     break;
 
                 case PropertyType.PT_SYSTIME:
-                    var fileTime = ((DateTime) obj).ToFileTimeUtc();
+                    var fileTime = ((DateTime)obj).ToFileTimeUtc();
                     data = BitConverter.GetBytes(fileTime);
                     break;
 
@@ -279,11 +401,11 @@ namespace MsgKit.Structures
                     break;
 
                 case PropertyType.PT_FLOAT:
-                    data = BitConverter.GetBytes((float) (int) obj);
+                    data = BitConverter.GetBytes((float)(int)obj);
                     break;
 
                 case PropertyType.PT_DOUBLE:
-                    data = BitConverter.GetBytes((double) obj);
+                    data = BitConverter.GetBytes((double)obj);
                     break;
 
                 //case PropertyType.PT_CURRENCY:
@@ -291,23 +413,46 @@ namespace MsgKit.Structures
                 //    break;
 
                 case PropertyType.PT_BOOLEAN:
-                    data = BitConverter.GetBytes((bool) obj);
+                    data = BitConverter.GetBytes((bool)obj);
                     break;
 
                 case PropertyType.PT_I8:
-                    data = BitConverter.GetBytes((long) obj);
+                    data = BitConverter.GetBytes((long)obj);
                     break;
 
                 case PropertyType.PT_UNICODE:
-                    data = Encoding.Unicode.GetBytes((string) obj);
+                    data = Encoding.Unicode.GetBytes((string)obj);
+                    break;
+                case PropertyType.PT_MV_UNICODE:
+                    data = MultiValue<string>(PropertyType.PT_UNICODE, obj);
                     break;
 
                 case PropertyType.PT_STRING8:
-                    data = Encoding.Default.GetBytes((string) obj);
+                    data = Encoding.Default.GetBytes((string)obj);
                     break;
 
+                case PropertyType.PT_MV_STRING8:
+                    data = MultiValue<string>(PropertyType.PT_STRING8, obj);
+                    break;
+
+                case PropertyType.PT_MV_LONG:
+                    data = MultiValue<long>(PropertyType.PT_LONG, obj);
+                    break;
+
+                case PropertyType.PT_MV_DOUBLE:
+                    data = MultiValue<double>(PropertyType.PT_DOUBLE, obj);
+                    break;
+
+                case PropertyType.PT_MV_SHORT:
+                    data = MultiValue<short>(PropertyType.PT_SHORT, obj);
+                    break;
+
+                case PropertyType.PT_MV_FLOAT:
+                    data = MultiValue<float>(PropertyType.PT_FLOAT, obj);
+                    break;
+                    
                 case PropertyType.PT_CLSID:
-                    data = ((Guid) obj).ToByteArray();
+                    data = ((Guid)obj).ToByteArray();
                     break;
 
                 case PropertyType.PT_BINARY:
@@ -315,62 +460,62 @@ namespace MsgKit.Structures
                     switch (Type.GetTypeCode(obj.GetType()))
                     {
                         case TypeCode.Boolean:
-                            data = BitConverter.GetBytes((bool) obj);
+                            data = BitConverter.GetBytes((bool)obj);
                             break;
 
                         case TypeCode.Char:
-                            data = BitConverter.GetBytes((char) obj);
+                            data = BitConverter.GetBytes((char)obj);
                             break;
 
                         case TypeCode.SByte:
-                            data = BitConverter.GetBytes((sbyte) obj);
+                            data = BitConverter.GetBytes((sbyte)obj);
                             break;
 
                         case TypeCode.Byte:
-                            data = BitConverter.GetBytes((byte) obj);
+                            data = BitConverter.GetBytes((byte)obj);
                             break;
                         case TypeCode.Int16:
-                            data = BitConverter.GetBytes((short) obj);
+                            data = BitConverter.GetBytes((short)obj);
                             break;
 
                         case TypeCode.UInt16:
-                            data = BitConverter.GetBytes((uint) obj);
+                            data = BitConverter.GetBytes((uint)obj);
                             break;
 
                         case TypeCode.Int32:
-                            data = BitConverter.GetBytes((int) obj);
+                            data = BitConverter.GetBytes((int)obj);
                             break;
 
                         case TypeCode.UInt32:
-                            data = BitConverter.GetBytes((uint) obj);
+                            data = BitConverter.GetBytes((uint)obj);
                             break;
 
                         case TypeCode.Int64:
-                            data = BitConverter.GetBytes((long) obj);
+                            data = BitConverter.GetBytes((long)obj);
                             break;
 
                         case TypeCode.UInt64:
-                            data = BitConverter.GetBytes((ulong) obj);
+                            data = BitConverter.GetBytes((ulong)obj);
                             break;
 
                         case TypeCode.Single:
-                            data = BitConverter.GetBytes((float) obj);
+                            data = BitConverter.GetBytes((float)obj);
                             break;
 
                         case TypeCode.Double:
-                            data = BitConverter.GetBytes((double) obj);
+                            data = BitConverter.GetBytes((double)obj);
                             break;
 
                         case TypeCode.DateTime:
-                            data = BitConverter.GetBytes(((DateTime) obj).Ticks);
+                            data = BitConverter.GetBytes(((DateTime)obj).Ticks);
                             break;
 
                         case TypeCode.String:
-                            data = Encoding.UTF8.GetBytes((string) obj);
+                            data = Encoding.UTF8.GetBytes((string)obj);
                             break;
 
                         case TypeCode.Object:
-                            data = (byte[]) obj;
+                            data = (byte[])obj;
                             break;
 
                         default:
@@ -402,70 +547,47 @@ namespace MsgKit.Structures
                     throw new ArgumentOutOfRangeException();
             }
 
-            Add(new Property(mapiTag.Id, mapiTag.Type, flags, data));
-        }
-
-        /// <summary>
-        ///     Adds a property that has been read from the propertiesstream
-        /// </summary>
-        /// <param name="id">The id of the property</param>
-        /// <param name="type">The <see cref="PropertyType" /></param>
-        /// <param name="data"></param>
-        /// <param name="flags">
-        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
-        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">Raised when <paramref name="data" /> is not 8 bytes</exception>
-        internal void AddProperty(ushort id, PropertyType type, byte[] data,
-            PropertyFlags flags = PropertyFlags.PROPATTR_READABLE & PropertyFlags.PROPATTR_WRITABLE)
-        {
-            if (data.Length != 8)
-                throw new ArgumentOutOfRangeException(nameof(data), "The data should always have an 8 byte size");
-
-            Add(new Property(id, type, flags, data));
-        }
-
-        /// <summary>
-        ///     Adds a CFStream and converts it into a property
-        /// </summary>
-        /// <param name="stream">The <see cref="CFStream" /></param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     Raised when the <paramref name="stream"/> does not start with
-        ///     "__substg1.0_"
-        /// </exception>
-        internal void AddProperty(CFStream stream)
-        {
-            if (!stream.Name.StartsWith("__substg1.0_"))
-                throw new ArgumentOutOfRangeException(nameof(stream), "The stream name needs to start with '__substg1.0_'");
-
-            var id = stream.Name.Substring(12, 4);
-            var type = stream.Name.Substring(16, 4);
-            var uId = ushort.Parse(id, NumberStyles.AllowHexSpecifier);
-            var uType = ushort.Parse(type, NumberStyles.AllowHexSpecifier);
-            Add(new Property(uId, (PropertyType) uType, PropertyFlags.PROPATTR_READABLE, stream.GetData()));
+            return data;
         }
         #endregion
 
-        #region AddOrReplaceProperty
+        #region GetSingleTypeFromMultiValueType
         /// <summary>
-        ///     Adds a property when it not exists, otherwise it is replaced
+        ///     Returns a single value type from a multi value type
         /// </summary>
-        /// <param name="mapiTag">The <see cref="PropertyTag" /></param>
-        /// <param name="obj">The value for the mapi tag</param>
-        /// <param name="flags">
-        ///     the flags to set on the property, default <see cref="PropertyFlags.PROPATTR_READABLE" />
-        ///     and <see cref="PropertyFlags.PROPATTR_WRITABLE" />
-        /// </param>
-        /// <exception cref="ArgumentNullException">Raised when <paramref name="obj" /> is <c>null</c></exception>
-        internal void AddOrReplaceProperty(PropertyTag mapiTag,
-            object obj,
-            PropertyFlags flags = PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)
+        /// <param name="multiValueType"></param>
+        /// <returns></returns>
+        private PropertyType GetSingleTypeFromMultiValueType(PropertyType multiValueType)
         {
-            var index = FindIndex(m => m.Id == mapiTag.Id);
-            if (index >= 0)
-                RemoveAt(index);
+            if (multiValueType == PropertyType.PT_MV_TSTRING) 
+                return PropertyType.PT_UNICODE;
 
-            AddProperty(mapiTag, obj, flags);
+            return (PropertyType)Enum.Parse(typeof(PropertyType), multiValueType.ToString().Replace("_MV", ""));
+        }
+        #endregion
+
+        #region NullTerminator
+        /// <summary>
+        ///     Returns a correct null terminator according to the given <paramref name="propertyType"/>
+        /// </summary>
+        /// <param name="type"><see cref="PropertyType"/></param>
+        /// <returns></returns>
+        private byte[] NullTerminator(PropertyType type)
+        {
+            if (StoreSupportMaskConst.StoreSupportMask.HasFlag(StoreSupportMask.STORE_UNICODE_OK))
+                return new byte[] { 0, 0 };
+
+            switch (type)
+            {
+                case PropertyType.PT_UNICODE:
+                    return new byte[] { 0, 0 };
+
+                case PropertyType.PT_STRING8:
+                    return new byte[] { 0 };
+
+                default:
+                    return new byte[0];
+            }
         }
         #endregion
     }

@@ -29,6 +29,8 @@ using System.Collections.Generic;
 using System.IO;
 using MsgKit.Enums;
 using MsgKit.Helpers;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace MsgKit.Structures
 {
@@ -314,10 +316,10 @@ namespace MsgKit.Structures
                     case PropertyType.PT_MV_SHORT:
                     {
                         var count = binaryReader.ReadInt16();
-                        for (var j = 0; j < count; j++)
+                        for (var i = 0; i < count; i++)
                         {
                             data = binaryReader.ReadBytes(2);
-                            RecipientProperties.Add(new Property(id, type, data, true));
+                            RecipientProperties.Add(new Property(id, type, data, i));
                         }
                         break;
                     }
@@ -326,10 +328,10 @@ namespace MsgKit.Structures
                     case PropertyType.PT_MV_FLOAT:
                     {
                         var count = binaryReader.ReadInt16();
-                        for (var j = 0; j < count; j++)
+                        for (var i = 0; i < count; i++)
                         {
                             data = binaryReader.ReadBytes(4);
-                            RecipientProperties.Add(new Property(id, type, data, true));
+                            RecipientProperties.Add(new Property(id, type, data, i));
                         }
                         break;
                     }
@@ -340,10 +342,10 @@ namespace MsgKit.Structures
                     case PropertyType.PT_MV_SYSTIME:
                     {
                         var count = binaryReader.ReadInt16();
-                        for (var j = 0; j < count; j++)
+                        for (var i = 0; i < count; i++)
                         {
                             data = binaryReader.ReadBytes(8);
-                            RecipientProperties.Add(new Property(id, type, data, true));
+                            RecipientProperties.Add(new Property(id, type, data, i));
                         }
                         break;
                     }
@@ -353,11 +355,11 @@ namespace MsgKit.Structures
                     case PropertyType.PT_MV_BINARY:
                     {
                         var count = binaryReader.ReadInt16();
-                        for (var j = 0; j < count; j++)
+                        for (var i = 0; i < count; i++)
                         {
                             var length = binaryReader.ReadInt16();
                             data = binaryReader.ReadBytes(length);
-                            RecipientProperties.Add(new Property(id, type, data, true));
+                            RecipientProperties.Add(new Property(id, type, data, i));
                         }
                         break;
                     }

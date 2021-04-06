@@ -179,26 +179,30 @@ namespace MsgKitTestTool
                 contact.Title = "Title";
                 contact.TTYTDDPhoneNumber = "TTYTDD phone number";
                 contact.Email1 = new Address("email1@neverland.com", "email1");
-                contact.Email2 = new Address("emai21@neverland.com", "email2");
+                contact.Email2 = new Address("email2@neverland.com", "email2");
                 contact.Email3 = new Address("email3@neverland.com", "email3");
-                contact.Fax1 = "fax1@1234567890";
-                contact.Fax2 = "fax2@1234567890";
-                contact.Fax3 = "fax3@1234567890";
+                //contact.Fax1 = "fax1@1234567890";
+                //contact.Fax2 = "fax2@1234567890";
+                //contact.Fax3 = "fax3@1234567890";
+                contact.OfficeTelephoneNumber = "Office telephone number";
+                contact.InstantMessagingAddress = "Instant messaging address";
                 contact.Yomi = new ContactYomi { CompanyName = "Yomi company name", FirstName = "Yomi first name", LastName = "Yomi last name"};
 
                 contact.Work = new ContactWork
                 {
+                    TelephoneNumber = "Contact telephone number",
                     City = "Contact city",
                     Country = "Contact country",
                     CountryCode = "Contact country code",
                     PostOfficeBox = "Contact post office box",
                     PostalCode = "Contact postal code",
                     Street = "Contact street",
-                    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                    Address = "Contact\nBla bla\nBla die bla\nBLa die bla die bla"
                 };
 
                 contact.Business = new ContactBusiness
                 {
+                    TelephoneNumber = "Business telephone number",
                     FaxNumber = "Business fax number",
                     HomePage = "Business home-page",
                     City = "Business city",
@@ -206,20 +210,35 @@ namespace MsgKitTestTool
                     PostalCode = "Business postal code",
                     State = "Business state",
                     Street = "Business street",
-                    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                    Address = "Business\nBla bla\nBla die bla\nBLa die bla die bla"
                 };
-
+                
                 contact.Home = new ContactHome
                 {
+                    TelephoneNumber = "Home telephone number",
+                    TelephoneNumber2 = "Home telephone number 2",
                     FaxNumber = "Home faxnumber",
                     City = "Home city",
                     Country = "Home country",
                     PostalCode = "Home postal code",
                     State = "Home state",
                     Street = "Home street",
-                    Address = "Bla bla\nBla die bla\nBLa die bla die bla"
+                    Address = "Home\nBla bla\nBla die bla\nBLa die bla die bla"
                 };
 
+                contact.Other = new ContactOther
+                {
+                    TelephoneNumber = "Other telephone number",
+                    City = "Other city",
+                    Country = "Other country",
+                    PostalCode = "Other postal code",
+                    State = "Other state",
+                    Street = "Other street",
+                    Address = "Other\nBla bla\nBla die bla\nBLa die bla die bla"
+                };
+
+                contact.PagerTelephoneNumber = "Pager telephone number";
+                contact.PostalAddressId = PostalAddressId.HOME_ADDRESS;
 
                 contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
                 contact.IconIndex = MessageIconIndex.UnsentMail;

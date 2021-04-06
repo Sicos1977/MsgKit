@@ -32,6 +32,7 @@ using System.Text;
 using MsgKit.Enums;
 using MsgKit.Exceptions;
 // ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit.Structures
 {
@@ -50,19 +51,13 @@ namespace MsgKit.Structures
         ///     Returns the Property as a readable string
         /// </summary>
         /// <returns></returns>
-        public string Name
-        {
-            get { return PropertyTags.SubStorageStreamPrefix + Id.ToString("X4") + ((ushort)Type).ToString("X4"); }
-        }
+        public string Name => PropertyTags.SubStorageStreamPrefix + GetPropertyId(Id, Type, MultiValueIndex);
 
         /// <summary>
         ///     Returns the Property as a readable string without the streamprefix and type
         /// </summary>
         /// <returns></returns>
-        public string ShortName
-        {
-            get { return Id.ToString("X4"); }
-        }
+        public string ShortName => Id.ToString("X4");
 
         /// <summary>
         ///     The <see cref="PropertyType" />
@@ -76,9 +71,14 @@ namespace MsgKit.Structures
         internal uint Flags { get; }
 
         /// <summary>
-        ///     Returns <c>true</c> when this property is part of a multivalue property
+        ///     The index position of the multi value property
         /// </summary>
-        internal bool MultiValue { get; }
+        private int MultiValueIndex { get; }
+
+        /// <summary>
+        ///     returns true if this represents a single data entry, belonging to a multi valu property
+        /// </summary>
+        internal bool IsMultiValueData => MultiValueIndex >= 0;
 
         /// <summary>
         ///     The <see cref="PropertyFlags">property flags</see> that have been set
@@ -361,46 +361,31 @@ namespace MsgKit.Structures
         ///     <see cref="PropertyType.PT_MV_FLOAT" /> or <see cref="PropertyType.PT_MV_DOUBLE" />
         /// </summary>
         /// <exception cref="MKInvalidProperty">Raised when the <see cref="Type"/> is not set to <see cref="PropertyType.PT_FLOAT"/></exception>
-        internal ReadOnlyCollection<float> ToFloatCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal ReadOnlyCollection<float> ToFloatCollection => throw new NotImplementedException();
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of decimals when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_CURRENCY" />
         /// </summary>
-        internal ReadOnlyCollection<decimal> ToDecimalCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal ReadOnlyCollection<decimal> ToDecimalCollection => throw new NotImplementedException();
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_APPTIME" /> or <see cref="PropertyType.PT_MV_SYSTIME" />
         /// </summary>
-        internal ReadOnlyCollection<DateTime> ToDateTimeCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal ReadOnlyCollection<DateTime> ToDateTimeCollection => throw new NotImplementedException();
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of datetime when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_LONGLONG" />
         /// </summary>
-        internal ReadOnlyCollection<long> ToLongCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal ReadOnlyCollection<long> ToLongCollection => throw new NotImplementedException();
 
         /// <summary>
         ///     Returns <see cref="Data" /> as an readonly collection of strings when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_STRING8" />
         /// </summary>
-        internal ReadOnlyCollection<long> ToStringCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal ReadOnlyCollection<long> ToStringCollection => throw new NotImplementedException();
 
         ///// <summary>
         /////     Returns <see cref="Data" /> as an readonly collection of guids when <see cref="Type" /> is set to
@@ -415,10 +400,7 @@ namespace MsgKit.Structures
         ///     Returns <see cref="Data" /> as an readonly collection of byte arrays when <see cref="Type" /> is set to
         ///     <see cref="PropertyType.PT_MV_BINARY" />
         /// </summary>
-        internal ReadOnlyCollection<byte[]> ToBinaryCollection
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal ReadOnlyCollection<byte[]> ToBinaryCollection => throw new NotImplementedException();
 
         /*
         /// <summary>
@@ -433,6 +415,16 @@ namespace MsgKit.Structures
         /// </summary>
         PtypNull = 0x0001,
         */
+        #endregion
+
+        #region GetPropertyId
+        /// <summary>
+        ///     Returns the property name, excluding the substorage prefix
+        /// </summary>
+        private static string GetPropertyId(ushort id, PropertyType type, int multiValueIndex = -1) =>
+            id.ToString("X4")
+            + ((ushort)type).ToString("X4")
+            + (multiValueIndex >= 0 ? "-" + ((uint)multiValueIndex).ToString("X8") : "");
         #endregion
 
         #region ByteArrayToDecimal
@@ -460,14 +452,13 @@ namespace MsgKit.Structures
         /// <param name="id">The id of the property</param>
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="data">The property data</param>
-        /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
-        /// multivalue property</param>
-        internal Property(ushort id, PropertyType type, byte[] data, bool multiValue = false)
+        /// <param name="multiValueIndex">If part of a multivalue property, this is the index of the value</param>
+        internal Property(ushort id, PropertyType type, byte[] data, int multiValueIndex = -1)
         {
             Id = id;
             Type = type;
             Data = data;
-            MultiValue = multiValue;
+            MultiValueIndex = multiValueIndex;
         }
 
         /// <summary>
@@ -477,15 +468,14 @@ namespace MsgKit.Structures
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">The <see cref="PropertyFlags" /></param>
         /// <param name="data">The property data</param>
-        /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
-        /// multivalue property</param>
-        internal Property(ushort id, PropertyType type, PropertyFlags flags, byte[] data, bool multiValue = false)
+        /// <param name="multiValueIndex">If part of a multivalue property, this is the index of the value</param>
+        internal Property(ushort id, PropertyType type, PropertyFlags flags, byte[] data, int multiValueIndex = -1)
         {
             Id = id;
             Type = type;
             Flags = Convert.ToUInt32(flags);
             Data = data;
-            MultiValue = multiValue;
+            MultiValueIndex = multiValueIndex;
         }
 
         /// <summary>
@@ -495,15 +485,14 @@ namespace MsgKit.Structures
         /// <param name="type">The <see cref="PropertyType" /></param>
         /// <param name="flags">The <see cref="PropertyFlags" /></param>
         /// <param name="data">The property data</param>
-        /// <param name="multiValue">Set to <c>true</c> to indicate that this property is part of a
-        /// multivalue property</param>
-        internal Property(ushort id, PropertyType type, uint flags, byte[] data, bool multiValue = false)
+        /// <param name="multiValueIndex">If part of a multivalue property, this is the index of the value</param>
+        internal Property(ushort id, PropertyType type, uint flags, byte[] data, int multiValueIndex = -1)
         {
             Id = id;
             Type = type;
             Flags = flags;
             Data = data;
-            MultiValue = multiValue;
+            MultiValueIndex = multiValueIndex;
         }
         #endregion
     }

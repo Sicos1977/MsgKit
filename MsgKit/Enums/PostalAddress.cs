@@ -1,5 +1,7 @@
-﻿//
-// ContactHome.cs
+﻿// ReSharper disable InconsistentNaming
+
+//
+// PostalAddressId.cs
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
@@ -24,32 +26,34 @@
 // THE SOFTWARE.
 //
 
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
+namespace MsgKit.Enums
 {
     /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> work address
+    ///     Specifies which physical address is the contact's mailing address
     /// </summary>
-    public class ContactHome : ContactOther
+    /// <remarks>
+    ///     See https://docs.microsoft.com/en-us/office/client-developer/outlook/mapi/pidlidpostaladdressid-canonical-property
+    /// </remarks>
+    public enum PostalAddressId : uint
     {
-        #region Properties
         /// <summary>
-        ///     The way the home address is displayed in the contact card<br/>
-        ///     Some Street<br/>
-        ///     Zip code Place<br/>
-        ///     Some land<br/>
+        ///     No address is selected as the mailing address
         /// </summary>
-        public string Address { get; set; }
+        NO_ADDRESS = 0x00000000,
 
         /// <summary>
-        ///     The fax number
+        ///     The Home Address is the mailing address
         /// </summary>
-        public string FaxNumber { get; set; }
+        HOME_ADDRESS = 0x00000001,
 
         /// <summary>
-        ///     The telephone 2 number
+        ///     The Work Address is the mailing address.
         /// </summary>
-        public string TelephoneNumber2 { get; set; }
-        #endregion
+        WORK_ADDRESS = 0x00000001,
+
+        /// <summary>
+        ///     The Other Address is the mailing address
+        /// </summary>
+        OTHER_ADDRESS = 0x00000001,
     }
 }

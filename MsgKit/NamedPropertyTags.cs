@@ -496,6 +496,20 @@ namespace MsgKit
         }
 
         /// <summary>
+        ///     The PidLidSmartNoAttach property ([MS-OXPROPS] section 2.301) is set to TRUE (0x01)
+        ///     if the Message object has no attachments that are visible to the end user. If this
+        ///     property is unset, a default value of FALSE (0x00) is used
+        /// </summary>
+        internal static NamedPropertyTag PidLidSmartNoAttach
+        {
+            get
+            {
+                return new NamedPropertyTag(0x8514, "PidLidSmartNoAttach", new Guid("00062008-0000-0000-C000-000000000046"),
+                    PropertyType.PT_BOOLEAN);
+            }
+        }
+
+        /// <summary>
         ///     Specifies the complete address of the home address of the contact.
         /// </summary>
         internal static NamedPropertyTag PidLidHomeAddress
@@ -532,7 +546,7 @@ namespace MsgKit
         }
 
         /// <summary>
-        ///     Specifies the complete address of the other address of the contact.
+        ///     Specifies which physical address is the contact's mailing address..
         /// </summary>
         internal static NamedPropertyTag PidLidPostalAddressId
         {
@@ -598,8 +612,8 @@ namespace MsgKit
         {
             get
             {
-                return new NamedPropertyTag(0x8028, "PidLidAddressBookProviderEmailList", new Guid(""),
-                    PropertyType.PT_MV_LONG);
+                return new NamedPropertyTag(0x8028, "PidLidAddressBookProviderEmailList", 
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_MV_LONG);
             }
         }
 
@@ -609,8 +623,8 @@ namespace MsgKit
         {
             get
             {
-                return new NamedPropertyTag(0x8029, "PidLidAddressBookProviderArrayType", new Guid(""),
-                    PropertyType.PT_LONG);
+                return new NamedPropertyTag(0x8029, "PidLidAddressBookProviderArrayType", 
+                    new Guid("00062004-0000-0000-C000-000000000046"), PropertyType.PT_LONG);
             }
         }
 
