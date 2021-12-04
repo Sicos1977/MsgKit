@@ -82,6 +82,7 @@ namespace MsgKit
 
             var msg = new Email(sender, representing, eml.Subject)
             {
+                ReceivedOn = eml.Date.UtcDateTime,
                 SentOn = eml.Date.UtcDateTime,
                 InternetMessageId = eml.MessageId
             };
