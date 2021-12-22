@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>2.4.3</Version>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <Version>2.5.0</Version>
     <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
     <Company>Kees van Spelde</Company>
@@ -14,13 +14,13 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Outlook MSG E-mail Appointment</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>- Updated nuget packages</PackageReleaseNotes>
+    <PackageReleaseNotes>- Updated nuget package, target framework upgraded to .net 4.5.2 because 4.5 is end of life. Fixed issue where the IconIndex got overwritten when the msg file was saved as draft</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>2.4.3.0</AssemblyVersion>
-    <FileVersion>2.4.3.0</FileVersion>
+    <AssemblyVersion>2.5.0.0</AssemblyVersion>
+    <FileVersion>2.5.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>icon.png</PackageIcon>
+    <PackageIcon>Outlook-icon.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
@@ -50,9 +50,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="icon.png">
+    <PackageReference Include="MimeKit" Version="3.0.0" />
+    <PackageReference Include="OpenMcdf" Version="2.2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Outlook-icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
   

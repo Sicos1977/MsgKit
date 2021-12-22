@@ -72,15 +72,12 @@ namespace MsgKitTestTool
                         break;
                 }
 
-                email.IconIndex = MessageIconIndex.UnsentMail;
                 email.Attachments.Add("Images\\peterpan.jpg");
                 email.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
-                //email.Attachments.Add("d:\\test2.msg");
-                //email.Attachments.Add(@"c:\naamloos.msg");
-                email.Save("c:\\email.msg");
+                email.Save("d:\\email.msg");
             }
 
-            System.Diagnostics.Process.Start("c:\\email.msg");
+            System.Diagnostics.Process.Start("d:\\email.msg");
         }
 
         private void Eml2MsgButton_Click(object sender, EventArgs e)
@@ -242,10 +239,10 @@ namespace MsgKitTestTool
 
                 contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
                 contact.IconIndex = MessageIconIndex.UnsentMail;
-                contact.Save("c:\\contact.msg");
+                contact.Save("d:\\contact.msg");
             }
 
-            System.Diagnostics.Process.Start("c:\\contact.msg");
+            System.Diagnostics.Process.Start("d:\\contact.msg");
         }
     }
 }
