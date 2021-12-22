@@ -92,29 +92,12 @@ using (var contact = new Contact(
     DraftMessageCheckBox.Checked,
     ReadReceiptCheckBox.Checked))
 {
-    contact.Recipients.AddTo(ToTextBox.Text);
-    contact.Recipients.AddCc(CcTextBox.Text);
-    contact.Recipients.AddBcc(BccTextBox.Text);
-    contact.Subject = SubjectTextBox.Text;
-    contact.BodyText = TextBodyTextBox.Text;
-    contact.BodyHtml = HtmlBodyTextBox.Text;
-    contact.SentOn = SentOnDatePicker.Value.ToUniversalTime();
-
-    switch (ImportanceComboBox.Text)
-    {
-        case "Low":
-            contact.Importance = MessageImportance.IMPORTANCE_LOW;
-            break;
-
-        case "High":
-            contact.Importance = MessageImportance.IMPORTANCE_HIGH;
-            break;
-
-        default:
-            contact.Importance = MessageImportance.IMPORTANCE_NORMAL;
-            break;
-    }
-
+    contact.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    contact.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    contact.Subject = "This is the subject";
+    contact.BodyText = "Hello Neverland text";
+    contact.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>"
+    contact.Importance = MessageImportance.IMPORTANCE_NORMAL;
     contact.FileUnder = "File under";
     contact.InstantMessagingAddress = "Instant messaging address";
     contact.Private = false;
