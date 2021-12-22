@@ -195,7 +195,7 @@ using (var contact = new Contact(
 
     contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
     contact.IconIndex = MessageIconIndex.UnsentMail;
-    contact.Save("d:\\contact.msg");
+    contact.Save("c:\\contact.msg");
 }
 ```
 
