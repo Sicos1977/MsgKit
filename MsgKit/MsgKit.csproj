@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
-    <Version>2.5.0</Version>
+    <Version>2.5.1</Version>
     <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
     <Company>Kees van Spelde</Company>
@@ -14,11 +14,11 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Outlook MSG E-mail Appointment</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>- Updated nuget package, target framework upgraded to .net 4.5.2 because 4.5 is end of life. Fixed issue where the IconIndex got overwritten when the msg file was saved as draft</PackageReleaseNotes>
+    <PackageReleaseNotes>- Check if contentId is not null when converting EML to MSG format</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>2.5.0.0</AssemblyVersion>
-    <FileVersion>2.5.0.0</FileVersion>
+    <AssemblyVersion>2.5.1.0</AssemblyVersion>
+    <FileVersion>2.5.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Outlook-icon.png</PackageIcon>
   </PropertyGroup>
