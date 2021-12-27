@@ -196,11 +196,10 @@ using (var contact = new Contact(
     contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
     contact.IconIndex = MessageIconIndex.UnsentMail;
     contact.Save("c:\\contact.msg");
+    
+    System.Diagnostics.Process.Start("c:\\contact.msg");
 }
 ```
-
-System.Diagnostics.Process.Start("d:\\contact.msg");
-
 Core Team
 =========
     Sicos1977 (Kees van Spelde)
