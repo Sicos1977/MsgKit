@@ -32,7 +32,7 @@ In Visual Studio's Package Manager Console, simply enter the following command:
 
     Install-Package MsgKit 
 
-### Creating an E-mail
+### Creating an e-mail
 
 ```csharp
 using (var email = new Email(
@@ -83,6 +83,123 @@ using (var appointment = new Appointment(
 }
 ```
 
+### Creating a contact card
+
+```csharp
+using (var contact = new Contact(
+    new Sender(SenderTextBox.Text, string.Empty),
+    SubjectTextBox.Text,
+    DraftMessageCheckBox.Checked,
+    ReadReceiptCheckBox.Checked))
+{
+    contact.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    contact.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    contact.Subject = "This is the subject";
+    contact.BodyText = "Hello Neverland text";
+    contact.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>"
+    contact.Importance = MessageImportance.IMPORTANCE_NORMAL;
+    contact.FileUnder = "File under";
+    contact.InstantMessagingAddress = "Instant messaging address";
+    contact.Private = false;
+    contact.BirthDay = DateTime.Now;
+    contact.WeddingAnniversary = DateTime.Now;
+    contact.Assistant = new ContactAssistant {Name = "Assistant name", TelephoneNumber = "Assistant telephone number"};
+    contact.CallBackTelePhoneNumber = "callback telephone number";
+    contact.CarTelePhoneNumber = "car telephone number";
+    contact.ChildrensNames = new List<string> {"First child name", "Second child name", "Third child name"};
+    contact.CompanyMain = new ContactCompanyMain { Name = "Company main name", TelephoneNumber = "Company main telephone number"};
+    contact.DepartmentName = "Department name";
+    contact.Generation = "Generation";
+    contact.GivenName = "GivenName";
+    contact.Initials = "Initials";
+    contact.ISDNNumber = "ISDN number";
+    contact.Language = "Language";
+    contact.Location = "Location";
+    contact.ManagerName = "Manager name";
+    contact.MiddleName = "Middle name";
+    contact.MobileTelephoneNumber = "Mobile telephone number";
+    contact.NickName = "Nick name";
+    contact.OfficeLocation = "Office location";
+    contact.PersonalHomePage = "Personal home-page";
+    contact.PostalAddress = "Postal address";
+    contact.PrimaryFaxNumber = "Primary fax number";
+    contact.PrimaryTelephoneNumber = "Primary telephone number";
+    contact.Profession = "Profession";
+    contact.RadioTelephoneNumber = "Radio telephone number";
+    contact.SpouseName = "Spouse name";
+    contact.SurName = "Sur name";
+    contact.TelexNumber = "Telex number";
+    contact.Title = "Title";
+    contact.TTYTDDPhoneNumber = "TTYTDD phone number";
+    contact.Email1 = new Address("email1@neverland.com", "email1");
+    contact.Email2 = new Address("email2@neverland.com", "email2");
+    contact.Email3 = new Address("email3@neverland.com", "email3");
+    //contact.Fax1 = "fax1@1234567890";
+    //contact.Fax2 = "fax2@1234567890";
+    //contact.Fax3 = "fax3@1234567890";
+    contact.OfficeTelephoneNumber = "Office telephone number";
+    contact.InstantMessagingAddress = "Instant messaging address";
+    contact.Yomi = new ContactYomi { CompanyName = "Yomi company name", FirstName = "Yomi first name", LastName = "Yomi last name"};
+
+    contact.Work = new ContactWork
+    {
+        TelephoneNumber = "Contact telephone number",
+        City = "Contact city",
+        Country = "Contact country",
+        CountryCode = "Contact country code",
+        PostOfficeBox = "Contact post office box",
+        PostalCode = "Contact postal code",
+        Street = "Contact street",
+        Address = "Contact\nBla bla\nBla die bla\nBLa die bla die bla"
+    };
+
+    contact.Business = new ContactBusiness
+    {
+        TelephoneNumber = "Business telephone number",
+        FaxNumber = "Business fax number",
+        HomePage = "Business home-page",
+        City = "Business city",
+        Country = "Business country",
+        PostalCode = "Business postal code",
+        State = "Business state",
+        Street = "Business street",
+        Address = "Business\nBla bla\nBla die bla\nBLa die bla die bla"
+    };
+
+    contact.Home = new ContactHome
+    {
+        TelephoneNumber = "Home telephone number",
+        TelephoneNumber2 = "Home telephone number 2",
+        FaxNumber = "Home faxnumber",
+        City = "Home city",
+        Country = "Home country",
+        PostalCode = "Home postal code",
+        State = "Home state",
+        Street = "Home street",
+        Address = "Home\nBla bla\nBla die bla\nBLa die bla die bla"
+    };
+
+    contact.Other = new ContactOther
+    {
+        TelephoneNumber = "Other telephone number",
+        City = "Other city",
+        Country = "Other country",
+        PostalCode = "Other postal code",
+        State = "Other state",
+        Street = "Other street",
+        Address = "Other\nBla bla\nBla die bla\nBLa die bla die bla"
+    };
+
+    contact.PagerTelephoneNumber = "Pager telephone number";
+    contact.PostalAddressId = PostalAddressId.HOME_ADDRESS;
+
+    contact.ContactPicture = File.ReadAllBytes("Images\\tinkerbell.jpg");
+    contact.IconIndex = MessageIconIndex.UnsentMail;
+    contact.Save("c:\\contact.msg");
+    
+    System.Diagnostics.Process.Start("c:\\contact.msg");
+}
+```
 Core Team
 =========
     Sicos1977 (Kees van Spelde)

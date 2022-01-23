@@ -219,8 +219,9 @@ namespace MsgKit
                         fileName += extension;
 
                     var inline = bodyPart.ContentDisposition != null &&
-                        bodyPart.ContentDisposition.Disposition.Equals("inline",
-                            StringComparison.InvariantCultureIgnoreCase);
+                                 bodyPart.ContentId != null &&
+                                 bodyPart.ContentDisposition.Disposition.Equals("inline",
+                                     StringComparison.InvariantCultureIgnoreCase);
 
                     attachmentStream.Position = 0;
 

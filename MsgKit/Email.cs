@@ -489,7 +489,10 @@ namespace MsgKit
             if (Draft)
             {
                 messageFlags |= MessageFlags.MSGFLAG_UNSENT;
-                IconIndex = MessageIconIndex.UnsentMail;
+
+                // Only set the IconIndex when it is not changed from NewEmail to something else
+                if (IconIndex == MessageIconIndex.NewMail)
+                    IconIndex = MessageIconIndex.UnsentMail;
             }
 
             if (ReadRecipient)
