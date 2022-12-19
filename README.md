@@ -1,10 +1,10 @@
 ## What is MsgKit?
 
-MsgKit is a 100% managed C# .NET library that supports C# .NET 4.5 and Standard 2.0 (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
+MsgKit is a 100% managed C# .NET library that supports C# .NET 4.6.2 and Standard 2.0 (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
 
 ## License Information
 
-MsgKit is Copyright (C) 2015-2021 Magic-Sessions and is licensed under the MIT license:
+MsgKit is Copyright (C) 2015-2022 Magic-Sessions and is licensed under the MIT license:
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
