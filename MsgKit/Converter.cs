@@ -30,6 +30,7 @@ using System.Text;
 using MimeKit;
 using MsgKit.Exceptions;
 using MsgKit.Helpers;
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit
 {
@@ -184,17 +185,15 @@ namespace MsgKit
 
                         extension = ".eml";
                     }
-                    else if (bodyPart is MessageDispositionNotification)
+                    else if (bodyPart is MessageDispositionNotification notification)
                     {
-                        var part = (MessageDispositionNotification)bodyPart;
-                        fileName = part.FileName;
+                        fileName = notification.FileName;
                     }
-                    else if (bodyPart is MessageDeliveryStatus)
+                    else if (bodyPart is MessageDeliveryStatus status)
                     {
-                        var part = (MessageDeliveryStatus)bodyPart;
                         fileName = "details";
                         extension = ".txt";
-                        part.WriteTo(FormatOptions.Default, attachmentStream, true);
+                        status.WriteTo(FormatOptions.Default, attachmentStream, true);
                     }
                     else
                     {
@@ -211,7 +210,7 @@ namespace MsgKit
                         fileName += extension;
 
                     var inline = bodyPart.ContentDisposition != null &&
-                                 bodyPart.ContentId != null &&
+                                 !string.IsNullOrEmpty(bodyPart.ContentId) &&
                                  bodyPart.ContentDisposition.Disposition.Equals("inline",
                                      StringComparison.InvariantCultureIgnoreCase);
 
@@ -232,19 +231,6 @@ namespace MsgKit
             }
 
             msg.Save(msgFile);
-        }
-        #endregion
-
-        #region ConvertMsgToEml
-        /// <summary>
-        ///     Converts an MSG file to EML format
-        /// </summary>
-        /// <param name="msgFileName">The MSG file</param>
-        /// <param name="emlFileName">The EML (MIME) file</param>
-        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
-        {
-            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-            throw new NotImplementedException("Not yet done");
         }
         #endregion
     }
