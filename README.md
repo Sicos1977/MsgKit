@@ -26,7 +26,7 @@ MsgKit is Copyright (C) 2015-2022 Magic-Sessions and is licensed under the MIT l
 
 ## Installing via NuGet
 
-[![NuGet](https://img.shields.io/nuget/v/MSGReader.svg?style=flat-square)](https://www.nuget.org/packages/MSGKit)
+[![NuGet](https://img.shields.io/nuget/v/MSGRKit.svg?style=flat-square)](https://www.nuget.org/packages/MSGKit)
 
 The easiest way to install MsgKit is via NuGet.
 
