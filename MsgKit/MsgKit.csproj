@@ -14,7 +14,11 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Outlook MSG E-mail Appointment</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>- Check if contentId is not null when converting EML to MSG format</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added extra check for inline images
+- Upgraded some code
+- Remove unused method
+- Updated nuget packages to latest versions
+- Dropped support for C#4.5, minimal needed C# Framework version is not 4.6.2</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>2.5.2.0</AssemblyVersion>
@@ -22,6 +26,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Outlook-icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Title>Create MSG files from code</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
