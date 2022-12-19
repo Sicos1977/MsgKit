@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <Version>2.5.1</Version>
     <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
@@ -39,7 +39,7 @@
     <DocumentationFile>bin\$(Configuration)\MsgKit.xml</DocumentationFile>
   </PropertyGroup>
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462'">
     <PackageReference Include="MimeKit" Version="2.10.1" />
     <PackageReference Include="OpenMcdf" Version="2.2.1.9" />
   </ItemGroup>
@@ -50,8 +50,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="3.0.0" />
-    <PackageReference Include="OpenMcdf" Version="2.2.1.9" />
+    <PackageReference Include="MimeKit" Version="3.4.3" />
+    <PackageReference Include="OpenMcdf" Version="2.2.1.12" />
   </ItemGroup>
 
 	<ItemGroup>
