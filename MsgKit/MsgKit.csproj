@@ -18,7 +18,7 @@
 - Upgraded some code
 - Remove unused method
 - Updated nuget packages to latest versions
-- Dropped support for C#4.5, minimal needed C# Framework version is not 4.6.2</PackageReleaseNotes>
+- Dropped support for C#4.5, minimal needed C# Framework version is now 4.6.2</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>2.5.2.0</AssemblyVersion>
@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="3.4.3" />
+    <PackageReference Include="MimeKit" Version="3.5.0" />
     <PackageReference Include="OpenMcdf" Version="2.2.1.12" />
   </ItemGroup>
 
