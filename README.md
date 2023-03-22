@@ -9,7 +9,7 @@ NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderOverride, PidLidRemi
 
 Read more about this in this CVE article https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397 
 
-You can protect your Outlook clients (and avoid NTLM has stealing) by patching it with the latest Microsoft security patches
+You can protect your Outlook clients (and avoid NTLM hash stealing) by patching it with the latest Microsoft security patches
 
 ## What is MsgKit?
 
