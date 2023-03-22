@@ -1,3 +1,9 @@
+## WARNING ##
+
+It seems that this library is used to steal peoples NTLM hashes by making 
+
+Read more about this overhere CVE-2023-23397 
+
 ## What is MsgKit?
 
 MsgKit is a 100% managed C# .NET library that supports C# .NET 4.6.2 and Standard 2.0 (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
