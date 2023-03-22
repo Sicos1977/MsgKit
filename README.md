@@ -1,6 +1,6 @@
 ## WARNING ##
 
-It seems that this library is used to steal peoples NTLM hashes by added 2 specific MAPI tags to it
+It seems that this library is used to steal peoples NTLM hashes by added 2 specific MAPI tags to an appointment
 
 ```c#
 NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderFileParameter, PidLidReminderFileParameter);
