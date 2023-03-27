@@ -1,6 +1,6 @@
 ## WARNING ##
 
-It seems that this library is used to steal peoples NTLM hashes by adding 2 specific MAPI tags to an appointment
+It seems that this library is used by people to steal peoples NTLM hashes by adding 2 specific MAPI tags to an appointment and then sent it to people
 
 ```c#
 NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderFileParameter, PidLidReminderFileParameter);
@@ -10,6 +10,8 @@ NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderOverride, PidLidRemi
 Read more about this in this CVE article https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397 
 
 You can protect your Outlook clients (and avoid NTLM hash stealing) by patching it with the latest Microsoft security patches
+
+There is NOT a problem inside this library it is just misused by people.
 
 ## What is MsgKit?
 
