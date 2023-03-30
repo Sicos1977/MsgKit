@@ -224,9 +224,7 @@ Core Team
 
 Support
 =======
-If you like my work then please consider a donation as a thank you.
-
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SB2A8KGVBKSYU" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
+If you like my work then please consider a donation as a thank you by using the donate button on the top
 
 ## Reporting Bugs
 
