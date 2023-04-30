@@ -28,6 +28,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using MimeKit.Text;
 using HtmlEntityDecoder = HtmlKit.HtmlEntityDecoder;
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit.HtmParser
 {
