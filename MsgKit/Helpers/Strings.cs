@@ -45,7 +45,9 @@ namespace MsgKit.Helpers
         /// <returns></returns>
         public static string ReadNullTerminatedString(BinaryReader binaryReader, bool unicode = true)
         {
-            return unicode ? ReadNullTerminatedUnicodeString(binaryReader) : ReadNullTerminatedAsciiString(binaryReader);
+            return unicode
+                ? ReadNullTerminatedUnicodeString(binaryReader)
+                : ReadNullTerminatedAsciiString(binaryReader);
         }
         #endregion
 
@@ -99,9 +101,9 @@ namespace MsgKit.Helpers
         /// <param name="binaryWriter"></param>
         /// <param name="str">The string to write</param>
         /// <param name="unicode"></param>
-        public static void WriteNullTerminatedString(BinaryWriter binaryWriter, 
-                                                     string str,
-                                                     bool unicode = true)
+        public static void WriteNullTerminatedString(BinaryWriter binaryWriter,
+            string str,
+            bool unicode = true)
         {
             if (unicode)
                 WriteNullTerminatedUnicodeString(binaryWriter, str);
