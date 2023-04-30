@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MsgKitTestTool</RootNamespace>
     <AssemblyName>MsgKitTestTool</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -35,8 +35,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenMcdf, Version=2.2.1.12, Culture=neutral, PublicKeyToken=fdbb1629d7c00800, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenMcdf.2.2.1.12\lib\net40\OpenMcdf.dll</HintPath>
+    <Reference Include="OpenMcdf, Version=2.3.0.0, Culture=neutral, PublicKeyToken=fdbb1629d7c00800, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenMcdf.2.3.0\lib\net40\OpenMcdf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -450,7 +450,7 @@ namespace MsgKit
 
             if (!string.IsNullOrWhiteSpace(BodyRtf))
             {
-                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, new RtfCompressor().Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, new Rtf.Compressor().Compress(Encoding.ASCII.GetBytes(BodyRtf)));
                 TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, BodyRtfCompressed);
             }
 

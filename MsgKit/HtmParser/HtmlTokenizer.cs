@@ -38,7 +38,7 @@ namespace MsgKit.HtmParser
     /// <remarks>
     ///     Tokenizes HTML text, emitting an <see cref="HtmlToken" /> for each token it encounters.
     /// </remarks>
-    public class HtmlTokenizer
+    internal class HtmlTokenizer
     {
         #region Consts
         // Specification: https://dev.w3.org/html5/spec-LC/tokenization.html

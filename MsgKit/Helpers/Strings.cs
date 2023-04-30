@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MsgKit.HtmParser;
 
 namespace MsgKit.Helpers
 {
@@ -138,46 +139,6 @@ namespace MsgKit.Helpers
             var bytes = Encoding.Unicode.GetBytes(str);
             binaryWriter.Write(bytes);
             binaryWriter.Write(new byte[2]);
-        }
-        #endregion
-
-        #region GetEscapedRtf
-        /// <summary>
-        /// Returns the <paramref name="str"/> as an escaped RTF string
-        /// </summary>
-        /// <returns></returns>
-        public static string GetEscapedRtf(string str)
-        {
-            // Convert Unicode string to RTF according to specification
-            var rtfEscaped = new StringBuilder();
-            var escapedChars = new int[] { '{', '}', '\\' };
-            foreach (var @char in str)
-            {
-                var intChar = Convert.ToInt32(@char);
-
-                // Ignore control characters
-                if (intChar <= 31) continue;
-
-                if (intChar <= 127)
-                {
-                    if (escapedChars.Contains(intChar))
-                        rtfEscaped.Append('\\');
-                    rtfEscaped.Append(@char);
-                }
-                else if (intChar <= 255)
-                {
-                    rtfEscaped.Append("\\'" + intChar.ToString("x2"));
-                }
-                else
-                {
-                    rtfEscaped.Append("\\u");
-                    rtfEscaped.Append(intChar);
-                    rtfEscaped.Append('?');
-                }
-            }
-
-            return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 {\\*\\htmltag1 " + rtfEscaped + " }}";
-            //return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + rtfEscaped + "}";
         }
         #endregion
     }

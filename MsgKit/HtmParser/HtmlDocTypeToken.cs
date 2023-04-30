@@ -1,15 +1,11 @@
 ﻿using System;
 using System.IO;
-using MimeKit.Text;
 
 namespace MsgKit.HtmParser
 {
     /// <summary>
     ///     An HTML DOCTYPE token.
     /// </summary>
-    /// <remarks>
-    ///     An HTML DOCTYPE token.
-    /// </remarks>
     internal class HtmlDocTypeToken : HtmlToken
     {
         #region Fields

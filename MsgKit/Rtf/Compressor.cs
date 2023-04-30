@@ -27,14 +27,15 @@
 using System;
 using System.IO;
 using System.Text;
+using MsgKit.Helpers;
 
-namespace MsgKit.Helpers
+namespace MsgKit.Rtf
 {
     /// <summary>
     /// Used to compress RTF using LZFu by Microsoft.  Can be viewed in the [MS-OXRTFCP].pdf document. 
     /// https://msdn.microsoft.com/en-us/library/cc463890(v=exchg.80).aspx
     /// </summary>
-    internal class RtfCompressor
+    internal class Compressor
     {
         #region CompressionPosition Class
         /// <summary>
@@ -59,7 +60,7 @@ namespace MsgKit.Helpers
         #endregion
 
         #region Constructor
-        internal RtfCompressor()
+        internal Compressor()
         {
             var builder = new StringBuilder();
             builder.Append(@"{\rtf1\ansi\mac\deff0\deftab720{\fonttbl;}");
@@ -134,10 +135,10 @@ namespace MsgKit.Helpers
         /// <returns>Byte array containing the data that is compressed.</returns>
         internal byte[] Compress(byte[] data)
         {
-            using(var inStream = new MemoryStream(data))
+            using (var inStream = new MemoryStream(data))
             using (var binaryReader = new BinaryReader(inStream))
             {
-                var positionData = new CompressionPositions {WriteOffset = InitDictSize};
+                var positionData = new CompressionPositions { WriteOffset = InitDictSize };
                 var controlByte = 0;
                 var controlBit = 1;
                 var tokenOffset = 0;
@@ -155,10 +156,10 @@ namespace MsgKit.Helpers
                             controlByte |= 1 << controlBit - 1;
                             tokenOffset += 2;
                             dictReference = (positionData.WriteOffset & 0xFFF) << 4;
-                            var bytes = BitConverter.GetBytes((ushort) dictReference);
+                            var bytes = BitConverter.GetBytes((ushort)dictReference);
                             Array.Reverse(bytes);
                             tokenStream.Write(bytes, 0, 2);
-                            outStream.WriteByte((byte) controlByte);
+                            outStream.WriteByte((byte)controlByte);
                             outStream.Write(tokenStream.ToArray(), 0, tokenOffset);
                             break;
                         }
@@ -172,8 +173,8 @@ namespace MsgKit.Helpers
                             controlBit++;
                             tokenOffset += 2;
                             dictReference = (positionData.DictionaryOffset & 0xFFF) << 4 |
-                                            (positionData.LongestMatchLength - 2) & 0xf;
-                            var bytes = BitConverter.GetBytes((ushort) dictReference);
+                                            positionData.LongestMatchLength - 2 & 0xf;
+                            var bytes = BitConverter.GetBytes((ushort)dictReference);
                             Array.Reverse(bytes);
                             tokenStream.Write(bytes, 0, 2);
                         }
@@ -185,6 +186,7 @@ namespace MsgKit.Helpers
                                 positionData.WriteOffset = (positionData.WriteOffset + 1) % MaxDictSize;
                             }
 
+                            // ReSharper disable once ShiftExpressionZeroLeftOperand
                             controlByte |= 0 << controlBit - 1;
                             controlBit++;
                             tokenOffset++;
@@ -195,7 +197,7 @@ namespace MsgKit.Helpers
 
                         if (controlBit > 8)
                         {
-                            outStream.WriteByte((byte) controlByte);
+                            outStream.WriteByte((byte)controlByte);
                             outStream.Write(tokenStream.ToArray(), 0, tokenOffset);
                             controlByte = 0;
                             controlBit = 1;
@@ -204,8 +206,8 @@ namespace MsgKit.Helpers
                         }
                     }
 
-                    var compSize = (uint) outStream.Length + 12;
-                    var rawSize = (uint) data.Length;
+                    var compSize = (uint)outStream.Length + 12;
+                    var rawSize = (uint)data.Length;
                     var crcValue = Crc32Calculator.CalculateCrc32(outStream.ToArray());
 
                     using (var resultStream = new MemoryStream())

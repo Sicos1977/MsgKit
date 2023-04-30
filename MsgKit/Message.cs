@@ -30,6 +30,7 @@ using MsgKit.Enums;
 using MsgKit.Exceptions;
 using MsgKit.Streams;
 using OpenMcdf;
+// ReSharper disable UnusedMember.Global
 
 // ReSharper disable InconsistentNaming
 
@@ -166,11 +167,11 @@ namespace MsgKit
                 nameIdStorage = CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
 
             var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
-            entryStream.SetData(new byte[0]);
+            entryStream.SetData(Array.Empty<byte>());
             var stringStream = nameIdStorage.AddStream(PropertyTags.StringStream);
-            stringStream.SetData(new byte[0]);
+            stringStream.SetData(Array.Empty<byte>());
             var guidStream = nameIdStorage.AddStream(PropertyTags.GuidStream);
-            guidStream.SetData(new byte[0]);
+            guidStream.SetData(Array.Empty<byte>());
 
             TopLevelProperties = new TopLevelProperties();
             NamedProperties = new NamedProperties(TopLevelProperties);
@@ -214,7 +215,7 @@ namespace MsgKit
         /// <param name="propertyTag"><see cref="PropertyTag"/></param>
         /// <param name="value">The value of the property</param>
         /// <param name="flags"><see cref="PropertyFlags"/></param>
-        /// <exception cref="MKMessageSaved">Raised when the mesage has already been saved with the Save method</exception>
+        /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
         public void AddProperty(PropertyTag propertyTag, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
         {
             if (_saved)
