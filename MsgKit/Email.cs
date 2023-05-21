@@ -33,6 +33,7 @@ using System.Text.RegularExpressions;
 using MsgKit.Enums;
 using MsgKit.Helpers;
 using MsgKit.Mime.Header;
+using MsgKit.Rtf;
 using MsgKit.Structures;
 using OpenMcdf;
 using MessageImportance = MsgKit.Enums.MessageImportance;
@@ -444,7 +445,7 @@ namespace MsgKit
             }
             else if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
             {
-                BodyRtf = Strings.GetEscapedRtf(BodyHtml);
+                BodyRtf = Encapsulator.Encapsulate(BodyHtml);
                 BodyRtfCompressed = true;
             }
 

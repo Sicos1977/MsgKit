@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Text;
 using MsgKit.HtmParser;
 // ReSharper disable UnusedMember.Global
 
@@ -10,6 +14,7 @@ namespace MsgKit.Rtf
     ///     &lt;HTML&gt;, &lt;HEAD&gt;, and &lt;BODY&gt; elements. The following table specifies
     /// the values for the Destination flag.
     /// </summary>
+    [Flags]
     internal enum Destination
     { 
         /// <summary>
@@ -39,6 +44,7 @@ namespace MsgKit.Rtf
     ///     The TagType flag defines the type of HTML content that is stored in the CONTENT HTML fragment in an
     ///     \*\htmltag destination group. The following table specifies the values for the TagType flag.
     /// </summary>
+    [Flags]
     internal enum TagType
     {
         /// <summary>
@@ -145,118 +151,113 @@ namespace MsgKit.Rtf
     /// </summary>
     internal static class Encapsulator
     {
-        #region GetEscapedRtf
-
-        #endregion
-
+        #region EscapeHtml
         /// <summary>
-        /// 
+        ///     Escapes string sequences that can't be used in RTF
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        internal static string EscapeHtml(string html)
+        private static string EscapeHtml(string html)
         {
-            // TODO: Figure out if this is correct
+            html = html.Replace("\r", string.Empty)
+                .Replace(@"\n", @"\par")
+                .Replace("\r", string.Empty)
+                .Replace("\t", @"\tab");
 
-            return html.Replace(@"\par", "%x0D.0A")
-                .Replace(@"\tab", "%x09")
-                .Replace(@"\{", "%x7B")
-                .Replace(@"\}", "%x7D")
-                .Replace(@"\\", "%x5C")
-                .Replace(@"\lquote", "&lsquo;")
-                .Replace(@"\rquote", "&rsquo;")
-                .Replace(@"\ldblquote", "&ldquo;")
-                .Replace(@"\rdblquote", "&rdquo;")
-                .Replace(@"\bullet", "&bull;")
-                .Replace(@"\endash", "&ndash;")
-                .Replace(@"\emdash", "&mdash;")
-                .Replace(@"~", "&nbsp;")
-                .Replace(@"\_", "&shy;")
-                .Replace(@"\'HH", "%xHH")
-                .Replace(@"\u[-]NNNNN", "&#xHHHH;")
-                .Replace(@"\uc", "");
-        }
-
-        internal static string Encapsulate(string html)
-        {
-            var tokenizer = new HtmlTokenizer(new StringReader(html));
-
-            while (tokenizer.ReadNextToken(out var token))
+            var matches = Regex.Matches(html, @"(?<=\\u-?)\d{5}\b", RegexOptions.Compiled);
+            foreach (var match in matches)
             {
-                if (token is HtmlTagToken tagToken)
+                var value = int.Parse(match.ToString());
+                html = html.Replace($@"\u-{value}", $"&#x{value:X4};")
+                    .Replace($@"\u{value}", $"&#x{value:X4};");
+            }
+
+            var escapedChars = new int[] { '{', '}', '\\' };
+            var stringBuilder = new StringBuilder();
+
+            foreach (var chr in html)
+            {
+                var intChar = Convert.ToInt32(chr);
+
+                // Ignore control characters
+                if (intChar <= 31) continue;
+
+                if (intChar <= 127)
                 {
-                    switch (tagToken.Id)
-                    {
-                        case HtmlTagId.Html:
-                            break;
+                    if (escapedChars.Contains(intChar))
+                        stringBuilder.Append('\\');
 
-                        case HtmlTagId.Head:
-                            break;
-
-                        case HtmlTagId.Body:
-                            break;
-
-                        case HtmlTagId.P:
-                            break;
-
-                        case HtmlTagId.Br:
-                            break;
-
-                        case HtmlTagId.Pre:
-                            break;
-
-                        case HtmlTagId.Font:
-                            break;
-
-                        case HtmlTagId.Header:
-                            break;
-
-                        case HtmlTagId.Title:
-                            break;
-
-                        case HtmlTagId.PlainText:
-                            break;
-
-                        // This group encapsulates any other HTML tag
-                        default:
-                            break;
-
-                    }
+                    stringBuilder.Append(chr);
+                }
+                else if (intChar <= 255)
+                    stringBuilder.Append("\\'" + intChar.ToString("X2"));
+                else
+                {
+                    stringBuilder.Append("\\u");
+                    stringBuilder.Append(intChar);
+                    stringBuilder.Append('?');
                 }
             }
 
-            //// Convert Unicode string to RTF according to specification
-            //var rtfEscaped = new StringBuilder();
-            //var escapedChars = new int[] { '{', '}', '\\' };
-            //foreach (var @char in str)
-            //{
-            //    var intChar = Convert.ToInt32(@char);
+            return html;
+        }
+        #endregion
 
-            //    // Ignore control characters
-            //    if (intChar <= 31) continue;
+        /// <summary>
+        ///     Encapsulates the given <paramref name="html"/> into RTF
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        internal static string Encapsulate(string html)
+        {
+            // Convert Unicode string to RTF according to specification
+            var rtf = new StringBuilder();
 
-            //    if (intChar <= 127)
-            //    {
-            //        if (escapedChars.Contains(intChar))
-            //            rtfEscaped.Append('\\');
-            //        rtfEscaped.Append(@char);
-            //    }
-            //    else if (intChar <= 255)
-            //    {
-            //        rtfEscaped.Append("\\'" + intChar.ToString("x2"));
-            //    }
-            //    else
-            //    {
-            //        rtfEscaped.Append("\\u");
-            //        rtfEscaped.Append(intChar);
-            //        rtfEscaped.Append('?');
-            //    }
-            //}
+            rtf.AppendLine($@"{{\rtf1\ANSI\ansicpg{Encoding.Default.CodePage}\fromhtml1 \deff0");
+            rtf.AppendLine(@"{\fonttbl {\f0\fmodern Courier New;}}");
+            rtf.AppendLine(@"{\colortbl\red0\green0\blue0;\red0\green0\blue255;}");
+            rtf.AppendLine(@"{\*\htmltag64}");
 
-            //return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 {\\*\\htmltag1 " + rtfEscaped + " }}";
-            ////return "{\\rtf1\\ansi\\ansicpg1252\\fromhtml1 " + rtfEscaped + "}";
+            var newLine = true;
 
-            return null;
+            var tokenizer = new HtmlTokenizer(new StringReader(html));
+            var inPreTag = false;
+
+            while (tokenizer.ReadNextToken(out var token))
+            {
+                if (newLine)
+                {
+                    rtf.Append(@"{\*\htmltag ");
+                    newLine = false;
+                }
+
+                if (token is HtmlTagToken htmlTagToken)
+                {
+                    if (htmlTagToken.Id == HtmlTagId.Pre)
+                        inPreTag = !htmlTagToken.IsEndTag;
+
+                    rtf.AppendLine(EscapeHtml(htmlTagToken.ToString()) + " }");
+                    newLine = true;
+                }
+                else
+                {
+                    var text = token.ToString();
+                    text = text.Replace("\r", string.Empty);
+                    if (text.Contains('\n'))
+                    {
+                        newLine = true;
+                        rtf.AppendLine(text);
+                    }
+                    else
+                        rtf.Append(text);
+                }
+            }
+
+            rtf.Append(" }}");
+
+            var test = rtf.ToString();
+
+            return test;
         }
     }
 }
