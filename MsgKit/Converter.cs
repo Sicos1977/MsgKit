@@ -76,9 +76,11 @@ namespace MsgKit
 
             var msg = new Email(sender, representing, eml.Subject)
             {
-                SentOn = eml.Date.UtcDateTime,
                 InternetMessageId = eml.MessageId
             };
+
+            if(eml.Date.UtcDateTime > DateTime.MinValue)
+                msg.SentOn = eml.Date.UtcDateTime;
 
             using (var memoryStream = new MemoryStream())
             {
