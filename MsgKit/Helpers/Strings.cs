@@ -24,11 +24,8 @@
 // THE SOFTWARE.
 //
 
-using System;
 using System.IO;
-using System.Linq;
 using System.Text;
-using MsgKit.HtmParser;
 
 namespace MsgKit.Helpers
 {
