@@ -39,7 +39,7 @@ namespace MsgKit
         ///     Zip code Place<br/>
         ///     Some land<br/>
         /// </summary>
-        public string Address { get; set; }
+        public new string Address { get; set; }
 
         /// <summary>
         ///     The fax number
