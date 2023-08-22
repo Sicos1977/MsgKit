@@ -569,7 +569,7 @@ namespace MsgKit.Structures
 
         #region NullTerminator
         /// <summary>
-        ///     Returns a correct null terminator according to the given <paramref name="propertyType"/>
+        ///     Returns a correct null terminator according to the given <paramref name="type"/>
         /// </summary>
         /// <param name="type"><see cref="PropertyType"/></param>
         /// <returns></returns>
@@ -587,7 +587,7 @@ namespace MsgKit.Structures
                     return new byte[] { 0 };
 
                 default:
-                    return new byte[0];
+                    return Array.Empty<byte>();
             }
         }
         #endregion
