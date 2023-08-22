@@ -2321,7 +2321,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidLidReminderSet
         {
             get { return new NamedPropertyTag(0x8503, "PidLidReminderSet",
-                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
