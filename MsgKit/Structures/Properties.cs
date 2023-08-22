@@ -218,7 +218,8 @@ namespace MsgKit.Structures
                 var totalSize = messageSize.Value + size + 8;
                 var bytes = BitConverter.GetBytes(totalSize);
                 binaryWriter.Write(bytes);
-                binaryWriter.Write(new byte[4]);
+                // Issue #101
+                //binaryWriter.Write(new byte[4]);
             }
             
             // Make the properties stream
