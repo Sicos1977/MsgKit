@@ -73,6 +73,11 @@ namespace MsgKit
             var representing = new Representing(string.Empty, string.Empty);
             if (eml.ResentSender != null)
                 representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
+            else if (eml.From.Count > 0)
+            {
+                var mailAddress = (MailboxAddress)eml.From[0];
+                representing = new Representing(mailAddress.Address, mailAddress.Name);
+            }
 
             var msg = new Email(sender, representing, eml.Subject)
             {
