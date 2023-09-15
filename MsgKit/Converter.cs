@@ -85,7 +85,10 @@ namespace MsgKit
             };
 
             if(eml.Date.UtcDateTime > DateTime.MinValue)
+            {
                 msg.SentOn = eml.Date.UtcDateTime;
+                msg.ReceivedOn = eml.Date.UtcDateTime;
+            }
 
             using (var memoryStream = new MemoryStream())
             {
