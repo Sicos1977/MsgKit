@@ -124,8 +124,11 @@ namespace MsgKit
 
             foreach (var to in eml.To)
             {
-                var mailAddress = (MailboxAddress)to;
-                msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                if (to is MailboxAddress)
+                {
+                    var mailAddress = (MailboxAddress)to;
+                    msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                }
             }
 
             foreach (var cc in eml.Cc)
