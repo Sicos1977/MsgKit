@@ -461,7 +461,7 @@ namespace MsgKit
             if (!SentOn.HasValue)
                 SentOn = DateTime.UtcNow;
 
-            if (ReceivedOn.HasValue)
+            if (ReceivedOn.HasValue && ReceivedOn > DateTime.MinValue)
                 TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_DELIVERY_TIME, ReceivedOn.Value.ToUniversalTime());
 
             TopLevelProperties.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
