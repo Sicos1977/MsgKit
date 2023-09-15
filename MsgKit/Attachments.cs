@@ -361,9 +361,6 @@ namespace MsgKit
             IsInline = isInline;
             ContentId = contentId;
             IsContactPhoto = isContactPhoto;
-
-            if (isInline && string.IsNullOrWhiteSpace(contentId))
-                throw new ArgumentNullException(nameof(contentId), "The content id cannot be empty when isInline is set to true");
         }
         #endregion
 
