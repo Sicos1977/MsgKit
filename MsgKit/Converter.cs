@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,7 @@ using System.Text;
 using MimeKit;
 using MsgKit.Exceptions;
 using MsgKit.Helpers;
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit
 {
@@ -71,9 +72,7 @@ namespace MsgKit
 
             var representing = new Representing(string.Empty, string.Empty);
             if (eml.ResentSender != null)
-            {
                 representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
-            }
             else if (eml.From.Count > 0)
             {
                 var mailAddress = (MailboxAddress)eml.From[0];
@@ -82,10 +81,14 @@ namespace MsgKit
 
             var msg = new Email(sender, representing, eml.Subject)
             {
-                ReceivedOn = eml.Date.UtcDateTime,
-                SentOn = eml.Date.UtcDateTime,
                 InternetMessageId = eml.MessageId
             };
+
+            if(eml.Date.UtcDateTime > DateTime.MinValue)
+            {
+                msg.SentOn = eml.Date.UtcDateTime;
+                msg.ReceivedOn = eml.Date.UtcDateTime;
+            }
 
             using (var memoryStream = new MemoryStream())
             {
@@ -121,8 +124,11 @@ namespace MsgKit
 
             foreach (var to in eml.To)
             {
-                var mailAddress = (MailboxAddress)to;
-                msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                if (to is MailboxAddress)
+                {
+                    var mailAddress = (MailboxAddress)to;
+                    msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                }
             }
 
             foreach (var cc in eml.Cc)
@@ -192,17 +198,15 @@ namespace MsgKit
 
                         extension = ".eml";
                     }
-                    else if (bodyPart is MessageDispositionNotification)
+                    else if (bodyPart is MessageDispositionNotification notification)
                     {
-                        var part = (MessageDispositionNotification)bodyPart;
-                        fileName = part.FileName;
+                        fileName = notification.FileName;
                     }
-                    else if (bodyPart is MessageDeliveryStatus)
+                    else if (bodyPart is MessageDeliveryStatus status)
                     {
-                        var part = (MessageDeliveryStatus)bodyPart;
                         fileName = "details";
                         extension = ".txt";
-                        part.WriteTo(FormatOptions.Default, attachmentStream, true);
+                        status.WriteTo(FormatOptions.Default, attachmentStream, true);
                     }
                     else
                     {
@@ -219,7 +223,7 @@ namespace MsgKit
                         fileName += extension;
 
                     var inline = bodyPart.ContentDisposition != null &&
-                                 bodyPart.ContentId != null &&
+                                 !string.IsNullOrEmpty(bodyPart.ContentId) &&
                                  bodyPart.ContentDisposition.Disposition.Equals("inline",
                                      StringComparison.InvariantCultureIgnoreCase);
 
@@ -240,19 +244,6 @@ namespace MsgKit
             }
 
             msg.Save(msgFile);
-        }
-        #endregion
-
-        #region ConvertMsgToEml
-        /// <summary>
-        ///     Converts an MSG file to EML format
-        /// </summary>
-        /// <param name="msgFileName">The MSG file</param>
-        /// <param name="emlFileName">The EML (MIME) file</param>
-        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
-        {
-            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-            throw new NotImplementedException("Not yet done");
         }
         #endregion
     }

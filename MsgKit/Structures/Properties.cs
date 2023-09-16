@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -218,7 +218,8 @@ namespace MsgKit.Structures
                 var totalSize = messageSize.Value + size + 8;
                 var bytes = BitConverter.GetBytes(totalSize);
                 binaryWriter.Write(bytes);
-                binaryWriter.Write(new byte[4]);
+                // Issue #101
+                //binaryWriter.Write(new byte[4]);
             }
             
             // Make the properties stream
@@ -568,7 +569,7 @@ namespace MsgKit.Structures
 
         #region NullTerminator
         /// <summary>
-        ///     Returns a correct null terminator according to the given <paramref name="propertyType"/>
+        ///     Returns a correct null terminator according to the given <paramref name="type"/>
         /// </summary>
         /// <param name="type"><see cref="PropertyType"/></param>
         /// <returns></returns>
@@ -586,7 +587,7 @@ namespace MsgKit.Structures
                     return new byte[] { 0 };
 
                 default:
-                    return new byte[0];
+                    return Array.Empty<byte>();
             }
         }
         #endregion

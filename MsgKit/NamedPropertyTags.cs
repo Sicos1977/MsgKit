@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -2321,7 +2321,7 @@ namespace MsgKit
         internal static NamedPropertyTag PidLidReminderSet
         {
             get { return new NamedPropertyTag(0x8503, "PidLidReminderSet",
-                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG); }
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
 
         /// <summary>
