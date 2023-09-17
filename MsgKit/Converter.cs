@@ -211,7 +211,10 @@ namespace MsgKit
                     else
                     {
                         var part = (MimePart)bodyPart;
-                        part.Content.DecodeTo(attachmentStream);
+                        if (part.Content != null)
+                        {
+                            part.Content.DecodeTo(attachmentStream);
+                        }
                         fileName = part.FileName;
                     }
 
