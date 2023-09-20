@@ -85,7 +85,10 @@ namespace MsgKit
             };
 
             if(eml.Date.UtcDateTime > DateTime.MinValue)
+            {
                 msg.SentOn = eml.Date.UtcDateTime;
+                msg.ReceivedOn = eml.Date.UtcDateTime;
+            }
 
             using (var memoryStream = new MemoryStream())
             {
@@ -121,8 +124,11 @@ namespace MsgKit
 
             foreach (var to in eml.To)
             {
-                var mailAddress = (MailboxAddress)to;
-                msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                if (to is MailboxAddress)
+                {
+                    var mailAddress = (MailboxAddress)to;
+                    msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                }
             }
 
             foreach (var cc in eml.Cc)
@@ -205,7 +211,10 @@ namespace MsgKit
                     else
                     {
                         var part = (MimePart)bodyPart;
-                        part.Content.DecodeTo(attachmentStream);
+                        if (part.Content != null)
+                        {
+                            part.Content.DecodeTo(attachmentStream);
+                        }
                         fileName = part.FileName;
                     }
 
