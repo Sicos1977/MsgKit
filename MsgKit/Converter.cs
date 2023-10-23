@@ -47,11 +47,9 @@ public static class Converter
     /// <param name="msgFileName">The MSG file</param>
     public static void ConvertEmlToMsg(string emlFileName, string msgFileName)
     {
-        using (var emlFile = new FileStream(emlFileName, FileMode.Open))
-        using (var msgFile = new FileStream(msgFileName, FileMode.CreateNew))
-        {
-            ConvertEmlToMsg(emlFile, msgFile);
-        }
+        using var emlFile = new FileStream(emlFileName, FileMode.Open);
+        using var msgFile = new FileStream(msgFileName, FileMode.CreateNew);
+        ConvertEmlToMsg(emlFile, msgFile);
     }
 
     /// <summary>
@@ -70,66 +68,53 @@ public static class Converter
             sender = new Sender(mailAddress.Address, mailAddress.Name);
         }
 
-            var representing = new Representing(string.Empty, string.Empty);
-            if (eml.ResentSender != null)
-                representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
-            else if (eml.From.Count > 0)
-            {
-                var mailAddress = (MailboxAddress)eml.From[0];
-                representing = new Representing(mailAddress.Address, mailAddress.Name);
-            }
-
-            var msg = new Email(sender, representing, eml.Subject)
-            {
-                InternetMessageId = eml.MessageId
-            };
-
-            if(eml.Date.UtcDateTime > DateTime.MinValue)
-            {
-                msg.SentOn = eml.Date.UtcDateTime;
-                msg.ReceivedOn = eml.Date.UtcDateTime;
-            }
-
-            using (var memoryStream = new MemoryStream())
-            {
-                eml.Headers.WriteTo(memoryStream);
-                msg.TransportMessageHeadersText = Encoding.ASCII.GetString(memoryStream.ToArray());
-            }
-
-        switch (eml.Priority)
+        var representing = new Representing(string.Empty, string.Empty);
+        if (eml.ResentSender != null)
+            representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
+        else if (eml.From.Count > 0)
         {
-            case MessagePriority.NonUrgent:
-                msg.Priority = Enums.MessagePriority.PRIO_NONURGENT;
-                break;
-            case MessagePriority.Normal:
-                msg.Priority = Enums.MessagePriority.PRIO_NORMAL;
-                break;
-            case MessagePriority.Urgent:
-                msg.Priority = Enums.MessagePriority.PRIO_URGENT;
-                break;
+            var mailAddress = (MailboxAddress)eml.From[0];
+            representing = new Representing(mailAddress.Address, mailAddress.Name);
         }
 
-        switch (eml.Importance)
+        var msg = new Email(sender, representing, eml.Subject)
         {
-            case MessageImportance.Low:
-                msg.Importance = Enums.MessageImportance.IMPORTANCE_LOW;
-                break;
-            case MessageImportance.Normal:
-                msg.Importance = Enums.MessageImportance.IMPORTANCE_NORMAL;
-                break;
-            case MessageImportance.High:
-                msg.Importance = Enums.MessageImportance.IMPORTANCE_HIGH;
-                break;
+            InternetMessageId = eml.MessageId
+        };
+
+        if(eml.Date.UtcDateTime > DateTime.MinValue)
+        {
+            msg.SentOn = eml.Date.UtcDateTime;
+            msg.ReceivedOn = eml.Date.UtcDateTime;
         }
 
-            foreach (var to in eml.To)
-            {
-                if (to is MailboxAddress)
-                {
-                    var mailAddress = (MailboxAddress)to;
-                    msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
-                }
-            }
+        using (var memoryStream = new MemoryStream())
+        {
+            eml.Headers.WriteTo(memoryStream);
+            msg.TransportMessageHeadersText = Encoding.ASCII.GetString(memoryStream.ToArray());
+        }
+
+        msg.Priority = eml.Priority switch
+        {
+            MessagePriority.NonUrgent => Enums.MessagePriority.PRIO_NONURGENT,
+            MessagePriority.Normal => Enums.MessagePriority.PRIO_NORMAL,
+            MessagePriority.Urgent => Enums.MessagePriority.PRIO_URGENT,
+            _ => msg.Priority
+        };
+
+        msg.Importance = eml.Importance switch
+        {
+            MessageImportance.Low => Enums.MessageImportance.IMPORTANCE_LOW,
+            MessageImportance.Normal => Enums.MessageImportance.IMPORTANCE_NORMAL,
+            MessageImportance.High => Enums.MessageImportance.IMPORTANCE_HIGH,
+            _ => msg.Importance
+        };
+
+        foreach (var to in eml.To)
+        {
+            if (to is not MailboxAddress mailAddress) continue;
+            msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+        }
 
         foreach (var cc in eml.Cc)
         {
@@ -184,84 +169,85 @@ public static class Converter
             }
 
             // If the part hasn't previously been handled by "body" part handling
-            if (!handled)
-            {
-                var attachmentStream = new MemoryStream();
-                var fileName = bodyPart.ContentType.Name;
-                var extension = string.Empty;
+            if (handled) continue;
+            
+            var attachmentStream = new MemoryStream();
+            var fileName = bodyPart.ContentType.Name;
+            var extension = string.Empty;
 
-                if (bodyPart is MessagePart messagePart)
+            switch (bodyPart)
+            {
+                case MessagePart messagePart:
                 {
                     messagePart.Message.WriteTo(attachmentStream);
                     if (messagePart.Message != null)
                         fileName = messagePart.Message.Subject;
 
-                        extension = ".eml";
-                    }
-                    else if (bodyPart is MessageDispositionNotification notification)
-                    {
-                        fileName = notification.FileName;
-                    }
-                    else if (bodyPart is MessageDeliveryStatus status)
-                    {
-                        fileName = "details";
-                        extension = ".txt";
-                        status.WriteTo(FormatOptions.Default, attachmentStream, true);
-                    }
-                    else
-                    {
-                        var part = (MimePart)bodyPart;
-                        if (part.Content != null)
-                        {
-                            part.Content.DecodeTo(attachmentStream);
-                        }
-                        fileName = part.FileName;
-                    }
-
-                fileName = string.IsNullOrWhiteSpace(fileName)
-                    ? $"part_{++namelessCount:00}"
-                    : FileManager.RemoveInvalidFileNameChars(fileName);
-
-                if (!string.IsNullOrEmpty(extension))
-                    fileName += extension;
-
-                    var inline = bodyPart.ContentDisposition != null &&
-                                 !string.IsNullOrEmpty(bodyPart.ContentId) &&
-                                 bodyPart.ContentDisposition.Disposition.Equals("inline",
-                                     StringComparison.InvariantCultureIgnoreCase);
-
-                attachmentStream.Position = 0;
-
-                try
-                {
-                    msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
+                    extension = ".eml";
+                    break;
                 }
-                catch (MKAttachmentExists)
+
+                case MessageDispositionNotification notification:
+                    fileName = notification.FileName;
+                    break;
+                
+                case MessageDeliveryStatus status:
+                    fileName = "details";
+                    extension = ".txt";
+                    status.WriteTo(FormatOptions.Default, attachmentStream, true);
+                    break;
+                
+                default:
                 {
-                    var tempFileName = Path.GetFileNameWithoutExtension(fileName);
-                    var tempExtension = Path.GetExtension(fileName);
-                    msg.Attachments.Add(attachmentStream, $"{tempFileName}({index}){tempExtension}", -1, inline,
-                        bodyPart.ContentId);
-                    index += 1;
+                    var part = (MimePart)bodyPart;
+                    part.Content?.DecodeTo(attachmentStream);
+                    fileName = part.FileName;
+                    break;
                 }
+            }
+
+            fileName = string.IsNullOrWhiteSpace(fileName)
+                ? $"part_{++namelessCount:00}"
+                : FileManager.RemoveInvalidFileNameChars(fileName);
+
+            if (!string.IsNullOrEmpty(extension))
+                fileName += extension;
+
+            var inline = bodyPart.ContentDisposition != null &&
+                         !string.IsNullOrEmpty(bodyPart.ContentId) &&
+                         bodyPart.ContentDisposition.Disposition.Equals("inline",
+                             StringComparison.InvariantCultureIgnoreCase);
+
+            attachmentStream.Position = 0;
+
+            try
+            {
+                msg.Attachments.Add(attachmentStream, fileName, -1, inline, bodyPart.ContentId);
+            }
+            catch (MKAttachmentExists)
+            {
+                var tempFileName = Path.GetFileNameWithoutExtension(fileName);
+                var tempExtension = Path.GetExtension(fileName);
+                msg.Attachments.Add(attachmentStream, $"{tempFileName}({index}){tempExtension}", -1, inline,
+                    bodyPart.ContentId);
+                index += 1;
             }
         }
 
-            msg.Save(msgFile);
-        }
-        #endregion
-
-        #region ConvertMsgToEml
-        /// <summary>
-        ///     Converts an MSG file to EML format
-        /// </summary>
-        /// <param name="msgFileName">The MSG file</param>
-        /// <param name="emlFileName">The EML (MIME) file</param>
-        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
-        {
-            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-            throw new NotImplementedException("Not yet done");
-        }
-        #endregion
+        msg.Save(msgFile);
     }
+    #endregion
+
+    #region ConvertMsgToEml
+    /// <summary>
+    ///     Converts an MSG file to EML format
+    /// </summary>
+    /// <param name="msgFileName">The MSG file</param>
+    /// <param name="emlFileName">The EML (MIME) file</param>
+    public static void ConvertMsgToEml(string msgFileName, string emlFileName)
+    {
+        //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
+        throw new NotImplementedException("Not yet done");
+    }
+    #endregion
 }

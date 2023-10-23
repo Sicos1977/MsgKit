@@ -72,8 +72,7 @@ internal sealed class NamedProperties : List<NamedProperty>
     internal void AddProperty(NamedPropertyTag mapiTag, object obj)
     {
         // Named property field 0000. 0x8000 + property offset
-        _topLevelProperties.AddProperty(new PropertyTag((ushort)(0x8000 + _namedPropertyIndex++), mapiTag.Type),
-            obj);
+        _topLevelProperties.AddProperty(new PropertyTags.PropertyTag((ushort)(0x8000 + _namedPropertyIndex++), mapiTag.Type), obj);
 
         Add(new NamedProperty
         {

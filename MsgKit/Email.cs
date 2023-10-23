@@ -446,22 +446,22 @@ public class Email : Message, IDisposable
 
         TopLevelProperties.AddProperty(PropertyTags.PR_BODY_W, BodyText);
 
-            if (!string.IsNullOrEmpty(BodyHtml) && !Draft)
-            {
-                TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
-                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, false);
-            }
-            else if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
-            {
-                BodyRtf = Strings.GetEscapedRtf(BodyHtml);
-                BodyRtfCompressed = true;
-            }
+        if (!string.IsNullOrEmpty(BodyHtml) && !Draft)
+        {
+            TopLevelProperties.AddProperty(PropertyTags.PR_HTML, BodyHtml);
+            TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, false);
+        }
+        else if (string.IsNullOrWhiteSpace(BodyRtf) && !string.IsNullOrWhiteSpace(BodyHtml))
+        {
+            BodyRtf = Encapsulator.Encapsulate(BodyHtml);
+            BodyRtfCompressed = true;
+        }
 
-            if (!string.IsNullOrWhiteSpace(BodyRtf))
-            {
-                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, new Rtf.Compressor().Compress(Encoding.ASCII.GetBytes(BodyRtf)));
-                TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, BodyRtfCompressed);
-            }
+        if (!string.IsNullOrWhiteSpace(BodyRtf))
+        {
+            TopLevelProperties.AddProperty(PropertyTags.PR_RTF_COMPRESSED, new Compressor().Compress(Encoding.ASCII.GetBytes(BodyRtf)));
+            TopLevelProperties.AddProperty(PropertyTags.PR_RTF_IN_SYNC, BodyRtfCompressed);
+        }
 
         if (MessageEditorFormat != MessageEditorFormat.EDITOR_FORMAT_DONTKNOW)
             TopLevelProperties.AddProperty(PropertyTags.PR_MSG_EDITOR_FORMAT, MessageEditorFormat);

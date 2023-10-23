@@ -166,12 +166,12 @@ public class Message : IDisposable
         if (!CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage, out var nameIdStorage))
             nameIdStorage = CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
 
-            var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
-            entryStream.SetData(Array.Empty<byte>());
-            var stringStream = nameIdStorage.AddStream(PropertyTags.StringStream);
-            stringStream.SetData(Array.Empty<byte>());
-            var guidStream = nameIdStorage.AddStream(PropertyTags.GuidStream);
-            guidStream.SetData(Array.Empty<byte>());
+        var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
+        entryStream.SetData(Array.Empty<byte>());
+        var stringStream = nameIdStorage.AddStream(PropertyTags.StringStream);
+        stringStream.SetData(Array.Empty<byte>());
+        var guidStream = nameIdStorage.AddStream(PropertyTags.GuidStream);
+        guidStream.SetData(Array.Empty<byte>());
 
         TopLevelProperties = new TopLevelProperties();
         NamedProperties = new NamedProperties(TopLevelProperties);
@@ -194,7 +194,7 @@ public class Message : IDisposable
     internal void Save(string fileName)
     {
         Save();
-        CompoundFile.Save(fileName);
+        CompoundFile.SaveAs(fileName);
     }
 
     /// <summary>
@@ -208,18 +208,18 @@ public class Message : IDisposable
     }
     #endregion
 
-        #region AddProperty
-        /// <summary>
-        ///     Adds a custom property to the message or replaces it when it already exists
-        /// </summary>
-        /// <param name="propertyTag"><see cref="PropertyTag"/></param>
-        /// <param name="value">The value of the property</param>
-        /// <param name="flags"><see cref="PropertyFlags"/></param>
-        /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
-        public void AddProperty(PropertyTag propertyTag, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
-        {
-            if (_saved)
-                throw new MKMessageSaved("The message can't be modified when it already has been saved");
+    #region AddProperty
+    /// <summary>
+    ///     Adds a custom property to the message or replaces it when it already exists
+    /// </summary>
+    /// <param name="propertyTag"><see cref="PropertyTags.PropertyTag"/></param>
+    /// <param name="value">The value of the property</param>
+    /// <param name="flags"><see cref="PropertyFlags"/></param>
+    /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
+    public void AddProperty(PropertyTags.PropertyTag propertyTag, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
+    {
+        if (_saved)
+            throw new MKMessageSaved("The message can't be modified when it already has been saved");
 
         TopLevelProperties.AddOrReplaceProperty(propertyTag, value, flags);
     }

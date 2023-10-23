@@ -569,7 +569,7 @@ internal class Properties : List<Property>
     }
     #endregion
 
-        #region NullTerminator
+    #region NullTerminator
         /// <summary>
         ///     Returns a correct null terminator according to the given <paramref name="type"/>
         /// </summary>
@@ -593,5 +593,4 @@ internal class Properties : List<Property>
             }
         }
         #endregion
-    }
 }

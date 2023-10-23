@@ -1,6 +1,6 @@
-﻿using MsgKit;
+﻿using System;
+using MsgKit;
 using MsgKit.Enums;
-using System;
 
 namespace MsgKitTestTool
 {
