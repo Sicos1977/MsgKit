@@ -30,6 +30,7 @@ using System.Text;
 using MimeKit;
 using MsgKit.Exceptions;
 using MsgKit.Helpers;
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit;
 
@@ -69,21 +70,31 @@ public static class Converter
             sender = new Sender(mailAddress.Address, mailAddress.Name);
         }
 
-        var representing = new Representing(string.Empty, string.Empty);
-        if (eml.ResentSender != null)
-            representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
+            var representing = new Representing(string.Empty, string.Empty);
+            if (eml.ResentSender != null)
+                representing = new Representing(eml.ResentSender.Address, eml.ResentSender.Name);
+            else if (eml.From.Count > 0)
+            {
+                var mailAddress = (MailboxAddress)eml.From[0];
+                representing = new Representing(mailAddress.Address, mailAddress.Name);
+            }
 
-        var msg = new Email(sender, representing, eml.Subject)
-        {
-            SentOn = eml.Date.UtcDateTime,
-            InternetMessageId = eml.MessageId
-        };
+            var msg = new Email(sender, representing, eml.Subject)
+            {
+                InternetMessageId = eml.MessageId
+            };
 
-        using (var memoryStream = new MemoryStream())
-        {
-            eml.Headers.WriteTo(memoryStream);
-            msg.TransportMessageHeadersText = Encoding.ASCII.GetString(memoryStream.ToArray());
-        }
+            if(eml.Date.UtcDateTime > DateTime.MinValue)
+            {
+                msg.SentOn = eml.Date.UtcDateTime;
+                msg.ReceivedOn = eml.Date.UtcDateTime;
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                eml.Headers.WriteTo(memoryStream);
+                msg.TransportMessageHeadersText = Encoding.ASCII.GetString(memoryStream.ToArray());
+            }
 
         switch (eml.Priority)
         {
@@ -111,11 +122,14 @@ public static class Converter
                 break;
         }
 
-        foreach (var to in eml.To)
-        {
-            var mailAddress = (MailboxAddress)to;
-            msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
-        }
+            foreach (var to in eml.To)
+            {
+                if (to is MailboxAddress)
+                {
+                    var mailAddress = (MailboxAddress)to;
+                    msg.Recipients.AddTo(mailAddress.Address, mailAddress.Name);
+                }
+            }
 
         foreach (var cc in eml.Cc)
         {
@@ -182,26 +196,27 @@ public static class Converter
                     if (messagePart.Message != null)
                         fileName = messagePart.Message.Subject;
 
-                    extension = ".eml";
-                }
-                else if (bodyPart is MessageDispositionNotification)
-                {
-                    var part = (MessageDispositionNotification)bodyPart;
-                    fileName = part.FileName;
-                }
-                else if (bodyPart is MessageDeliveryStatus)
-                {
-                    var part = (MessageDeliveryStatus)bodyPart;
-                    fileName = "details";
-                    extension = ".txt";
-                    part.WriteTo(FormatOptions.Default, attachmentStream, true);
-                }
-                else
-                {
-                    var part = (MimePart)bodyPart;
-                    part.Content.DecodeTo(attachmentStream);
-                    fileName = part.FileName;
-                }
+                        extension = ".eml";
+                    }
+                    else if (bodyPart is MessageDispositionNotification notification)
+                    {
+                        fileName = notification.FileName;
+                    }
+                    else if (bodyPart is MessageDeliveryStatus status)
+                    {
+                        fileName = "details";
+                        extension = ".txt";
+                        status.WriteTo(FormatOptions.Default, attachmentStream, true);
+                    }
+                    else
+                    {
+                        var part = (MimePart)bodyPart;
+                        if (part.Content != null)
+                        {
+                            part.Content.DecodeTo(attachmentStream);
+                        }
+                        fileName = part.FileName;
+                    }
 
                 fileName = string.IsNullOrWhiteSpace(fileName)
                     ? $"part_{++namelessCount:00}"
@@ -210,10 +225,10 @@ public static class Converter
                 if (!string.IsNullOrEmpty(extension))
                     fileName += extension;
 
-                var inline = bodyPart.ContentDisposition != null &&
-                             bodyPart.ContentId != null &&
-                             bodyPart.ContentDisposition.Disposition.Equals("inline",
-                                 StringComparison.InvariantCultureIgnoreCase);
+                    var inline = bodyPart.ContentDisposition != null &&
+                                 !string.IsNullOrEmpty(bodyPart.ContentId) &&
+                                 bodyPart.ContentDisposition.Disposition.Equals("inline",
+                                     StringComparison.InvariantCultureIgnoreCase);
 
                 attachmentStream.Position = 0;
 
@@ -232,20 +247,21 @@ public static class Converter
             }
         }
 
-        msg.Save(msgFile);
-    }
-    #endregion
+            msg.Save(msgFile);
+        }
+        #endregion
 
-    #region ConvertMsgToEml
-    /// <summary>
-    ///     Converts an MSG file to EML format
-    /// </summary>
-    /// <param name="msgFileName">The MSG file</param>
-    /// <param name="emlFileName">The EML (MIME) file</param>
-    public static void ConvertMsgToEml(string msgFileName, string emlFileName)
-    {
-        //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-        throw new NotImplementedException("Not yet done");
+        #region ConvertMsgToEml
+        /// <summary>
+        ///     Converts an MSG file to EML format
+        /// </summary>
+        /// <param name="msgFileName">The MSG file</param>
+        /// <param name="emlFileName">The EML (MIME) file</param>
+        public static void ConvertMsgToEml(string msgFileName, string emlFileName)
+        {
+            //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
+            throw new NotImplementedException("Not yet done");
+        }
+        #endregion
     }
-    #endregion
 }

@@ -25,22 +25,21 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-
-namespace MsgKit;
-
-/// <summary>
-///     Placeholder for a <see cref="Contact"/> work address
-/// </summary>
-public class ContactHome : ContactOther
+namespace MsgKit
 {
-    #region Properties
     /// <summary>
-    ///     The way the home address is displayed in the contact card<br/>
-    ///     Some Street<br/>
-    ///     Zip code Place<br/>
-    ///     Some land<br/>
+    ///     Placeholder for a <see cref="Contact"/> work address
     /// </summary>
-    public string Address { get; set; }
+    public class ContactHome : ContactOther
+    {
+        #region Properties
+        /// <summary>
+        ///     The way the home address is displayed in the contact card<br/>
+        ///     Some Street<br/>
+        ///     Zip code Place<br/>
+        ///     Some land<br/>
+        /// </summary>
+        public new string Address { get; set; }
 
     /// <summary>
     ///     The fax number

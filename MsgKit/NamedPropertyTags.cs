@@ -2745,17 +2745,14 @@ internal static class NamedPropertyTags
         }
     }
 
-    /// <summary>
-    ///     Specifies whether a reminder is set on the object.
-    /// </summary>
-    internal static NamedPropertyTag PidLidReminderSet
-    {
-        get
+        /// <summary>
+        ///     Specifies whether a reminder is set on the object.
+        /// </summary>
+        internal static NamedPropertyTag PidLidReminderSet
         {
-            return new NamedPropertyTag(0x8503, "PidLidReminderSet",
-                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_LONG);
+            get { return new NamedPropertyTag(0x8503, "PidLidReminderSet",
+                    new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
         }
-    }
 
     /// <summary>
     ///      Specifies the point in time when a reminder transitions from pending to overdue.

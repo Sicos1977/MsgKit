@@ -211,22 +211,22 @@ internal class Properties : List<Property>
             }
         }
 
-        if (messageSize.HasValue)
-        {
-            binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Type)); // 2 bytes
-            binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Id)); // 2 bytes
-            binaryWriter.Write(Convert.ToUInt32(PropertyFlags.PROPATTR_READABLE |
-                                                PropertyFlags.PROPATTR_WRITABLE)); // 4 bytes
-            var totalSize = messageSize.Value + size + 8;
-            var bytes = BitConverter.GetBytes(totalSize);
-            binaryWriter.Write(bytes);
-            binaryWriter.Write(new byte[4]);
-        }
-
-        // Make the properties stream
-        binaryWriter.BaseStream.Position = 0;
-        if (!storage.TryGetStream(PropertyTags.PropertiesStreamName, out var propertiesStream))
-            propertiesStream = storage.AddStream(PropertyTags.PropertiesStreamName);
+            if (messageSize.HasValue)
+            {
+                binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Type));  // 2 bytes
+                binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Id));    // 2 bytes
+                binaryWriter.Write(Convert.ToUInt32(PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)); // 4 bytes
+                var totalSize = messageSize.Value + size + 8;
+                var bytes = BitConverter.GetBytes(totalSize);
+                binaryWriter.Write(bytes);
+                // Issue #101
+                //binaryWriter.Write(new byte[4]);
+            }
+            
+            // Make the properties stream
+            binaryWriter.BaseStream.Position = 0;
+            if(!storage.TryGetStream(PropertyTags.PropertiesStreamName, out var propertiesStream))
+                propertiesStream = storage.AddStream(PropertyTags.PropertiesStreamName);
 
         propertiesStream.SetData(binaryWriter.BaseStream.ToByteArray());
         return size + binaryWriter.BaseStream.Length;
@@ -569,16 +569,16 @@ internal class Properties : List<Property>
     }
     #endregion
 
-    #region NullTerminator
-    /// <summary>
-    ///     Returns a correct null terminator according to the given <paramref name="type"/>
-    /// </summary>
-    /// <param name="type"><see cref="PropertyType"/></param>
-    /// <returns></returns>
-    private byte[] NullTerminator(PropertyType type)
-    {
-        if (StoreSupportMaskConst.StoreSupportMask.HasFlag(StoreSupportMask.STORE_UNICODE_OK))
-            return new byte[] { 0, 0 };
+        #region NullTerminator
+        /// <summary>
+        ///     Returns a correct null terminator according to the given <paramref name="type"/>
+        /// </summary>
+        /// <param name="type"><see cref="PropertyType"/></param>
+        /// <returns></returns>
+        private byte[] NullTerminator(PropertyType type)
+        {
+            if (StoreSupportMaskConst.StoreSupportMask.HasFlag(StoreSupportMask.STORE_UNICODE_OK))
+                return new byte[] { 0, 0 };
 
         switch (type)
         {
@@ -588,9 +588,10 @@ internal class Properties : List<Property>
             case PropertyType.PT_STRING8:
                 return new byte[] { 0 };
 
-            default:
-                return new byte[0];
+                default:
+                    return Array.Empty<byte>();
+            }
         }
+        #endregion
     }
-    #endregion
 }

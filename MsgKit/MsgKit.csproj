@@ -22,7 +22,10 @@
     <FileVersion>2.6.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Outlook-icon.png</PackageIcon>
+<<<<<<< HEAD
     <LangVersion>latest</LangVersion>
+=======
+>>>>>>> 2b087b8c6fb7414570da68c0f052eb20eb22ef2f
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Title>Create MSG files from code</Title>
   </PropertyGroup>
