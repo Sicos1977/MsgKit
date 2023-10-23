@@ -72,6 +72,8 @@ namespace MsgKitTestTool
                         break;
                 }
 
+                email.AddProperty(PropertyTags.);
+
                 email.Attachments.Add("Images\\peterpan.jpg");
                 email.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
                 email.Save("d:\\email.msg");

@@ -27,11 +27,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+// ReSharper disable StringLiteralTypo
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit
 {
     /// <summary>
-    ///     This class maps each MAPI property to the corresponding canonical property name (and the otherway around).
+    ///     This class maps each MAPI property to the corresponding canonical property name (and the other way around).
     /// </summary>
     /// <remarks>
     ///     See https://msdn.microsoft.com/en-us/library/office/cc815492.aspx
@@ -650,8 +652,7 @@ namespace MsgKit
             Properties.Add("PR_ORIGINALLY_INTENDED_RECIP_ENTRYID", "PidTagOriginallyIntendedRecipEntryId");
             Properties.Add("PR_ORIGINALLY_INTENDED_RECIPIENT_NAME", "PidTagOriginallyIntendedRecipientName");
             Properties.Add("PR_ORIGINATING_MTA_CERTIFICATE", "PidTagOriginatingMtaCertificate");
-            Properties.Add("PR_ORIGINATOR_AND_DL_EXPANSION_HISTORY",
-                "PidTagOriginatorAndDistributionListExpansionHistory");
+            Properties.Add("PR_ORIGINATOR_AND_DL_EXPANSION_HISTORY", "PidTagOriginatorAndDistributionListExpansionHistory");
             Properties.Add("PR_ORIGINATOR_CERTIFICATE", "PidTagOriginatorCertificate");
             Properties.Add("PR_ORIGINATOR_DELIVERY_REPORT_REQUESTED", "PidTagOriginatorDeliveryReportRequested");
             Properties.Add("PR_ORIGINATOR_NON_DELIVERY_REPORT_REQUESTED", "PidTagOriginatorNonDeliveryReportRequested");
