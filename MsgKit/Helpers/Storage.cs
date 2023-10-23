@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,37 +26,35 @@
 
 using OpenMcdf;
 
-namespace MsgKit.Helpers
-{
-    internal static class Storage
-    {
-        #region Copy
-        /// <summary>
-        /// Copies the given <paramref name="source"/> to the given <paramref name="destination"/>
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destination"></param>
-        public static void Copy(CFStorage source, CFStorage destination)
-        {
-            source.VisitEntries(action =>
-            {
-                if (action.IsStorage)
-                {
-                    var destinationStorage = destination.AddStorage(action.Name);
-                    destinationStorage.CLSID = action.CLSID;
-                    destinationStorage.CreationDate = action.CreationDate;
-                    destinationStorage.ModifyDate = action.ModifyDate;
-                    Copy(action as CFStorage, destinationStorage);
-                }
-                else
-                {
-                    var sourceStream = action as CFStream;
-                    var destinationStream = destination.AddStream(action.Name);
-                    if (sourceStream != null) destinationStream.SetData(sourceStream.GetData());
-                }
+namespace MsgKit.Helpers;
 
-            }, false);
-        }
-        #endregion
+internal static class Storage
+{
+    #region Copy
+    /// <summary>
+    /// Copies the given <paramref name="source"/> to the given <paramref name="destination"/>
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="destination"></param>
+    public static void Copy(CFStorage source, CFStorage destination)
+    {
+        source.VisitEntries(action =>
+        {
+            if (action.IsStorage)
+            {
+                var destinationStorage = destination.AddStorage(action.Name);
+                destinationStorage.CLSID = action.CLSID;
+                destinationStorage.CreationDate = action.CreationDate;
+                destinationStorage.ModifyDate = action.ModifyDate;
+                Copy(action as CFStorage, destinationStorage);
+            }
+            else
+            {
+                var sourceStream = action as CFStream;
+                var destinationStream = destination.AddStream(action.Name);
+                if (sourceStream != null) destinationStream.SetData(sourceStream.GetData());
+            }
+        }, false);
     }
+    #endregion
 }

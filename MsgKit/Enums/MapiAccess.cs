@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,48 +25,48 @@
 //
 
 using System;
+
 // ReSharper disable InconsistentNaming
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Contains a bitmask of flags indicating the operations that are available to the client for the object.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/office/cc979218.aspx
+///     This property is read-only for the client. It must be a bitwise OR of zero or more values from the following table.
+/// </remarks>
+[Flags]
+public enum MapiAccess : uint
 {
     /// <summary>
-    ///     Contains a bitmask of flags indicating the operations that are available to the client for the object.
+    ///     Write
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/office/cc979218.aspx
-    ///     This property is read-only for the client. It must be a bitwise OR of zero or more values from the following table.
-    /// </remarks>
-    [Flags]
-    public enum MapiAccess : uint
-    {
-        /// <summary>
-        ///     Write
-        /// </summary>
-        MAPI_ACCESS_MODIFY = 0x00000001,
+    MAPI_ACCESS_MODIFY = 0x00000001,
 
-        /// <summary>
-        ///     Read
-        /// </summary>
-	    MAPI_ACCESS_READ = 0x00000002,
+    /// <summary>
+    ///     Read
+    /// </summary>
+    MAPI_ACCESS_READ = 0x00000002,
 
-        /// <summary>
-        ///     Delete
-        /// </summary>
-        MAPI_ACCESS_DELETE = 0x00000004,
+    /// <summary>
+    ///     Delete
+    /// </summary>
+    MAPI_ACCESS_DELETE = 0x00000004,
 
-        /// <summary>
-        ///     Create subfolders in the folder hierarchy
-        /// </summary>
-        MAPI_ACCESS_CREATE_HIERARCHY = 0x00000008,
+    /// <summary>
+    ///     Create subfolders in the folder hierarchy
+    /// </summary>
+    MAPI_ACCESS_CREATE_HIERARCHY = 0x00000008,
 
-        /// <summary>
-        ///     Create content messages
-        /// </summary>
-        MAPI_ACCESS_CREATE_CONTENTS = 0x00000010,
+    /// <summary>
+    ///     Create content messages
+    /// </summary>
+    MAPI_ACCESS_CREATE_CONTENTS = 0x00000010,
 
-        /// <summary>
-        ///     Create associated content messages
-        /// </summary>
-        MAPI_ACCESS_CREATE_ASSOCIATED = 0x00000020
-    }
+    /// <summary>
+    ///     Create associated content messages
+    /// </summary>
+    MAPI_ACCESS_CREATE_ASSOCIATED = 0x00000020
 }

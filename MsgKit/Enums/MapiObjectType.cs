@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,79 +28,78 @@ using System;
 
 // ReSharper disable InconsistentNaming
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Contains the type of an object.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/office/cc815487.aspx
+///     The object type contained in this property corresponds to the primary interface available for an object accessible
+///     through the OpenEntry interface. It is usually obtained by consulting the lpulObjType parameter returned by the
+///     appropriate OpenEntry method. When the interface is obtained in other ways, call IMAPIProp::GetProps to obtain the
+///     value for this property.
+/// </remarks>
+[Flags]
+public enum MapiObjectType : uint
 {
     /// <summary>
-    ///     Contains the type of an object.
+    ///     Address book container object
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/office/cc815487.aspx
-    ///     The object type contained in this property corresponds to the primary interface available for an object accessible
-    ///     through the OpenEntry interface. It is usually obtained by consulting the lpulObjType parameter returned by the
-    ///     appropriate OpenEntry method. When the interface is obtained in other ways, call IMAPIProp::GetProps to obtain the
-    ///     value for this property.
-    /// </remarks>
-    [Flags]
-    public enum MapiObjectType : uint
-    {
-        /// <summary>
-        ///     Address book container object
-        /// </summary>
-        MAPI_ABCONT = 4,
-        
-        /// <summary>
-        ///     Address book object
-        /// </summary>
-        MAPI_ADDRBOOK = 2,
-        
-        /// <summary>
-        ///     Message attachment object
-        /// </summary>
-        MAPI_ATTACH = 7,
+    MAPI_ABCONT = 4,
 
-        /// <summary>
-        ///     Distribution list object
-        /// </summary>
-        MAPI_DISTLIST = 8,
+    /// <summary>
+    ///     Address book object
+    /// </summary>
+    MAPI_ADDRBOOK = 2,
 
-        /// <summary>
-        ///     Folder object
-        /// </summary>
-        MAPI_FOLDER = 3,
+    /// <summary>
+    ///     Message attachment object
+    /// </summary>
+    MAPI_ATTACH = 7,
 
-        /// <summary>
-        ///     Form object
-        /// </summary>
-        MAPI_FORMINFO = 12,
+    /// <summary>
+    ///     Distribution list object
+    /// </summary>
+    MAPI_DISTLIST = 8,
 
-        /// <summary>
-        ///     Messaging user object
-        /// </summary>
-        MAPI_MAILUSER = 6,
+    /// <summary>
+    ///     Folder object
+    /// </summary>
+    MAPI_FOLDER = 3,
 
-        /// <summary>
-        ///     Message object
-        /// </summary>
-        MAPI_MESSAGE = 5,
+    /// <summary>
+    ///     Form object
+    /// </summary>
+    MAPI_FORMINFO = 12,
 
-        /// <summary>
-        ///     Profile section object
-        /// </summary>
-        MAPI_PROFSECT = 9,
+    /// <summary>
+    ///     Messaging user object
+    /// </summary>
+    MAPI_MAILUSER = 6,
 
-        /// <summary>
-        ///     Session object
-        /// </summary>
-        MAPI_SESSION = 11,
+    /// <summary>
+    ///     Message object
+    /// </summary>
+    MAPI_MESSAGE = 5,
 
-        /// <summary>
-        ///     Status object
-        /// </summary>
-        MAPI_STATUS = 10,
+    /// <summary>
+    ///     Profile section object
+    /// </summary>
+    MAPI_PROFSECT = 9,
 
-        /// <summary>
-        ///     Message store object
-        /// </summary>
-        MAPI_STORE = 1
-    }
+    /// <summary>
+    ///     Session object
+    /// </summary>
+    MAPI_SESSION = 11,
+
+    /// <summary>
+    ///     Status object
+    /// </summary>
+    MAPI_STATUS = 10,
+
+    /// <summary>
+    ///     Message store object
+    /// </summary>
+    MAPI_STORE = 1
 }

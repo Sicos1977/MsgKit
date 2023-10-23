@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+/// Raised when an attachment with the same name already exists
+/// </summary>
+public class MKAttachmentExists : Exception
 {
-    /// <summary>
-    /// Raised when an attachment with the same name already exists
-    /// </summary>
-    public class MKAttachmentExists : Exception
+    internal MKAttachmentExists()
     {
-        internal MKAttachmentExists() 
-        {
-        }
+    }
 
-        internal MKAttachmentExists(string message) : base(message)
-        {
-        }
+    internal MKAttachmentExists(string message) : base(message)
+    {
+    }
 
-        internal MKAttachmentExists(string message, Exception inner) : base(message, inner)
-        {
-        }
+    internal MKAttachmentExists(string message, Exception inner) : base(message, inner)
+    {
     }
 }

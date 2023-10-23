@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,34 +26,33 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Specifies the format for an editor to use to display a message.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/office/cc765727.aspx
+/// </remarks>
+public enum MessageEditorFormat
 {
     /// <summary>
-    ///     Specifies the format for an editor to use to display a message.
+    ///     The format for the editor to use is unknown.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/office/cc765727.aspx
-    /// </remarks>
-    public enum MessageEditorFormat
-    {
-        /// <summary>
-        ///     The format for the editor to use is unknown.
-        /// </summary>
-        EDITOR_FORMAT_DONTKNOW = 0x00000000,
+    EDITOR_FORMAT_DONTKNOW = 0x00000000,
 
-        /// <summary>
-        ///     The editor should display the message in plain text format.
-        /// </summary>
-        EDITOR_FORMAT_PLAINTEXT = 0x00000001,
+    /// <summary>
+    ///     The editor should display the message in plain text format.
+    /// </summary>
+    EDITOR_FORMAT_PLAINTEXT = 0x00000001,
 
-        /// <summary>
-        ///     The editor should display the message in HTML format.
-        /// </summary>
-        EDITOR_FORMAT_HTML = 0x00000002,
+    /// <summary>
+    ///     The editor should display the message in HTML format.
+    /// </summary>
+    EDITOR_FORMAT_HTML = 0x00000002,
 
-        /// <summary>
-        ///     The editor should display the message in Rich Text Format.
-        /// </summary>
-        EDITOR_FORMAT_RTF = 0x00000003
-    }
+    /// <summary>
+    ///     The editor should display the message in Rich Text Format.
+    /// </summary>
+    EDITOR_FORMAT_RTF = 0x00000003
 }

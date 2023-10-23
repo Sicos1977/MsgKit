@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,26 +25,26 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
-{
-    /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> other address
-    /// </summary>
-    public class ContactOther : ContactCommon
-    {
-        #region Properties
-        /// <summary>
-        ///     The way the home address is displayed in the contact card<br/>
-        ///     Some Street<br/>
-        ///     Zip code Place<br/>
-        ///     Some land<br/>
-        /// </summary>
-        public string Address { get; set; }
 
-        /// <summary>
-        ///     The state for the address
-        /// </summary>
-        public string State { get; set; }
-        #endregion
-    }
+namespace MsgKit;
+
+/// <summary>
+///     Placeholder for a <see cref="Contact"/> other address
+/// </summary>
+public class ContactOther : ContactCommon
+{
+    #region Properties
+    /// <summary>
+    ///     The way the home address is displayed in the contact card<br/>
+    ///     Some Street<br/>
+    ///     Zip code Place<br/>
+    ///     Some land<br/>
+    /// </summary>
+    public string Address { get; set; }
+
+    /// <summary>
+    ///     The state for the address
+    /// </summary>
+    public string State { get; set; }
+    #endregion
 }

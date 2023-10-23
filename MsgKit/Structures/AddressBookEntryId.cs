@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,41 +27,40 @@
 using System.IO;
 using MsgKit.Helpers;
 
-namespace MsgKit.Structures
+namespace MsgKit.Structures;
+
+/// <summary>
+///     An Address Book EntryID structure specifies several types of Address Book objects, including
+///     individual users, distribution lists, containers, and templates.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee160588(v=exchg.80).aspx
+/// </remarks>
+public class AddressBookEntryId
 {
+    #region Properties
+    // what circumstances a short-term EntryID is valid. However, in any EntryID stored in a 
+    // property value, these 4 bytes MUST be zero, indicating a long-term EntryID.
     /// <summary>
-    ///     An Address Book EntryID structure specifies several types of Address Book objects, including
-    ///     individual users, distribution lists, containers, and templates.
+    ///     Flags (4 bytes): This value MUST be set to 0x00000000. Bits in this field indicate under
+    /// </summary>
+    public byte[] Flags { get; }
+
+    /// <summary>
+    ///     The X500 DN of the Address Book object.
     /// </summary>
     /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee160588(v=exchg.80).aspx
+    ///     A distinguished name (DN), in Teletex form, of an object that is in an address book. An X500 DN can be more limited
+    ///     in the size and number of relative distinguished names (RDNs) than a full DN.
     /// </remarks>
-    public class AddressBookEntryId
+    public string X500Dn { get; }
+    #endregion
+
+    #region Constructor
+    internal AddressBookEntryId(BinaryReader binaryReader)
     {
-        #region Properties
-        // what circumstances a short-term EntryID is valid. However, in any EntryID stored in a 
-        // property value, these 4 bytes MUST be zero, indicating a long-term EntryID.
-        /// <summary>
-        ///     Flags (4 bytes): This value MUST be set to 0x00000000. Bits in this field indicate under
-        /// </summary>
-        public byte[] Flags { get; }
-
-        /// <summary>
-        ///     The X500 DN of the Address Book object.
-        /// </summary>
-        /// <remarks>
-        ///     A distinguished name (DN), in Teletex form, of an object that is in an address book. An X500 DN can be more limited
-        ///     in the size and number of relative distinguished names (RDNs) than a full DN.
-        /// </remarks>
-        public string X500Dn { get; }
-        #endregion
-
-        #region Constructor
-        internal AddressBookEntryId(BinaryReader binaryReader)
-        {
-            Flags = binaryReader.ReadBytes(4);
-            X500Dn = Strings.ReadNullTerminatedString(binaryReader, false);
-        }
-        #endregion
+        Flags = binaryReader.ReadBytes(4);
+        X500Dn = Strings.ReadNullTerminatedString(binaryReader, false);
     }
+    #endregion
 }

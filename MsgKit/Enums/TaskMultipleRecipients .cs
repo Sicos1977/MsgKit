@@ -5,7 +5,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com> and Nicolas Fournier <nic_rf@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,24 +26,23 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskMultipleRecipients" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee218493(v=exchg.80).aspx
+/// </remarks>
+public enum TaskMultipleRecipients : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskMultipleRecipients" /> property
+    ///     The Task object has multiple primary recipients.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee218493(v=exchg.80).aspx
-    /// </remarks>
-    public enum TaskMultipleRecipients : uint
-    {
-        /// <summary>
-        ///     The Task object has multiple primary recipients.
-        /// </summary>
-        Sent = 0x00000000,
+    Sent = 0x00000000,
 
-        /// <summary>
-        ///     Although the "Sent" flag was not set, the client detected that the Task object has multiple primary recipients.
-        /// </summary>
-        Received = 0x00000001
-    }
+    /// <summary>
+    ///     Although the "Sent" flag was not set, the client detected that the Task object has multiple primary recipients.
+    /// </summary>
+    Received = 0x00000001
 }

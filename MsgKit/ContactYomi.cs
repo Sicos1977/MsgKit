@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,28 +25,28 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
+
+namespace MsgKit;
+
+/// <summary>
+///     Placeholder for a <see cref="Contact"/> other address
+/// </summary>
+public class ContactYomi
 {
+    #region Properties
     /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> other address
+    ///     The first name
     /// </summary>
-    public class ContactYomi
-    {
-        #region Properties
-        /// <summary>
-        ///     The first name
-        /// </summary>
-        public string FirstName { get; set; }
+    public string FirstName { get; set; }
 
-        /// <summary>
-        ///     The last name
-        /// </summary>
-        public string LastName{ get; set; }
+    /// <summary>
+    ///     The last name
+    /// </summary>
+    public string LastName { get; set; }
 
-        /// <summary>
-        ///     The company name
-        /// </summary>
-        public string CompanyName { get; set; }
-        #endregion
-    }
+    /// <summary>
+    ///     The company name
+    /// </summary>
+    public string CompanyName { get; set; }
+    #endregion
 }

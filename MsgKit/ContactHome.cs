@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,31 +25,31 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
+
+namespace MsgKit;
+
+/// <summary>
+///     Placeholder for a <see cref="Contact"/> work address
+/// </summary>
+public class ContactHome : ContactOther
 {
+    #region Properties
     /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> work address
+    ///     The way the home address is displayed in the contact card<br/>
+    ///     Some Street<br/>
+    ///     Zip code Place<br/>
+    ///     Some land<br/>
     /// </summary>
-    public class ContactHome : ContactOther
-    {
-        #region Properties
-        /// <summary>
-        ///     The way the home address is displayed in the contact card<br/>
-        ///     Some Street<br/>
-        ///     Zip code Place<br/>
-        ///     Some land<br/>
-        /// </summary>
-        public string Address { get; set; }
+    public string Address { get; set; }
 
-        /// <summary>
-        ///     The fax number
-        /// </summary>
-        public string FaxNumber { get; set; }
+    /// <summary>
+    ///     The fax number
+    /// </summary>
+    public string FaxNumber { get; set; }
 
-        /// <summary>
-        ///     The telephone 2 number
-        /// </summary>
-        public string TelephoneNumber2 { get; set; }
-        #endregion
-    }
+    /// <summary>
+    ///     The telephone 2 number
+    /// </summary>
+    public string TelephoneNumber2 { get; set; }
+    #endregion
 }

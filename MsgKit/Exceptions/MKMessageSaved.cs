@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+/// Raised when somebody tries to modify a mesage when it already has been saved
+/// </summary>
+public class MKMessageSaved : Exception
 {
-    /// <summary>
-    /// Raised when somebody tries to modify a mesage when it already has been saved
-    /// </summary>
-    public class MKMessageSaved : Exception
+    internal MKMessageSaved()
     {
-        internal MKMessageSaved() 
-        {
-        }
+    }
 
-        internal MKMessageSaved(string message) : base(message)
-        {
-        }
+    internal MKMessageSaved(string message) : base(message)
+    {
+    }
 
-        internal MKMessageSaved(string message, Exception inner) : base(message, inner)
-        {
-        }
+    internal MKMessageSaved(string message, Exception inner) : base(message, inner)
+    {
     }
 }

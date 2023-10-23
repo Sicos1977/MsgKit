@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,26 +26,25 @@
 
 using System;
 
-namespace MsgKit.Helpers
+namespace MsgKit.Helpers;
+
+/// <summary>
+///     This class contains exception related helper methods
+/// </summary>
+internal static class Exception
 {
+    #region GetInnerException
     /// <summary>
-    ///     This class contains exception related helper methods
+    /// Get the complete inner exception tree
     /// </summary>
-    internal static class Exception
+    /// <param name="e">The exception object</param>
+    /// <returns></returns>
+    public static string GetInnerException(System.Exception e)
     {
-        #region GetInnerException
-        /// <summary>
-        /// Get the complete inner exception tree
-        /// </summary>
-        /// <param name="e">The exception object</param>
-        /// <returns></returns>
-        public static string GetInnerException(System.Exception e)
-        {
-            var exception = e.Message + Environment.NewLine;
-            if (e.InnerException != null)
-                exception += GetInnerException(e.InnerException);
-            return exception;
-        }
-        #endregion
+        var exception = e.Message + Environment.NewLine;
+        if (e.InnerException != null)
+            exception += GetInnerException(e.InnerException);
+        return exception;
     }
+    #endregion
 }

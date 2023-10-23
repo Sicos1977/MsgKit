@@ -5,7 +5,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,44 +26,43 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidMeetingType"/> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/cc815362(v=office.15).aspx
+/// </remarks>
+public enum MeetingType : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidMeetingType"/> property
+    ///     Unspecified.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/cc815362(v=office.15).aspx
-    /// </remarks>
-    public enum MeetingType : uint
-    {
-        /// <summary>
-        ///     Unspecified.
-        /// </summary>
-        mtgEmpty = 0x00000000,
+    mtgEmpty = 0x00000000,
 
-        /// <summary>
-        ///     nitial meeting request.
-        /// </summary>
-        mtgRequest = 0x00000001,
+    /// <summary>
+    ///     nitial meeting request.
+    /// </summary>
+    mtgRequest = 0x00000001,
 
-        /// <summary>
-        ///     Full update.
-        /// </summary>
-        mtgFull = 0x00010000,
+    /// <summary>
+    ///     Full update.
+    /// </summary>
+    mtgFull = 0x00010000,
 
-        /// <summary>
-        ///     Full update.
-        /// </summary>
-        mtgInfo = 0x00020000,
+    /// <summary>
+    ///     Full update.
+    /// </summary>
+    mtgInfo = 0x00020000,
 
-        /// <summary>
-        ///     A newer meeting request or meeting update was received after this one.
-        /// </summary>
-        mtgOutOfDate = 0x00080000,
+    /// <summary>
+    ///     A newer meeting request or meeting update was received after this one.
+    /// </summary>
+    mtgOutOfDate = 0x00080000,
 
-        /// <summary>
-        ///     This is set on the delegator’s copy when a delegate handles meeting-related objects.
-        /// </summary>
-        mtgDelegatorCopy = 0x00100000
-    }
+    /// <summary>
+    ///     This is set on the delegator’s copy when a delegate handles meeting-related objects.
+    /// </summary>
+    mtgDelegatorCopy = 0x00100000
 }

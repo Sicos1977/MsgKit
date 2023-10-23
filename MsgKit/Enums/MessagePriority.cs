@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,29 +25,29 @@
 //
 
 // ReSharper disable InconsistentNaming
-namespace MsgKit.Enums
+
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Contains a value that indicates the message sender's opinion of the importance of a message. 
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/cc765646(v=office.15).aspx
+/// </remarks>
+public enum MessagePriority
 {
     /// <summary>
-    ///     Contains a value that indicates the message sender's opinion of the importance of a message. 
+    ///     The message is not urgent.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/cc765646(v=office.15).aspx
-    /// </remarks>
-    public enum MessagePriority
-    {
-        /// <summary>
-        ///     The message is not urgent.
-        /// </summary>
-        PRIO_NONURGENT = 0,
+    PRIO_NONURGENT = 0,
 
-        /// <summary>
-        ///     The message has normal priority.
-        /// </summary>
-        PRIO_NORMAL = 1,
+    /// <summary>
+    ///     The message has normal priority.
+    /// </summary>
+    PRIO_NORMAL = 1,
 
-        /// <summary>
-        ///     The message is urgent.
-        /// </summary>
-        PRIO_URGENT = 2
-    }
+    /// <summary>
+    ///     The message is urgent.
+    /// </summary>
+    PRIO_URGENT = 2
 }

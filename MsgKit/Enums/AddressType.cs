@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,46 +24,45 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Contains the messaging user's e-mail address type, such as SMTP.
+/// </summary>
+public enum AddressType
 {
     /// <summary>
-    ///     Contains the messaging user's e-mail address type, such as SMTP.
+    ///     Unknown
     /// </summary>
-    public enum AddressType
-    {
-        /// <summary>
-        ///     Unknown
-        /// </summary>
-        Unknown,
+    Unknown,
 
-        /// <summary>
-        ///     Exchange
-        /// </summary>
-        Ex,
-        
-        /// <summary>
-        ///     Simple Mail Transfer Protocol
-        /// </summary>
-        Smtp,
+    /// <summary>
+    ///     Exchange
+    /// </summary>
+    Ex,
 
-        /// <summary>
-        ///     Fax
-        /// </summary>
-        Fax,
+    /// <summary>
+    ///     Simple Mail Transfer Protocol
+    /// </summary>
+    Smtp,
 
-        /// <summary>
-        ///     MHS
-        /// </summary>
-        Mhs,
+    /// <summary>
+    ///     Fax
+    /// </summary>
+    Fax,
 
-        /// <summary>
-        ///     PROFS
-        /// </summary>
-        Profs,
+    /// <summary>
+    ///     MHS
+    /// </summary>
+    Mhs,
 
-        /// <summary>
-        ///     X400
-        /// </summary>
-        X400
-    }
+    /// <summary>
+    ///     PROFS
+    /// </summary>
+    Profs,
+
+    /// <summary>
+    ///     X400
+    /// </summary>
+    X400
 }

@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -44,10 +44,10 @@ namespace MsgKitTestTool
         private void button1_Click(object sender, EventArgs e)
         {
             using (var email = new Email(
-                new Sender(SenderTextBox.Text, string.Empty),
-                SubjectTextBox.Text, 
-                DraftMessageCheckBox.Checked,
-                ReadReceiptCheckBox.Checked))
+                       new Sender(SenderTextBox.Text, string.Empty),
+                       SubjectTextBox.Text,
+                       DraftMessageCheckBox.Checked,
+                       ReadReceiptCheckBox.Checked))
             {
                 email.Recipients.AddTo(ToTextBox.Text);
                 email.Recipients.AddCc(CcTextBox.Text);
@@ -56,7 +56,7 @@ namespace MsgKitTestTool
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
-                
+
                 switch (ImportanceComboBox.Text)
                 {
                     case "Low":
@@ -116,10 +116,10 @@ namespace MsgKitTestTool
         private void ContactButton_Click(object sender, EventArgs e)
         {
             using (var contact = new Contact(
-                new Sender(SenderTextBox.Text, string.Empty),
-                SubjectTextBox.Text,
-                DraftMessageCheckBox.Checked,
-                ReadReceiptCheckBox.Checked))
+                       new Sender(SenderTextBox.Text, string.Empty),
+                       SubjectTextBox.Text,
+                       DraftMessageCheckBox.Checked,
+                       ReadReceiptCheckBox.Checked))
             {
                 contact.Recipients.AddTo(ToTextBox.Text);
                 contact.Recipients.AddCc(CcTextBox.Text);
@@ -149,11 +149,14 @@ namespace MsgKitTestTool
                 contact.Private = false;
                 contact.BirthDay = DateTime.Now;
                 contact.WeddingAnniversary = DateTime.Now;
-                contact.Assistant = new ContactAssistant {Name = "Assistant name", TelephoneNumber = "Assistant telephone number"};
+                contact.Assistant = new ContactAssistant
+                    { Name = "Assistant name", TelephoneNumber = "Assistant telephone number" };
                 contact.CallBackTelePhoneNumber = "callback telephone number";
                 contact.CarTelePhoneNumber = "car telephone number";
-                contact.ChildrensNames = new List<string> {"First child name", "Second child name", "Third child name"};
-                contact.CompanyMain = new ContactCompanyMain { Name = "Company main name", TelephoneNumber = "Company main telephone number"};
+                contact.ChildrensNames = new List<string>
+                    { "First child name", "Second child name", "Third child name" };
+                contact.CompanyMain = new ContactCompanyMain
+                    { Name = "Company main name", TelephoneNumber = "Company main telephone number" };
                 contact.DepartmentName = "Department name";
                 contact.Generation = "Generation";
                 contact.GivenName = "GivenName";
@@ -185,7 +188,8 @@ namespace MsgKitTestTool
                 //contact.Fax3 = "fax3@1234567890";
                 contact.OfficeTelephoneNumber = "Office telephone number";
                 contact.InstantMessagingAddress = "Instant messaging address";
-                contact.Yomi = new ContactYomi { CompanyName = "Yomi company name", FirstName = "Yomi first name", LastName = "Yomi last name"};
+                contact.Yomi = new ContactYomi
+                    { CompanyName = "Yomi company name", FirstName = "Yomi first name", LastName = "Yomi last name" };
 
                 contact.Work = new ContactWork
                 {
@@ -211,7 +215,7 @@ namespace MsgKitTestTool
                     Street = "Business street",
                     Address = "Business\nBla bla\nBla die bla\nBLa die bla die bla"
                 };
-                
+
                 contact.Home = new ContactHome
                 {
                     TelephoneNumber = "Home telephone number",

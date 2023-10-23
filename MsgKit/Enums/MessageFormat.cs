@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,25 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     The messageformat to use
+/// </summary>
+public enum MessageFormat
 {
     /// <summary>
-    ///     The messageformat to use
+    ///     Send a plain text message body.
     /// </summary>
-    public enum MessageFormat
-    {
-        /// <summary>
-        ///     Send a plain text message body.
-        /// </summary>
-        TextOnly,
+    TextOnly,
 
-        /// <summary>
-        ///     Send an HTML message body.
-        /// </summary>
-        HtmlOnly,
+    /// <summary>
+    ///     Send an HTML message body.
+    /// </summary>
+    HtmlOnly,
 
-        /// <summary>
-        ///     Send a multipart / alternative body with both plain text and HTML.
-        /// </summary>
-        TextAndHtml
-    }
+    /// <summary>
+    ///     Send a multipart / alternative body with both plain text and HTML.
+    /// </summary>
+    TextAndHtml
 }

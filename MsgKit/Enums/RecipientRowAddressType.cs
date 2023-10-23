@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,51 +26,50 @@
 
 using MsgKit.Structures;
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     The <see cref="RecipientRow.RecipientRowDisplayType" />
+/// </summary>
+public enum RecipientRowAddressType
 {
     /// <summary>
-    ///     The <see cref="RecipientRow.RecipientRowDisplayType" />
+    ///     No type is set
     /// </summary>
-    public enum RecipientRowAddressType
-    {
-        /// <summary>
-        ///     No type is set
-        /// </summary>
-        NoType = 0x0,
+    NoType = 0x0,
 
-        /// <summary>
-        ///     X500DN
-        /// </summary>
-        X500Dn = 0x1,
+    /// <summary>
+    ///     X500DN
+    /// </summary>
+    X500Dn = 0x1,
 
-        /// <summary>
-        ///     Ms mail
-        /// </summary>
-        MsMail = 0x2,
+    /// <summary>
+    ///     Ms mail
+    /// </summary>
+    MsMail = 0x2,
 
-        /// <summary>
-        ///     SMTP
-        /// </summary>
-        Smtp = 0x3,
+    /// <summary>
+    ///     SMTP
+    /// </summary>
+    Smtp = 0x3,
 
-        /// <summary>
-        ///     Fax
-        /// </summary>
-        Fax = 0x4,
+    /// <summary>
+    ///     Fax
+    /// </summary>
+    Fax = 0x4,
 
-        /// <summary>
-        ///     Professional office system
-        /// </summary>
-        ProfessionalOfficeSystem = 0x5,
+    /// <summary>
+    ///     Professional office system
+    /// </summary>
+    ProfessionalOfficeSystem = 0x5,
 
-        /// <summary>
-        ///     Personal distribution list 1
-        /// </summary>
-        PersonalDistributionList1 = 0x6,
+    /// <summary>
+    ///     Personal distribution list 1
+    /// </summary>
+    PersonalDistributionList1 = 0x6,
 
-        /// <summary>
-        ///     Personal distribution list 2
-        /// </summary>
-        PersonalDistributionList2 = 0x7
-    }
+    /// <summary>
+    ///     Personal distribution list 2
+    /// </summary>
+    PersonalDistributionList2 = 0x7
 }

@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2021 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,30 +24,29 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     EndType (4 bytes):  An integer that specifies the ending type for the recurrence. This field MUST be set to one of
+///     the values listed in the following table.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+/// </remarks>
+public enum RecurrencePatternRecurrenceRangeType
 {
     /// <summary>
-    ///     EndType (4 bytes):  An integer that specifies the ending type for the recurrence. This field MUST be set to one of
-    ///     the values listed in the following table.
+    ///     End after date
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
-    /// </remarks>
-    public enum RecurrencePatternRecurrenceRangeType
-    {
-        /// <summary>
-        ///     End after date
-        /// </summary>
-        EndAfterDate = 0x00002021,
+    EndAfterDate = 0x00002021,
 
-        /// <summary>
-        ///     End after N occurrences
-        /// </summary>
-        EndAfterNoccurences = 0x00002022,
+    /// <summary>
+    ///     End after N occurrences
+    /// </summary>
+    EndAfterNoccurences = 0x00002022,
 
-        /// <summary>
-        ///     Never end
-        /// </summary>
-        NeverEnd = 0x00002023
-    }
+    /// <summary>
+    ///     Never end
+    /// </summary>
+    NeverEnd = 0x00002023
 }
