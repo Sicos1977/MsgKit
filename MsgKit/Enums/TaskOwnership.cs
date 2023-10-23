@@ -26,29 +26,28 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskOwnership" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee204243(v=EXCHG.80).aspx
+/// </remarks>
+public enum TaskOwnership : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskOwnership" /> property
+    ///     The Task object is not assigned.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee204243(v=EXCHG.80).aspx
-    /// </remarks>
-    public enum TaskOwnership : uint
-    {
-        /// <summary>
-        ///     The Task object is not assigned.
-        /// </summary>
-        NotAssigned = 0x00000000,
+    NotAssigned = 0x00000000,
 
-        /// <summary>
-        ///     The Task object is the task assigner's copy of the Task object.
-        /// </summary>
-        Assigner = 0x00000001,
+    /// <summary>
+    ///     The Task object is the task assigner's copy of the Task object.
+    /// </summary>
+    Assigner = 0x00000001,
 
-        /// <summary>
-        ///     The Task object is the task assignee's copy of the Task object.
-        /// </summary>
-        Assignee = 0x00000002
-    }
+    /// <summary>
+    ///     The Task object is the task assignee's copy of the Task object.
+    /// </summary>
+    Assignee = 0x00000002
 }

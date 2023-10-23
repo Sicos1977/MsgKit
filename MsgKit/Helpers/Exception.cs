@@ -26,26 +26,25 @@
 
 using System;
 
-namespace MsgKit.Helpers
+namespace MsgKit.Helpers;
+
+/// <summary>
+///     This class contains exception related helper methods
+/// </summary>
+internal static class Exception
 {
+    #region GetInnerException
     /// <summary>
-    ///     This class contains exception related helper methods
+    /// Get the complete inner exception tree
     /// </summary>
-    internal static class Exception
+    /// <param name="e">The exception object</param>
+    /// <returns></returns>
+    public static string GetInnerException(System.Exception e)
     {
-        #region GetInnerException
-        /// <summary>
-        /// Get the complete inner exception tree
-        /// </summary>
-        /// <param name="e">The exception object</param>
-        /// <returns></returns>
-        public static string GetInnerException(System.Exception e)
-        {
-            var exception = e.Message + Environment.NewLine;
-            if (e.InnerException != null)
-                exception += GetInnerException(e.InnerException);
-            return exception;
-        }
-        #endregion
+        var exception = e.Message + Environment.NewLine;
+        if (e.InnerException != null)
+            exception += GetInnerException(e.InnerException);
+        return exception;
     }
+    #endregion
 }

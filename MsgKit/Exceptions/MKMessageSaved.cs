@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+/// Raised when somebody tries to modify a mesage when it already has been saved
+/// </summary>
+public class MKMessageSaved : Exception
 {
-    /// <summary>
-    /// Raised when somebody tries to modify a mesage when it already has been saved
-    /// </summary>
-    public class MKMessageSaved : Exception
+    internal MKMessageSaved()
     {
-        internal MKMessageSaved() 
-        {
-        }
+    }
 
-        internal MKMessageSaved(string message) : base(message)
-        {
-        }
+    internal MKMessageSaved(string message) : base(message)
+    {
+    }
 
-        internal MKMessageSaved(string message, Exception inner) : base(message, inner)
-        {
-        }
+    internal MKMessageSaved(string message, Exception inner) : base(message, inner)
+    {
     }
 }

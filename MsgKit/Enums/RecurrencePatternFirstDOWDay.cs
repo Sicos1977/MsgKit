@@ -25,50 +25,50 @@
 //
 
 // ReSharper disable InconsistentNaming
-namespace MsgKit.Enums
+
+namespace MsgKit.Enums;
+
+/// <summary>
+/// An integer that specifies the day on which the calendar week begins. The default value is Sunday (0x00000000). 
+/// This field MUST be set to one of the values listed in the following table.
+/// </summary>
+/// <remarks>
+/// See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+/// </remarks>
+public enum RecurrencePatternFirstDOWDay
 {
     /// <summary>
-    /// An integer that specifies the day on which the calendar week begins. The default value is Sunday (0x00000000). 
-    /// This field MUST be set to one of the values listed in the following table.
+    /// Sunday
     /// </summary>
-    /// <remarks>
-    /// See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
-    /// </remarks>
-    public enum RecurrencePatternFirstDOWDay
-    {
-        /// <summary>
-        /// Sunday
-        /// </summary>
-        Sunday = 0x00000000,
+    Sunday = 0x00000000,
 
-        /// <summary>
-        /// Monday
-        /// </summary>
-        Monday = 0x00000001,
+    /// <summary>
+    /// Monday
+    /// </summary>
+    Monday = 0x00000001,
 
-        /// <summary>
-        /// Tuesday
-        /// </summary>
-        Tuesday = 0x00000002,
+    /// <summary>
+    /// Tuesday
+    /// </summary>
+    Tuesday = 0x00000002,
 
-        /// <summary>
-        /// Wednesday
-        /// </summary>
-        Wednesday = 0x00000003,
+    /// <summary>
+    /// Wednesday
+    /// </summary>
+    Wednesday = 0x00000003,
 
-        /// <summary>
-        /// Thursday
-        /// </summary>
-        Thursday = 0x00000004,
+    /// <summary>
+    /// Thursday
+    /// </summary>
+    Thursday = 0x00000004,
 
-        /// <summary>
-        /// Friday
-        /// </summary>
-        Friday = 0x00000005,
+    /// <summary>
+    /// Friday
+    /// </summary>
+    Friday = 0x00000005,
 
-        /// <summary>
-        /// Saterday
-        /// </summary>
-        Saturday = 0x00000006
-    }
+    /// <summary>
+    /// Saterday
+    /// </summary>
+    Saturday = 0x00000006
 }

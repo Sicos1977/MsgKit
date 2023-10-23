@@ -25,12 +25,12 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
+
+namespace MsgKit;
+
+/// <summary>
+///     Placeholder for a <see cref="Contact"/> company main info
+/// </summary>
+public class ContactCompanyMain : ContactAssistant
 {
-    /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> company main info
-    /// </summary>
-    public class ContactCompanyMain : ContactAssistant
-    {
-    }
 }

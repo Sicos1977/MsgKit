@@ -26,27 +26,26 @@
 
 using System;
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Kind (1 byte): The possible values for the Kind field are in the following table.
+/// </summary>
+[Flags]
+public enum PropertyKind
 {
     /// <summary>
-    ///     Kind (1 byte): The possible values for the Kind field are in the following table.
+    ///     The property is identified by the LID field (numerical named property)
     /// </summary>
-    [Flags]
-    public enum PropertyKind
-    {
-        /// <summary>
-        ///     The property is identified by the LID field (numerical named property)
-        /// </summary>
-        Lid = 0x00,
+    Lid = 0x00,
 
-        /// <summary>
-        ///     The property is identified by the Name field (string named property)
-        /// </summary>
-        Name = 0x01,
+    /// <summary>
+    ///     The property is identified by the Name field (string named property)
+    /// </summary>
+    Name = 0x01,
 
-        /// <summary>
-        ///     The property does not have an associated PropertyName field.
-        /// </summary>
-        NotAssociated = 0xFF
-    }
+    /// <summary>
+    ///     The property does not have an associated PropertyName field.
+    /// </summary>
+    NotAssociated = 0xFF
 }

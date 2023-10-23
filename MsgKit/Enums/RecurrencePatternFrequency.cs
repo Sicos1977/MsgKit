@@ -24,30 +24,29 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     The value and meaning of the FirstDateTime field for each type of recurrence frequency are specified in the
+///     following table. For details about how the value is calculated, see section 2.2.1.44.1.1.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
+/// </remarks>
+public enum RecurrencePatternFrequency
 {
     /// <summary>
-    ///     The value and meaning of the FirstDateTime field for each type of recurrence frequency are specified in the
-    ///     following table. For details about how the value is calculated, see section 2.2.1.44.1.1.
+    ///     Daily
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee203303(v=exchg.80).aspx
-    /// </remarks>
-    public enum RecurrencePatternFrequency
-    {
-        /// <summary>
-        ///     Daily
-        /// </summary>
-        Daily,
+    Daily,
 
-        /// <summary>
-        ///     Weelky
-        /// </summary>
-        Weekly,
+    /// <summary>
+    ///     Weelky
+    /// </summary>
+    Weekly,
 
-        /// <summary>
-        ///     Monthly
-        /// </summary>
-        Monthly
-    }
+    /// <summary>
+    ///     Monthly
+    /// </summary>
+    Monthly
 }

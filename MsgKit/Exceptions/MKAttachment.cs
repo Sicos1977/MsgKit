@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+/// Raised when an attachment exception occurs
+/// </summary>
+public class MKAttachment : Exception
 {
-    /// <summary>
-    /// Raised when an attachment exception occurs
-    /// </summary>
-    public class MKAttachment : Exception
+    internal MKAttachment()
     {
-        internal MKAttachment() 
-        {
-        }
+    }
 
-        internal MKAttachment(string message) : base(message)
-        {
-        }
+    internal MKAttachment(string message) : base(message)
+    {
+    }
 
-        internal MKAttachment(string message, Exception inner) : base(message, inner)
-        {
-        }
+    internal MKAttachment(string message, Exception inner) : base(message, inner)
+    {
     }
 }

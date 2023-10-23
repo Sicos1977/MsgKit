@@ -25,38 +25,38 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
+
+namespace MsgKit;
+
+/// <summary>
+///     A placeholder for the <see cref="ContactWork"/>, <see cref="ContactOther"/> and <see cref="ContactBusiness"/> common properties
+/// </summary>
+public class ContactCommon
 {
+    #region Properties
     /// <summary>
-    ///     A placeholder for the <see cref="ContactWork"/>, <see cref="ContactOther"/> and <see cref="ContactBusiness"/> common properties
+    ///     The street for the address
     /// </summary>
-    public class ContactCommon
-    {
-        #region Properties
-        /// <summary>
-        ///     The street for the address
-        /// </summary>
-        public string Street { get; set; }
+    public string Street { get; set; }
 
-        /// <summary>
-        ///     The country for the address
-        /// </summary>
-        public string Country { get; set; }
+    /// <summary>
+    ///     The country for the address
+    /// </summary>
+    public string Country { get; set; }
 
-        /// <summary>
-        ///     The postal code for the address
-        /// </summary>
-        public string PostalCode { get; set; }
+    /// <summary>
+    ///     The postal code for the address
+    /// </summary>
+    public string PostalCode { get; set; }
 
-        /// <summary>
-        ///     The city for the address
-        /// </summary>
-        public string City { get; set; }
+    /// <summary>
+    ///     The city for the address
+    /// </summary>
+    public string City { get; set; }
 
-        /// <summary>
-        ///     The telephone number
-        /// </summary>
-        public string TelephoneNumber { get; set; }
-        #endregion
-    }
+    /// <summary>
+    ///     The telephone number
+    /// </summary>
+    public string TelephoneNumber { get; set; }
+    #endregion
 }

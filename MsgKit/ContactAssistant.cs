@@ -25,23 +25,23 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
-{
-    /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> assistent
-    /// </summary>
-    public class ContactAssistant
-    {
-        #region Properties
-        /// <summary>
-        ///     The name of the assistant
-        /// </summary>
-        public string Name { get; set; }
 
-        /// <summary>
-        ///     The telephone number of the assistant
-        /// </summary>
-        public string TelephoneNumber{ get; set; }
-        #endregion
-    }
+namespace MsgKit;
+
+/// <summary>
+///     Placeholder for a <see cref="Contact"/> assistent
+/// </summary>
+public class ContactAssistant
+{
+    #region Properties
+    /// <summary>
+    ///     The name of the assistant
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    ///     The telephone number of the assistant
+    /// </summary>
+    public string TelephoneNumber { get; set; }
+    #endregion
 }

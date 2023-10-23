@@ -26,24 +26,23 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskMultipleRecipients" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee218493(v=exchg.80).aspx
+/// </remarks>
+public enum TaskMultipleRecipients : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskMultipleRecipients" /> property
+    ///     The Task object has multiple primary recipients.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee218493(v=exchg.80).aspx
-    /// </remarks>
-    public enum TaskMultipleRecipients : uint
-    {
-        /// <summary>
-        ///     The Task object has multiple primary recipients.
-        /// </summary>
-        Sent = 0x00000000,
+    Sent = 0x00000000,
 
-        /// <summary>
-        ///     Although the "Sent" flag was not set, the client detected that the Task object has multiple primary recipients.
-        /// </summary>
-        Received = 0x00000001
-    }
+    /// <summary>
+    ///     Although the "Sent" flag was not set, the client detected that the Task object has multiple primary recipients.
+    /// </summary>
+    Received = 0x00000001
 }

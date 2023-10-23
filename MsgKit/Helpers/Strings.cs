@@ -26,117 +26,117 @@
 
 using System.IO;
 using System.Text;
+// ReSharper disable UnusedMember.Global
 
-namespace MsgKit.Helpers
+namespace MsgKit.Helpers;
+
+/// <summary>
+///     This class contains string related helper methods
+/// </summary>
+internal static class Strings
 {
+    #region ReadNullTerminatedString
     /// <summary>
-    ///     This class contains string related helper methods
+    ///     Reads from the <paramref name="binaryReader"/> until a null terminated char is read
     /// </summary>
-    internal static class Strings
+    /// <param name="binaryReader"></param>
+    /// <param name="unicode"></param>
+    /// <returns></returns>
+    public static string ReadNullTerminatedString(BinaryReader binaryReader, bool unicode = true)
     {
-        #region ReadNullTerminatedString
-        /// <summary>
-        ///     Reads from the <paramref name="binaryReader"/> until a null terminated char is read
-        /// </summary>
-        /// <param name="binaryReader"></param>
-        /// <param name="unicode"></param>
-        /// <returns></returns>
-        public static string ReadNullTerminatedString(BinaryReader binaryReader, bool unicode = true)
-        {
-            return unicode
-                ? ReadNullTerminatedUnicodeString(binaryReader)
-                : ReadNullTerminatedAsciiString(binaryReader);
-        }
-        #endregion
-
-        #region ReadNullTerminatedString
-        /// <summary>
-        ///     Reads from the <paramref name="binaryReader"/> until a null terminated char is read
-        /// </summary>
-        /// <param name="binaryReader">The <see cref="BinaryReader" /></param>
-        /// <returns></returns>
-        public static string ReadNullTerminatedAsciiString(BinaryReader binaryReader)
-        {
-            var result = new MemoryStream();
-
-            var b = binaryReader.ReadByte();
-            while (b != 0)
-            {
-                result.WriteByte(b);
-                b = binaryReader.ReadByte();
-            }
-
-            return Encoding.ASCII.GetString(result.ToArray());
-        }
-        #endregion
-
-        #region ReadNullTerminatedUnicodeString
-        /// <summary>
-        ///     Reads from the <paramref name="binaryReader"/> until a null terminated char is read
-        /// </summary>
-        /// <param name="binaryReader">The <see cref="BinaryReader" /></param>
-        /// <returns></returns>
-        public static string ReadNullTerminatedUnicodeString(BinaryReader binaryReader)
-        {
-            var result = new MemoryStream();
-
-            var b = binaryReader.ReadBytes(2);
-            while (b[0] != 0 && b[1] != 0)
-            {
-                result.WriteByte(b[0]);
-                result.WriteByte(b[2]);
-                b = binaryReader.ReadBytes(2);
-            }
-
-            return Encoding.Unicode.GetString(result.ToArray());
-        }
-        #endregion
-
-        #region WriteNullTerminatedString
-        /// <summary>
-        ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
-        /// </summary>
-        /// <param name="binaryWriter"></param>
-        /// <param name="str">The string to write</param>
-        /// <param name="unicode"></param>
-        public static void WriteNullTerminatedString(BinaryWriter binaryWriter,
-            string str,
-            bool unicode = true)
-        {
-            if (unicode)
-                WriteNullTerminatedUnicodeString(binaryWriter, str);
-            else
-                WriteNullTerminatedAsciiString(binaryWriter, str);
-        }
-        #endregion
-
-        #region WriteNullTerminatedString
-        /// <summary>
-        ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
-        /// </summary>
-        /// <param name="binaryWriter"></param>
-        /// <param name="str">The string to write</param>
-        public static void WriteNullTerminatedAsciiString(BinaryWriter binaryWriter, string str)
-        {
-            var unicode = Encoding.Unicode.GetBytes(str);
-            var ascii = Encoding.ASCII.GetString(unicode);
-            binaryWriter.Write(ascii);
-            binaryWriter.Write(0x00);
-        }
-        #endregion
-
-        #region WriteNullTerminatedUnicodeString
-        /// <summary>
-        ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
-        /// </summary>
-        /// <param name="binaryWriter"></param>
-        /// <param name="str">The string to write</param>
-        public static void WriteNullTerminatedUnicodeString(BinaryWriter binaryWriter, string str)
-        {
-            var bytes = Encoding.Unicode.GetBytes(str);
-            binaryWriter.Write(bytes);
-            binaryWriter.Write(new byte[2]);
-        }
-        #endregion
+        return unicode
+            ? ReadNullTerminatedUnicodeString(binaryReader)
+            : ReadNullTerminatedAsciiString(binaryReader);
     }
+    #endregion
+
+    #region ReadNullTerminatedString
+    /// <summary>
+    ///     Reads from the <paramref name="binaryReader"/> until a null terminated char is read
+    /// </summary>
+    /// <param name="binaryReader">The <see cref="BinaryReader" /></param>
+    /// <returns></returns>
+    public static string ReadNullTerminatedAsciiString(BinaryReader binaryReader)
+    {
+        var result = new MemoryStream();
+
+        var b = binaryReader.ReadByte();
+        while (b != 0)
+        {
+            result.WriteByte(b);
+            b = binaryReader.ReadByte();
+        }
+
+        return Encoding.ASCII.GetString(result.ToArray());
+    }
+    #endregion
+
+    #region ReadNullTerminatedUnicodeString
+    /// <summary>
+    ///     Reads from the <paramref name="binaryReader"/> until a null terminated char is read
+    /// </summary>
+    /// <param name="binaryReader">The <see cref="BinaryReader" /></param>
+    /// <returns></returns>
+    public static string ReadNullTerminatedUnicodeString(BinaryReader binaryReader)
+    {
+        var result = new MemoryStream();
+
+        var b = binaryReader.ReadBytes(2);
+        while (b[0] != 0 && b[1] != 0)
+        {
+            result.WriteByte(b[0]);
+            result.WriteByte(b[2]);
+            b = binaryReader.ReadBytes(2);
+        }
+
+        return Encoding.Unicode.GetString(result.ToArray());
+    }
+    #endregion
+
+    #region WriteNullTerminatedString
+    /// <summary>
+    ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
+    /// </summary>
+    /// <param name="binaryWriter"></param>
+    /// <param name="str">The string to write</param>
+    /// <param name="unicode"></param>
+    public static void WriteNullTerminatedString(BinaryWriter binaryWriter,
+        string str,
+        bool unicode = true)
+    {
+        if (unicode)
+            WriteNullTerminatedUnicodeString(binaryWriter, str);
+        else
+            WriteNullTerminatedAsciiString(binaryWriter, str);
+    }
+    #endregion
+
+    #region WriteNullTerminatedString
+/// <summary>
+///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
+/// </summary>
+/// <param name="binaryWriter"></param>
+/// <param name="str">The string to write</param>
+public static void WriteNullTerminatedAsciiString(BinaryWriter binaryWriter, string str)
+{
+var unicode = Encoding.Unicode.GetBytes(str);
+var ascii = Encoding.ASCII.GetString(unicode);
+binaryWriter.Write(ascii);
+binaryWriter.Write(0x00);
+}
+#endregion
+
+    #region WriteNullTerminatedUnicodeString
+    /// <summary>
+    ///     Writes the given <paramref name="str"/> to the <paramref name="binaryWriter"/>
+    /// </summary>
+    /// <param name="binaryWriter"></param>
+    /// <param name="str">The string to write</param>
+    public static void WriteNullTerminatedUnicodeString(BinaryWriter binaryWriter, string str)
+    {
+        var bytes = Encoding.Unicode.GetBytes(str);
+        binaryWriter.Write(bytes);
+        binaryWriter.Write(new byte[2]);
+    }
+    #endregion
 }

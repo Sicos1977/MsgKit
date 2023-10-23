@@ -29,105 +29,104 @@ using System.IO;
 using MsgKit.Structures;
 using OpenMcdf;
 
-namespace MsgKit.Streams
+namespace MsgKit.Streams;
+
+/// <summary>
+///     The properties stream contained inside the top level of the .msg file, which represents the Message object itself.
+/// </summary>
+internal sealed class TopLevelProperties : Properties
 {
+    #region Properties
     /// <summary>
-    ///     The properties stream contained inside the top level of the .msg file, which represents the Message object itself.
+    ///     The ID to use for naming the next Recipient object storage if one is created inside the .msg file
     /// </summary>
-    internal sealed class TopLevelProperties : Properties
+    internal int NextRecipientId { get; set; }
+
+    /// <summary>
+    ///     The ID to use for naming the next Attachment object storage if one is created inside the .msg file
+    /// </summary>
+    internal int NextAttachmentId { get; set; }
+
+    /// <summary>
+    ///     The number of Recipient objects
+    /// </summary>
+    internal int RecipientCount { get; set; }
+
+    /// <summary>
+    ///     The number of Attachment objects
+    /// </summary>
+    internal int AttachmentCount { get; set; }
+    #endregion
+
+    #region Constructor
+    /// <summary>
+    ///     Create this object and reads all the <see cref="Property">properties</see> from 
+    ///     the given <see cref="CFStream"/>
+    /// </summary>
+    /// <param name="stream">The <see cref="CFStream"/></param>
+    internal TopLevelProperties(CFStream stream)
     {
-        #region Properties
-        /// <summary>
-        ///     The ID to use for naming the next Recipient object storage if one is created inside the .msg file
-        /// </summary>
-        internal int NextRecipientId { get; set; }
-
-        /// <summary>
-        ///     The ID to use for naming the next Attachment object storage if one is created inside the .msg file
-        /// </summary>
-        internal int NextAttachmentId { get; set; }
-
-        /// <summary>
-        ///     The number of Recipient objects
-        /// </summary>
-        internal int RecipientCount { get; set; }
-
-        /// <summary>
-        ///     The number of Attachment objects
-        /// </summary>
-        internal int AttachmentCount { get; set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        ///     Create this object and reads all the <see cref="Property">properties</see> from 
-        ///     the given <see cref="CFStream"/>
-        /// </summary>
-        /// <param name="stream">The <see cref="CFStream"/></param>
-        internal TopLevelProperties(CFStream stream)
+        using (var memoryStream = new MemoryStream(stream.GetData()))
+        using (var binaryReader = new BinaryReader(memoryStream))
         {
-            using (var memoryStream = new MemoryStream(stream.GetData()))
-            using (var binaryReader = new BinaryReader(memoryStream))
-            {
-                binaryReader.ReadBytes(8); // Reserved
-                NextRecipientId = Convert.ToInt32(binaryReader.ReadUInt32());
-                NextAttachmentId = Convert.ToInt32(binaryReader.ReadUInt32());
-                RecipientCount = Convert.ToInt32(binaryReader.ReadUInt32());
-                AttachmentCount = Convert.ToInt32(binaryReader.ReadUInt32());
-                binaryReader.ReadBytes(8); // Reserved
-                ReadProperties(binaryReader);
-            }
+            binaryReader.ReadBytes(8); // Reserved
+            NextRecipientId = Convert.ToInt32(binaryReader.ReadUInt32());
+            NextAttachmentId = Convert.ToInt32(binaryReader.ReadUInt32());
+            RecipientCount = Convert.ToInt32(binaryReader.ReadUInt32());
+            AttachmentCount = Convert.ToInt32(binaryReader.ReadUInt32());
+            binaryReader.ReadBytes(8); // Reserved
+            ReadProperties(binaryReader);
         }
-
-        /// <summary>
-        ///     Creates this object
-        /// </summary>
-        internal TopLevelProperties()
-        {
-        }
-        #endregion
-
-        #region WriteProperties
-        /// <summary>
-        ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
-        ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <paramref name="storage"/>, this depends 
-        ///     on the <see cref="Enums.PropertyType"/>
-        /// </summary>
-        /// <remarks>
-        ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic
-        ///     that is used to determine this
-        /// </remarks>
-        /// <param name="storage">The <see cref="CFStorage"/></param>
-        /// <param name="messageSize">Used to calculate the exact size of the <see cref="Message"/></param>
-        /// <returns>
-        ///     Total size of the written <see cref="Properties"/>
-        /// </returns>
-        internal long WriteProperties(CFStorage storage, long? messageSize = null)
-        {
-            using (var memoryStream = new MemoryStream())
-            using (var binaryWriter = new BinaryWriter(memoryStream))
-            {
-                // Reserved(8 bytes): This field MUST be set to zero when writing a .msg file and MUST be ignored 
-                // when reading a.msg file. 
-                binaryWriter.Write(new byte[8]);
-                // Next Recipient ID(4 bytes): The ID to use for naming the next Recipient object storage if one is 
-                // created inside the .msg file. The naming convention to be used is specified in section 2.2.1.If 
-                // no Recipient object storages are contained in the.msg file, this field MUST be set to 0.
-                binaryWriter.Write(Convert.ToUInt32(NextRecipientId));
-                // Next Attachment ID (4 bytes): The ID to use for naming the next Attachment object storage if one 
-                // is created inside the .msg file. The naming convention to be used is specified in section 2.2.2.
-                // If no Attachment object storages are contained in the.msg file, this field MUST be set to 0.
-                binaryWriter.Write(Convert.ToUInt32(NextAttachmentId));
-                // Recipient Count(4 bytes): The number of Recipient objects.
-                binaryWriter.Write(Convert.ToUInt32(RecipientCount));
-                // Attachment Count (4 bytes): The number of Attachment objects.
-                binaryWriter.Write(Convert.ToUInt32(AttachmentCount));
-                // Reserved(8 bytes): This field MUST be set to 0 when writing a msg file and MUST be ignored when 
-                // reading a msg file.
-                binaryWriter.Write(new byte[8]);
-                return WriteProperties(storage, binaryWriter, messageSize);
-            }
-        }
-        #endregion
     }
+
+    /// <summary>
+    ///     Creates this object
+    /// </summary>
+    internal TopLevelProperties()
+    {
+    }
+    #endregion
+
+    #region WriteProperties
+    /// <summary>
+    ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+    ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <paramref name="storage"/>, this depends 
+    ///     on the <see cref="Enums.PropertyType"/>
+    /// </summary>
+    /// <remarks>
+    ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic
+    ///     that is used to determine this
+    /// </remarks>
+    /// <param name="storage">The <see cref="CFStorage"/></param>
+    /// <param name="messageSize">Used to calculate the exact size of the <see cref="Message"/></param>
+    /// <returns>
+    ///     Total size of the written <see cref="Properties"/>
+    /// </returns>
+    internal long WriteProperties(CFStorage storage, long? messageSize = null)
+    {
+        using (var memoryStream = new MemoryStream())
+        using (var binaryWriter = new BinaryWriter(memoryStream))
+        {
+            // Reserved(8 bytes): This field MUST be set to zero when writing a .msg file and MUST be ignored 
+            // when reading a.msg file. 
+            binaryWriter.Write(new byte[8]);
+            // Next Recipient ID(4 bytes): The ID to use for naming the next Recipient object storage if one is 
+            // created inside the .msg file. The naming convention to be used is specified in section 2.2.1.If 
+            // no Recipient object storages are contained in the.msg file, this field MUST be set to 0.
+            binaryWriter.Write(Convert.ToUInt32(NextRecipientId));
+            // Next Attachment ID (4 bytes): The ID to use for naming the next Attachment object storage if one 
+            // is created inside the .msg file. The naming convention to be used is specified in section 2.2.2.
+            // If no Attachment object storages are contained in the.msg file, this field MUST be set to 0.
+            binaryWriter.Write(Convert.ToUInt32(NextAttachmentId));
+            // Recipient Count(4 bytes): The number of Recipient objects.
+            binaryWriter.Write(Convert.ToUInt32(RecipientCount));
+            // Attachment Count (4 bytes): The number of Attachment objects.
+            binaryWriter.Write(Convert.ToUInt32(AttachmentCount));
+            // Reserved(8 bytes): This field MUST be set to 0 when writing a msg file and MUST be ignored when 
+            // reading a msg file.
+            binaryWriter.Write(new byte[8]);
+            return WriteProperties(storage, binaryWriter, messageSize);
+        }
+    }
+    #endregion
 }

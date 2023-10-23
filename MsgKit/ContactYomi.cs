@@ -25,28 +25,28 @@
 //
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace MsgKit
+
+namespace MsgKit;
+
+/// <summary>
+///     Placeholder for a <see cref="Contact"/> other address
+/// </summary>
+public class ContactYomi
 {
+    #region Properties
     /// <summary>
-    ///     Placeholder for a <see cref="Contact"/> other address
+    ///     The first name
     /// </summary>
-    public class ContactYomi
-    {
-        #region Properties
-        /// <summary>
-        ///     The first name
-        /// </summary>
-        public string FirstName { get; set; }
+    public string FirstName { get; set; }
 
-        /// <summary>
-        ///     The last name
-        /// </summary>
-        public string LastName{ get; set; }
+    /// <summary>
+    ///     The last name
+    /// </summary>
+    public string LastName { get; set; }
 
-        /// <summary>
-        ///     The company name
-        /// </summary>
-        public string CompanyName { get; set; }
-        #endregion
-    }
+    /// <summary>
+    ///     The company name
+    /// </summary>
+    public string CompanyName { get; set; }
+    #endregion
 }

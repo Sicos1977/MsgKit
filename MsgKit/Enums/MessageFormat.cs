@@ -24,26 +24,25 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     The messageformat to use
+/// </summary>
+public enum MessageFormat
 {
     /// <summary>
-    ///     The messageformat to use
+    ///     Send a plain text message body.
     /// </summary>
-    public enum MessageFormat
-    {
-        /// <summary>
-        ///     Send a plain text message body.
-        /// </summary>
-        TextOnly,
+    TextOnly,
 
-        /// <summary>
-        ///     Send an HTML message body.
-        /// </summary>
-        HtmlOnly,
+    /// <summary>
+    ///     Send an HTML message body.
+    /// </summary>
+    HtmlOnly,
 
-        /// <summary>
-        ///     Send a multipart / alternative body with both plain text and HTML.
-        /// </summary>
-        TextAndHtml
-    }
+    /// <summary>
+    ///     Send a multipart / alternative body with both plain text and HTML.
+    /// </summary>
+    TextAndHtml
 }

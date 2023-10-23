@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+/// Raised when an attachment with the same name already exists
+/// </summary>
+public class MKAttachmentExists : Exception
 {
-    /// <summary>
-    /// Raised when an attachment with the same name already exists
-    /// </summary>
-    public class MKAttachmentExists : Exception
+    internal MKAttachmentExists()
     {
-        internal MKAttachmentExists() 
-        {
-        }
+    }
 
-        internal MKAttachmentExists(string message) : base(message)
-        {
-        }
+    internal MKAttachmentExists(string message) : base(message)
+    {
+    }
 
-        internal MKAttachmentExists(string message, Exception inner) : base(message, inner)
-        {
-        }
+    internal MKAttachmentExists(string message, Exception inner) : base(message, inner)
+    {
     }
 }

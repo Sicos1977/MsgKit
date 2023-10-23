@@ -26,44 +26,43 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskMode" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee178286(v=exchg.80).aspx
+/// </remarks>
+public enum TaskMode : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskMode" /> property
+    ///     The Task object is not assigned.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee178286(v=exchg.80).aspx
-    /// </remarks>
-    public enum TaskMode : uint
-    {
-        /// <summary>
-        ///     The Task object is not assigned.
-        /// </summary>
-        NotAssigned = 0,
+    NotAssigned = 0,
 
-        /// <summary>
-        ///     The Task object is embedded in a task request.
-        /// </summary>
-        Requests = 1,
+    /// <summary>
+    ///     The Task object is embedded in a task request.
+    /// </summary>
+    Requests = 1,
 
-        /// <summary>
-        ///     The Task object has been accepted by the task assignee.
-        /// </summary>
-        Accepted = 2,
+    /// <summary>
+    ///     The Task object has been accepted by the task assignee.
+    /// </summary>
+    Accepted = 2,
 
-        /// <summary>
-        ///     The Task object was rejected by the task assignee.
-        /// </summary>
-        Rejected = 3,
+    /// <summary>
+    ///     The Task object was rejected by the task assignee.
+    /// </summary>
+    Rejected = 3,
 
-        /// <summary>
-        ///     The Task object is embedded in a task update.
-        /// </summary>
-        Update = 4,
+    /// <summary>
+    ///     The Task object is embedded in a task update.
+    /// </summary>
+    Update = 4,
 
-        /// <summary>
-        ///     The Task object was assigned to the task assigner (self-delegation).
-        /// </summary>
-        SelfDelegation = 5
-    }
+    /// <summary>
+    ///     The Task object was assigned to the task assigner (self-delegation).
+    /// </summary>
+    SelfDelegation = 5
 }

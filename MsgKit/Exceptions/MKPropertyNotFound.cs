@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+///     Raised when a property is not found
+/// </summary>
+public class MKPropertyNotFound : Exception
 {
-    /// <summary>
-    ///     Raised when a property is not found
-    /// </summary>
-    public class MKPropertyNotFound : Exception
+    internal MKPropertyNotFound()
     {
-        internal MKPropertyNotFound()
-        {
-        }
+    }
 
-        internal MKPropertyNotFound(string message) : base(message)
-        {
-        }
+    internal MKPropertyNotFound(string message) : base(message)
+    {
+    }
 
-        internal MKPropertyNotFound(string message, Exception inner): base(message, inner)
-        {
-        }
+    internal MKPropertyNotFound(string message, Exception inner) : base(message, inner)
+    {
     }
 }

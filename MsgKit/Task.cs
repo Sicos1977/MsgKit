@@ -28,204 +28,203 @@ using System;
 using OpenMcdf;
 using Stream = System.IO.Stream;
 
-namespace MsgKit
+namespace MsgKit;
+
+/// <summary>
+///     A class used to make a task that can be added to an <see cref="Email"/> or <see cref="Appointment"/>
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/office/cc979231.aspx
+/// </remarks>
+public class Task : Message
 {
+    #region Properties
     /// <summary>
-    ///     A class used to make a task that can be added to an <see cref="Email"/> or <see cref="Appointment"/>
+    /// 
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/office/cc979231.aspx
-    /// </remarks>
-    public class Task : Message
+    public DateTime ReminderTime { get; set; }
+
+    /// <summary>
+    /// Start date of the task
+    /// </summary>
+    public DateTime TaskStartDate { get; set; }
+
+    /// <summary>
+    /// Due date of the task
+    /// </summary>
+    public DateTime TaskDueDate { get; set; }
+
+    /// <summary>
+    /// <c>true</c> when the task is complete
+    /// </summary>
+    public bool TaskComplete { get; set; }
+
+    /// <summary>
+    /// The complete percentage of the task
+    /// </summary>
+    public double PercentComplete { get; set; }
+
+    /// <summary>
+    /// The actual task effort in minutes
+    /// </summary>
+    public long TaskActualEffort { get; set; }
+
+    /// <summary>
+    /// The estimated task effort in minutes
+    /// </summary>
+    public long TaskEstimatedEffort { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool TaskNoCompute { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool TaskFFixOffline { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long TaskOwnership { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long TaskAcceptanceState { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string TaskRole { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string TaskVersion { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long TaskState { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string TaskAssigner { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string TaskOwner { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool TeamTask { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long TaskOrdinal { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string TaskFRecurring { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long ReminderDelta { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public DateTime ReminderSignalTime { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public DateTime CommonStart { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public DateTime CommonEnd { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool AgingDontAgeMe { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public long TaskMode { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public DateTime ToDoOrdinalDate { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string ToDoSubOrdinal { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public DateTime ValidFlagStringProof { get; set; }
+    #endregion
+
+    #region WriteToStorage
+    /// <summary>
+    ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="CFStorage"/>'s
+    ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
+    /// </summary>
+    private void WriteToStorage()
     {
-        #region Properties
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime ReminderTime { get; set; }
+        var rootStorage = CompoundFile.RootStorage;
 
-        /// <summary>
-        /// Start date of the task
-        /// </summary>
-        public DateTime TaskStartDate { get; set; }
-
-        /// <summary>
-        /// Due date of the task
-        /// </summary>
-        public DateTime TaskDueDate { get; set; }
-
-        /// <summary>
-        /// <c>true</c> when the task is complete
-        /// </summary>
-        public bool TaskComplete { get; set; }
-
-        /// <summary>
-        /// The complete percentage of the task
-        /// </summary>
-        public double PercentComplete { get; set; }
-
-        /// <summary>
-        /// The actual task effort in minutes
-        /// </summary>
-        public long TaskActualEffort { get; set; }
-
-        /// <summary>
-        /// The estimated task effort in minutes
-        /// </summary>
-        public long TaskEstimatedEffort { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool TaskNoCompute { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool TaskFFixOffline { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long TaskOwnership { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long TaskAcceptanceState { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string TaskRole { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string TaskVersion { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long TaskState { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string TaskAssigner { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string TaskOwner { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool TeamTask { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long TaskOrdinal { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string TaskFRecurring { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long ReminderDelta { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime ReminderSignalTime { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime CommonStart { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime CommonEnd { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool AgingDontAgeMe { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public long TaskMode { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime ToDoOrdinalDate { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ToDoSubOrdinal { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTime ValidFlagStringProof { get; set; }
-        #endregion
-
-        #region WriteToStorage
-        /// <summary>
-        ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="CFStorage"/>'s
-        ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
-        /// </summary>
-        private void WriteToStorage()
-        {
-            var rootStorage = CompoundFile.RootStorage;
-
-            //var namedProperties = new NamedProperties(propertiesStream); //Uses the top level properties. 
-            //namedProperties.AddProperty(NamedPropertyTags.PidLidLocation, Location);
-            //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
-            //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
-            //namedProperties.AddProperty(NamedPropertyTags.PidLidMeetingType, MeetingType.mtgRequest);
-            //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
-            //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
-            //namedProperties.WriteProperties(rootStorage);
-            //propertiesStream.WriteProperties(rootStorage, messageSize);
-        }
-        #endregion
-
-        public Task()
-        {
-            throw new NotImplementedException("This functionality is not yet completely implemented");
-        }
-
-        #region Save
-        /// <summary>
-        ///     Saves the message to the given <paramref name="stream" />
-        /// </summary>
-        /// <param name="stream"></param>
-        public new void Save(Stream stream)
-        {
-            WriteToStorage();
-            base.Save(stream);
-        }
-
-        /// <summary>
-        ///     Saves the message to the given <paramref name="fileName" />
-        /// </summary>
-        /// <param name="fileName"></param>
-        public new void Save(string fileName)
-        {
-            WriteToStorage();
-            base.Save(fileName);
-        }
-        #endregion
+        //var namedProperties = new NamedProperties(propertiesStream); //Uses the top level properties. 
+        //namedProperties.AddProperty(NamedPropertyTags.PidLidLocation, Location);
+        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
+        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
+        //namedProperties.AddProperty(NamedPropertyTags.PidLidMeetingType, MeetingType.mtgRequest);
+        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
+        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
+        //namedProperties.WriteProperties(rootStorage);
+        //propertiesStream.WriteProperties(rootStorage, messageSize);
     }
+    #endregion
+
+    public Task()
+    {
+        throw new NotImplementedException("This functionality is not yet completely implemented");
+    }
+
+    #region Save
+    /// <summary>
+    ///     Saves the message to the given <paramref name="stream" />
+    /// </summary>
+    /// <param name="stream"></param>
+    public new void Save(Stream stream)
+    {
+        WriteToStorage();
+        base.Save(stream);
+    }
+
+    /// <summary>
+    ///     Saves the message to the given <paramref name="fileName" />
+    /// </summary>
+    /// <param name="fileName"></param>
+    public new void Save(string fileName)
+    {
+        WriteToStorage();
+        base.Save(fileName);
+    }
+    #endregion
 }

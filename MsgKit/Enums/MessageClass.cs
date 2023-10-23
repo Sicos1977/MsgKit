@@ -25,138 +25,139 @@
 //
 
 // ReSharper disable InconsistentNaming
-namespace MsgKit.Enums
+
+namespace MsgKit.Enums;
+
+/// <summary>
+///     The MessageClass element is an optional element that specifies the message class of this e-mail message.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee200767(v=exchg.80).aspx
+/// </remarks>
+public enum MessageClass
 {
     /// <summary>
-    ///     The MessageClass element is an optional element that specifies the message class of this e-mail message.
+    ///     The message type is unknown
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee200767(v=exchg.80).aspx
-    /// </remarks>
-    public enum MessageClass
-    {
-        /// <summary>
-        ///     The message type is unknown
-        /// </summary>
-        Unknown,
+    Unknown,
 
-        /// <summary>
-        ///     Normal e-mail message.
-        /// </summary>
-        IPM_Note,
+    /// <summary>
+    ///     Normal e-mail message.
+    /// </summary>
+    IPM_Note,
 
-        /// <summary>
-        ///     The message is encrypted and can also be signed.
-        /// </summary>
-        IPM_Note_SMIME,
+    /// <summary>
+    ///     The message is encrypted and can also be signed.
+    /// </summary>
+    IPM_Note_SMIME,
 
-        /// <summary>
-        ///     The message is clear signed.
-        /// </summary>
-        IPM_Note_SMIME_MultipartSigned,
+    /// <summary>
+    ///     The message is clear signed.
+    /// </summary>
+    IPM_Note_SMIME_MultipartSigned,
 
-        /// <summary>
-        ///     The message is a secure read receipt.
-        /// </summary>
-        IPM_Note_Receipt_SMIME,
-        /// <summary>
-        ///     Post.
-        /// </summary>
-        IPM_Post,
+    /// <summary>
+    ///     The message is a secure read receipt.
+    /// </summary>
+    IPM_Note_Receipt_SMIME,
 
-        /// <summary>
-        ///     Octel voice message.
-        /// </summary>
-        IPM_Octel_Voice,
+    /// <summary>
+    ///     Post.
+    /// </summary>
+    IPM_Post,
 
-        /// <summary>
-        ///     Electronic voice notes.
-        /// </summary>
-        IPM_Voicenotes,
+    /// <summary>
+    ///     Octel voice message.
+    /// </summary>
+    IPM_Octel_Voice,
 
-        /// <summary>
-        ///     Shared message.
-        /// </summary>
-        IPM_Sharing,
+    /// <summary>
+    ///     Electronic voice notes.
+    /// </summary>
+    IPM_Voicenotes,
 
-        /// <summary>
-        ///     Non-delivery report for a standard message.
-        /// </summary>
-        REPORT_IPM_NOTE_NDR,
+    /// <summary>
+    ///     Shared message.
+    /// </summary>
+    IPM_Sharing,
 
-        /// <summary>
-        ///     Delivery receipt for a standard message.
-        /// </summary>
-        REPORT_IPM_NOTE_DR,
+    /// <summary>
+    ///     Non-delivery report for a standard message.
+    /// </summary>
+    REPORT_IPM_NOTE_NDR,
 
-        /// <summary>
-        ///     Delivery receipt for a delayed message.
-        /// </summary>
-        REPORT_IPM_NOTE_DELAYED,
+    /// <summary>
+    ///     Delivery receipt for a standard message.
+    /// </summary>
+    REPORT_IPM_NOTE_DR,
 
-        /// <summary>
-        ///     Read receipt for a standard message.
-        /// </summary>
-        REPORT_IPM_NOTE_IPNRN,
+    /// <summary>
+    ///     Delivery receipt for a delayed message.
+    /// </summary>
+    REPORT_IPM_NOTE_DELAYED,
 
-        /// <summary>
-        ///     Non-read receipt for a standard message.
-        /// </summary>
-        REPORT_IPM_NOTE_IPNNRN,
+    /// <summary>
+    ///     Read receipt for a standard message.
+    /// </summary>
+    REPORT_IPM_NOTE_IPNRN,
 
-        /// <summary>
-        ///     Non-delivery report for a meeting request.
-        /// </summary>
-        REPORT_IPM_SCHEDULE_MEETING_REQUEST_NDR,
+    /// <summary>
+    ///     Non-read receipt for a standard message.
+    /// </summary>
+    REPORT_IPM_NOTE_IPNNRN,
 
-        /// <summary>
-        ///     Non-delivery report for a positive meeting response (accept).
-        /// </summary>
-        REPORT_IPM_SCHEDULE_MEETING_RESP_POS_NDR,
+    /// <summary>
+    ///     Non-delivery report for a meeting request.
+    /// </summary>
+    REPORT_IPM_SCHEDULE_MEETING_REQUEST_NDR,
 
-        /// <summary>
-        ///     Non-delivery report for a Tentative meeting response.
-        /// </summary>
-        REPORT_IPM_SCHEDULE_MEETING_RESP_TENT_NDR,
+    /// <summary>
+    ///     Non-delivery report for a positive meeting response (accept).
+    /// </summary>
+    REPORT_IPM_SCHEDULE_MEETING_RESP_POS_NDR,
 
-        /// <summary>
-        ///     Non-delivery report for a cancelled meeting notification.
-        /// </summary>
-        REPORT_IPM_SCHEDULE_MEETING_CANCELED_NDR,
+    /// <summary>
+    ///     Non-delivery report for a Tentative meeting response.
+    /// </summary>
+    REPORT_IPM_SCHEDULE_MEETING_RESP_TENT_NDR,
 
-        /// <summary>
-        ///     Non-delivery report for a Secure MIME (S/MIME) encrypted and opaque-signed message.
-        /// </summary>
-        REPORT_IPM_NOTE_SMIME_NDR,
+    /// <summary>
+    ///     Non-delivery report for a cancelled meeting notification.
+    /// </summary>
+    REPORT_IPM_SCHEDULE_MEETING_CANCELED_NDR,
 
-        /// <summary>
-        ///     Delivery receipt for an S/MIME encrypted and opaque-signed message.
-        /// </summary>
-        REPORT_IPM_NOTE_SMIME_DR,
+    /// <summary>
+    ///     Non-delivery report for a Secure MIME (S/MIME) encrypted and opaque-signed message.
+    /// </summary>
+    REPORT_IPM_NOTE_SMIME_NDR,
 
-        /// <summary>
-        ///     Non-delivery report for an S/MIME clear-signed message.
-        /// </summary>
-        REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_NDR,
+    /// <summary>
+    ///     Delivery receipt for an S/MIME encrypted and opaque-signed message.
+    /// </summary>
+    REPORT_IPM_NOTE_SMIME_DR,
 
-        /// <summary>
-        ///     Delivery receipt for an S/MIME clear-signed message.
-        /// </summary>
-        REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_DR,
+    /// <summary>
+    ///     Non-delivery report for an S/MIME clear-signed message.
+    /// </summary>
+    REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_NDR,
 
-        /// <summary>
-        ///     An appointment
-        /// </summary>
-        IPM_Appointment,
+    /// <summary>
+    ///     Delivery receipt for an S/MIME clear-signed message.
+    /// </summary>
+    REPORT_IPM_NOTE_SMIME_MULTIPARTSIGNED_DR,
 
-        /// <summary>
-        ///     Task
-        /// </summary>
-        IPM_Task,
+    /// <summary>
+    ///     An appointment
+    /// </summary>
+    IPM_Appointment,
 
-        /// <summary>
-        ///     A contact
-        /// </summary>
-        IPM_Contact
-    }
+    /// <summary>
+    ///     Task
+    /// </summary>
+    IPM_Task,
+
+    /// <summary>
+    ///     A contact
+    /// </summary>
+    IPM_Contact
 }

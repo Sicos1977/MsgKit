@@ -26,34 +26,33 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidAcceptanceState" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/cc839689.aspx
+/// </remarks>
+public enum TaskAcceptanceState : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidAcceptanceState" /> property
+    ///     The task is not assigned.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/cc839689.aspx
-    /// </remarks>
-    public enum TaskAcceptanceState : uint
-    {
-        /// <summary>
-        ///     The task is not assigned.
-        /// </summary>
-        NotAssigned = 0x00000000,
+    NotAssigned = 0x00000000,
 
-        /// <summary>
-        ///     The task’s acceptance status is unknown.
-        /// </summary>
-        Unknow = 0x00000001,
+    /// <summary>
+    ///     The task’s acceptance status is unknown.
+    /// </summary>
+    Unknow = 0x00000001,
 
-        /// <summary>
-        ///     The task assignee accepted the task. This value is set when the client processes a task acceptance.
-        /// </summary>
-        Accepted = 0x00000002,
+    /// <summary>
+    ///     The task assignee accepted the task. This value is set when the client processes a task acceptance.
+    /// </summary>
+    Accepted = 0x00000002,
 
-        /// <summary>
-        ///     The task assignee rejected the task. This value is set when the client processes a task rejection.
-        /// </summary>
-        Refused = 0x00000003
-    }
+    /// <summary>
+    ///     The task assignee rejected the task. This value is set when the client processes a task rejection.
+    /// </summary>
+    Refused = 0x00000003
 }

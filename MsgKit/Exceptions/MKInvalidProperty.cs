@@ -26,23 +26,22 @@
 
 using System;
 
-namespace MsgKit.Exceptions
+namespace MsgKit.Exceptions;
+
+/// <summary>
+///     Raised when a property is invalid
+/// </summary>
+public class MKInvalidProperty : Exception
 {
-    /// <summary>
-    ///     Raised when a property is invalid
-    /// </summary>
-    public class MKInvalidProperty : Exception
+    internal MKInvalidProperty()
     {
-        internal MKInvalidProperty()
-        {
-        }
+    }
 
-        internal MKInvalidProperty(string message) : base(message)
-        {
-        }
+    internal MKInvalidProperty(string message) : base(message)
+    {
+    }
 
-        internal MKInvalidProperty(string message, Exception inner) : base(message, inner)
-        {
-        }
+    internal MKInvalidProperty(string message, Exception inner) : base(message, inner)
+    {
     }
 }

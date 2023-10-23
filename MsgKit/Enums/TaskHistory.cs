@@ -26,44 +26,43 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskHistory" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee160354(v=EXCHG.80).aspx
+/// </remarks>
+public enum TaskHistory : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskHistory" /> property
+    ///     No changes were made.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee160354(v=EXCHG.80).aspx
-    /// </remarks>
-    public enum TaskHistory : uint
-    {
-        /// <summary>
-        ///     No changes were made.
-        /// </summary>
-        NoChange = 0x00000000,
+    NoChange = 0x00000000,
 
-        /// <summary>
-        ///     The task assignee accepted this Task object.
-        /// </summary>
-        Accepted = 0x00000001,
+    /// <summary>
+    ///     The task assignee accepted this Task object.
+    /// </summary>
+    Accepted = 0x00000001,
 
-        /// <summary>
-        ///     The task assignee rejected this Task object.
-        /// </summary>
-        Rejected = 0x00000002,
+    /// <summary>
+    ///     The task assignee rejected this Task object.
+    /// </summary>
+    Rejected = 0x00000002,
 
-        /// <summary>
-        ///     Another property was changed.
-        /// </summary>
-        Modified = 0x00000003,
+    /// <summary>
+    ///     Another property was changed.
+    /// </summary>
+    Modified = 0x00000003,
 
-        /// <summary>
-        ///     The PidLidTaskDueDate property(section 2.2.2.2.5) changed.
-        /// </summary>
-        DueDateModified = 0x00000004,
+    /// <summary>
+    ///     The PidLidTaskDueDate property(section 2.2.2.2.5) changed.
+    /// </summary>
+    DueDateModified = 0x00000004,
 
-        /// <summary>
-        ///     The Task object has been assigned to a task assignee.
-        /// </summary>
-        Assigned = 0x00000005
-    }
+    /// <summary>
+    ///     The Task object has been assigned to a task assignee.
+    /// </summary>
+    Assigned = 0x00000005
 }

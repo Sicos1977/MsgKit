@@ -26,39 +26,38 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskState" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/cc765590(v=office.12).aspx
+/// </remarks>
+public enum TaskState : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskState" /> property
+    ///     This task was created to correspond to a task that was embedded in a task rejection but could not be found locally.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/cc765590(v=office.12).aspx
-    /// </remarks>
-    public enum TaskState : uint
-    {
-        /// <summary>
-        ///     This task was created to correspond to a task that was embedded in a task rejection but could not be found locally.
-        /// </summary>
-        NotFound = 0x00000000,
+    NotFound = 0x00000000,
 
-        /// <summary>
-        ///     The task is not assigned.
-        /// </summary>
-        NotAssigned = 0x00000001,
+    /// <summary>
+    ///     The task is not assigned.
+    /// </summary>
+    NotAssigned = 0x00000001,
 
-        /// <summary>
-        ///     The task is the task assignee’s copy of an assigned task.
-        /// </summary>
-        AssigneeCopy = 0x00000002,
+    /// <summary>
+    ///     The task is the task assignee’s copy of an assigned task.
+    /// </summary>
+    AssigneeCopy = 0x00000002,
 
-        /// <summary>
-        ///     The task is the task assigner’s copy of an assigned task.
-        /// </summary>
-        AssignerCopy = 0x00000003,
+    /// <summary>
+    ///     The task is the task assigner’s copy of an assigned task.
+    /// </summary>
+    AssignerCopy = 0x00000003,
 
-        /// <summary>
-        ///     The task is the task assigner’s copy of a rejected task.
-        /// </summary>
-        AssignerCopyRejected = 0x00000004
-    }
+    /// <summary>
+    ///     The task is the task assigner’s copy of a rejected task.
+    /// </summary>
+    AssignerCopyRejected = 0x00000004
 }

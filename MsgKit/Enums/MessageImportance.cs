@@ -25,29 +25,29 @@
 //
 
 // ReSharper disable InconsistentNaming
-namespace MsgKit.Enums
+
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Contains the relative priority of a message.
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/cc815346(v=office.15).aspx
+/// </remarks>
+public enum MessageImportance
 {
     /// <summary>
-    ///     Contains the relative priority of a message.
+    ///     The message has low importance.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/cc815346(v=office.15).aspx
-    /// </remarks>
-    public enum MessageImportance
-    {
-        /// <summary>
-        ///     The message has low importance.
-        /// </summary>
-        IMPORTANCE_LOW = 0,
+    IMPORTANCE_LOW = 0,
 
-        /// <summary>
-        ///     The message has normal importance.
-        /// </summary>
-        IMPORTANCE_NORMAL = 1,
+    /// <summary>
+    ///     The message has normal importance.
+    /// </summary>
+    IMPORTANCE_NORMAL = 1,
 
-        /// <summary>
-        ///     The message has high importance.
-        /// </summary>
-        IMPORTANCE_HIGH = 2
-    }
+    /// <summary>
+    ///     The message has high importance.
+    /// </summary>
+    IMPORTANCE_HIGH = 2
 }

@@ -26,43 +26,42 @@
 // THE SOFTWARE.
 //
 
-namespace MsgKit.Enums
+namespace MsgKit.Enums;
+
+/// <summary>
+///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskStatus" /> property
+/// </summary>
+/// <remarks>
+///     See https://msdn.microsoft.com/en-us/library/ee159828(v=exchg.80).aspx
+/// </remarks>
+public enum TaskStatus : uint
 {
     /// <summary>
-    ///     Valid values for the <see cref="NamedPropertyTags.PidLidTaskStatus" /> property
+    ///     The user has not started work on the Task object. If the property is set to this value, the value of the
+    ///     PidLidPercentComplete property (section 2.2.2.2.3) MUST be 0.0.
     /// </summary>
-    /// <remarks>
-    ///     See https://msdn.microsoft.com/en-us/library/ee159828(v=exchg.80).aspx
-    /// </remarks>
-    public enum TaskStatus : uint
-    {
-        /// <summary>
-        ///     The user has not started work on the Task object. If the property is set to this value, the value of the
-        ///     PidLidPercentComplete property (section 2.2.2.2.3) MUST be 0.0.
-        /// </summary>
-        NotStarted = 0x00000000,
+    NotStarted = 0x00000000,
 
-        /// <summary>
-        ///     The user's work on this Task object is in progress. If the property is set to this value, the value of the
-        ///     PidLidPercentComplete property MUST be greater than 0.0 and less than 1.0.
-        /// </summary>
-        InProgress = 0x00000001,
+    /// <summary>
+    ///     The user's work on this Task object is in progress. If the property is set to this value, the value of the
+    ///     PidLidPercentComplete property MUST be greater than 0.0 and less than 1.0.
+    /// </summary>
+    InProgress = 0x00000001,
 
-        /// <summary>
-        ///     The user's work on this Task object is complete. If the property is set to this value, the value of the
-        ///     PidLidPercentComplete property MUST be 1.0, the value of the PidLidTaskDateCompleted property (section 2.2.2.2.9)
-        ///     MUST be the current date, and the value of the PidLidTaskComplete property (section 2.2.2.2.20) MUST be 0x01.
-        /// </summary>
-        Completed = 0x00000002,
+    /// <summary>
+    ///     The user's work on this Task object is complete. If the property is set to this value, the value of the
+    ///     PidLidPercentComplete property MUST be 1.0, the value of the PidLidTaskDateCompleted property (section 2.2.2.2.9)
+    ///     MUST be the current date, and the value of the PidLidTaskComplete property (section 2.2.2.2.20) MUST be 0x01.
+    /// </summary>
+    Completed = 0x00000002,
 
-        /// <summary>
-        ///     The user is waiting on somebody else.
-        /// </summary>
-        Waiting = 0x00000003,
+    /// <summary>
+    ///     The user is waiting on somebody else.
+    /// </summary>
+    Waiting = 0x00000003,
 
-        /// <summary>
-        ///     The user has deferred work on the Task object.
-        /// </summary>
-        Deferred = 0x00000004
-    }
+    /// <summary>
+    ///     The user has deferred work on the Task object.
+    /// </summary>
+    Deferred = 0x00000004
 }
