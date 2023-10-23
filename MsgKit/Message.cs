@@ -214,7 +214,7 @@ namespace MsgKit
         /// <param name="propertyTag"><see cref="PropertyTag"/></param>
         /// <param name="value">The value of the property</param>
         /// <param name="flags"><see cref="PropertyFlags"/></param>
-        /// <exception cref="MKMessageSaved">Raised when the mesage has already been saved with the Save method</exception>
+        /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
         public void AddProperty(PropertyTag propertyTag, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
         {
             if (_saved)
