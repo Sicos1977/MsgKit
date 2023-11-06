@@ -56,6 +56,7 @@ namespace MsgKitTestTool
                 email.BodyText = TextBodyTextBox.Text;
                 email.BodyHtml = HtmlBodyTextBox.Text;
                 email.SentOn = SentOnDatePicker.Value.ToUniversalTime();
+                email.AddProperty(NamedPropertyTags.PidLidBilling, "Test");
 
                 switch (ImportanceComboBox.Text)
                 {
