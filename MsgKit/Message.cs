@@ -231,7 +231,6 @@ public class Message : IDisposable
     /// </summary>
     /// <param name="namedProperty"><see cref="NamedPropertyTag"/></param>
     /// <param name="value">The value of the property</param>
-    /// <param name="flags"><see cref="PropertyFlags"/></param>
     /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
     public void AddProperty(NamedPropertyTag namedProperty, object value)
     {
