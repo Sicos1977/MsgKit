@@ -27,6 +27,7 @@
 using System;
 using MsgKit.Enums;
 using OpenMcdf;
+// ReSharper disable UnusedMember.Global
 
 namespace MsgKit;
 
