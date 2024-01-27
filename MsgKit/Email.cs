@@ -78,6 +78,12 @@ public class Email : Message, IDisposable
     ///     The subject of the E-mail
     /// </summary>
     private string _subject;
+
+    /// <summary>
+    ///     When set to &lt;c&gt;true&lt;/c&gt; then the &lt;see cref="Attachment.Stream"/&gt;'s
+    ///     will not be disposed when calling the &lt;see cref="Dispose"/&gt; method. Default set to &lt;c&gt;false&lt;/c&gt;
+    /// </summary>
+    private readonly bool _leaveAttachmentStreamsOpen;
     #endregion
 
     #region Properties
@@ -287,10 +293,13 @@ public class Email : Message, IDisposable
     /// <param name="subject">The subject of the E-mail</param>
     /// <param name="draft">Set to <c>true</c> to save the E-mail as a draft message</param>
     /// <param name="readReceipt">Set to <c>true</c> to request a read receipt for the E-mail</param>
+    /// <param name="leaveAttachmentStreamsOpen">When set to <c>true</c> then the <see cref="Attachment.Stream"/>'s
+    /// will not be disposed when calling the <see cref="Dispose"/> method. Default set to <c>false</c></param>
     public Email(Sender sender,
         string subject,
         bool draft = false,
-        bool readReceipt = false)
+        bool readReceipt = false,
+        bool leaveAttachmentStreamsOpen = false)
     {
         Sender = sender;
         Subject = subject;
@@ -298,6 +307,7 @@ public class Email : Message, IDisposable
         IconIndex = MessageIconIndex.NewMail;
         Draft = draft;
         ReadRecipient = readReceipt;
+        _leaveAttachmentStreamsOpen = leaveAttachmentStreamsOpen;
     }
 
     /// <summary>
@@ -308,11 +318,14 @@ public class Email : Message, IDisposable
     /// <param name="subject">The subject of the E-mail</param>
     /// <param name="draft">Set to <c>true</c> to save the E-mail as a draft message</param>
     /// <param name="readReceipt">Set to <c>true</c> to request a read receipt for the E-mail</param>
+    /// <param name="leaveAttachmentStreamsOpen">When set to <c>true</c> then the <see cref="Attachment.Stream"/>'s
+    /// will not be disposed when calling the <see cref="Dispose"/> method. Default set to <c>false</c></param>
     public Email(Sender sender,
         Representing representing,
         string subject,
         bool draft = false,
-        bool readReceipt = false)
+        bool readReceipt = false,
+        bool leaveAttachmentStreamsOpen = false)
     {
         Sender = sender;
         Representing = representing;
@@ -321,6 +334,7 @@ public class Email : Message, IDisposable
         IconIndex = MessageIconIndex.NewMail;
         Draft = draft;
         ReadRecipient = readReceipt;
+        _leaveAttachmentStreamsOpen = leaveAttachmentStreamsOpen;
     }
     #endregion
 
@@ -402,12 +416,9 @@ public class Email : Message, IDisposable
 
         TopLevelProperties.AddProperty(PropertyTags.PR_ENTRYID, Mapi.GenerateEntryId());
         TopLevelProperties.AddProperty(PropertyTags.PR_INSTANCE_KEY, Mapi.GenerateInstanceKey());
-        TopLevelProperties.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask,
-            PropertyFlags.PROPATTR_READABLE);
-        TopLevelProperties.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.StoreSupportMask,
-            PropertyFlags.PROPATTR_READABLE);
-        TopLevelProperties.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true,
-            PropertyFlags.PROPATTR_READABLE);
+        TopLevelProperties.AddProperty(PropertyTags.PR_STORE_SUPPORT_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
+        TopLevelProperties.AddProperty(PropertyTags.PR_STORE_UNICODE_MASK, StoreSupportMaskConst.StoreSupportMask, PropertyFlags.PROPATTR_READABLE);
+        TopLevelProperties.AddProperty(PropertyTags.PR_ALTERNATE_RECIPIENT_ALLOWED, true, PropertyFlags.PROPATTR_READABLE);
         TopLevelProperties.AddProperty(PropertyTags.PR_HASATTACH, attachmentCount > 0);
 
         if (TransportMessageHeaders != null)
@@ -468,15 +479,15 @@ public class Email : Message, IDisposable
 
         SentOn ??= DateTime.UtcNow;
 
-            if (ReceivedOn.HasValue && ReceivedOn > DateTime.MinValue)
-                TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_DELIVERY_TIME, ReceivedOn.Value.ToUniversalTime());
+        if (ReceivedOn.HasValue && ReceivedOn > DateTime.MinValue)
+            TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_DELIVERY_TIME, ReceivedOn.Value.ToUniversalTime());
 
-            if (SentOn.HasValue && SentOn > DateTime.MinValue)
-                TopLevelProperties.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
+        if (SentOn.HasValue && SentOn > DateTime.MinValue)
+            TopLevelProperties.AddProperty(PropertyTags.PR_CLIENT_SUBMIT_TIME, SentOn.Value.ToUniversalTime());
 
-            TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
-            TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
-            TopLevelProperties.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
+        TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS, MapiAccess.MAPI_ACCESS_DELETE | MapiAccess.MAPI_ACCESS_MODIFY | MapiAccess.MAPI_ACCESS_READ);
+        TopLevelProperties.AddProperty(PropertyTags.PR_ACCESS_LEVEL, MapiAccess.MAPI_ACCESS_MODIFY);
+        TopLevelProperties.AddProperty(PropertyTags.PR_OBJECT_TYPE, MapiObjectType.MAPI_MESSAGE);
 
         SetSubject();
         TopLevelProperties.AddProperty(PropertyTags.PR_SUBJECT_W, Subject);
@@ -603,8 +614,9 @@ public class Email : Message, IDisposable
     /// </summary>
     public new void Dispose()
     {
-        foreach (var attachment in _attachments)
-            attachment.Stream?.Dispose();
+        if (!_leaveAttachmentStreamsOpen)
+            foreach (var attachment in _attachments)
+                attachment.Stream?.Dispose();
 
         base.Dispose();
     }

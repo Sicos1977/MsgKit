@@ -4919,14 +4919,6 @@ public static class PropertyTags
     }
 
     /// <summary>
-    ///     Contains the billing information associated with an item
-    /// </summary>
-    public static PropertyTag PidLidBilling
-    {
-        get { return new PropertyTag(0x8535, PropertyType.PT_UNICODE); }
-    }
-
-    /// <summary>
     ///     Used to hold exactly one property tag
     /// </summary>
     public class PropertyTag

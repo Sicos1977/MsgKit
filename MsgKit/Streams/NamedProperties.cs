@@ -88,11 +88,10 @@ internal sealed class NamedProperties : List<NamedProperty>
     ///     Writes the properties to the <see cref="CFStorage" />
     /// </summary>
     /// <param name="storage"></param>
-    /// <param name="messageSize"></param>
     /// <remarks>
     ///     Unfortunately this is going to have to be used after we already written the top level properties.
     /// </remarks>
-    internal void WriteProperties(CFStorage storage, long messageSize = 0)
+    internal void WriteProperties(CFStorage storage)
     {
         // Grab the nameIdStorage, 3.1 on the SPEC
         storage = storage.GetStorage(PropertyTags.NameIdStorage);
@@ -112,7 +111,7 @@ internal sealed class NamedProperties : List<NamedProperty>
         {
             var guidIndex = (ushort)(guids.IndexOf(namedProperty.Guid) + 3);
 
-            // Dependign on the property type. This is doing name. 
+            // Depending on the property type. This is doing name. 
             entryStream.Add(new EntryStreamItem(namedProperty.NameIdentifier,
                 new IndexAndKindInformation(propertyIndex, guidIndex, PropertyKind.Lid))); //+3 as per spec.
             entryStream2.Add(new EntryStreamItem(namedProperty.NameIdentifier,

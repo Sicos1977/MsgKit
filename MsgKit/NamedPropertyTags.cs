@@ -40,12 +40,12 @@ namespace MsgKit;
 /// <summary>
 ///     A class that holds all the known named mapi tags
 /// </summary>
-internal static class NamedPropertyTags
+public static class NamedPropertyTags
 {
     /// <summary>
     ///     Specifies the date and time at which the meeting-related object was sent
     /// </summary>
-    internal static NamedPropertyTag PidLidAttendeeCriticalChange
+    public static NamedPropertyTag PidLidAttendeeCriticalChange
     {
         get
         {
@@ -58,7 +58,7 @@ internal static class NamedPropertyTags
     ///     Contains the value of the PidLidLocation property (section 2.159) from the associated
     ///     Meeting object.
     /// </summary>
-    internal static NamedPropertyTag PidLidWhere
+    public static NamedPropertyTag PidLidWhere
     {
         get
         {
@@ -72,7 +72,7 @@ internal static class NamedPropertyTags
     ///     that represents an Exception object to a recurring series, where the Year, Month, and Day fields are
     ///     all zero.
     /// </summary>
-    internal static NamedPropertyTag PidLidGlobalObjectId
+    public static NamedPropertyTag PidLidGlobalObjectId
     {
         get
         {
@@ -85,7 +85,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether the user did not include any text in the body of the Meeting Response
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidIsSilent
+    public static NamedPropertyTag PidLidIsSilent
     {
         get
         {
@@ -97,7 +97,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies whether the object is associated with a recurring series.
     /// </summary>
-    internal static NamedPropertyTag PidLidIsRecurring
+    public static NamedPropertyTag PidLidIsRecurring
     {
         get
         {
@@ -109,7 +109,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies required attendees for the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidRequiredAttendees
+    public static NamedPropertyTag PidLidRequiredAttendees
     {
         get
         {
@@ -121,7 +121,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies optional attendees.
     /// </summary>
-    internal static NamedPropertyTag PidLidOptionalAttendees
+    public static NamedPropertyTag PidLidOptionalAttendees
     {
         get
         {
@@ -133,7 +133,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies resource attendees for the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidResourceAttendees
+    public static NamedPropertyTag PidLidResourceAttendees
     {
         get
         {
@@ -145,7 +145,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether a delegate responded to the meeting request.
     /// </summary>
-    internal static NamedPropertyTag PidLidDelegateMail
+    public static NamedPropertyTag PidLidDelegateMail
     {
         get
         {
@@ -157,7 +157,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the object represents an exception (including an orphan instance).
     /// </summary>
-    internal static NamedPropertyTag PidLidIsException
+    public static NamedPropertyTag PidLidIsException
     {
         get
         {
@@ -169,7 +169,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Deprecated
     /// </summary>
-    internal static NamedPropertyTag PidLidSingleInvite
+    public static NamedPropertyTag PidLidSingleInvite
     {
         get
         {
@@ -182,7 +182,7 @@ internal static class NamedPropertyTags
     ///     Contains a stream that maps to the persisted format of a TZREG structure, which describes the time zone to be used
     ///     for the start and end time of a recurring appointment or meeting request.
     /// </summary>
-    internal static NamedPropertyTag PidLidTimeZone
+    public static NamedPropertyTag PidLidTimeZone
     {
         get
         {
@@ -194,7 +194,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the start date of the recurrence pattern.
     /// </summary>
-    internal static NamedPropertyTag PidLidStartRecurrenceDate
+    public static NamedPropertyTag PidLidStartRecurrenceDate
     {
         get
         {
@@ -206,7 +206,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the start time of the recurrence pattern.
     /// </summary>
-    internal static NamedPropertyTag PidLidStartRecurrenceTime
+    public static NamedPropertyTag PidLidStartRecurrenceTime
     {
         get
         {
@@ -218,7 +218,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the end date of the recurrence range
     /// </summary>
-    internal static NamedPropertyTag PidLidEndRecurrenceDate
+    public static NamedPropertyTag PidLidEndRecurrenceDate
     {
         get
         {
@@ -230,7 +230,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the end time of the recurrence range.
     /// </summary>
-    internal static NamedPropertyTag PidLidEndRecurrenceTime
+    public static NamedPropertyTag PidLidEndRecurrenceTime
     {
         get
         {
@@ -242,7 +242,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the day interval for the recurrence pattern.
     /// </summary>
-    internal static NamedPropertyTag PidLidDayInterval
+    public static NamedPropertyTag PidLidDayInterval
     {
         get
         {
@@ -254,7 +254,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the number of weeks that occur between each meeting
     /// </summary>
-    internal static NamedPropertyTag PidLidWeekInterval
+    public static NamedPropertyTag PidLidWeekInterval
     {
         get
         {
@@ -266,7 +266,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the monthly interval of the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidMonthInterval
+    public static NamedPropertyTag PidLidMonthInterval
     {
         get
         {
@@ -278,7 +278,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the monthly interval of the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidYearInterval
+    public static NamedPropertyTag PidLidYearInterval
     {
         get
         {
@@ -289,7 +289,7 @@ internal static class NamedPropertyTags
 
     /// <summary>
     /// </summary>
-    internal static NamedPropertyTag PidLidMonthOfYearMask
+    public static NamedPropertyTag PidLidMonthOfYearMask
     {
         get
         {
@@ -301,7 +301,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the month of the year in which the appointment or meeting occurs.
     /// </summary>
-    internal static NamedPropertyTag PidLidOldRecurrenceType
+    public static NamedPropertyTag PidLidOldRecurrenceType
     {
         get
         {
@@ -314,7 +314,7 @@ internal static class NamedPropertyTags
     ///     Specifies the date and time at which a Meeting Request object was sent by the
     ///     organizer.
     /// </summary>
-    internal static NamedPropertyTag PidLidOwnerCriticalChange
+    public static NamedPropertyTag PidLidOwnerCriticalChange
     {
         get
         {
@@ -327,7 +327,7 @@ internal static class NamedPropertyTags
     ///     Contains the value of the CalendarType field from the PidLidAppointmentRecur
     ///     property(section 2.22).
     /// </summary>
-    internal static NamedPropertyTag PidLidCalendarType
+    public static NamedPropertyTag PidLidCalendarType
     {
         get
         {
@@ -339,7 +339,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Deprecated
     /// </summary>
-    internal static NamedPropertyTag PidLidAllAttendeesList
+    public static NamedPropertyTag PidLidAllAttendeesList
     {
         get
         {
@@ -353,7 +353,7 @@ internal static class NamedPropertyTags
     ///     that represents an Exception object to a recurring series, where the Year, Month, and Day fields are
     ///     all zero.
     /// </summary>
-    internal static NamedPropertyTag PidLidCleanGlobalObjectId
+    public static NamedPropertyTag PidLidCleanGlobalObjectId
     {
         get
         {
@@ -366,7 +366,7 @@ internal static class NamedPropertyTags
     ///     Indicates the message class of the Meeting object to be generated from the Meeting
     ///     Request object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentMessageClass
+    public static NamedPropertyTag PidLidAppointmentMessageClass
     {
         get
         {
@@ -377,7 +377,7 @@ internal static class NamedPropertyTags
 
     /// <summary>
     /// </summary>
-    internal static NamedPropertyTag PidLidMeetingType
+    public static NamedPropertyTag PidLidMeetingType
     {
         get
         {
@@ -389,7 +389,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the type of Meeting Request object or Meeting Update object.
     /// </summary>
-    internal static NamedPropertyTag PidLidOldLocation
+    public static NamedPropertyTag PidLidOldLocation
     {
         get
         {
@@ -401,7 +401,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the original value of the PidLidAppointmentStartWhole property (section2.29) before a meeting update.
     /// </summary>
-    internal static NamedPropertyTag PidLidOldWhenStartWhole
+    public static NamedPropertyTag PidLidOldWhenStartWhole
     {
         get
         {
@@ -413,7 +413,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the original value of the PidLidAppointmentEndWhole property (section2.14) before a meeting update.
     /// </summary>
-    internal static NamedPropertyTag PidLidOldWhenEndWhole
+    public static NamedPropertyTag PidLidOldWhenEndWhole
     {
         get
         {
@@ -425,7 +425,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the name under which to file a contact when displaying a list of contacts.
     /// </summary>
-    internal static NamedPropertyTag PidLidFileUnder
+    public static NamedPropertyTag PidLidFileUnder
     {
         get
         {
@@ -438,7 +438,7 @@ internal static class NamedPropertyTags
     ///     Specifies how to generate and recompute the value of the PidLidFileUnder property
     ///     (section 2.132) when other contact name properties change.
     /// </summary>
-    internal static NamedPropertyTag PidLidFileUnderId
+    public static NamedPropertyTag PidLidFileUnderId
     {
         get
         {
@@ -451,7 +451,7 @@ internal static class NamedPropertyTags
     ///     Specifies the visible fields in the application's user interface that are used to help display
     ///     the contact information.
     /// </summary>
-    internal static NamedPropertyTag PidLidContactItemData
+    public static NamedPropertyTag PidLidContactItemData
     {
         get
         {
@@ -463,7 +463,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Deprecated
     /// </summary>
-    internal static NamedPropertyTag PidLidReferredBy
+    public static NamedPropertyTag PidLidReferredBy
     {
         get
         {
@@ -476,7 +476,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property is ignored by the server and is set to an empty string by the client
     /// </summary>
-    internal static NamedPropertyTag PidLidDepartment
+    public static NamedPropertyTag PidLidDepartment
     {
         get
         {
@@ -489,7 +489,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies whether the attachment has a picture.
     /// </summary>
-    internal static NamedPropertyTag PidLidHasPicture
+    public static NamedPropertyTag PidLidHasPicture
     {
         get
         {
@@ -504,7 +504,7 @@ internal static class NamedPropertyTags
     ///     if the Message object has no attachments that are visible to the end user. If this
     ///     property is unset, a default value of FALSE (0x00) is used
     /// </summary>
-    internal static NamedPropertyTag PidLidSmartNoAttach
+    public static NamedPropertyTag PidLidSmartNoAttach
     {
         get
         {
@@ -517,7 +517,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the complete address of the home address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidHomeAddress
+    public static NamedPropertyTag PidLidHomeAddress
     {
         get
         {
@@ -529,7 +529,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the complete address of the work address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddress
+    public static NamedPropertyTag PidLidWorkAddress
     {
         get
         {
@@ -541,7 +541,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the complete address of the contact’s other address.
     /// </summary>
-    internal static NamedPropertyTag PidLidOtherAddress
+    public static NamedPropertyTag PidLidOtherAddress
     {
         get
         {
@@ -553,7 +553,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies which physical address is the contact's mailing address..
     /// </summary>
-    internal static NamedPropertyTag PidLidPostalAddressId
+    public static NamedPropertyTag PidLidPostalAddressId
     {
         get
         {
@@ -565,7 +565,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the character set used for this contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidContactCharacterSet
+    public static NamedPropertyTag PidLidContactCharacterSet
     {
         get
         {
@@ -577,7 +577,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the character set used for a Contact object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAutoLog
+    public static NamedPropertyTag PidLidAutoLog
     {
         get
         {
@@ -589,7 +589,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies a list of possible values for the PidLidFileUnderId property (section 2.133)
     /// </summary>
-    internal static NamedPropertyTag PidLidFileUnderList
+    public static NamedPropertyTag PidLidFileUnderList
     {
         get
         {
@@ -601,7 +601,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     The value of this property is ignored.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmailList
+    public static NamedPropertyTag PidLidEmailList
     {
         get
         {
@@ -613,7 +613,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies which electronic address properties are set on the Contact object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAddressBookProviderEmailList
+    public static NamedPropertyTag PidLidAddressBookProviderEmailList
     {
         get
         {
@@ -624,7 +624,7 @@ internal static class NamedPropertyTags
 
     /// <summary>
     /// </summary>
-    internal static NamedPropertyTag PidLidAddressBookProviderArrayType
+    public static NamedPropertyTag PidLidAddressBookProviderArrayType
     {
         get
         {
@@ -637,7 +637,7 @@ internal static class NamedPropertyTags
     ///     Specifies the state of the electronic addresses of the contact and represents a set of bit
     ///     flags.
     /// </summary>
-    internal static NamedPropertyTag PidLidHtml
+    public static NamedPropertyTag PidLidHtml
     {
         get
         {
@@ -649,7 +649,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the phonetic pronunciation of the given name of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidYomiFirstName
+    public static NamedPropertyTag PidLidYomiFirstName
     {
         get
         {
@@ -661,7 +661,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the phonetic pronunciation of the surname of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidYomiLastName
+    public static NamedPropertyTag PidLidYomiLastName
     {
         get
         {
@@ -673,7 +673,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the phonetic pronunciation of the company name of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidYomiCompanyName
+    public static NamedPropertyTag PidLidYomiCompanyName
     {
         get
         {
@@ -685,7 +685,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains user customization details for displaying a contact as a business card.
     /// </summary>
-    internal static NamedPropertyTag PidLidBusinessCardDisplayDefinition
+    public static NamedPropertyTag PidLidBusinessCardDisplayDefinition
     {
         get
         {
@@ -697,7 +697,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the image to be used on a business card.
     /// </summary>
-    internal static NamedPropertyTag PidLidBusinessCardCardPicture
+    public static NamedPropertyTag PidLidBusinessCardCardPicture
     {
         get
         {
@@ -709,7 +709,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the street portion of the work address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddressStreet
+    public static NamedPropertyTag PidLidWorkAddressStreet
     {
         get
         {
@@ -721,7 +721,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the city or locality portion of the work address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddressCity
+    public static NamedPropertyTag PidLidWorkAddressCity
     {
         get
         {
@@ -733,7 +733,7 @@ internal static class NamedPropertyTags
     /// <summary>
     /// Specifies the postal code (ZIP code) portion of the work address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddressPostalCode
+    public static NamedPropertyTag PidLidWorkAddressPostalCode
     {
         get
         {
@@ -745,7 +745,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the country code portion of the work address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddressCountry
+    public static NamedPropertyTag PidLidWorkAddressCountry
     {
         get
         {
@@ -757,7 +757,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the post office box portion of the contact's work address.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddressPostOfficeBox
+    public static NamedPropertyTag PidLidWorkAddressPostOfficeBox
     {
         get
         {
@@ -771,7 +771,7 @@ internal static class NamedPropertyTags
     ///     specified in [ISO/IEC8802-3], calculated on the value of the PidLidDistributionListMembers
     ///     property(section 2.96).
     /// </summary>
-    internal static NamedPropertyTag PidLidDistributionListChecksum
+    public static NamedPropertyTag PidLidDistributionListChecksum
     {
         get
         {
@@ -784,7 +784,7 @@ internal static class NamedPropertyTags
     ///     Specifies the EntryID of an optional Appointment object that represents the birthday of
     ///     the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidBirthdayEventEntryId
+    public static NamedPropertyTag PidLidBirthdayEventEntryId
     {
         get
         {
@@ -797,7 +797,7 @@ internal static class NamedPropertyTags
     ///     Specifies the EntryID of the Appointment object that represents an anniversary of
     ///     the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidAnniversaryEventEntryId
+    public static NamedPropertyTag PidLidAnniversaryEventEntryId
     {
         get
         {
@@ -810,7 +810,7 @@ internal static class NamedPropertyTags
     ///     Contains text used to add custom text to a business card representation of a Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidContactUserField1
+    public static NamedPropertyTag PidLidContactUserField1
     {
         get
         {
@@ -823,7 +823,7 @@ internal static class NamedPropertyTags
     ///     Contains text used to add custom text to a business card representation of a Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidContactUserField2
+    public static NamedPropertyTag PidLidContactUserField2
     {
         get
         {
@@ -836,7 +836,7 @@ internal static class NamedPropertyTags
     ///     Contains text used to add custom text to a business card representation of a Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidContactUserField3
+    public static NamedPropertyTag PidLidContactUserField3
     {
         get
         {
@@ -849,7 +849,7 @@ internal static class NamedPropertyTags
     ///     Contains text used to add custom text to a business card representation of a Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidContactUserField4
+    public static NamedPropertyTag PidLidContactUserField4
     {
         get
         {
@@ -861,7 +861,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the name of the personal distribution list.
     /// </summary>
-    internal static NamedPropertyTag PidLidDistributionListName
+    public static NamedPropertyTag PidLidDistributionListName
     {
         get
         {
@@ -874,7 +874,7 @@ internal static class NamedPropertyTags
     ///     Specifies the list of one-off EntryIDs corresponding to the members of the personal
     ///     distribution list.
     /// </summary>
-    internal static NamedPropertyTag PidLidDistributionListOneOffMembers
+    public static NamedPropertyTag PidLidDistributionListOneOffMembers
     {
         get
         {
@@ -887,7 +887,7 @@ internal static class NamedPropertyTags
     ///     Specifies the 32-bit cyclic redundancy check (CRC) polynomial checksum, as
     ///     specified in [ISO/IEC8802-3], calculated on the value of PidLidDistributionListMembers(section 2.91)
     /// </summary>
-    internal static NamedPropertyTag PidLidDistributionListMembers
+    public static NamedPropertyTag PidLidDistributionListMembers
     {
         get
         {
@@ -899,7 +899,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the contact's instant messaging address.
     /// </summary>
-    internal static NamedPropertyTag PidLidInstantMessagingAddress
+    public static NamedPropertyTag PidLidInstantMessagingAddress
     {
         get
         {
@@ -912,7 +912,7 @@ internal static class NamedPropertyTags
     ///     Specifies the list of EntryIds and one-off EntryIds corresponding to the members of
     ///     the personal distribution list.
     /// </summary>
-    internal static NamedPropertyTag PidLidDistributionListStream
+    public static NamedPropertyTag PidLidDistributionListStream
     {
         get
         {
@@ -924,7 +924,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the user-readable display name for the email address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail1DisplayName
+    public static NamedPropertyTag PidLidEmail1DisplayName
     {
         get
         {
@@ -936,7 +936,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the address type of an electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail1AddressType
+    public static NamedPropertyTag PidLidEmail1AddressType
     {
         get
         {
@@ -948,7 +948,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the email address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail1EmailAddress
+    public static NamedPropertyTag PidLidEmail1EmailAddress
     {
         get
         {
@@ -961,7 +961,7 @@ internal static class NamedPropertyTags
     ///     Specifies the SMTP email address that corresponds to the email address for the Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail1OriginalDisplayName
+    public static NamedPropertyTag PidLidEmail1OriginalDisplayName
     {
         get
         {
@@ -973,7 +973,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the EntryID of the object corresponding to this electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail1OriginalEntryId
+    public static NamedPropertyTag PidLidEmail1OriginalEntryId
     {
         get
         {
@@ -985,7 +985,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Returns true when the E-mail is stored in RTF format
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail1RichTextFormat
+    public static NamedPropertyTag PidLidEmail1RichTextFormat
     {
         get
         {
@@ -997,7 +997,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the user-readable display name for the e-mail address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2DisplayName
+    public static NamedPropertyTag PidLidEmail2DisplayName
     {
         get
         {
@@ -1009,7 +1009,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the EntryID of the object corresponding to this electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2EntryId
+    public static NamedPropertyTag PidLidEmail2EntryId
     {
         get
         {
@@ -1021,7 +1021,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the address type of an electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2AddressType
+    public static NamedPropertyTag PidLidEmail2AddressType
     {
         get
         {
@@ -1033,7 +1033,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the email address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2EmailAddress
+    public static NamedPropertyTag PidLidEmail2EmailAddress
     {
         get
         {
@@ -1046,7 +1046,7 @@ internal static class NamedPropertyTags
     ///     Specifies the SMTP email address that corresponds to the email address for the Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2OriginalDisplayName
+    public static NamedPropertyTag PidLidEmail2OriginalDisplayName
     {
         get
         {
@@ -1058,7 +1058,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the EntryID of the object corresponding to this electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2OriginalEntryId
+    public static NamedPropertyTag PidLidEmail2OriginalEntryId
     {
         get
         {
@@ -1070,7 +1070,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Returns true when the E-mail is stored in RTF format
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail2RichTextFormat
+    public static NamedPropertyTag PidLidEmail2RichTextFormat
     {
         get
         {
@@ -1082,7 +1082,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the user-readable display name for the e-mail address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3DisplayName
+    public static NamedPropertyTag PidLidEmail3DisplayName
     {
         get
         {
@@ -1094,7 +1094,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the EntryID of the object corresponding to this electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3EntryId
+    public static NamedPropertyTag PidLidEmail3EntryId
     {
         get
         {
@@ -1106,7 +1106,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the address type of an electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3AddressType
+    public static NamedPropertyTag PidLidEmail3AddressType
     {
         get
         {
@@ -1118,7 +1118,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the email address of the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3EmailAddress
+    public static NamedPropertyTag PidLidEmail3EmailAddress
     {
         get
         {
@@ -1131,7 +1131,7 @@ internal static class NamedPropertyTags
     ///     Specifies the SMTP email address that corresponds to the email address for the Contact
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3OriginalDisplayName
+    public static NamedPropertyTag PidLidEmail3OriginalDisplayName
     {
         get
         {
@@ -1143,7 +1143,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the EntryID of the object corresponding to this electronic address.
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3OriginalEntryId
+    public static NamedPropertyTag PidLidEmail3OriginalEntryId
     {
         get
         {
@@ -1155,7 +1155,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Returns true when the E-mail is stored in RTF format
     /// </summary>
-    internal static NamedPropertyTag PidLidEmail3RichTextFormat
+    public static NamedPropertyTag PidLidEmail3RichTextFormat
     {
         get
         {
@@ -1167,7 +1167,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the string value "FAX".
     /// </summary>
-    internal static NamedPropertyTag PidLidFax1AddressType
+    public static NamedPropertyTag PidLidFax1AddressType
     {
         get
         {
@@ -1180,7 +1180,7 @@ internal static class NamedPropertyTags
     ///     Contains a user-readable display name, followed by the "@" character, followed by a
     ///     fax number.
     /// </summary>
-    internal static NamedPropertyTag PidLidFax1EmailAddress
+    public static NamedPropertyTag PidLidFax1EmailAddress
     {
         get
         {
@@ -1192,7 +1192,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the same value as PidTagNormalizedSubject (section 2.907).
     /// </summary>
-    internal static NamedPropertyTag PidLidFax1OriginalDisplayName
+    public static NamedPropertyTag PidLidFax1OriginalDisplayName
     {
         get
         {
@@ -1204,7 +1204,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies a one-off EntryId corresponding to this fax address.
     /// </summary>
-    internal static NamedPropertyTag PidLidFax1OriginalEntryId
+    public static NamedPropertyTag PidLidFax1OriginalEntryId
     {
         get
         {
@@ -1216,7 +1216,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the string value "FAX".
     /// </summary>
-    internal static NamedPropertyTag PidLidFax2AddressType
+    public static NamedPropertyTag PidLidFax2AddressType
     {
         get
         {
@@ -1229,7 +1229,7 @@ internal static class NamedPropertyTags
     ///     Contains a user-readable display name, followed by the "@" character, followed by a
     ///     fax number.
     /// </summary>
-    internal static NamedPropertyTag PidLidFax2EmailAddress
+    public static NamedPropertyTag PidLidFax2EmailAddress
     {
         get
         {
@@ -1241,7 +1241,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the same value as PidTagNormalizedSubject (section 2.907).
     /// </summary>
-    internal static NamedPropertyTag PidLidFax2OriginalDisplayName
+    public static NamedPropertyTag PidLidFax2OriginalDisplayName
     {
         get
         {
@@ -1253,7 +1253,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies a one-off EntryId corresponding to this fax address.
     /// </summary>
-    internal static NamedPropertyTag PidLidFax2OriginalEntryId
+    public static NamedPropertyTag PidLidFax2OriginalEntryId
     {
         get
         {
@@ -1265,7 +1265,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the string value "FAX".
     /// </summary>
-    internal static NamedPropertyTag PidLidFax3AddressType
+    public static NamedPropertyTag PidLidFax3AddressType
     {
         get
         {
@@ -1278,7 +1278,7 @@ internal static class NamedPropertyTags
     ///     Contains a user-readable display name, followed by the "@" character, followed by a
     ///     fax number. 
     /// </summary>
-    internal static NamedPropertyTag PidLidFax3EmailAddress
+    public static NamedPropertyTag PidLidFax3EmailAddress
     {
         get
         {
@@ -1290,7 +1290,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the same value as PidTagNormalizedSubject (section 2.907).
     /// </summary>
-    internal static NamedPropertyTag PidLidFax3OriginalDisplayName
+    public static NamedPropertyTag PidLidFax3OriginalDisplayName
     {
         get
         {
@@ -1302,7 +1302,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies a one-off EntryId corresponding to this fax address.
     /// </summary>
-    internal static NamedPropertyTag PidLidFax3OriginalEntryId
+    public static NamedPropertyTag PidLidFax3OriginalEntryId
     {
         get
         {
@@ -1315,7 +1315,7 @@ internal static class NamedPropertyTags
     ///     Specifies a URL path from which a client can retrieve free/busy status information
     ///     for the contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidFreeBusyLocation
+    public static NamedPropertyTag PidLidFreeBusyLocation
     {
         get
         {
@@ -1327,7 +1327,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the country code portion of the contact's home address.
     /// </summary>
-    internal static NamedPropertyTag PidLidHomeAddressCountryCode
+    public static NamedPropertyTag PidLidHomeAddressCountryCode
     {
         get
         {
@@ -1339,7 +1339,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the country code portion of the contact's work address.
     /// </summary>
-    internal static NamedPropertyTag PidLidWorkAddressCountryCode
+    public static NamedPropertyTag PidLidWorkAddressCountryCode
     {
         get
         {
@@ -1351,7 +1351,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the country code portion of the contact's other address.
     /// </summary>
-    internal static NamedPropertyTag PidLidOtherAddressCountryCode
+    public static NamedPropertyTag PidLidOtherAddressCountryCode
     {
         get
         {
@@ -1363,7 +1363,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the birthday of a contact.
     /// </summary>
-    internal static NamedPropertyTag PidLidBirthdayLocal
+    public static NamedPropertyTag PidLidBirthdayLocal
     {
         get
         {
@@ -1375,7 +1375,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the country code portion of the contact's mailing address.
     /// </summary>
-    internal static NamedPropertyTag PidLidAddressCountryCode
+    public static NamedPropertyTag PidLidAddressCountryCode
     {
         get
         {
@@ -1388,7 +1388,7 @@ internal static class NamedPropertyTags
     ///     Specifies the wedding anniversary of the contact, at 0:00 in the client's local time
     ///     zone and it is saved without any time zone conversions.
     /// </summary>
-    internal static NamedPropertyTag PidLidWeddingAnniversaryLocal
+    public static NamedPropertyTag PidLidWeddingAnniversaryLocal
     {
         get
         {
@@ -1400,7 +1400,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the status of a task.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskStatus
+    public static NamedPropertyTag PidLidTaskStatus
     {
         get
         {
@@ -1412,7 +1412,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates whether a time-flagged Message object is completed or not.
     /// </summary>
-    internal static NamedPropertyTag PidLidPercentComplete
+    public static NamedPropertyTag PidLidPercentComplete
     {
         get
         {
@@ -1424,7 +1424,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies if the task is for a team
     /// </summary>
-    internal static NamedPropertyTag PidLidTeamTask
+    public static NamedPropertyTag PidLidTeamTask
     {
         get
         {
@@ -1436,7 +1436,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the date on which the user expects work on the task to begin.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskStartDate
+    public static NamedPropertyTag PidLidTaskStartDate
     {
         get
         {
@@ -1448,7 +1448,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the date by which the user expects work on the task to be complete.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskDueDate
+    public static NamedPropertyTag PidLidTaskDueDate
     {
         get
         {
@@ -1461,7 +1461,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether future instances of recurring tasks need reminders, even though
     ///     <see cref="PidLidReminderSet" />(section 2.220) is 0x00.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskResetReminder
+    public static NamedPropertyTag PidLidTaskResetReminder
     {
         get
         {
@@ -1473,7 +1473,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether a task assignee has replied to a task request for this Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskAccepted
+    public static NamedPropertyTag PidLidTaskAccepted
     {
         get
         {
@@ -1485,7 +1485,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates whether new occurrences remain to be generated.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskDeadOccurrence
+    public static NamedPropertyTag PidLidTaskDeadOccurrence
     {
         get
         {
@@ -1497,7 +1497,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the date when the user completed work on the task.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskDateCompleted
+    public static NamedPropertyTag PidLidTaskDateCompleted
     {
         get
         {
@@ -1509,7 +1509,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the number of minutes that the user actually spent working on a task.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskActualEffort
+    public static NamedPropertyTag PidLidTaskActualEffort
     {
         get
         {
@@ -1521,7 +1521,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the number of minutes that the user expects to work on a task.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskEstimatedEffort
+    public static NamedPropertyTag PidLidTaskEstimatedEffort
     {
         get
         {
@@ -1533,7 +1533,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates which copy is the latest update of a Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskVersion
+    public static NamedPropertyTag PidLidTaskVersion
     {
         get
         {
@@ -1545,7 +1545,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the current assignment state of the Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskState
+    public static NamedPropertyTag PidLidTaskState
     {
         get
         {
@@ -1557,7 +1557,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the date and time of the most recent change made to the Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskLastUpdate
+    public static NamedPropertyTag PidLidTaskLastUpdate
     {
         get
         {
@@ -1570,7 +1570,7 @@ internal static class NamedPropertyTags
     ///     Contains a RecurrencePattern structure that provides information about recurring
     ///     tasks.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskRecurrence
+    public static NamedPropertyTag PidLidTaskRecurrence
     {
         get
         {
@@ -1582,7 +1582,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains a stack of entries, each representing a task assigner.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskAssigners
+    public static NamedPropertyTag PidLidTaskAssigners
     {
         get
         {
@@ -1595,7 +1595,7 @@ internal static class NamedPropertyTags
     ///      Indicates whether the task assignee has been requested to send an e-mail message
     ///     update when the task assignee completes the assigned task.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskStatusOnComplete
+    public static NamedPropertyTag PidLidTaskStatusOnComplete
     {
         get
         {
@@ -1607,7 +1607,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the type of change that was last made to the Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskHistory
+    public static NamedPropertyTag PidLidTaskHistory
     {
         get
         {
@@ -1620,7 +1620,7 @@ internal static class NamedPropertyTags
     ///      Indicates whether the task assignee has been requested to send a task update when
     ///     the assigned Task object changes.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskUpdates
+    public static NamedPropertyTag PidLidTaskUpdates
     {
         get
         {
@@ -1632,7 +1632,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates that the task has been completed.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskComplete
+    public static NamedPropertyTag PidLidTaskComplete
     {
         get
         {
@@ -1645,7 +1645,7 @@ internal static class NamedPropertyTags
     ///     Indicates that the Task object was originally created by the action of the current user
     ///     or user agent instead of by the processing of a task request.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskFCreator
+    public static NamedPropertyTag PidLidTaskFCreator
     {
         get
         {
@@ -1657,7 +1657,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the name of the task owner.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskOwner
+    public static NamedPropertyTag PidLidTaskOwner
     {
         get
         {
@@ -1669,7 +1669,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Provides optimization hints about the recipients of a Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskMultipleRecipients
+    public static NamedPropertyTag PidLidTaskMultipleRecipients
     {
         get
         {
@@ -1681,7 +1681,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the name of the user that last assigned the task.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskAssigner
+    public static NamedPropertyTag PidLidTaskAssigner
     {
         get
         {
@@ -1693,7 +1693,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the name of the most recent user to have been the task owner.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskLastUser
+    public static NamedPropertyTag PidLidTaskLastUser
     {
         get
         {
@@ -1705,7 +1705,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Provides an aid to custom sorting of Task objects
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskOrdinal
+    public static NamedPropertyTag PidLidTaskOrdinal
     {
         get
         {
@@ -1718,7 +1718,7 @@ internal static class NamedPropertyTags
     ///     Not used. The client can set this property, but it has no impact on the Task-Related
     ///     Objects protocol and is ignored by the server.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskNoCompute
+    public static NamedPropertyTag PidLidTaskNoCompute
     {
         get
         {
@@ -1731,7 +1731,7 @@ internal static class NamedPropertyTags
     ///     Contains the name of the user who most recently assigned the task, or the user to
     ///     whom it was most recently assigned.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskLastDelegate
+    public static NamedPropertyTag PidLidTaskLastDelegate
     {
         get
         {
@@ -1743,7 +1743,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the task includes a recurrence pattern.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskFRecurring
+    public static NamedPropertyTag PidLidTaskFRecurring
     {
         get
         {
@@ -1756,7 +1756,7 @@ internal static class NamedPropertyTags
     ///     Not used. The client can set this property, but it has no impact on the Task-Related
     ///     Objects protocol and is ignored by the server.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskRole
+    public static NamedPropertyTag PidLidTaskRole
     {
         get
         {
@@ -1768,7 +1768,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the role of the current user relative to the Task object.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskOwnership
+    public static NamedPropertyTag PidLidTaskOwnership
     {
         get
         {
@@ -1780,7 +1780,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     The acceptance state of the task
     /// </summary>
-    internal static NamedPropertyTag PidLidAcceptanceState
+    public static NamedPropertyTag PidLidAcceptanceState
     {
         get
         {
@@ -1792,7 +1792,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the accuracy of PidLidTaskOwner (section 2.326).
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskFFixOffline
+    public static NamedPropertyTag PidLidTaskFFixOffline
     {
         get
         {
@@ -1805,7 +1805,7 @@ internal static class NamedPropertyTags
     ///     The client can set this property, but it has no impact on the Task-Related Objects
     ///     protocol and is ignored by the server.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskCustomFlags
+    public static NamedPropertyTag PidLidTaskCustomFlags
     {
         get
         {
@@ -1818,7 +1818,7 @@ internal static class NamedPropertyTags
     ///     The client can set this property, but it has no impact on the Task-Related Objects
     ///     protocol and is ignored by the server.
     /// </summary>
-    internal static NamedPropertyTag PidLidTaskMode
+    public static NamedPropertyTag PidLidTaskMode
     {
         get
         {
@@ -1831,7 +1831,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidTrustRecipientHighlights
+    public static NamedPropertyTag PidLidTrustRecipientHighlights
     {
         get
         {
@@ -1843,7 +1843,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidSendMeetingAsIcal
+    public static NamedPropertyTag PidLidSendMeetingAsIcal
     {
         get
         {
@@ -1855,7 +1855,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the sequence number of a Meeting object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentSequence
+    public static NamedPropertyTag PidLidAppointmentSequence
     {
         get
         {
@@ -1868,7 +1868,7 @@ internal static class NamedPropertyTags
     ///      Indicates the date and time at which the property PidLidAppointmentSequence
     ///     (section 2.25) was last modified.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentSequenceTime
+    public static NamedPropertyTag PidLidAppointmentSequenceTime
     {
         get
         {
@@ -1880,7 +1880,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates to the organizer the last sequence number that was sent to any attendee.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentLastSequence
+    public static NamedPropertyTag PidLidAppointmentLastSequence
     {
         get
         {
@@ -1892,7 +1892,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies a bit field that indicates how the Meeting object has changed.
     /// </summary>
-    internal static NamedPropertyTag PidLidChangeHighlight
+    public static NamedPropertyTag PidLidChangeHighlight
     {
         get
         {
@@ -1904,7 +1904,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the availability of a user for the event described by the object.
     /// </summary>
-    internal static NamedPropertyTag PidLidBusyStatus
+    public static NamedPropertyTag PidLidBusyStatus
     {
         get
         {
@@ -1917,7 +1917,7 @@ internal static class NamedPropertyTags
     ///     Indicates that the Exception Embedded Message object has a body that differs from the
     ///     Recurring Calendar object.
     /// </summary>
-    internal static NamedPropertyTag PidLidFExceptionalBody
+    public static NamedPropertyTag PidLidFExceptionalBody
     {
         get
         {
@@ -1929,7 +1929,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies a bit field that describes the auxiliary state of the object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentAuxiliaryFlags
+    public static NamedPropertyTag PidLidAppointmentAuxiliaryFlags
     {
         get
         {
@@ -1942,7 +1942,7 @@ internal static class NamedPropertyTags
     ///      Indicates whether the value of the <see cref="PidLidLocation"/> property (section 2.159) is set to
     ///     the PidTagDisplayName property(section 2.667).
     /// </summary>
-    internal static NamedPropertyTag PidLidLocation
+    public static NamedPropertyTag PidLidLocation
     {
         get
         {
@@ -1954,7 +1954,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the URL of the Meeting Workspace that is associated with a Calendar object.
     /// </summary>
-    internal static NamedPropertyTag PidLidMeetingWorkspaceUrl
+    public static NamedPropertyTag PidLidMeetingWorkspaceUrl
     {
         get
         {
@@ -1968,7 +1968,7 @@ internal static class NamedPropertyTags
     ///     series, and whether it was forwarded(even when forwarded by the organizer) rather than being an
     ///     invitation sent by the organizer.
     /// </summary>
-    internal static NamedPropertyTag PidLidForwardInstance
+    public static NamedPropertyTag PidLidForwardInstance
     {
         get
         {
@@ -1981,7 +1981,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether the user did not include any text in the body of the Meeting Response
     ///     object.
     /// </summary>
-    internal static NamedPropertyTag PidLidLinkedTaskItems
+    public static NamedPropertyTag PidLidLinkedTaskItems
     {
         get
         {
@@ -1994,7 +1994,7 @@ internal static class NamedPropertyTags
     ///     Specifies time zone information that indicates the time zone of the
     ///     <see cref="PidLidAppointmentStartWhole"/> property(section 2.29).
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentStartWhole
+    public static NamedPropertyTag PidLidAppointmentStartWhole
     {
         get
         {
@@ -2007,7 +2007,7 @@ internal static class NamedPropertyTags
     ///     Specifies time zone information that indicates the time zone of the
     ///     <see cref="PidLidAppointmentEndWhole"/> property(section 2.14).
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentEndWhole
+    public static NamedPropertyTag PidLidAppointmentEndWhole
     {
         get
         {
@@ -2019,7 +2019,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Identifies the time that the appointment starts.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentStartTime
+    public static NamedPropertyTag PidLidAppointmentStartTime
     {
         get
         {
@@ -2031,7 +2031,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the time that the appointment ends.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentEndTime
+    public static NamedPropertyTag PidLidAppointmentEndTime
     {
         get
         {
@@ -2043,7 +2043,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the date that the appointment ends.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentEndDate
+    public static NamedPropertyTag PidLidAppointmentEndDate
     {
         get
         {
@@ -2055,7 +2055,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the date that the appointment starts.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentStartDate
+    public static NamedPropertyTag PidLidAppointmentStartDate
     {
         get
         {
@@ -2067,7 +2067,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the length of the event, in minutes.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentDuration
+    public static NamedPropertyTag PidLidAppointmentDuration
     {
         get
         {
@@ -2079,7 +2079,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the color to be used when displaying the Calendar object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentColor
+    public static NamedPropertyTag PidLidAppointmentColor
     {
         get
         {
@@ -2100,7 +2100,7 @@ internal static class NamedPropertyTags
     ///     client or server must not infer the value as TRUE when a user happens to create an 
     ///     event that is 24 hours, even if the event starts and ends at midnight.
     /// </remarks>
-    internal static NamedPropertyTag PidLidAppointmentSubType
+    public static NamedPropertyTag PidLidAppointmentSubType
     {
         get
         {
@@ -2113,7 +2113,7 @@ internal static class NamedPropertyTags
     ///     Contains the value of the CalendarType field from the PidLidAppointmentRecur
     ///     property(section 2.22).
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentRecur
+    public static NamedPropertyTag PidLidAppointmentRecur
     {
         get
         {
@@ -2126,7 +2126,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies a bit field that describes the state of the object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentStateFlags
+    public static NamedPropertyTag PidLidAppointmentStateFlags
     {
         get
         {
@@ -2138,7 +2138,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the response status of an attendee.
     /// </summary>
-    internal static NamedPropertyTag PidLidResponseStatus
+    public static NamedPropertyTag PidLidResponseStatus
     {
         get
         {
@@ -2152,7 +2152,7 @@ internal static class NamedPropertyTags
     ///     Specifies the date and time at which the attendee responded to a received meeting
     ///     request or Meeting Update object.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentReplyTime
+    public static NamedPropertyTag PidLidAppointmentReplyTime
     {
         get
         {
@@ -2164,7 +2164,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies whether the object represents a recurring series.
     /// </summary>
-    internal static NamedPropertyTag PidLidRecurring
+    public static NamedPropertyTag PidLidRecurring
     {
         get
         {
@@ -2178,7 +2178,7 @@ internal static class NamedPropertyTags
     ///     object in the organizer's calendar at the time the Meeting Request object or Meeting 
     ///     Update object was sent.
     /// </summary>
-    internal static NamedPropertyTag PidLidIntendedBusyStatus
+    public static NamedPropertyTag PidLidIntendedBusyStatus
     {
         get
         {
@@ -2190,7 +2190,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the time at which the appointment was last updated.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentUpdateTime
+    public static NamedPropertyTag PidLidAppointmentUpdateTime
     {
         get
         {
@@ -2203,7 +2203,7 @@ internal static class NamedPropertyTags
     ///     Specifies the date and time, in UTC, within a recurrence pattern that an exception will
     ///     replace.
     /// </summary>
-    internal static NamedPropertyTag PidLidExceptionReplaceTime
+    public static NamedPropertyTag PidLidExceptionReplaceTime
     {
         get
         {
@@ -2216,7 +2216,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether invitations have been sent for the meeting that this Meeting object
     ///     represents.
     /// </summary>
-    internal static NamedPropertyTag PidLidFInvited
+    public static NamedPropertyTag PidLidFInvited
     {
         get
         {
@@ -2230,7 +2230,7 @@ internal static class NamedPropertyTags
     ///     exceptions, and at least one of the Exception Embedded Message objects has at least 
     ///     one RecipientRow.
     /// </summary>
-    internal static NamedPropertyTag PidLidFExceptionalAttendees
+    public static NamedPropertyTag PidLidFExceptionalAttendees
     {
         get
         {
@@ -2242,7 +2242,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the name of the owner of the mailbox.
     /// </summary>
-    internal static NamedPropertyTag PidLidOwnerName
+    public static NamedPropertyTag PidLidOwnerName
     {
         get
         {
@@ -2255,7 +2255,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether the Calendar folder from which the meeting was opened is
     ///     another user's calendar.
     /// </summary>
-    internal static NamedPropertyTag PidLidFOthersAppointment
+    public static NamedPropertyTag PidLidFOthersAppointment
     {
         get
         {
@@ -2267,7 +2267,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the user who last replied to the meeting request or meeting update.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentReplyName
+    public static NamedPropertyTag PidLidAppointmentReplyName
     {
         get
         {
@@ -2279,7 +2279,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the recurrence type of the recurring series.
     /// </summary>
-    internal static NamedPropertyTag PidLidRecurrenceType
+    public static NamedPropertyTag PidLidRecurrenceType
     {
         get
         {
@@ -2291,7 +2291,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies a description of the recurrence pattern of the Calendar object.
     /// </summary>
-    internal static NamedPropertyTag PidLidRecurrencePattern
+    public static NamedPropertyTag PidLidRecurrencePattern
     {
         get
         {
@@ -2304,7 +2304,7 @@ internal static class NamedPropertyTags
     ///     Specifies a human-readable description of the time zone that is represented by the
     ///     data in the <see cref="PidLidTimeZoneStruct"/> property(section 2.340).
     /// </summary>
-    internal static NamedPropertyTag PidLidTimeZoneStruct
+    public static NamedPropertyTag PidLidTimeZoneStruct
     {
         get
         {
@@ -2317,7 +2317,7 @@ internal static class NamedPropertyTags
     ///     Specifies a human-readable description of the time zone that is represented by the
     ///     data in the PidLidTimeZoneStruct property(section 2.340).
     /// </summary>
-    internal static NamedPropertyTag PidLidTimeZoneDescription
+    public static NamedPropertyTag PidLidTimeZoneDescription
     {
         get
         {
@@ -2329,7 +2329,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the start date and time of the event in UTC.
     /// </summary>
-    internal static NamedPropertyTag PidLidClipStart
+    public static NamedPropertyTag PidLidClipStart
     {
         get
         {
@@ -2341,7 +2341,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the end date and time of the event in UTC.
     /// </summary>
-    internal static NamedPropertyTag PidLidClipEnd
+    public static NamedPropertyTag PidLidClipEnd
     {
         get
         {
@@ -2353,7 +2353,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     The original store id
     /// </summary>
-    internal static NamedPropertyTag PidLidOriginalStoreEntryId
+    public static NamedPropertyTag PidLidOriginalStoreEntryId
     {
         get
         {
@@ -2366,7 +2366,7 @@ internal static class NamedPropertyTags
     ///     Specifies a list of all the attendees except for the organizer, including resources and
     ///     unsendable attendees.
     /// </summary>
-    internal static NamedPropertyTag PidLidAllAttendeesString
+    public static NamedPropertyTag PidLidAllAttendeesString
     {
         get
         {
@@ -2379,7 +2379,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether the value of the <see cref="PidLidLocation"/> property (section 2.157) 
     ///     is set to the <see cref="PropertyTags.PR_DISPLAY_NAME_W"/> property(section 2.746)
     /// </summary>
-    internal static NamedPropertyTag PidLidAutoFillLocation
+    public static NamedPropertyTag PidLidAutoFillLocation
     {
         get
         {
@@ -2391,7 +2391,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains a list of all the sendable attendees who are also required attendees.
     /// </summary>
-    internal static NamedPropertyTag PidLidToAttendeesString
+    public static NamedPropertyTag PidLidToAttendeesString
     {
         get
         {
@@ -2403,7 +2403,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains a list of all the sendable attendees who are also optional attendees.
     /// </summary>
-    internal static NamedPropertyTag PidLidCcAttendeesString
+    public static NamedPropertyTag PidLidCcAttendeesString
     {
         get
         {
@@ -2422,7 +2422,7 @@ internal static class NamedPropertyTags
     ///     If this property is set, <see cref="PidLidConferencingType"/> (section 2.2.1.51.3) is also to 
     ///     be set. This property is set to TRUE only on Meeting objects or meeting-related objects.
     /// </summary>
-    internal static NamedPropertyTag PidLidConferencingCheck
+    public static NamedPropertyTag PidLidConferencingCheck
     {
         get
         {
@@ -2434,7 +2434,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the type of the meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidConferencingType
+    public static NamedPropertyTag PidLidConferencingType
     {
         get
         {
@@ -2446,7 +2446,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the directory server to be used with NetMeeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidDirectory
+    public static NamedPropertyTag PidLidDirectory
     {
         get
         {
@@ -2458,7 +2458,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the e-mail address of the organizer.
     /// </summary>
-    internal static NamedPropertyTag PidLidOrganizerAlias
+    public static NamedPropertyTag PidLidOrganizerAlias
     {
         get
         {
@@ -2471,7 +2471,7 @@ internal static class NamedPropertyTags
     ///     Specifies whether or not to automatically start the conferencing application when a
     ///     reminder for the meeting fires.
     /// </summary>
-    internal static NamedPropertyTag PidLidAutoStartCheck
+    public static NamedPropertyTag PidLidAutoStartCheck
     {
         get
         {
@@ -2483,7 +2483,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidAutoStartWhen
+    public static NamedPropertyTag PidLidAutoStartWhen
     {
         get
         {
@@ -2495,7 +2495,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property is set to TRUE
     /// </summary>
-    internal static NamedPropertyTag PidLidAllowExternalCheck
+    public static NamedPropertyTag PidLidAllowExternalCheck
     {
         get
         {
@@ -2507,7 +2507,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the document to be launched when the user joins the meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidCollaborateDoc
+    public static NamedPropertyTag PidLidCollaborateDoc
     {
         get
         {
@@ -2519,7 +2519,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the URL to be launched when the user joins the meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidNetShowUrl
+    public static NamedPropertyTag PidLidNetShowUrl
     {
         get
         {
@@ -2532,7 +2532,7 @@ internal static class NamedPropertyTags
     ///     Specifies the password for a meeting on which the <see cref="PidLidConferencingType"/> property
     ///     (section 2.66) has the value 0x00000002.
     /// </summary>
-    internal static NamedPropertyTag PidLidOnlinePassword
+    public static NamedPropertyTag PidLidOnlinePassword
     {
         get
         {
@@ -2545,7 +2545,7 @@ internal static class NamedPropertyTags
     ///     Specifies the proposed value for the <see cref="PidLidAppointmentStartWhole"/> 
     ///     property (section 2.29) for a counter proposal.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentProposedStartWhole
+    public static NamedPropertyTag PidLidAppointmentProposedStartWhole
     {
         get
         {
@@ -2558,7 +2558,7 @@ internal static class NamedPropertyTags
     ///     Specifies the proposed value for the <see cref="PidLidAppointmentEndWhole"/> property (section 2.14) 
     ///     for a counter proposal.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentProposedEndWhole
+    public static NamedPropertyTag PidLidAppointmentProposedEndWhole
     {
         get
         {
@@ -2571,7 +2571,7 @@ internal static class NamedPropertyTags
     ///     Indicates the proposed value for the <see cref="PidLidAppointmentDuration"/> property (section 2.11) 
     ///     for a counter proposal.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentProposedDuration
+    public static NamedPropertyTag PidLidAppointmentProposedDuration
     {
         get
         {
@@ -2583,7 +2583,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates whether a Meeting Response object is a counter proposal.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentCounterProposal
+    public static NamedPropertyTag PidLidAppointmentCounterProposal
     {
         get
         {
@@ -2596,7 +2596,7 @@ internal static class NamedPropertyTags
     ///     Specifies the number of attendees who have sent counter proposals that have not been
     ///     accepted or rejected by the organizer.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentProposalNumber
+    public static NamedPropertyTag PidLidAppointmentProposalNumber
     {
         get
         {
@@ -2609,7 +2609,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether attendees are not allowed to propose a new date and/or time for the
     ///     meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentNotAllowPropose
+    public static NamedPropertyTag PidLidAppointmentNotAllowPropose
     {
         get
         {
@@ -2621,7 +2621,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains a list of unsendable attendees.
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentUnsendableRecipients
+    public static NamedPropertyTag PidLidAppointmentUnsendableRecipients
     {
         get
         {
@@ -2634,7 +2634,7 @@ internal static class NamedPropertyTags
     ///     Specifies time zone information that indicates the time zone of the
     ///     <see cref="PidLidAppointmentStartWhole"/> property(section 2.29).
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentTimeZoneDefinitionStartDisplay
+    public static NamedPropertyTag PidLidAppointmentTimeZoneDefinitionStartDisplay
     {
         get
         {
@@ -2646,7 +2646,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentTimeZoneDefinitionEndDisplay
+    public static NamedPropertyTag PidLidAppointmentTimeZoneDefinitionEndDisplay
     {
         get
         {
@@ -2659,7 +2659,7 @@ internal static class NamedPropertyTags
     ///     Specifies time zone information that indicates the time zone of the
     ///     <see cref="PidLidAppointmentEndWhole"/> property(section 2.14).
     /// </summary>
-    internal static NamedPropertyTag PidLidAppointmentTimeZoneDefinitionRecur
+    public static NamedPropertyTag PidLidAppointmentTimeZoneDefinitionRecur
     {
         get
         {
@@ -2672,7 +2672,7 @@ internal static class NamedPropertyTags
     ///     Contains a list of <see cref="RecipientRow"/> structures, as described in [MS-OXCDATA] section 2.8.3,
     ///     that indicate the <see cref="Recipients"/> of a meeting forward.
     /// </summary>
-    internal static NamedPropertyTag PidLidForwardNotificationRecipients
+    public static NamedPropertyTag PidLidForwardNotificationRecipients
     {
         get
         {
@@ -2684,7 +2684,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the contents of the iCalendar MIME part of the original MIME message.
     /// </summary>
-    internal static NamedPropertyTag PidLidInboundICalStream
+    public static NamedPropertyTag PidLidInboundICalStream
     {
         get
         {
@@ -2697,7 +2697,7 @@ internal static class NamedPropertyTags
     ///     Specifies the interval, in minutes, between the time at which the reminder first
     ///     becomes overdue and the start time of the Calendar object.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderDelta
+    public static NamedPropertyTag PidLidReminderDelta
     {
         get
         {
@@ -2710,7 +2710,7 @@ internal static class NamedPropertyTags
     ///     Specifies the filename of the sound that a client is to play when the reminder for that
     ///     object becomes overdue.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderFileParameter
+    public static NamedPropertyTag PidLidReminderFileParameter
     {
         get
         {
@@ -2724,7 +2724,7 @@ internal static class NamedPropertyTags
     ///     2.219) and <see cref="PidLidReminderFileParameter" /> (section 2.217), or use the default 
     ///     values for those properties.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderOverride
+    public static NamedPropertyTag PidLidReminderOverride
     {
         get
         {
@@ -2736,7 +2736,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies whether the client is to play a sound when the reminder becomes overdue.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderPlaySound
+    public static NamedPropertyTag PidLidReminderPlaySound
     {
         get
         {
@@ -2748,7 +2748,7 @@ internal static class NamedPropertyTags
         /// <summary>
         ///     Specifies whether a reminder is set on the object.
         /// </summary>
-        internal static NamedPropertyTag PidLidReminderSet
+        public static NamedPropertyTag PidLidReminderSet
         {
             get { return new NamedPropertyTag(0x8503, "PidLidReminderSet",
                     new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN); }
@@ -2757,7 +2757,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the point in time when a reminder transitions from pending to overdue.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderSignalTime
+    public static NamedPropertyTag PidLidReminderSignalTime
     {
         get
         {
@@ -2769,7 +2769,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the initial signal time for non-Calendar objects.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderTime
+    public static NamedPropertyTag PidLidReminderTime
     {
         get
         {
@@ -2781,7 +2781,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the time and date of the reminder for the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderTimeDate
+    public static NamedPropertyTag PidLidReminderTimeDate
     {
         get
         {
@@ -2793,7 +2793,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the time of the reminder for the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderTimeTime
+    public static NamedPropertyTag PidLidReminderTimeTime
     {
         get
         {
@@ -2805,7 +2805,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      This property is not set and if set, is ignored.
     /// </summary>
-    internal static NamedPropertyTag PidLidReminderType
+    public static NamedPropertyTag PidLidReminderType
     {
         get
         {
@@ -2817,7 +2817,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidSingleBodyIcal
+    public static NamedPropertyTag PidLidSingleBodyIcal
     {
         get
         {
@@ -2829,7 +2829,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Identifies the day of the month for the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidDayOfMonth
+    public static NamedPropertyTag PidLidDayOfMonth
     {
         get
         {
@@ -2841,7 +2841,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the contact’s business web page URL.
     /// </summary>
-    internal static NamedPropertyTag PidLidICalendarDayOfWeekMask
+    public static NamedPropertyTag PidLidICalendarDayOfWeekMask
     {
         get
         {
@@ -2853,7 +2853,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the number of occurrences in the recurring appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidOccurrences
+    public static NamedPropertyTag PidLidOccurrences
     {
         get
         {
@@ -2865,7 +2865,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the number of occurrences in the recurring appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidMonthOfYear
+    public static NamedPropertyTag PidLidMonthOfYear
     {
         get
         {
@@ -2877,7 +2877,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates whether the recurrence pattern has an end date.
     /// </summary>
-    internal static NamedPropertyTag PidLidNoEndDateFlag
+    public static NamedPropertyTag PidLidNoEndDateFlag
     {
         get
         {
@@ -2889,7 +2889,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the length, in minutes, of the appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidLidRecurrenceDuration
+    public static NamedPropertyTag PidLidRecurrenceDuration
     {
         get
         {
@@ -2901,7 +2901,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the remote status of the calendar item.
     /// </summary>
-    internal static NamedPropertyTag PidLidRemoteStatus
+    public static NamedPropertyTag PidLidRemoteStatus
     {
         get
         {
@@ -2913,7 +2913,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the entry ID for the destination folder.
     /// </summary>
-    internal static NamedPropertyTag PidLidConversationActionMoveFolderEid
+    public static NamedPropertyTag PidLidConversationActionMoveFolderEid
     {
         get
         {
@@ -2925,7 +2925,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the entry ID for a move to a folder in a different store.
     /// </summary>
-    internal static NamedPropertyTag PidLidConversationActionMoveStoreEid
+    public static NamedPropertyTag PidLidConversationActionMoveStoreEid
     {
         get
         {
@@ -2939,7 +2939,7 @@ internal static class NamedPropertyTags
     ///     E-mail objects modified in response to the last time the user changed a conversation action on the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidConversationActionMaxDeliveryTime
+    public static NamedPropertyTag PidLidConversationActionMaxDeliveryTime
     {
         get
         {
@@ -2953,7 +2953,7 @@ internal static class NamedPropertyTags
     ///     conversation, or the last time that the user modified the conversation action, whichever occurs
     ///     later.
     /// </summary>
-    internal static NamedPropertyTag PidLidConversationProcessed
+    public static NamedPropertyTag PidLidConversationProcessed
     {
         get
         {
@@ -2967,7 +2967,7 @@ internal static class NamedPropertyTags
     ///     conversation, or the last time that the user modified the conversation action, whichever occurs
     ///     later.
     /// </summary>
-    internal static NamedPropertyTag PidLidConversationActionLastAppliedTime
+    public static NamedPropertyTag PidLidConversationActionLastAppliedTime
     {
         get
         {
@@ -2979,7 +2979,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the version of the conversation action FAI message.
     /// </summary>
-    internal static NamedPropertyTag PidLidConversationActionVersion
+    public static NamedPropertyTag PidLidConversationActionVersion
     {
         get
         {
@@ -2991,7 +2991,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Briefly describes the activity that is being recorded.
     /// </summary>
-    internal static NamedPropertyTag PidLidLogType
+    public static NamedPropertyTag PidLidLogType
     {
         get
         {
@@ -3003,7 +3003,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the time at which the activity began.
     /// </summary>
-    internal static NamedPropertyTag PidLidLogStart
+    public static NamedPropertyTag PidLidLogStart
     {
         get
         {
@@ -3015,7 +3015,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the duration in minutes of the activity.
     /// </summary>
-    internal static NamedPropertyTag PidLidLogDuration
+    public static NamedPropertyTag PidLidLogDuration
     {
         get
         {
@@ -3027,7 +3027,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidLogEnd
+    public static NamedPropertyTag PidLidLogEnd
     {
         get
         {
@@ -3039,7 +3039,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the time at which the activity ended.
     /// </summary>
-    internal static NamedPropertyTag PidLidLogFlags
+    public static NamedPropertyTag PidLidLogFlags
     {
         get
         {
@@ -3051,7 +3051,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the document was printed during journaling.
     /// </summary>
-    internal static NamedPropertyTag PidLidDocumentPrinted
+    public static NamedPropertyTag PidLidDocumentPrinted
     {
         get
         {
@@ -3063,7 +3063,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the document was saved during journaling.
     /// </summary>
-    internal static NamedPropertyTag PidLidDocumentSaved
+    public static NamedPropertyTag PidLidDocumentSaved
     {
         get
         {
@@ -3075,7 +3075,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the document was routed during journaling.
     /// </summary>
-    internal static NamedPropertyTag PidLidDocumentRouted
+    public static NamedPropertyTag PidLidDocumentRouted
     {
         get
         {
@@ -3087,7 +3087,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the document was posted during journaling.
     /// </summary>
-    internal static NamedPropertyTag PidLidDocumentPosted
+    public static NamedPropertyTag PidLidDocumentPosted
     {
         get
         {
@@ -3099,7 +3099,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Describes the activity that is being recorded.
     /// </summary>
-    internal static NamedPropertyTag PidLidLogTypeDesc
+    public static NamedPropertyTag PidLidLogTypeDesc
     {
         get
         {
@@ -3111,7 +3111,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the URL of the RSS or Atom feed that the XML file came from.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssChannelLink
+    public static NamedPropertyTag PidLidPostRssChannelLink
     {
         get
         {
@@ -3123,7 +3123,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the URL of the link from the item.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssItemLink
+    public static NamedPropertyTag PidLidPostRssItemLink
     {
         get
         {
@@ -3136,7 +3136,7 @@ internal static class NamedPropertyTags
     ///     Contains a hash of the feed XML computed by using an implementation-dependent
     ///     algorithm.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssItemHash
+    public static NamedPropertyTag PidLidPostRssItemHash
     {
         get
         {
@@ -3148,7 +3148,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains a unique identifier for the RSS object.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssItemGuid
+    public static NamedPropertyTag PidLidPostRssItemGuid
     {
         get
         {
@@ -3160,7 +3160,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the contents of the title field from the XML of the Atom feed or RSS channel.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssChannel
+    public static NamedPropertyTag PidLidPostRssChannel
     {
         get
         {
@@ -3173,7 +3173,7 @@ internal static class NamedPropertyTags
     ///     Contains the item element and all its sub-elements from an RSS feed, or the entry
     ///     element and all its sub-elements from an Atom feed.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssItemXml
+    public static NamedPropertyTag PidLidPostRssItemXml
     {
         get
         {
@@ -3185,7 +3185,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the user's preferred name for the subscription.
     /// </summary>
-    internal static NamedPropertyTag PidLidPostRssSubscription
+    public static NamedPropertyTag PidLidPostRssSubscription
     {
         get
         {
@@ -3198,7 +3198,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether the end-user wants this message object hidden from other users who have access to the message object.
     /// </summary>
-    internal static NamedPropertyTag PidLidPrivate
+    public static NamedPropertyTag PidLidPrivate
     {
         get
         {
@@ -3211,7 +3211,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingStatus
+    public static NamedPropertyTag PidLidSharingStatus
     {
         get
         {
@@ -3223,7 +3223,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the value "%xAE.F0.06.00.00.00.00.00.C0.00.00.00.00.00.00.46".
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingProviderGuid
+    public static NamedPropertyTag PidLidSharingProviderGuid
     {
         get
         {
@@ -3236,7 +3236,7 @@ internal static class NamedPropertyTags
     ///     Contains a user-displayable name of the sharing provider identified by the
     ///     <see cref="PidLidSharingProviderGuid"/> property(section 2.266).
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingProviderName
+    public static NamedPropertyTag PidLidSharingProviderName
     {
         get
         {
@@ -3249,7 +3249,7 @@ internal static class NamedPropertyTags
     ///     Contains a URL related to the sharing provider identified by the
     ///     <see cref="PidLidSharingProviderGuid"/> property(section 2.266).
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingProviderUrl
+    public static NamedPropertyTag PidLidSharingProviderUrl
     {
         get
         {
@@ -3262,7 +3262,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemotePath
+    public static NamedPropertyTag PidLidSharingRemotePath
     {
         get
         {
@@ -3274,7 +3274,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the PidLidSharingRemoteName property (section 2.277).
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteName
+    public static NamedPropertyTag PidLidSharingRemoteName
     {
         get
         {
@@ -3286,7 +3286,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the EntryID of the folder being shared. 
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteUid
+    public static NamedPropertyTag PidLidSharingRemoteUid
     {
         get
         {
@@ -3300,7 +3300,7 @@ internal static class NamedPropertyTags
     ///     Address Book object identified by the <see cref="PidLidSharingInitiatorEntryId"/>
     ///     property(section 2.248).
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingInitiatorName
+    public static NamedPropertyTag PidLidSharingInitiatorName
     {
         get
         {
@@ -3314,7 +3314,7 @@ internal static class NamedPropertyTags
     ///     Address Book object identified by the <see cref="PidLidSharingInitiatorEntryId"/>
     ///     property(section 2.248).   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingInitiatorSmtp
+    public static NamedPropertyTag PidLidSharingInitiatorSmtp
     {
         get
         {
@@ -3327,7 +3327,7 @@ internal static class NamedPropertyTags
     ///     Contains the value of the PidTagEntryId property (section 2.674) for 
     ///     the Address Book object of the currently logged-on user.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingInitiatorEntryId
+    public static NamedPropertyTag PidLidSharingInitiatorEntryId
     {
         get
         {
@@ -3340,7 +3340,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingFlags
+    public static NamedPropertyTag PidLidSharingFlags
     {
         get
         {
@@ -3353,7 +3353,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingProviderExtension
+    public static NamedPropertyTag PidLidSharingProviderExtension
     {
         get
         {
@@ -3366,7 +3366,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteUser
+    public static NamedPropertyTag PidLidSharingRemoteUser
     {
         get
         {
@@ -3379,7 +3379,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemotePass
+    public static NamedPropertyTag PidLidSharingRemotePass
     {
         get
         {
@@ -3392,7 +3392,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client. 
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalPath
+    public static NamedPropertyTag PidLidSharingLocalPath
     {
         get
         {
@@ -3405,7 +3405,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalName
+    public static NamedPropertyTag PidLidSharingLocalName
     {
         get
         {
@@ -3418,7 +3418,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.     
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalUid
+    public static NamedPropertyTag PidLidSharingLocalUid
     {
         get
         {
@@ -3431,7 +3431,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingFilter
+    public static NamedPropertyTag PidLidSharingFilter
     {
         get
         {
@@ -3444,7 +3444,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client. 
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalType
+    public static NamedPropertyTag PidLidSharingLocalType
     {
         get
         {
@@ -3457,7 +3457,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingFolderEntryId
+    public static NamedPropertyTag PidLidSharingFolderEntryId
     {
         get
         {
@@ -3470,7 +3470,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingCapabilities
+    public static NamedPropertyTag PidLidSharingCapabilities
     {
         get
         {
@@ -3483,7 +3483,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingFlavor
+    public static NamedPropertyTag PidLidSharingFlavor
     {
         get
         {
@@ -3496,7 +3496,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingAnonymity
+    public static NamedPropertyTag PidLidSharingAnonymity
     {
         get
         {
@@ -3509,7 +3509,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingReciprocation
+    public static NamedPropertyTag PidLidSharingReciprocation
     {
         get
         {
@@ -3522,7 +3522,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingPermissions
+    public static NamedPropertyTag PidLidSharingPermissions
     {
         get
         {
@@ -3535,7 +3535,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingInstanceGuid
+    public static NamedPropertyTag PidLidSharingInstanceGuid
     {
         get
         {
@@ -3548,7 +3548,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteType
+    public static NamedPropertyTag PidLidSharingRemoteType
     {
         get
         {
@@ -3561,7 +3561,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingParticipants
+    public static NamedPropertyTag PidLidSharingParticipants
     {
         get
         {
@@ -3574,7 +3574,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLastSyncTime
+    public static NamedPropertyTag PidLidSharingLastSyncTime
     {
         get
         {
@@ -3587,7 +3587,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingExtensionXml
+    public static NamedPropertyTag PidLidSharingExtensionXml
     {
         get
         {
@@ -3600,7 +3600,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteLastModificationTime
+    public static NamedPropertyTag PidLidSharingRemoteLastModificationTime
     {
         get
         {
@@ -3613,7 +3613,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalLastModificationTime
+    public static NamedPropertyTag PidLidSharingLocalLastModificationTime
     {
         get
         {
@@ -3625,7 +3625,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains a zero-length string.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingConfigurationUrl
+    public static NamedPropertyTag PidLidSharingConfigurationUrl
     {
         get
         {
@@ -3638,7 +3638,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingStart
+    public static NamedPropertyTag PidLidSharingStart
     {
         get
         {
@@ -3651,7 +3651,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingStop
+    public static NamedPropertyTag PidLidSharingStop
     {
         get
         {
@@ -3664,7 +3664,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.     
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingResponseType
+    public static NamedPropertyTag PidLidSharingResponseType
     {
         get
         {
@@ -3676,7 +3676,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the time at which the recipient of the sharing request sent a sharing response.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingResponseTime
+    public static NamedPropertyTag PidLidSharingResponseTime
     {
         get
         {
@@ -3689,7 +3689,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingOriginalMessageEntryId
+    public static NamedPropertyTag PidLidSharingOriginalMessageEntryId
     {
         get
         {
@@ -3702,7 +3702,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.     
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingSyncInterval
+    public static NamedPropertyTag PidLidSharingSyncInterval
     {
         get
         {
@@ -3715,7 +3715,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingDetail
+    public static NamedPropertyTag PidLidSharingDetail
     {
         get
         {
@@ -3728,7 +3728,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingTimeToLive
+    public static NamedPropertyTag PidLidSharingTimeToLive
     {
         get
         {
@@ -3741,7 +3741,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingBindingEntryId
+    public static NamedPropertyTag PidLidSharingBindingEntryId
     {
         get
         {
@@ -3754,7 +3754,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingIndexEntryId
+    public static NamedPropertyTag PidLidSharingIndexEntryId
     {
         get
         {
@@ -3767,7 +3767,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteComment
+    public static NamedPropertyTag PidLidSharingRemoteComment
     {
         get
         {
@@ -3780,7 +3780,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingWorkingHoursStart
+    public static NamedPropertyTag PidLidSharingWorkingHoursStart
     {
         get
         {
@@ -3793,7 +3793,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.   
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingWorkingHoursEnd
+    public static NamedPropertyTag PidLidSharingWorkingHoursEnd
     {
         get
         {
@@ -3806,7 +3806,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.      
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingWorkingHoursDays
+    public static NamedPropertyTag PidLidSharingWorkingHoursDays
     {
         get
         {
@@ -3819,7 +3819,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingWorkingHoursTimeZone
+    public static NamedPropertyTag PidLidSharingWorkingHoursTimeZone
     {
         get
         {
@@ -3832,7 +3832,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.     
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingDataRangeStart
+    public static NamedPropertyTag PidLidSharingDataRangeStart
     {
         get
         {
@@ -3845,7 +3845,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.    
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingDataRangeEnd
+    public static NamedPropertyTag PidLidSharingDataRangeEnd
     {
         get
         {
@@ -3858,7 +3858,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRangeStart
+    public static NamedPropertyTag PidLidSharingRangeStart
     {
         get
         {
@@ -3871,7 +3871,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRangeEnd
+    public static NamedPropertyTag PidLidSharingRangeEnd
     {
         get
         {
@@ -3884,7 +3884,7 @@ internal static class NamedPropertyTags
     ///     Contains a hexadecimal string representation of the value of the PidTagStoreEntryId
     ///     property(section 2.1018) on the folder being shared.
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteStoreUid
+    public static NamedPropertyTag PidLidSharingRemoteStoreUid
     {
         get
         {
@@ -3897,7 +3897,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalStoreUid
+    public static NamedPropertyTag PidLidSharingLocalStoreUid
     {
         get
         {
@@ -3910,7 +3910,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteByteSize
+    public static NamedPropertyTag PidLidSharingRemoteByteSize
     {
         get
         {
@@ -3923,7 +3923,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteCrc
+    public static NamedPropertyTag PidLidSharingRemoteCrc
     {
         get
         {
@@ -3936,7 +3936,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLocalComment
+    public static NamedPropertyTag PidLidSharingLocalComment
     {
         get
         {
@@ -3949,7 +3949,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRoamLog
+    public static NamedPropertyTag PidLidSharingRoamLog
     {
         get
         {
@@ -3962,7 +3962,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteMessageCount
+    public static NamedPropertyTag PidLidSharingRemoteMessageCount
     {
         get
         {
@@ -3975,7 +3975,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingBrowseUrl
+    public static NamedPropertyTag PidLidSharingBrowseUrl
     {
         get
         {
@@ -3988,7 +3988,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.  
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingLastAutoSyncTime
+    public static NamedPropertyTag PidLidSharingLastAutoSyncTime
     {
         get
         {
@@ -4001,7 +4001,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.      
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingTimeToLiveAuto
+    public static NamedPropertyTag PidLidSharingTimeToLiveAuto
     {
         get
         {
@@ -4014,7 +4014,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.       
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingRemoteVersion
+    public static NamedPropertyTag PidLidSharingRemoteVersion
     {
         get
         {
@@ -4027,7 +4027,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.      
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingParentBindingEntryId
+    public static NamedPropertyTag PidLidSharingParentBindingEntryId
     {
         get
         {
@@ -4040,7 +4040,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.      
     /// </summary>
-    internal static NamedPropertyTag PidLidSharingSyncFlags
+    public static NamedPropertyTag PidLidSharingSyncFlags
     {
         get
         {
@@ -4052,7 +4052,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the suggested background color of the Note object.
     /// </summary>
-    internal static NamedPropertyTag PidLidNoteColor
+    public static NamedPropertyTag PidLidNoteColor
     {
         get
         {
@@ -4064,7 +4064,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the width of the visible message window in pixels.
     /// </summary>
-    internal static NamedPropertyTag PidLidNoteWidth
+    public static NamedPropertyTag PidLidNoteWidth
     {
         get
         {
@@ -4076,7 +4076,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the height of the visible message window in pixels.
     /// </summary>
-    internal static NamedPropertyTag PidLidNoteHeight
+    public static NamedPropertyTag PidLidNoteHeight
     {
         get
         {
@@ -4089,7 +4089,7 @@ internal static class NamedPropertyTags
     ///     Specifies the distance, in pixels, from the left edge of the screen that a user interface
     ///     displays a Note object.
     /// </summary>
-    internal static NamedPropertyTag PidLidNoteX
+    public static NamedPropertyTag PidLidNoteX
     {
         get
         {
@@ -4102,7 +4102,7 @@ internal static class NamedPropertyTags
     ///     Specifies the distance, in pixels, from the top edge of the screen that a user interface
     ///     displays a Note object.
     /// </summary>
-    internal static NamedPropertyTag PidLidNoteY
+    public static NamedPropertyTag PidLidNoteY
     {
         get
         {
@@ -4114,7 +4114,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the array of text labels assigned to this Message object.
     /// </summary>
-    internal static NamedPropertyTag PidLidCategories
+    public static NamedPropertyTag PidLidCategories
     {
         get
         {
@@ -4126,7 +4126,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the application used to open the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameApplicationName
+    public static NamedPropertyTag PidNameApplicationName
     {
         get
         {
@@ -4138,7 +4138,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the author of the file attached to the Document object
     /// </summary>
-    internal static NamedPropertyTag PidNameAuthor
+    public static NamedPropertyTag PidNameAuthor
     {
         get
         {
@@ -4150,7 +4150,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the size, in bytes, of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameByteCount
+    public static NamedPropertyTag PidNameByteCount
     {
         get
         {
@@ -4162,7 +4162,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the role of the attendee.
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarAttendeeRole
+    public static NamedPropertyTag PidNameCalendarAttendeeRole
     {
         get
         {
@@ -4174,7 +4174,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies whether the attendee is busy at the time of an appointment on their calendar.
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarBusyStatus
+    public static NamedPropertyTag PidNameCalendarBusyStatus
     {
         get
         {
@@ -4186,7 +4186,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Identifies the name of a contact who is an attendee of a meeting.
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarContact
+    public static NamedPropertyTag PidNameCalendarContact
     {
         get
         {
@@ -4198,7 +4198,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Identifies the URL where you can access contact information in HTML format
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarContactUrl
+    public static NamedPropertyTag PidNameCalendarContactUrl
     {
         get
         {
@@ -4211,7 +4211,7 @@ internal static class NamedPropertyTags
     ///     Identifies the date and time, in UTC, when the organizer created the appointment or
     ///     meeting.
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarCreated
+    public static NamedPropertyTag PidNameCalendarCreated
     {
         get
         {
@@ -4224,7 +4224,7 @@ internal static class NamedPropertyTags
     ///     Specifies the URL of a resource that contains a description of an appointment or
     ///     meeting.
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarDescriptionUrl
+    public static NamedPropertyTag PidNameCalendarDescriptionUrl
     {
         get
         {
@@ -4236,7 +4236,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Identifies the duration, in seconds, of an appointment or meeting.
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarDuration
+    public static NamedPropertyTag PidNameCalendarDuration
     {
         get
         {
@@ -4248,7 +4248,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Identifies a list of dates that are exceptions to a recurring appointment
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarExceptionDate
+    public static NamedPropertyTag PidNameCalendarExceptionDate
     {
         get
         {
@@ -4260,7 +4260,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies an exception rule for a recurring appointment
     /// </summary>
-    internal static NamedPropertyTag PidNameCalendarExceptionRule
+    public static NamedPropertyTag PidNameCalendarExceptionRule
     {
         get
         {
@@ -4272,7 +4272,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the category of the file attached to the Document object
     /// </summary>
-    internal static NamedPropertyTag PidNameCategory
+    public static NamedPropertyTag PidNameCategory
     {
         get
         {
@@ -4284,7 +4284,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the character count of the file attached to the Document object
     /// </summary>
-    internal static NamedPropertyTag PidNameCharacterCount
+    public static NamedPropertyTag PidNameCharacterCount
     {
         get
         {
@@ -4296,7 +4296,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the comments of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameComments
+    public static NamedPropertyTag PidNameComments
     {
         get
         {
@@ -4308,7 +4308,7 @@ internal static class NamedPropertyTags
     /// <summary>
     /// Specifies the company for which the file was created.
     /// </summary>
-    internal static NamedPropertyTag PidNameCompany
+    public static NamedPropertyTag PidNameCompany
     {
         get
         {
@@ -4320,7 +4320,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the time, in UTC, that the file was first created.
     /// </summary>
-    internal static NamedPropertyTag PidNameCreateDateTimeReadOnly
+    public static NamedPropertyTag PidNameCreateDateTimeReadOnly
     {
         get
         {
@@ -4333,7 +4333,7 @@ internal static class NamedPropertyTags
     ///     Specifies the value used to cache the Use License for the rights-managed email
     ///     message.
     /// </summary>
-    internal static NamedPropertyTag PidNameRightsManagementLicense
+    public static NamedPropertyTag PidNameRightsManagementLicense
     {
         get
         {
@@ -4345,7 +4345,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the time that the file was last edited.
     /// </summary>
-    internal static NamedPropertyTag PidNameEditTime
+    public static NamedPropertyTag PidNameEditTime
     {
         get
         {
@@ -4357,7 +4357,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the hidden value of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameHiddenCount
+    public static NamedPropertyTag PidNameHiddenCount
     {
         get
         {
@@ -4369,7 +4369,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains keywords or categories for the Message object.
     /// </summary>
-    internal static NamedPropertyTag PidNameKeywords
+    public static NamedPropertyTag PidNameKeywords
     {
         get
         {
@@ -4381,7 +4381,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the most recent author of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameLastAuthor
+    public static NamedPropertyTag PidNameLastAuthor
     {
         get
         {
@@ -4393,7 +4393,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the time, in UTC, that the file was last printed.
     /// </summary>
-    internal static NamedPropertyTag PidNameLastPrinted
+    public static NamedPropertyTag PidNameLastPrinted
     {
         get
         {
@@ -4405,7 +4405,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the time, in UTC, that the file was last saved.
     /// </summary>
-    internal static NamedPropertyTag PidNameLastSaveDateTime
+    public static NamedPropertyTag PidNameLastSaveDateTime
     {
         get
         {
@@ -4417,7 +4417,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the number of lines in the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameLineCount
+    public static NamedPropertyTag PidNameLineCount
     {
         get
         {
@@ -4429,7 +4429,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the manager of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameManager
+    public static NamedPropertyTag PidNameManager
     {
         get
         {
@@ -4441,7 +4441,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the number of multimedia clips in the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameMultimediaClipCount
+    public static NamedPropertyTag PidNameMultimediaClipCount
     {
         get
         {
@@ -4453,7 +4453,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the number of notes in the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameNoteCount
+    public static NamedPropertyTag PidNameNoteCount
     {
         get
         {
@@ -4465,7 +4465,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the GUID of the SMS account used to deliver the message.
     /// </summary>
-    internal static NamedPropertyTag PidNameOMSAccountGuid
+    public static NamedPropertyTag PidNameOMSAccountGuid
     {
         get
         {
@@ -4477,7 +4477,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Indicates the model of the mobile device used to send the SMS or MMS message.
     /// </summary>
-    internal static NamedPropertyTag PidNameOMSMobileModel
+    public static NamedPropertyTag PidNameOMSMobileModel
     {
         get
         {
@@ -4490,7 +4490,7 @@ internal static class NamedPropertyTags
     ///     Contains the time, in UTC, at which the client requested that the service provider send
     ///     the SMS or MMS message. 
     /// </summary>
-    internal static NamedPropertyTag PidNameOMSGScheduleTime
+    public static NamedPropertyTag PidNameOMSGScheduleTime
     {
         get
         {
@@ -4502,7 +4502,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the type of service used to send an SMS or MMS message.
     /// </summary>
-    internal static NamedPropertyTag PidNameOMSServiceType
+    public static NamedPropertyTag PidNameOMSServiceType
     {
         get
         {
@@ -4514,7 +4514,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the source of an SMS or MMS message.
     /// </summary>
-    internal static NamedPropertyTag PidNameOMSSourceType
+    public static NamedPropertyTag PidNameOMSSourceType
     {
         get
         {
@@ -4526,7 +4526,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether a message is likely to be phishing.
     /// </summary>
-    internal static NamedPropertyTag PidNamePhishingStamp
+    public static NamedPropertyTag PidNamePhishingStamp
     {
         get
         {
@@ -4538,7 +4538,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether a message is likely to be spoofing.
     /// </summary>
-    internal static NamedPropertyTag PidNameSpoofingStamp
+    public static NamedPropertyTag PidNameSpoofingStamp
     {
         get
         {
@@ -4550,7 +4550,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the page count of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNamePageCount
+    public static NamedPropertyTag PidNamePageCount
     {
         get
         {
@@ -4562,7 +4562,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the number of paragraphs in the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameParagraphCount
+    public static NamedPropertyTag PidNameParagraphCount
     {
         get
         {
@@ -4574,7 +4574,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the presentation format of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNamePresentationFormat
+    public static NamedPropertyTag PidNamePresentationFormat
     {
         get
         {
@@ -4586,7 +4586,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the security level of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameSecurity
+    public static NamedPropertyTag PidNameSecurity
     {
         get
         {
@@ -4598,7 +4598,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the number of slides in the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameSlideCount
+    public static NamedPropertyTag PidNameSlideCount
     {
         get
         {
@@ -4610,7 +4610,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the subject of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameSubject
+    public static NamedPropertyTag PidNameSubject
     {
         get
         {
@@ -4622,7 +4622,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the template of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameTemplate
+    public static NamedPropertyTag PidNameTemplate
     {
         get
         {
@@ -4634,7 +4634,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Specifies the title of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameTitle
+    public static NamedPropertyTag PidNameTitle
     {
         get
         {
@@ -4646,7 +4646,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Specifies the word count of the file attached to the Document object.
     /// </summary>
-    internal static NamedPropertyTag PidNameWordCount
+    public static NamedPropertyTag PidNameWordCount
     {
         get
         {
@@ -4658,7 +4658,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the value of the MIME Accept-Language header.
     /// </summary>
-    internal static NamedPropertyTag PidNameAcceptLanguage
+    public static NamedPropertyTag PidNameAcceptLanguage
     {
         get
         {
@@ -4670,7 +4670,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property specifies the address of the moderator that approved and posted a message.
     /// </summary>
-    internal static NamedPropertyTag PidNameApproved
+    public static NamedPropertyTag PidNameApproved
     {
         get
         {
@@ -4682,7 +4682,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameApprovalAllowedDescisionMakers
+    public static NamedPropertyTag PidNameApprovalAllowedDescisionMakers
     {
         get
         {
@@ -4694,7 +4694,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameApprovalRequestor
+    public static NamedPropertyTag PidNameApprovalRequestor
     {
         get
         {
@@ -4706,7 +4706,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameAuthenticatedAs
+    public static NamedPropertyTag PidNameAuthenticatedAs
     {
         get
         {
@@ -4718,7 +4718,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameAuthenticatedDomain
+    public static NamedPropertyTag PidNameAuthenticatedDomain
     {
         get
         {
@@ -4730,7 +4730,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameAuthenticatedMechanism
+    public static NamedPropertyTag PidNameAuthenticatedMechanism
     {
         get
         {
@@ -4742,7 +4742,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameAuthenticatedSource
+    public static NamedPropertyTag PidNameAuthenticatedSource
     {
         get
         {
@@ -4756,7 +4756,7 @@ internal static class NamedPropertyTags
     ///     SHOULD be directly imported from and exported to the bcc header that is specified in
     ///     [RFC822].
     /// </summary>
-    internal static NamedPropertyTag PidNameBcc
+    public static NamedPropertyTag PidNameBcc
     {
         get
         {
@@ -4769,7 +4769,7 @@ internal static class NamedPropertyTags
     ///     This property specifies the carbon copy addressees of the message. This property SHOULD
     ///     be directly imported from and exported to the cc header that is specified in [RFC822].
     /// </summary>
-    internal static NamedPropertyTag PidNameCc
+    public static NamedPropertyTag PidNameCc
     {
         get
         {
@@ -4782,7 +4782,7 @@ internal static class NamedPropertyTags
     ///     Specifies the value of the MIME Content-Base header, which defines the base URI for
     ///     resolving relative URLs contained within the message body.
     /// </summary>
-    internal static NamedPropertyTag PidNameContentBase
+    public static NamedPropertyTag PidNameContentBase
     {
         get
         {
@@ -4794,7 +4794,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains a string that identifies the type of content of a Message object.
     /// </summary>
-    internal static NamedPropertyTag PidNameContentClass
+    public static NamedPropertyTag PidNameContentClass
     {
         get
         {
@@ -4806,7 +4806,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property specifies the intended disposition of the body part.
     /// </summary>
-    internal static NamedPropertyTag PidNameContentDisposition
+    public static NamedPropertyTag PidNameContentDisposition
     {
         get
         {
@@ -4818,7 +4818,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property specifies a unique identifier for the body part.
     /// </summary>
-    internal static NamedPropertyTag PidNameContentID
+    public static NamedPropertyTag PidNameContentID
     {
         get
         {
@@ -4830,7 +4830,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///    This property specifies the language identifier for the text content of the body part. 
     /// </summary>
-    internal static NamedPropertyTag PidNameContentLanguage
+    public static NamedPropertyTag PidNameContentLanguage
     {
         get
         {
@@ -4843,7 +4843,7 @@ internal static class NamedPropertyTags
     ///     This property specifies the Uniform Resource Identifier (URI) that corresponds to the content
     ///     of the body part. 
     /// </summary>
-    internal static NamedPropertyTag PidNameContentLocation
+    public static NamedPropertyTag PidNameContentLocation
     {
         get
         {
@@ -4855,7 +4855,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property specifies the encoding mechanism used to encode the content of the body part.
     /// </summary>
-    internal static NamedPropertyTag PidNameContentTransferEncoding
+    public static NamedPropertyTag PidNameContentTransferEncoding
     {
         get
         {
@@ -4867,7 +4867,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     This property specifies the type of the body part's content.
     /// </summary>
-    internal static NamedPropertyTag PidNameContentType
+    public static NamedPropertyTag PidNameContentType
     {
         get
         {
@@ -4879,7 +4879,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidNameCrossReference
+    public static NamedPropertyTag PidNameCrossReference
     {
         get
         {
@@ -4892,7 +4892,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingBrowseUrl
+    public static NamedPropertyTag PidNameXSharingBrowseUrl
     {
         get
         {
@@ -4905,7 +4905,7 @@ internal static class NamedPropertyTags
     ///      Contains a string representation of the value of the <see cref="PidLidSharingCapabilities"/>
     ///     property(section 2.237).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingCapabilities
+    public static NamedPropertyTag PidNameXSharingCapabilities
     {
         get
         {
@@ -4917,7 +4917,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the <see cref="PidLidSharingConfigurationUrl"/> property (section 2.238).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingConfigUrl
+    public static NamedPropertyTag PidNameXSharingConfigUrl
     {
         get
         {
@@ -4929,7 +4929,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingExtendedCaps
+    public static NamedPropertyTag PidNameXSharingExtendedCaps
     {
         get
         {
@@ -4942,7 +4942,7 @@ internal static class NamedPropertyTags
     ///     Contains a hexadecimal string representation of the value of the PidLidSharingFlavor
     ///     property(section 2.245).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingFlavor
+    public static NamedPropertyTag PidNameXSharingFlavor
     {
         get
         {
@@ -4955,7 +4955,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingInstanceGuid
+    public static NamedPropertyTag PidNameXSharingInstanceGuid
     {
         get
         {
@@ -4967,7 +4967,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingLocalType
+    public static NamedPropertyTag PidNameXSharingLocalType
     {
         get
         {
@@ -4979,7 +4979,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the same value as the PidLidSharingLocalType property (section 2.259).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingProviderGuid
+    public static NamedPropertyTag PidNameXSharingProviderGuid
     {
         get
         {
@@ -4991,7 +4991,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the <see cref="PidLidSharingProviderName"/> property (section 2.267).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingProviderName
+    public static NamedPropertyTag PidNameXSharingProviderName
     {
         get
         {
@@ -5003,7 +5003,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the <see cref="PidLidSharingProviderUrl"/> property (section 2.268).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingProviderUrl
+    public static NamedPropertyTag PidNameXSharingProviderUrl
     {
         get
         {
@@ -5015,7 +5015,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the same value as the <see cref="PidLidSharingRemoteName"/> property (section 2.277).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingRemoteName
+    public static NamedPropertyTag PidNameXSharingRemoteName
     {
         get
         {
@@ -5028,7 +5028,7 @@ internal static class NamedPropertyTags
     ///     Contains a value that is ignored by the server no matter what value is generated by the
     ///     client.
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingRemotePath
+    public static NamedPropertyTag PidNameXSharingRemotePath
     {
         get
         {
@@ -5040,7 +5040,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the <see cref="PidLidSharingRemoteStoreUid"/> property (section 2.282).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingRemoteStoreUid
+    public static NamedPropertyTag PidNameXSharingRemoteStoreUid
     {
         get
         {
@@ -5052,7 +5052,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the <see cref="PidLidSharingRemoteType"/> property (section 2.281).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingRemoteType
+    public static NamedPropertyTag PidNameXSharingRemoteType
     {
         get
         {
@@ -5064,7 +5064,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the same value as the <see cref="PidLidSharingRemoteUid"/> property (section 2.282).
     /// </summary>
-    internal static NamedPropertyTag PidNameXSharingRemoteUid
+    public static NamedPropertyTag PidNameXSharingRemoteUid
     {
         get
         {
@@ -5076,7 +5076,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameXSieve
+    public static NamedPropertyTag PidNameXSieve
     {
         get
         {
@@ -5088,7 +5088,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Unknown
     /// </summary>
-    internal static NamedPropertyTag PidNameXVirusScanned
+    public static NamedPropertyTag PidNameXVirusScanned
     {
         get
         {
@@ -5100,7 +5100,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates what actions the user has taken on this Meeting object.
     /// </summary>
-    internal static NamedPropertyTag PidLidClientIntent
+    public static NamedPropertyTag PidLidClientIntent
     {
         get
         {
@@ -5113,7 +5113,7 @@ internal static class NamedPropertyTags
     ///     Indicates whether the Meeting Request object or Meeting Update object has been 
     ///     processed.
     /// </summary>
-    internal static NamedPropertyTag PidLidServerProcessed
+    public static NamedPropertyTag PidLidServerProcessed
     {
         get
         {
@@ -5125,7 +5125,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidLidServerProcessingActions
+    public static NamedPropertyTag PidLidServerProcessingActions
     {
         get
         {
@@ -5137,7 +5137,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Contains the Content-Type of the Mac attachment.
     /// </summary>
-    internal static NamedPropertyTag PidNameAttachmentMacContentType
+    public static NamedPropertyTag PidNameAttachmentMacContentType
     {
         get
         {
@@ -5149,7 +5149,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///      Contains the headers and resource fork data associated with the Mac attachment.
     /// </summary>
-    internal static NamedPropertyTag PidNameAttachmentMacInfo
+    public static NamedPropertyTag PidNameAttachmentMacInfo
     {
         get
         {
@@ -5161,7 +5161,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     
     /// </summary>
-    internal static NamedPropertyTag PidNameAudioNotes
+    public static NamedPropertyTag PidNameAudioNotes
     {
         get
         {
@@ -5174,7 +5174,7 @@ internal static class NamedPropertyTags
     ///     Contains textual annotations to a voice message after it has been delivered to the user's
     ///      mailbox.
     /// </summary>
-    internal static NamedPropertyTag PidNameAutomaticSpeechRecognitionData
+    public static NamedPropertyTag PidNameAutomaticSpeechRecognitionData
     {
         get
         {
@@ -5186,7 +5186,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Outlook protection rule timestamp
     /// </summary>
-    internal static NamedPropertyTag PidNameOutlookProtectionRuleTimestamp
+    public static NamedPropertyTag PidNameOutlookProtectionRuleTimestamp
     {
         get
         {
@@ -5198,7 +5198,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///    X-Unified messaging partner assigned id
     /// </summary>
-    internal static NamedPropertyTag PidNameXUnifiedMessagingPartnerAssignedId
+    public static NamedPropertyTag PidNameXUnifiedMessagingPartnerAssignedId
     {
         get
         {
@@ -5210,7 +5210,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     X-Unified messaging partner content
     /// </summary>
-    internal static NamedPropertyTag PidNameXUnifiedMessagingPartnerContent
+    public static NamedPropertyTag PidNameXUnifiedMessagingPartnerContent
     {
         get
         {
@@ -5222,7 +5222,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     The spam confidence level
     /// </summary>
-    internal static NamedPropertyTag PidNameOriginalSpamConfidenceLevel
+    public static NamedPropertyTag PidNameOriginalSpamConfidenceLevel
     {
         get
         {
@@ -5234,7 +5234,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates the transfer size, in bytes, for a remote item.
     /// </summary>
-    internal static NamedPropertyTag PidLidRemoteTransferSize
+    public static NamedPropertyTag PidLidRemoteTransferSize
     {
         get
         {
@@ -5246,7 +5246,7 @@ internal static class NamedPropertyTags
     /// <summary>
     ///     Indicates whether a remote item has an attachment associated with it.
     /// </summary>
-    internal static NamedPropertyTag PidLidRemoteAttachment
+    public static NamedPropertyTag PidLidRemoteAttachment
     {
         get
         {
@@ -5254,12 +5254,36 @@ internal static class NamedPropertyTags
                 new Guid("00062014-0000-0000-C000-000000000046"), PropertyType.PT_BOOLEAN);
         }
     }
+
+    /// <summary>
+    ///     Contains the mileage information that is associated with an item.
+    /// </summary>
+    public static NamedPropertyTag PidLidMileage
+    {
+        get
+        {
+            return new NamedPropertyTag(8534, "PidLidMileage",
+                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+        }
+    }
+
+    /// <summary>
+    ///     Contains the billing information associated with an item.
+    /// </summary>
+    public static NamedPropertyTag PidLidBilling
+    {
+        get
+        {
+            return new NamedPropertyTag(0x8535, "PidLidBilling",
+                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+        }
+    }
 }
 
 /// <summary>
 ///     Used to hold exactly one named property tag
 /// </summary>
-internal class NamedPropertyTag
+public class NamedPropertyTag
 {
     #region Properties
     /// <summary>

@@ -212,16 +212,32 @@ public class Message : IDisposable
     /// <summary>
     ///     Adds a custom property to the message or replaces it when it already exists
     /// </summary>
-    /// <param name="propertyTag"><see cref="PropertyTags.PropertyTag"/></param>
+    /// <param name="property"><see cref="PropertyTags.PropertyTag"/></param>
     /// <param name="value">The value of the property</param>
     /// <param name="flags"><see cref="PropertyFlags"/></param>
     /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
-    public void AddProperty(PropertyTags.PropertyTag propertyTag, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
+    public void AddProperty(PropertyTags.PropertyTag property, object value, PropertyFlags flags = PropertyFlags.PROPATTR_WRITABLE)
     {
         if (_saved)
             throw new MKMessageSaved("The message can't be modified when it already has been saved");
 
-        TopLevelProperties.AddOrReplaceProperty(propertyTag, value, flags);
+        TopLevelProperties.AddOrReplaceProperty(property, value, flags);
+    }
+    #endregion
+
+    #region AddNamedProperty
+    /// <summary>
+    ///     Adds a custom named property to the message or replaces it when it already exists
+    /// </summary>
+    /// <param name="namedProperty"><see cref="NamedPropertyTag"/></param>
+    /// <param name="value">The value of the property</param>
+    /// <exception cref="MKMessageSaved">Raised when the message has already been saved with the Save method</exception>
+    public void AddProperty(NamedPropertyTag namedProperty, object value)
+    {
+        if (_saved)
+            throw new MKMessageSaved("The message can't be modified when it already has been saved");
+
+        NamedProperties.AddProperty(namedProperty, value);
     }
     #endregion
 
