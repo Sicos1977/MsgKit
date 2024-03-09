@@ -4,7 +4,7 @@ MsgKit is a 100% managed C# .NET library that supports C# .NET 4.6.2 and Standar
 
 ## License Information
 
-MsgKit is Copyright (C) 2015-2023 Magic-Sessions and is licensed under the MIT license:
+MsgKit is Copyright (C) 2015-2024 Magic-Sessions and is licensed under the MIT license:
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -209,7 +209,7 @@ Core Team
 
 Support
 =======
-If you like my work then please consider a donation as a thank you by using the donate button on the top
+If you like my work then please consider a donation as a thank you by using the sponsor button on the top
 
 ## Reporting Bugs
 
