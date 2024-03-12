@@ -25,8 +25,6 @@
 //
 
 using System;
-using MsgKit.Helpers;
-using System.Collections.ObjectModel;
 using MsgKit.Enums;
 using OpenMcdf;
 using Stream = System.IO.Stream;
@@ -34,23 +32,24 @@ using Stream = System.IO.Stream;
 namespace MsgKit;
 
 /// <summary>
-///     A class used to make a task that can be added to a <see cref="Email"/> or <see cref="Appointment"/>
+///     A class to make a Task
 /// </summary>
 /// <remarks>
-///     See https://msdn.microsoft.com/en-us/library/office/cc979231.aspx
+///     Inherits from <see cref="Email"/>>, because it has quite a few of the same fields
 /// </remarks>
-public class Task : Message
+
+public class Task : Email
 {
     #region Properties
     /// <summary>
     ///     Specifies the <see cref="TaskStatus"/>> of the user's progress on the task
     /// </summary>
-    public TaskStatus Status { get; }
+    public TaskStatus Status { get; set; }
 
     /// <summary>
     ///     Percentage complete or <c>null</c>
     /// </summary>
-    public double? PercentageComplete { get; }
+    public double? PercentageComplete { get; set; }
 
     /// <summary>
     ///     Represents the date when the user expects to complete the task
@@ -63,7 +62,7 @@ public class Task : Message
     ///     property must also be set. If dispidTaskStartDate has a start date, then the value of the
     ///     dispidTaskDueDate property must be greater than or equal to the value of dispidTaskStartDate.
     /// </remarks>
-    public DateTime? DueDate { get; }
+    public DateTime? DueDate { get; set; }
 
     /// <summary>
     ///     The date when the user expects to begin the task.
@@ -75,7 +74,7 @@ public class Task : Message
     ///     dispidTaskDueDate (PidLidTaskDueDate) and dispidCommonStart (PidLidCommonStart) properties
     ///     must also be set.
     /// </remarks>
-    public DateTime? StartDate { get; }
+    public DateTime? StartDate { get; set; }
 
     /// <summary>
     ///     Indicates the number of minutes that the user performed a task.
@@ -85,7 +84,7 @@ public class Task : Message
     ///     where 480 minutes equal one day and 2400 minutes equal one week (eight hours in a work
     ///     day and five days in a work week).
     /// </remarks>
-    public TimeSpan? ActualEffort { get; }
+    public TimeSpan? ActualEffort { get; set; }
 
     /// <summary>
     ///     Indicates the amount of time, in minutes, that the user expects to perform a task.
@@ -94,43 +93,38 @@ public class Task : Message
     ///     The value must be greater than or equal to 0 and less than 0x5AE980DF (1,525,252,319), where 480 minutes equal
     ///     one day and 2400 minutes equal one week (eight hours in a work day and five days in a work week).
     /// </remarks>
-    public TimeSpan? EstimatedEffort { get; }
+    public TimeSpan? EstimatedEffort { get; set; }
     
     /// <summary>
     ///     Indicates whether the task assignee has been requested to send a task update when the assigned task changes.
     /// </summary>
-    public bool Updates { get; }
+    public bool Updates { get; set; }
 
     /// <summary>
     ///     Indicates whether the task assignee has been requested to send an email message update when they complete
     ///     the assigned task.
     /// </summary>
-    public bool StatusOnComplete { get; }
+    public bool StatusOnComplete { get; set; }
 
     /// <summary>
     ///     Indicates the task is complete.
     /// </summary>
-    public bool Complete { get; }
+    public bool Complete { get; set; }
 
     /// <summary>
     ///     Contains the name of the task owner.
     /// </summary>
-    public string Owner { get; }
+    public string Owner { get; set; }
 
     /// <summary>
     ///     Indicates the role of the current user relative to the task.
     /// </summary>
-    public TaskOwnership Ownership { get; }
+    public TaskOwnership Ownership { get; set; }
     
     /// <summary>
     ///     Indicates the acceptance state of the task.
     /// </summary>
-    public TaskAcceptanceState AcceptanceState { get; }
-
-    /// <summary>
-    ///     ??????
-    /// </summary>
-    public string Role { get; }
+    public TaskAcceptanceState AcceptanceState { get; set; }
 
     /// <summary>
     ///     Indicates which copy is the latest update of a task.
@@ -140,12 +134,12 @@ public class Task : Message
     ///     When embedding a task in a task communication, the client sets the current version of the embedded task
     ///     on the task communication as well.
     /// </remarks>
-    public long Version { get; }
+    public long Version { get; set; } = 1;
 
     /// <summary>
     ///     Indicates the current assignment state of the task.
     /// </summary>
-    public TaskState State { get; }
+    public TaskState State { get; set; }
 
     /// <summary>
     ///     Names the user who was last assigned the task.
@@ -157,12 +151,12 @@ public class Task : Message
     ///     (PidLidTaskAssigners) property, the dispidTaskDelegator (PidLidTaskAssigner) property must be set to the added
     ///     or removed task assigner.
     /// </remarks>
-    public string Assigner { get; }
+    public string Assigner { get; set; }
 
     /// <summary>
     ///     <c>true</c> when it is a team task
     /// </summary>
-    public bool TeamTask { get; }
+    public bool TeamTask { get; set; }
 
     /// <summary>
     ///     Provides an aid to custom sorting tasks.
@@ -174,12 +168,12 @@ public class Task : Message
     ///     (PidTagOrdinalMost) property of the folder, the client must also update PR_ORDINAL_MOST on the folder.
     ///     The PR_ORDINAL_MOST property of the folder provides an efficient way to determine a unique value among tasks in the same folder.
     /// </remarks>
-    public long Ordinal { get; }
+    public long? Ordinal { get; set; }
 
     /// <summary>
     ///     <c>true</c> when the task is recurring
     /// </summary>
-    public bool Recurring { get; }
+    public bool Recurring { get; set; }
 
     // PidLidTaskRecurrence Canonical Property
 
@@ -187,37 +181,37 @@ public class Task : Message
     ///     Specifies the interval, in minutes, between the time at which the reminder first becomes overdue and the start time of
     ///     the Calendar object.
     /// </summary>
-    public long ReminderDelta { get; }
+    public long ReminderDelta { get; set; }
 
     /// <summary>
     ///     Specifies the initial signal time for objects that are not Calendar objects.
     /// </summary>
-    public DateTime? ReminderTime { get; }
+    public DateTime? ReminderTime { get; set; }
 
     /// <summary>
     ///     Specifies the point in time when a reminder transitions from pending to overdue.
     /// </summary>
-    public DateTime? ReminderSignalTime { get; }
+    public DateTime? ReminderSignalTime { get; set; }
 
     /// <summary>
     ///      Indicates the start time for the Message object.
     /// </summary>
-    public DateTime? CommonStart { get; }
+    public DateTime? CommonStart { get; set; }
 
     /// <summary>
     ///      Indicates the end time for the Message object.
     /// </summary>
-    public DateTime? CommonEnd { get; }
+    public DateTime? CommonEnd { get; set;}
 
     /// <summary>
     ///     Specifies whether a reminder is set on the object.
     /// </summary>
-    public bool ReminderSet { get; }
+    public bool ReminderSet { get; set; }
 
     /// <summary>
     ///     Specifies the assignment status of the task.
     /// </summary>
-    public TaskMode Mode { get; }
+    public TaskMode Mode { get; set; }
 
     /// <summary>
     ///     Determines the sort order of objects in a consolidated to-do list.
@@ -230,7 +224,7 @@ public class Task : Message
     ///     When this property is used to sort objects and the sort results in a tie, the dispidToDoSubOrdinal (PidLidToDoSubOrdinal)
     ///     property is used as a tiebreaker.
     /// </remarks>
-    public DateTime? ToDoOrdinalDate { get; }
+    public DateTime? ToDoOrdinalDate { get; set; }
 
     /// <summary>
     ///     Acts as a tiebreaker when the dispidToDoOrdinalDate (PidLidToDoOrdinalDate) property sorts objects and the result in a tie.   
@@ -240,35 +234,101 @@ public class Task : Message
     ///     zero through nine. This property should be initially set to "5555555". The length of this property must not exceed 254 characters
     ///     (excluding the terminating null character).
     /// </remarks>
-    public string ToDoSubOrdinal { get; }
+    public string ToDoSubOrdinal { get; set; }
     
+    #endregion
+
+    #region Constructors
+    /// <summary>
+    ///     Sends a task with sender, representing, subject, draft.
+    /// </summary>
+    /// <param name="sender"> Contains sender name and email. </param>
+    /// <param name="representing">Contains who this appointment is representing. </param>
+    /// <param name="subject"> Contains the subject for this appointment. </param>
+    /// <param name="draft"> Is this a draft?</param>
+    public Task(Sender sender,
+        Representing representing,
+        string subject,
+        bool draft = false) : base(sender, representing, subject, draft)
+    {
+    }
+
+    /// <summary>
+    ///     Used to send without the representing structure.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="subject"></param>
+    /// <param name="draft"></param>
+    public Task(Sender sender,
+        string subject,
+        bool draft = false) : base(sender, subject, draft)
+    {
+    }
     #endregion
 
     #region WriteToStorage
     /// <summary>
-    ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="CFStorage"/>'s
+    ///     Writes all the properties that are part of the <see cref="Task"/> object either as <see cref="CFStorage"/>'s
     ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
     /// </summary>
-    private void WriteToStorage()
+    private new void WriteToStorage()
     {
-        var rootStorage = CompoundFile.RootStorage;
+        Class = MessageClass.IPM_Task;
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskStatus, Status);
 
-        //var namedProperties = new NamedProperties(propertiesStream); //Uses the top level properties. 
-        //namedProperties.AddProperty(NamedPropertyTags.PidLidLocation, Location);
-        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStartWhole, MeetingStart);
-        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentEndWhole, MeetingEnd);
-        //namedProperties.AddProperty(NamedPropertyTags.PidLidMeetingType, MeetingType.mtgRequest);
-        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentSubType, AllDay);
-        //namedProperties.AddProperty(NamedPropertyTags.PidLidAppointmentStateFlags, AppointmentState.asfMeeting);
-        //namedProperties.WriteProperties(rootStorage);
-        //propertiesStream.WriteProperties(rootStorage, messageSize);
+        if (PercentageComplete.HasValue)
+        {
+            if (PercentageComplete is < 0 or > 100)
+                throw new ArgumentOutOfRangeException(nameof(PercentageComplete), "PercentageComplete must be between 0 and 100");
+
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidPercentComplete, PercentageComplete.Value);
+        }
+
+        if (DueDate.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskDueDate, DueDate.Value);
+
+        if (StartDate.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskStartDate, StartDate.Value);
+
+        if (ActualEffort.HasValue)
+        {
+            if (ActualEffort.Value.TotalMinutes < 0 || ActualEffort.Value.TotalMinutes > 1525252319)
+                throw new ArgumentOutOfRangeException(nameof(ActualEffort), "ActualEffort must be between 0 and 1525252319");
+
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskActualEffort, ActualEffort.Value);
+        }
+
+        if (EstimatedEffort.HasValue)
+        {
+            if (EstimatedEffort.Value.TotalMinutes < 0 || EstimatedEffort.Value.TotalMinutes > 1525252319)
+                throw new ArgumentOutOfRangeException(nameof(EstimatedEffort), "EstimatedEffort must be between 0 and 1525252319");
+
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskEstimatedEffort, EstimatedEffort.Value);
+        }
+
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskUpdates, Updates);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskStatusOnComplete, StatusOnComplete);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskComplete, Complete);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskOwner, Owner);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskOwnership, Ownership);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskAcceptanceState, AcceptanceState);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskVersion, Version);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskState, State);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskAssigner, Assigner);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskTeamTask, TeamTask);
+        
+        if (Ordinal.HasValue)
+        {
+            if (Ordinal.Value < -2147383648 || Ordinal.Value > 2147383648)
+                throw new ArgumentOutOfRangeException(nameof(Ordinal), "Ordinal must be between -2147383648 and 2147383648");
+
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskOrdinal, Ordinal.Value);
+        }
+
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskRecurring, Recurring);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskReminderDelta, ReminderDelta);
     }
     #endregion
-
-    public Task()
-    {
-        throw new NotImplementedException("This functionality is not yet completely implemented");
-    }
 
     #region Save
     /// <summary>
