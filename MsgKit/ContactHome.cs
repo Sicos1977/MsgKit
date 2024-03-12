@@ -41,14 +41,14 @@ public class ContactHome : ContactOther
     /// </summary>
     public new string Address { get; set; }
 
-/// <summary>
-///     The fax number
-/// </summary>
-public string FaxNumber { get; set; }
+    /// <summary>
+    ///     The fax number
+    /// </summary>
+    public string FaxNumber { get; set; }
 
-/// <summary>
-///     The telephone 2 number
-/// </summary>
-public string TelephoneNumber2 { get; set; }
+    /// <summary>
+    ///     The telephone 2 number
+    /// </summary>
+    public string TelephoneNumber2 { get; set; }
 #endregion
 }

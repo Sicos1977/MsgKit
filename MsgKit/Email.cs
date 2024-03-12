@@ -39,6 +39,7 @@ using OpenMcdf;
 using MessageImportance = MsgKit.Enums.MessageImportance;
 using MessagePriority = MsgKit.Enums.MessagePriority;
 using Stream = System.IO.Stream;
+// ReSharper disable GrammarMistakeInComment
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -223,7 +224,7 @@ public class Email : Message, IDisposable
     public string InternetMessageId { get; set; }
 
     /// <summary>
-    ///     Returns or set the the value of a Multipurpose Internet Mail Extensions (MIME) message's References header field
+    ///     Returns or set the value of a Multipurpose Internet Mail Extensions (MIME) message's References header field
     /// </summary>
     /// <remarks>
     ///     If set then this value will be used, when not set the value will be read from the
