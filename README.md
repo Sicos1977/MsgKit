@@ -53,7 +53,7 @@ using (var email = new Email(
     email.Save(@"c:\email.msg");
 
     // Show the E-mail
-    System.Diagnostics.Process.Start(@"c:\email.msg");
+    System.Diagnostics.Process.Start(@"c:\Email.msg");
 }
 ```
 
@@ -81,7 +81,7 @@ using (var appointment = new Appointment(
     appointment.Save(@"c:\appointment.msg");
 
     // Show the Appointment
-    System.Diagnostics.Process.Start(@"c:\appointment.msg");
+    System.Diagnostics.Process.Start(@"c:\Appointment.msg");
 }
 ```
 
@@ -199,43 +199,43 @@ using (var contact = new Contact(
     contact.IconIndex = MessageIconIndex.UnsentMail;
     contact.Save("c:\\contact.msg");
     
-    System.Diagnostics.Process.Start("c:\\contact.msg");
+    System.Diagnostics.Process.Start("c:\\Contact.msg");
 }
 ```
 
 ### Creating a task
 
 ```csharp
-using (var appointment = new MsgKit.Task(
+using (var task = new MsgKit.Task(
            new MsgKit.Sender("peterpan@neverland.com", "Peter Pan"),
            new MsgKit.Representing("tinkerbell@neverland.com", "Tinkerbell"),
            "Hello Neverland subject"))
 {
-    appointment.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
-    appointment.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
-    appointment.Subject = "This is the subject";
-    appointment.Status = MsgKit.Enums.TaskStatus.NotStarted;
-    appointment.Complete = false;
-    appointment.PercentageComplete = 0.0;
-    appointment.DueDate = DateTime.Now.Date.AddDays(1).Date;
-    appointment.StartDate = DateTime.Now.Date;
-    appointment.Mode = MsgKit.Enums.TaskMode.Accepted;
-    appointment.Recurring = false;
-    appointment.ReminderTime = DateTime.Now.Date;
+    task.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    task.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    task.Subject = "This is the subject";
+    task.Status = MsgKit.Enums.TaskStatus.NotStarted;
+    task.Complete = false;
+    task.PercentageComplete = 0.0;
+    task.DueDate = DateTime.Now.Date.AddDays(1).Date;
+    task.StartDate = DateTime.Now.Date;
+    task.Mode = MsgKit.Enums.TaskMode.Accepted;
+    task.Recurring = false;
+    task.ReminderTime = DateTime.Now.Date;
 
 
-    appointment.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}" +
+    task.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}" +
                           @"This line is the default color\line\cf2This line is red\line\cf1" +
                           @"This line is the default color}";
-    appointment.BodyRtfCompressed = true;
-    appointment.BodyText = "Hello Neverland text";
-    appointment.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
-    appointment.SentOn = DateTime.UtcNow;
-    appointment.Importance = MsgKit.Enums.MessageImportance.IMPORTANCE_NORMAL;
-    appointment.IconIndex = MsgKit.Enums.MessageIconIndex.UnsentMail;
-    appointment.Attachments.Add("Images\\peterpan.jpg");
-    appointment.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
-    appointment.Save(@"d:\Task.msg");
+    task.BodyRtfCompressed = true;
+    task.BodyText = "Hello Neverland text";
+    task.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    task.SentOn = DateTime.UtcNow;
+    task.Importance = MsgKit.Enums.MessageImportance.IMPORTANCE_NORMAL;
+    task.IconIndex = MsgKit.Enums.MessageIconIndex.UnsentMail;
+    task.Attachments.Add("Images\\peterpan.jpg");
+    task.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
+    task.Save(@"d:\Task.msg");
 
     // Show the appointment
     System.Diagnostics.Process.Start(@"d:\Task.msg");
