@@ -202,6 +202,46 @@ using (var contact = new Contact(
     System.Diagnostics.Process.Start("c:\\contact.msg");
 }
 ```
+
+### Creating a task
+
+```csharp
+using (var appointment = new MsgKit.Task(
+           new MsgKit.Sender("peterpan@neverland.com", "Peter Pan"),
+           new MsgKit.Representing("tinkerbell@neverland.com", "Tinkerbell"),
+           "Hello Neverland subject"))
+{
+    appointment.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    appointment.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    appointment.Subject = "This is the subject";
+    appointment.Status = MsgKit.Enums.TaskStatus.NotStarted;
+    appointment.Complete = false;
+    appointment.PercentageComplete = 0.0;
+    appointment.DueDate = DateTime.Now.Date.AddDays(1).Date;
+    appointment.StartDate = DateTime.Now.Date;
+    appointment.Mode = MsgKit.Enums.TaskMode.Accepted;
+    appointment.Recurring = false;
+    appointment.ReminderTime = DateTime.Now.Date;
+
+
+    appointment.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}" +
+                          @"This line is the default color\line\cf2This line is red\line\cf1" +
+                          @"This line is the default color}";
+    appointment.BodyRtfCompressed = true;
+    appointment.BodyText = "Hello Neverland text";
+    appointment.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    appointment.SentOn = DateTime.UtcNow;
+    appointment.Importance = MsgKit.Enums.MessageImportance.IMPORTANCE_NORMAL;
+    appointment.IconIndex = MsgKit.Enums.MessageIconIndex.UnsentMail;
+    appointment.Attachments.Add("Images\\peterpan.jpg");
+    appointment.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
+    appointment.Save(@"d:\Task.msg");
+
+    // Show the appointment
+    System.Diagnostics.Process.Start(@"d:\Task.msg");
+}
+```
+
 Core Team
 =========
     Sicos1977 (Kees van Spelde)
