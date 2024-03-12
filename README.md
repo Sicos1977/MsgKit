@@ -222,8 +222,6 @@ using (var task = new MsgKit.Task(
     task.Mode = MsgKit.Enums.TaskMode.Accepted;
     task.Recurring = false;
     task.ReminderTime = DateTime.Now.Date;
-
-
     task.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}" +
                           @"This line is the default color\line\cf2This line is red\line\cf1" +
                           @"This line is the default color}";
