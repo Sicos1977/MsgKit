@@ -181,7 +181,7 @@ public class Task : Email
     ///     Specifies the interval, in minutes, between the time at which the reminder first becomes overdue and the start time of
     ///     the Calendar object.
     /// </summary>
-    public long ReminderDelta { get; set; }
+    public long? ReminderDelta { get; set; }
 
     /// <summary>
     ///     Specifies the initial signal time for objects that are not Calendar objects.
@@ -203,10 +203,10 @@ public class Task : Email
     /// </summary>
     public DateTime? CommonEnd { get; set;}
 
-    /// <summary>
-    ///     Specifies whether a reminder is set on the object.
-    /// </summary>
-    public bool ReminderSet { get; set; }
+    ///// <summary>
+    /////     Specifies whether a reminder is set on the object.
+    ///// </summary>
+    //public bool ReminderSet { get; set; }
 
     /// <summary>
     ///     Specifies the assignment status of the task.
@@ -292,7 +292,7 @@ public class Task : Email
 
         if (ActualEffort.HasValue)
         {
-            if (ActualEffort.Value.TotalMinutes < 0 || ActualEffort.Value.TotalMinutes > 1525252319)
+            if (ActualEffort.Value.TotalMinutes is < 0 or > 1525252319)
                 throw new ArgumentOutOfRangeException(nameof(ActualEffort), "ActualEffort must be between 0 and 1525252319");
 
             NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskActualEffort, ActualEffort.Value);
@@ -300,7 +300,7 @@ public class Task : Email
 
         if (EstimatedEffort.HasValue)
         {
-            if (EstimatedEffort.Value.TotalMinutes < 0 || EstimatedEffort.Value.TotalMinutes > 1525252319)
+            if (EstimatedEffort.Value.TotalMinutes is < 0 or > 1525252319)
                 throw new ArgumentOutOfRangeException(nameof(EstimatedEffort), "EstimatedEffort must be between 0 and 1525252319");
 
             NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskEstimatedEffort, EstimatedEffort.Value);
@@ -311,22 +311,49 @@ public class Task : Email
         NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskComplete, Complete);
         NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskOwner, Owner);
         NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskOwnership, Ownership);
-        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskAcceptanceState, AcceptanceState);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidAcceptanceState, AcceptanceState);
         NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskVersion, Version);
         NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskState, State);
         NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskAssigner, Assigner);
-        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskTeamTask, TeamTask);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTeamTask, TeamTask);
         
         if (Ordinal.HasValue)
         {
-            if (Ordinal.Value < -2147383648 || Ordinal.Value > 2147383648)
+            if (Ordinal.Value is < -2147383648 or > 2147383648)
                 throw new ArgumentOutOfRangeException(nameof(Ordinal), "Ordinal must be between -2147383648 and 2147383648");
 
             NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskOrdinal, Ordinal.Value);
         }
 
-        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskRecurring, Recurring);
-        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskReminderDelta, ReminderDelta);
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidRecurring, Recurring);
+
+        if (ReminderDelta.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderDelta, ReminderDelta);
+
+        if (ReminderTime.HasValue)
+        {
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderTime, ReminderTime);
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderSet, true);
+        }
+        else
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderSet, false);
+
+        if (ReminderSignalTime.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidReminderSignalTime, ReminderSignalTime);
+
+        if (CommonStart.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidCommonStart, CommonStart.Value);
+
+        if (CommonEnd.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidCommonEnd, CommonEnd.Value);
+
+        NamedProperties.AddProperty(NamedPropertyTags.PidLidTaskMode, Mode);
+
+        if (ToDoOrdinalDate.HasValue)
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidToDoOrdinalDate, ToDoOrdinalDate.Value);
+
+        if (!string.IsNullOrWhiteSpace(ToDoSubOrdinal))
+            NamedProperties.AddProperty(NamedPropertyTags.PidLidToDoSubOrdinal, ToDoSubOrdinal);
     }
     #endregion
 

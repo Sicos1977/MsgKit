@@ -2,9 +2,9 @@
 
 namespace MsgKitTestTool
 {
-    public class AppointmentTest
+    public class Tests
     {
-        public void Run()
+        public void CreateAppointment()
         {
             using (var appointment = new MsgKit.Appointment(
                        new MsgKit.Sender("peterpan@neverland.com", "Peter Pan"),
@@ -32,7 +32,7 @@ namespace MsgKitTestTool
                 appointment.Save(@"d:\test.msg");
 
                 // Show the appointment
-                System.Diagnostics.Process.Start(@"d:\test.msg");
+                System.Diagnostics.Process.Start(@"d:\Appointment.msg");
             }
         }
     }

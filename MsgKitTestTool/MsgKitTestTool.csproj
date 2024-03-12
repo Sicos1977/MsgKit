@@ -70,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppointmentTest.cs" />
+    <Compile Include="Tests.cs" />
     <Compile Include="EmailForm.cs">
       <SubType>Form</SubType>
     </Compile>
