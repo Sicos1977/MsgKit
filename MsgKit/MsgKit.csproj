@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <Version>2.7.2</Version>
+	<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>2.8.1</Version>
     <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
     <Company>Kees van Spelde</Company>
-    <Copyright>(C) 2015-2023 Magic-Sessions</Copyright>
+    <Copyright>(C) 2015-2024 Magic-Sessions</Copyright>
 	<PackageProjectUrl>https://github.com/Sicos1977/MsgKit</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
@@ -14,12 +14,12 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Outlook MSG E-mail Appointment</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>- Added option to leave attachment streams open
-- Update nuget packages</PackageReleaseNotes>
+    <PackageReleaseNotes>- Updated nuget packages 
+- Added support directly for .net 4.6.2 so that you don't need .net standard 2.0 if you don't want to</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>2.7.2.0</AssemblyVersion>
-    <FileVersion>2.7.2.0</FileVersion>
+    <AssemblyVersion>2.8.1.0</AssemblyVersion>
+    <FileVersion>2.8.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Outlook-icon.png</PackageIcon>
     <LangVersion>latest</LangVersion>
@@ -44,8 +44,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="4.3.0" />
-    <PackageReference Include="OpenMcdf" Version="2.3.0" />
+    <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="OpenMcdf" Version="2.3.1" />
     <PackageReference Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 

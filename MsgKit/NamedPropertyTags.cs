@@ -1827,6 +1827,53 @@ public static class NamedPropertyTags
         }
     }
 
+    /// <summary>
+    ///     Determines the sort order of objects in a consolidated to-do list
+    /// </summary>
+    public static NamedPropertyTag PidLidToDoOrdinalDate 
+    {
+        get
+        {
+            return new NamedPropertyTag(0x85A0, "PidLidToDoOrdinalDate",
+                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME);
+        }
+    }
+
+    /// <summary>
+    ///     Acts as a tiebreaker when the dispidToDoOrdinalDate (PidLidToDoOrdinalDate) property sorts objects and the result in a tie
+    /// </summary>
+    public static NamedPropertyTag PidLidToDoSubOrdinal 
+    {
+        get
+        {
+            return new NamedPropertyTag(0x85A0, "PidLidToDoSubOrdinal",
+                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_UNICODE);
+        }
+    }
+
+    /// <summary>
+    ///     Represents the start date and time of a message.
+    /// </summary>
+    public static NamedPropertyTag PidLidCommonStart
+    {
+        get
+        {
+            return new NamedPropertyTag(0x8516, "PidLidCommonStart",
+                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME);
+        }
+    }
+
+    /// <summary>
+    ///     Represents the end date and time of a message.
+    /// </summary>
+    public static NamedPropertyTag PidLidCommonEnd
+    {
+        get
+        {
+            return new NamedPropertyTag(0x8517, "PidLidCommonEnd",
+                new Guid("00062008-0000-0000-C000-000000000046"), PropertyType.PT_SYSTIME);
+        }
+    }
 
     /// <summary>
     ///     

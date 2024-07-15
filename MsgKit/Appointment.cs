@@ -32,8 +32,11 @@ using OpenMcdf;
 namespace MsgKit;
 
 /// <summary>
-///     Inherits from Email, because it has quite a few of the same fields
+///     A class to make an appointment
 /// </summary>
+/// <remarks>
+///     Inherits from <see cref="Email"/>>, because it has quite a few of the same fields
+/// </remarks>
 public class Appointment : Email
 {
     #region Properties

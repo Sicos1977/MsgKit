@@ -1,10 +1,10 @@
 ## What is MsgKit?
 
-MsgKit is a 100% managed C# .NET library that supports C# .NET 4.6.2 and Standard 2.0 (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
+MsgKit is a 100% managed C# .NET 4.6.2, .NET Standard 2.0 and .NET Standard 2.1 assembly (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible
 
 ## License Information
 
-MsgKit is Copyright (C) 2015-2023 Magic-Sessions and is licensed under the MIT license:
+MsgKit is Copyright (C) 2015-2024 Kees van Spelde (Magic-Sessions) and is licensed under the MIT license:
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,7 @@ using (var email = new Email(
     email.Save(@"c:\email.msg");
 
     // Show the E-mail
-    System.Diagnostics.Process.Start(@"c:\email.msg");
+    System.Diagnostics.Process.Start(@"c:\Email.msg");
 }
 ```
 
@@ -81,7 +81,7 @@ using (var appointment = new Appointment(
     appointment.Save(@"c:\appointment.msg");
 
     // Show the Appointment
-    System.Diagnostics.Process.Start(@"c:\appointment.msg");
+    System.Diagnostics.Process.Start(@"c:\Appointment.msg");
 }
 ```
 
@@ -199,9 +199,47 @@ using (var contact = new Contact(
     contact.IconIndex = MessageIconIndex.UnsentMail;
     contact.Save("c:\\contact.msg");
     
-    System.Diagnostics.Process.Start("c:\\contact.msg");
+    System.Diagnostics.Process.Start("c:\\Contact.msg");
 }
 ```
+
+### Creating a task
+
+```csharp
+using (var task = new MsgKit.Task(
+           new MsgKit.Sender("peterpan@neverland.com", "Peter Pan"),
+           new MsgKit.Representing("tinkerbell@neverland.com", "Tinkerbell"),
+           "Hello Neverland subject"))
+{
+    task.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+    task.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+    task.Subject = "This is the subject";
+    task.Status = MsgKit.Enums.TaskStatus.NotStarted;
+    task.Complete = false;
+    task.PercentageComplete = 0.0;
+    task.DueDate = DateTime.Now.Date.AddDays(1).Date;
+    task.StartDate = DateTime.Now.Date;
+    task.Mode = MsgKit.Enums.TaskMode.Accepted;
+    task.Recurring = false;
+    task.ReminderTime = DateTime.Now.Date;
+    task.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}" +
+                          @"This line is the default color\line\cf2This line is red\line\cf1" +
+                          @"This line is the default color}";
+    task.BodyRtfCompressed = true;
+    task.BodyText = "Hello Neverland text";
+    task.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+    task.SentOn = DateTime.UtcNow;
+    task.Importance = MsgKit.Enums.MessageImportance.IMPORTANCE_NORMAL;
+    task.IconIndex = MsgKit.Enums.MessageIconIndex.UnsentMail;
+    task.Attachments.Add("Images\\peterpan.jpg");
+    task.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
+    task.Save(@"d:\Task.msg");
+
+    // Show the appointment
+    System.Diagnostics.Process.Start(@"d:\Task.msg");
+}
+```
+
 Core Team
 =========
     Sicos1977 (Kees van Spelde)
@@ -209,7 +247,7 @@ Core Team
 
 Support
 =======
-If you like my work then please consider a donation as a thank you by using the donate button on the top
+If you like my work then please consider a donation as a thank you by using the sponsor button on the top
 
 ## Reporting Bugs
 

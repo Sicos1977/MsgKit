@@ -249,5 +249,41 @@ namespace MsgKitTestTool
 
             System.Diagnostics.Process.Start("d:\\contact.msg");
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (var task = new MsgKit.Task(
+                       new MsgKit.Sender("peterpan@neverland.com", "Peter Pan"),
+                       new MsgKit.Representing("tinkerbell@neverland.com", "Tinkerbell"),
+                       "Hello Neverland subject"))
+            {
+                task.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
+                task.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+                task.Subject = "This is the subject";
+                task.Status = MsgKit.Enums.TaskStatus.NotStarted;
+                task.Complete = false;
+                task.PercentageComplete = 0.0;
+                task.DueDate = DateTime.Now.Date.AddDays(1).Date;
+                task.StartDate = DateTime.Now.Date;
+                task.Mode = MsgKit.Enums.TaskMode.Accepted;
+                task.Recurring = false;
+                task.ReminderTime = DateTime.Now.Date;
+                task.BodyRtf = @"{\rtf1\ansi\deff0{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}" +
+                                      @"This line is the default color\line\cf2This line is red\line\cf1" +
+                                      @"This line is the default color}";
+                task.BodyRtfCompressed = true;
+                task.BodyText = "Hello Neverland text";
+                task.BodyHtml = "<html><head></head><body><b>Hello Neverland html</b></body></html>";
+                task.SentOn = DateTime.UtcNow;
+                task.Importance = MsgKit.Enums.MessageImportance.IMPORTANCE_NORMAL;
+                task.IconIndex = MsgKit.Enums.MessageIconIndex.UnsentMail;
+                task.Attachments.Add("Images\\peterpan.jpg");
+                task.Attachments.Add("Images\\tinkerbell.jpg", -1, true, "tinkerbell.jpg");
+                task.Save(@"d:\Task.msg");
+
+                // Show the appointment
+                System.Diagnostics.Process.Start(@"d:\Task.msg");
+            }
+        }
     }
 }
