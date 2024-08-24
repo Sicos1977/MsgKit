@@ -210,8 +210,8 @@ public class Attachments : List<Attachment>
     ///     <paramref name="contentId" /> is null, white space or empty
     /// </exception>
     /// <remarks>
-    ///     Universal naming convention (UNC) names are recommended for fully-qualified paths, which should be used with 
-    ///     <see cref="AttachmentType.ATTACH_BY_REF_ONLY" />. 
+    ///     Universal naming convention (UNC) names are recommended for fully-qualified paths, which should be used with
+    ///     <see cref="AttachmentType.ATTACH_BY_REF_ONLY" />.
     /// </remarks>
     public void AddLink(FileInfo file,
         long renderingPosition = -1,
@@ -256,9 +256,9 @@ public class Attachment
     public AttachmentType Type { get; }
 
     /// <summary>
-    ///     Indicates how an attachment should be displayed in a rich text message. It can be set to an 
-    ///     offset in characters, with the first character of the message content as stored in the <see cref="PropertyTags.PR_BODY_W" /> 
-    ///     (PidTagBody) property being offset 0, or to -1 (0xFFFFFFFF), indicating that the attachment should 
+    ///     Indicates how an attachment should be displayed in a rich text message. It can be set to an
+    ///     offset in characters, with the first character of the message content as stored in the <see cref="PropertyTags.PR_BODY_W" />
+    ///     (PidTagBody) property being offset 0, or to -1 (0xFFFFFFFF), indicating that the attachment should
     ///     not be rendered within the message text at all.
     /// </summary>
     public long RenderingPosition { get; }
