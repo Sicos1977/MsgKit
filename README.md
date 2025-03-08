@@ -4,7 +4,7 @@ MsgKit is a 100% managed C# .NET 4.6.2, .NET Standard 2.0 and .NET Standard 2.1 
 
 ## License Information
 
-MsgKit is Copyright (C) 2015-2024 Kees van Spelde (Magic-Sessions) and is licensed under the MIT license:
+MsgKit is Copyright (C) 2015-2025 Kees van Spelde (Magic-Sessions) and is licensed under the MIT license:
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
