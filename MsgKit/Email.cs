@@ -478,8 +478,6 @@ public class Email : Message, IDisposable
         if (MessageEditorFormat != MessageEditorFormat.EDITOR_FORMAT_DONTKNOW)
             TopLevelProperties.AddProperty(PropertyTags.PR_MSG_EDITOR_FORMAT, MessageEditorFormat);
 
-        SentOn ??= DateTime.UtcNow;
-
         if (ReceivedOn.HasValue && ReceivedOn > DateTime.MinValue)
             TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_DELIVERY_TIME, ReceivedOn.Value.ToUniversalTime());
 
