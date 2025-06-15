@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,11 @@ using System;
 using System.IO;
 using MsgKit.Enums;
 using MsgKit.Exceptions;
+using MsgKit.Helpers;
 using MsgKit.Streams;
 using OpenMcdf;
+using Version = OpenMcdf.Version;
+
 // ReSharper disable UnusedMember.Global
 
 // ReSharper disable InconsistentNaming
@@ -52,7 +55,7 @@ public class Message : IDisposable
     /// <summary>
     ///     The <see cref="CompoundFile" />
     /// </summary>
-    internal CompoundFile CompoundFile { get; }
+    internal RootStorage CompoundFile { get; }
 
     /// <summary>
     ///     The <see cref="MessageClass"/>
@@ -157,23 +160,21 @@ public class Message : IDisposable
     /// </summary>
     internal Message()
     {
-        CompoundFile = new CompoundFile();
+        CompoundFile = RootStorage.CreateInMemory(Version.V3, StorageModeFlags.Transacted);
 
         // In the preceding figure, the "__nameid_version1.0" named property mapping storage contains the 
         // three streams  used to provide a mapping from property ID to property name 
         // ("__substg1.0_00020102", "__substg1.0_00030102", and "__substg1.0_00040102") and various other 
         // streams that provide a mapping from property names to property IDs.
-        if (!CompoundFile.RootStorage.TryGetStorage(PropertyTags.NameIdStorage, out var nameIdStorage))
-            nameIdStorage = CompoundFile.RootStorage.AddStorage(PropertyTags.NameIdStorage);
+        var nameIdStorage = CompoundFile.GetStorage(PropertyTags.NameIdStorage);
+        using var entryStream = nameIdStorage.CreateStream(PropertyTags.EntryStream);
+        entryStream.Write([], 0, 0);
+        using var stringStream = nameIdStorage.CreateStream(PropertyTags.StringStream);
+        stringStream.Write([], 0, 0);
+        using var guidStream = nameIdStorage.CreateStream(PropertyTags.GuidStream);
+        guidStream.Write([], 0, 0);
 
-        var entryStream = nameIdStorage.AddStream(PropertyTags.EntryStream);
-        entryStream.SetData(Array.Empty<byte>());
-        var stringStream = nameIdStorage.AddStream(PropertyTags.StringStream);
-        stringStream.SetData(Array.Empty<byte>());
-        var guidStream = nameIdStorage.AddStream(PropertyTags.GuidStream);
-        guidStream.SetData(Array.Empty<byte>());
-
-        TopLevelProperties = new TopLevelProperties();
+        TopLevelProperties = [];
         NamedProperties = new NamedProperties(TopLevelProperties);
     }
     #endregion
@@ -182,8 +183,8 @@ public class Message : IDisposable
     private void Save()
     {
         TopLevelProperties.AddProperty(PropertyTags.PR_MESSAGE_CLASS_W, ClassAsString);
-        TopLevelProperties.WriteProperties(CompoundFile.RootStorage, MessageSize);
-        NamedProperties.WriteProperties(CompoundFile.RootStorage);
+        TopLevelProperties.WriteProperties(CompoundFile, MessageSize);
+        NamedProperties.WriteProperties(CompoundFile);
         _saved = true;
     }
 
@@ -194,7 +195,8 @@ public class Message : IDisposable
     internal void Save(string fileName)
     {
         Save();
-        CompoundFile.SaveAs(fileName);
+        CompoundFile.Commit();
+        CompoundFile.SwitchTo(fileName);
     }
 
     /// <summary>
@@ -204,7 +206,8 @@ public class Message : IDisposable
     internal void Save(Stream stream)
     {
         Save();
-        CompoundFile.Save(stream);
+        CompoundFile.Commit();
+        CompoundFile.SwitchTo(stream);
     }
     #endregion
 
@@ -247,7 +250,7 @@ public class Message : IDisposable
     /// </summary>
     public void Dispose()
     {
-        CompoundFile?.Close();
+        CompoundFile?.Dispose();
     }
     #endregion
 }

@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,6 @@
 using MsgKit.Enums;
 using MsgKit.Streams;
 using MsgKit.Structures;
-using OpenMcdf;
 
 namespace MsgKit;
 
@@ -85,7 +84,7 @@ public class Sender : Address
 
     #region WriteProperties
     /// <summary>
-    ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+    ///     Writes all <see cref="Property">properties</see> either as a <see cref="OpenMcdf.CfbStream"/> or as a collection in
     ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream, this depends on the <see cref="PropertyType"/>
     /// </summary>
     /// <remarks>

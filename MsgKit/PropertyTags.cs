@@ -4,7 +4,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -40,17 +40,17 @@ namespace MsgKit;
 public static class PropertyTags
 {
     /// <summary>
-    ///     The prefix for an <see cref="Recipient" /> <see cref="OpenMcdf.CFStorage" />
+    ///     The prefix for an <see cref="Recipient" /> <see cref="OpenMcdf.OpenMcdf.Storage" />
     /// </summary>
     internal const string RecipientStoragePrefix = "__recip_version1.0_#";
 
     /// <summary>
-    ///     The prefix for an <see cref="Attachment" /> <see cref="OpenMcdf.CFStorage" />
+    ///     The prefix for an <see cref="Attachment" /> <see cref="OpenMcdf.OpenMcdf.Storage" />
     /// </summary>
     internal const string AttachmentStoragePrefix = "__attach_version1.0_#";
 
     /// <summary>
-    ///     The prefix for a <see cref="PropertyTag" /> <see cref="OpenMcdf.CFStream" />
+    ///     The prefix for a <see cref="PropertyTag" /> <see cref="OpenMcdf.OpenMcdf.CfbStream" />
     /// </summary>
     internal const string SubStorageStreamPrefix = "__substg1.0_";
 
@@ -4940,7 +4940,7 @@ public static class PropertyTags
         /// <returns></returns>
         public string Name
         {
-            get { return PropertyTags.SubStorageStreamPrefix + Id.ToString("X4") + ((ushort)Type).ToString("X4"); }
+            get { return SubStorageStreamPrefix + Id.ToString("X4") + ((ushort)Type).ToString("X4"); }
         }
         #endregion
 

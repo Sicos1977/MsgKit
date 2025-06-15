@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,12 +31,11 @@ using System.Linq;
 using System.Text;
 using MsgKit.Enums;
 using MsgKit.Helpers;
-using OpenMcdf;
 
 namespace MsgKit.Structures;
 
 /// <summary>
-///     The properties inside an msg file
+///     The properties inside a msg file
 /// </summary>
 /// <remarks>
 ///     See https://msdn.microsoft.com/en-us/library/ee178759%28v=exchg.80%29.aspx
@@ -73,17 +72,17 @@ internal class Properties : List<Property>
 
     #region WriteProperties
     /// <summary>
-    ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+    ///     Writes all <see cref="Property">properties</see> either as a <see cref="OpenMcdf.CfbStream"/> or as a collection in
     ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given <paramref name="storage"/>, this depends 
     ///     on the <see cref="PropertyType"/>
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage"/></param>
+    /// <param name="storage">The <see cref="OpenMcdf.Storage"/></param>
     /// <param name="binaryWriter">The <see cref="BinaryWriter" /></param>
     /// <param name="messageSize">Used to calculate the exact size of the <see cref="Message"/></param>
     /// <returns>
     ///     Total size of the written <see cref="Properties"/>
     /// </returns>
-    internal long WriteProperties(CFStorage storage, BinaryWriter binaryWriter, long? messageSize = null)
+    internal long WriteProperties(OpenMcdf.Storage storage, BinaryWriter binaryWriter, long? messageSize = null)
     {
         long size = 0;
 
@@ -134,20 +133,26 @@ internal class Properties : List<Property>
                 //    break;
 
                 case PropertyType.PT_UNICODE:
+                {
                     // Write the length of the property to the properties stream
                     binaryWriter.Write(property.Data.Length + 2);
                     binaryWriter.Write(new byte[4]);
-                    storage.AddStream(property.Name).SetData(property.Data);
+                    using var stream = storage.CreateStream(property.Name);
+                    stream.Write(property.Data, 0, property.Data.Length);
                     size += property.Data.LongLength;
                     break;
+                }
 
                 case PropertyType.PT_STRING8:
+                {
                     // Write the length of the property to the properties stream
                     binaryWriter.Write(property.Data.Length + 1);
                     binaryWriter.Write(new byte[4]);
-                    storage.AddStream(property.Name).SetData(property.Data);
+                    using var stream = storage.CreateStream(property.Name);
+                    stream.Write(property.Data, 0, property.Data.Length);
                     size += property.Data.LongLength;
                     break;
+                }
 
                 case PropertyType.PT_MV_UNICODE:
                 case PropertyType.PT_MV_STRING8:
@@ -155,6 +160,7 @@ internal class Properties : List<Property>
                 case PropertyType.PT_MV_DOUBLE:
                 case PropertyType.PT_MV_SHORT:
                 case PropertyType.PT_MV_FLOAT:
+                {
                     if (!property.IsMultiValueData)
                     {
                         binaryWriter.Write(property.Data.Length);
@@ -162,8 +168,10 @@ internal class Properties : List<Property>
                         size += property.Data.LongLength;
                     }
 
-                    storage.AddStream(property.Name).SetData(property.Data);
+                    using var stream = storage.CreateStream(property.Name);
+                    stream.Write(property.Data, 0, property.Data.Length);
                     break;
+                }
 
                 case PropertyType.PT_CLSID:
                     binaryWriter.Write(property.Data);
@@ -177,12 +185,15 @@ internal class Properties : List<Property>
                 //    break;
 
                 case PropertyType.PT_BINARY:
+                {
                     // Write the length of the property to the propertiesstream
                     binaryWriter.Write(property.Data.Length);
                     binaryWriter.Write(new byte[4]);
-                    storage.AddStream(property.Name).SetData(property.Data);
+                    using var stream = storage.CreateStream(property.Name);
+                    stream.Write(property.Data, 0, property.Data.Length);
                     size += property.Data.LongLength;
                     break;
+                }
 
                 case PropertyType.PT_MV_APPTIME:
                     break;
@@ -211,24 +222,23 @@ internal class Properties : List<Property>
             }
         }
 
-            if (messageSize.HasValue)
-            {
-                binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Type));  // 2 bytes
-                binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Id));    // 2 bytes
-                binaryWriter.Write(Convert.ToUInt32(PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)); // 4 bytes
-                var totalSize = messageSize.Value + size + 8;
-                var bytes = BitConverter.GetBytes(totalSize);
-                binaryWriter.Write(bytes);
-                // Issue #101
-                //binaryWriter.Write(new byte[4]);
-            }
-            
-            // Make the properties stream
-            binaryWriter.BaseStream.Position = 0;
-            if(!storage.TryGetStream(PropertyTags.PropertiesStreamName, out var propertiesStream))
-                propertiesStream = storage.AddStream(PropertyTags.PropertiesStreamName);
-
-        propertiesStream.SetData(binaryWriter.BaseStream.ToByteArray());
+        if (messageSize.HasValue)
+        {
+            binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Type));  // 2 bytes
+            binaryWriter.Write(Convert.ToUInt16(PropertyTags.PR_MESSAGE_SIZE.Id));    // 2 bytes
+            binaryWriter.Write(Convert.ToUInt32(PropertyFlags.PROPATTR_READABLE | PropertyFlags.PROPATTR_WRITABLE)); // 4 bytes
+            var totalSize = messageSize.Value + size + 8;
+            var bytes = BitConverter.GetBytes(totalSize);
+            binaryWriter.Write(bytes);
+            // Issue #101
+            //binaryWriter.Write(new byte[4]);
+        }
+        
+        // Make the properties stream
+        binaryWriter.BaseStream.Position = 0;
+        using var propertiesStream = storage.GetStream(PropertyTags.PropertiesStreamName);
+        var array = binaryWriter.BaseStream.ToByteArray();
+        propertiesStream.Write(array, (int) propertiesStream.Position, array.Length);
         return size + binaryWriter.BaseStream.Length;
     }
     #endregion

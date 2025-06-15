@@ -15,7 +15,7 @@
     <PackageTags>Outlook MSG E-mail Appointment</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>- Update nuget package</PackageReleaseNotes>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>2.8.3.0</AssemblyVersion>
     <FileVersion>2.8.3.0</FileVersion>
@@ -43,9 +43,9 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="4.8.0" />
-    <PackageReference Include="OpenMcdf" Version="2.3.1" />
-    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="MimeKit" Version="4.12.0" />
+    <PackageReference Include="OpenMcdf" Version="3.0.0" />
+    <PackageReference Include="System.Memory" Version="4.6.3" />
   </ItemGroup>
 
 	<ItemGroup>

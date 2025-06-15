@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,6 @@
 
 using System;
 using MsgKit.Enums;
-using OpenMcdf;
 using Stream = System.IO.Stream;
 
 namespace MsgKit;
@@ -268,8 +267,8 @@ public class Task : Email
 
     #region WriteToStorage
     /// <summary>
-    ///     Writes all the properties that are part of the <see cref="Task"/> object either as <see cref="CFStorage"/>'s
-    ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
+    ///     Writes all the properties that are part of the <see cref="Task"/> object either as <see cref="OpenMcdf.Storage"/>'s
+    ///     or <see cref="OpenMcdf.CfbStream"/>'s to the <see cref="OpenMcdf.RootStorage"/>
     /// </summary>
     private new void WriteToStorage()
     {

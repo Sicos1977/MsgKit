@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -61,54 +61,39 @@ internal sealed class EntryStream : List<EntryStreamItem>
     ///     Creates this object and reads all the <see cref="EntryStreamItem" /> objects from 
     ///     the given <paramref name="storage"/>
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage"/> that containts the <see cref="PropertyTags.EntryStream"/></param>
-    internal EntryStream(CFStorage storage)
+    /// <param name="storage">The <see cref="OpenMcdf.Storage"/> that contains the <see cref="PropertyTags.EntryStream"/></param>
+    internal EntryStream(Storage storage)
     {
-        if (!storage.TryGetStream(PropertyTags.EntryStream, out var stream))
-            stream = storage.AddStream(PropertyTags.EntryStream);
-
-        using (var memoryStream = new MemoryStream(stream.GetData()))
-        using (var binaryReader = new BinaryReader(memoryStream))
-            while (!binaryReader.Eos())
-            {
-                var entryStreamItem = new EntryStreamItem(binaryReader);
-                Add(entryStreamItem);
-            }
+        using var stream = storage.GetStream(PropertyTags.EntryStream);
+        using var binaryReader = new BinaryReader(stream);
+        while (!binaryReader.Eos())
+        {
+            var entryStreamItem = new EntryStreamItem(binaryReader);
+            Add(entryStreamItem);
+        }
     }
     #endregion
 
     #region Write
     /// <summary>
-    ///     Writes all the <see cref="EntryStreamItem"/>'s as a <see cref="CFStream" /> to the
+    ///     Writes all the <see cref="EntryStreamItem"/>'s as a <see cref="CfbStream" /> to the
     ///     given <paramref name="storage" />
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage" /></param>
-    internal void Write(CFStorage storage)
+    /// <param name="storage">The <see cref="OpenMcdf.Storage" /></param>
+    internal void Write(Storage storage)
     {
-        var stream = storage.GetStream(PropertyTags.EntryStream);
-        using (var memoryStream = new MemoryStream())
-        using (var binaryWriter = new BinaryWriter(memoryStream))
-        {
-            foreach (var entryStreamItem in this)
-                entryStreamItem.Write(binaryWriter);
-
-            stream.SetData(memoryStream.ToArray());
-        }
+        using var stream = storage.GetStream(PropertyTags.EntryStream);
+        using var binaryWriter = new BinaryWriter(stream);
+        foreach (var entryStreamItem in this)
+            entryStreamItem.Write(binaryWriter);
     }
 
-    internal void Write(CFStorage storage, string streamName)
+    internal void Write(Storage storage, string streamName)
     {
-        if (!storage.TryGetStream(streamName, out var stream))
-            stream = storage.AddStream(streamName);
-
-        using (var memoryStream = new MemoryStream())
-        using (var binaryWriter = new BinaryWriter(memoryStream))
-        {
-            foreach (var entryStreamItem in this)
-                entryStreamItem.Write(binaryWriter);
-
-            stream.SetData(memoryStream.ToArray());
-        }
+        using var stream = storage.GetStream(streamName);
+        using var binaryWriter = new BinaryWriter(stream);
+        foreach (var entryStreamItem in this)
+            entryStreamItem.Write(binaryWriter);
     }
     #endregion
 }
@@ -120,7 +105,7 @@ internal sealed class EntryStreamItem
 {
     #region Properties
     /// <summary>
-    ///     Name Identifier/String Offset (4 bytes): If this property is a numerical named property (as specified by
+    ///     Name Identifier/String Offset (4 bytes): If this property is a numerical-named property (as specified by
     ///     the Property Kind subfield of the Index and Kind Information field), this value is the LID part of the
     ///     PropertyName structure, as specified in [MS-OXCDATA] section 2.6.1. If this property is a string named
     ///     property, this value is the offset in bytes into the strings stream where the value of the Name field of
@@ -134,7 +119,7 @@ internal sealed class EntryStreamItem
     public string NameIdentifierOrStringOffsetHex { get; }
 
     /// <summary>
-    ///     The following structure specifies the stream indexes and whether the property is a numerical named
+    ///     The following structure specifies the stream indexes and whether the property is a numerical-named
     ///     property or a string named property
     /// </summary>
     public IndexAndKindInformation IndexAndKindInformation { get; }
@@ -174,8 +159,7 @@ internal sealed class EntryStreamItem
     internal void Write(BinaryWriter binaryWriter)
     {
         binaryWriter.Write(NameIdentifierOrStringOffset);
-        binaryWriter.Write((ushort)((IndexAndKindInformation.GuidIndex << 1) |
-                                    (ushort)IndexAndKindInformation.PropertyKind));
+        binaryWriter.Write((ushort)((IndexAndKindInformation.GuidIndex << 1) | (ushort)IndexAndKindInformation.PropertyKind));
         binaryWriter.Write(IndexAndKindInformation.PropertyIndex); //Doesn't seem to be the case in the spec. 
         // Fortunately section 3.2 clears this up. 
     }
@@ -184,7 +168,7 @@ internal sealed class EntryStreamItem
 
 /// <summary>
 ///     2.2.3.1.2.1 Index and Kind Information
-///     The following structure specifies the stream indexes and whether the property is a numerical named
+///     The following structure specifies the stream indexes and whether the property is a numerical-named
 ///     property or a string named property.
 /// </summary>
 internal sealed class IndexAndKindInformation
@@ -194,7 +178,7 @@ internal sealed class IndexAndKindInformation
     ///     Sequentially increasing, zero-based index. This MUST be 0 for the first
     ///     named property, 1 for the second, and so on.
     /// </summary>
-    public UInt16 PropertyIndex { get; }
+    public ushort PropertyIndex { get; }
 
     /// <summary>
     ///     Index into the GUID stream. The possible values are shown in the following table.<br/>
@@ -206,7 +190,7 @@ internal sealed class IndexAndKindInformation
     ///         the third GUID(5 minus 3, resulting in a zero-based index of 2) is used as the GUID for the name<br/>
     ///         property being derived.
     /// </summary>
-    public UInt16 GuidIndex { get; }
+    public ushort GuidIndex { get; }
 
     /// <summary>
     ///     Bit indicating the type of the property; zero (0) if numerical named property
@@ -256,9 +240,7 @@ internal sealed class IndexAndKindInformation
     /// <param name="propertyIndex"><see cref="PropertyIndex"/></param>
     /// <param name="guidIndex"><see cref="GuidIndex"/></param>
     /// <param name="propertyKind"><see cref="PropertyKind"/></param>
-    internal IndexAndKindInformation(ushort propertyIndex,
-        ushort guidIndex,
-        PropertyKind propertyKind)
+    internal IndexAndKindInformation(ushort propertyIndex, ushort guidIndex, PropertyKind propertyKind)
     {
         PropertyIndex = propertyIndex;
         GuidIndex = guidIndex;

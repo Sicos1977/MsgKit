@@ -29,38 +29,31 @@ internal sealed class GuidStream : List<Guid>
     ///     Creates this object and reads all the <see cref="Guid" /> objects from 
     ///     the given <paramref name="storage"/>
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage"/> that containts the <see cref="PropertyTags.GuidStream"/></param>
-    internal GuidStream(CFStorage storage)
+    /// <param name="storage">The <see cref="OpenMcdf.Storage"/> that contains the <see cref="PropertyTags.GuidStream"/></param>
+    internal GuidStream(Storage storage)
     {
-        var stream = storage.GetStream(PropertyTags.GuidStream);
-
-        using (var memoryStream = new MemoryStream(stream.GetData()))
-        using (var binaryReader = new BinaryReader(memoryStream))
-            while (!binaryReader.Eos())
-            {
-                var guid = new Guid(binaryReader.ReadBytes(16));
-                Add(guid);
-            }
+        using var stream = storage.GetStream(PropertyTags.GuidStream);
+        using var binaryReader = new BinaryReader(stream);
+        while (!binaryReader.Eos())
+        {
+            var guid = new Guid(binaryReader.ReadBytes(16));
+            Add(guid);
+        }
     }
     #endregion
 
     #region Write
     /// <summary>
-    ///     Writes all the <see cref="Guid"/>'s as a <see cref="CFStream" /> to the
+    ///     Writes all the <see cref="Guid"/>'s as a <see cref="CfbStream" /> to the
     ///     given <paramref name="storage" />
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage" /></param>
-    internal void Write(CFStorage storage)
+    /// <param name="storage">The <see cref="OpenMcdf.Storage" /></param>
+    internal void Write(Storage storage)
     {
-        var stream = storage.GetStream(PropertyTags.GuidStream);
-        using (var memoryStream = new MemoryStream())
-        using (var binaryWriter = new BinaryWriter(memoryStream))
-        {
-            foreach (var guid in this)
-                binaryWriter.Write(guid.ToByteArray());
-
-            stream.SetData(memoryStream.ToArray());
-        }
+        using var stream = storage.GetStream(PropertyTags.GuidStream);
+        using var binaryWriter = new BinaryWriter(stream);
+        foreach (var guid in this)
+            binaryWriter.Write(guid.ToByteArray());
     }
     #endregion
 }

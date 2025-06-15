@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MsgKit.Enums;
+using MsgKit.Helpers;
 using MsgKit.Structures;
 using OpenMcdf;
 
@@ -85,13 +86,13 @@ internal sealed class NamedProperties : List<NamedProperty>
 
     #region WriteProperties
     /// <summary>
-    ///     Writes the properties to the <see cref="CFStorage" />
+    ///     Writes the properties to the <see cref="OpenMcdf.Storage" />
     /// </summary>
     /// <param name="storage"></param>
     /// <remarks>
-    ///     Unfortunately this is going to have to be used after we already written the top level properties.
+    ///     Unfortunately this is going to have to be used after we already wrote the top level properties.
     /// </remarks>
-    internal void WriteProperties(CFStorage storage)
+    internal void WriteProperties(Storage storage)
     {
         // Grab the nameIdStorage, 3.1 on the SPEC
         storage = storage.GetStorage(PropertyTags.NameIdStorage);
@@ -104,18 +105,15 @@ internal sealed class NamedProperties : List<NamedProperty>
         ushort propertyIndex = 0;
         var guids = this.Select(x => x.Guid).Distinct().ToList();
 
-        foreach (var guid in guids)
-            guidStream.Add(guid);
+        guidStream.AddRange(guids);
 
         foreach (var namedProperty in this)
         {
             var guidIndex = (ushort)(guids.IndexOf(namedProperty.Guid) + 3);
 
             // Depending on the property type. This is doing name. 
-            entryStream.Add(new EntryStreamItem(namedProperty.NameIdentifier,
-                new IndexAndKindInformation(propertyIndex, guidIndex, PropertyKind.Lid))); //+3 as per spec.
-            entryStream2.Add(new EntryStreamItem(namedProperty.NameIdentifier,
-                new IndexAndKindInformation(propertyIndex, guidIndex, PropertyKind.Lid)));
+            entryStream.Add(new EntryStreamItem(namedProperty.NameIdentifier, new IndexAndKindInformation(propertyIndex, guidIndex, PropertyKind.Lid))); //+3 as per spec.
+            entryStream2.Add(new EntryStreamItem(namedProperty.NameIdentifier, new IndexAndKindInformation(propertyIndex, guidIndex, PropertyKind.Lid)));
 
             //3.2.2 of the SPEC [MS-OXMSG]
             entryStream2.Write(storage,

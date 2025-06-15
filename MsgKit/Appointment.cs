@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,9 @@
 //
 
 using System;
+using System.IO;
 using MsgKit.Enums;
-using OpenMcdf;
+
 // ReSharper disable UnusedMember.Global
 
 namespace MsgKit;
@@ -46,7 +47,7 @@ public class Appointment : Email
     public string Location { get; set; }
 
     /// <summary>
-    ///     This property specifies whether or not the event is an all-day event, as 
+    ///     This property specifies whether the event is an all-day event, as 
     ///     specified by the user. A value of <c>true</c> indicates that the event is an all-day 
     ///     event, in which case the start time and end time must be midnight so that the 
     ///     duration is a multiple of 24 hours and is at least 24 hours. A value of <c>false</c> 
@@ -97,8 +98,8 @@ public class Appointment : Email
 
     #region WriteToStorage
     /// <summary>
-    ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="CFStorage"/>'s
-    ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
+    ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="OpenMcdf.Storage"/>'s
+    ///     or <see cref="OpenMcdf.CfbStream"/>'s to the <see cref="OpenMcdf.RootStorage"/>
     /// </summary>
     private new void WriteToStorage()
     {
@@ -117,7 +118,7 @@ public class Appointment : Email
     ///     Saves the message to the given <paramref name="stream" />
     /// </summary>
     /// <param name="stream"></param>
-    public new void Save(System.IO.Stream stream)
+    public new void Save(Stream stream)
     {
         WriteToStorage();
         base.Save(stream);

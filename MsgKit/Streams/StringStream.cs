@@ -31,37 +31,31 @@ internal sealed class StringStream : List<StringStreamItem>
     ///     Creates this object and reads all the <see cref="StringStreamItem" /> objects 
     ///     from the given <paramref name="storage"/>
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage"/> that contains the <see cref="PropertyTags.EntryStream"/></param>
-    internal StringStream(CFStorage storage)
+    /// <param name="storage">The <see cref="OpenMcdf.Storage"/> that contains the <see cref="PropertyTags.EntryStream"/></param>
+    internal StringStream(Storage storage)
     {
-        var stream = storage.GetStream(PropertyTags.StringStream);
-        using (var memoryStream = new MemoryStream(stream.GetData()))
-        using (var binaryReader = new BinaryReader(memoryStream))
-            while (!binaryReader.Eos())
-            {
-                var stringStreamItem = new StringStreamItem(binaryReader);
-                Add(stringStreamItem);
-            }
+        using var stream = storage.GetStream(PropertyTags.StringStream);
+        using var binaryReader = new BinaryReader(stream);
+        while (!binaryReader.Eos())
+        {
+            var stringStreamItem = new StringStreamItem(binaryReader);
+            Add(stringStreamItem);
+        }
     }
     #endregion
 
     #region Write
     /// <summary>
-    ///     Writes all the <see cref="StringStream"/>'s as a <see cref="CFStream" /> to the
+    ///     Writes all the <see cref="StringStream"/>'s as a <see cref="CfbStream" /> to the
     ///     given <paramref name="storage" />
     /// </summary>
-    /// <param name="storage">The <see cref="CFStorage" /></param>
-    internal void Write(CFStorage storage)
+    /// <param name="storage">The <see cref="OpenMcdf.Storage" /></param>
+    internal void Write(Storage storage)
     {
-        var stream = storage.GetStream(PropertyTags.StringStream);
-        using (var memoryStream = new MemoryStream())
-        using (var binaryWriter = new BinaryWriter(memoryStream))
-        {
-            foreach (var stringStreamItem in this)
-                stringStreamItem.Write(binaryWriter);
-
-            stream.SetData(memoryStream.ToArray());
-        }
+        using var stream = storage.GetStream(PropertyTags.StringStream);
+        using var binaryWriter = new BinaryWriter(stream);
+        foreach (var stringStreamItem in this)
+            stringStreamItem.Write(binaryWriter);
     }
     #endregion
 }
@@ -96,8 +90,8 @@ internal sealed class StringStreamItem
     {
         Length = binaryReader.ReadUInt32();
         Name = Encoding.Unicode.GetString(binaryReader.ReadBytes((int)Length)).Trim('\0');
-        var boundry = Get4BytesBoundry(Length);
-        binaryReader.ReadBytes((int)boundry);
+        var boundary = Get4BytesBoundary(Length);
+        binaryReader.ReadBytes((int)boundary);
     }
 
     /// <summary>
@@ -120,20 +114,20 @@ internal sealed class StringStreamItem
     {
         binaryWriter.Write(Length);
         binaryWriter.Write(Name);
-        var boundry = Get4BytesBoundry(Length);
-        var bytes = new byte[boundry];
+        var boundary = Get4BytesBoundary(Length);
+        var bytes = new byte[boundary];
         binaryWriter.Write(bytes);
     }
     #endregion
 
     #region Get4BytesBoundry
     /// <summary>
-    ///     Extract 4 from the given <paramref name="length"/> until the result is smaller
-    ///     then 4 and then returns this result;
+    ///     Extract 4 from the given <paramref name="length"/> until the result is smaller than
+    ///      4 and then returns this result;
     /// </summary>
     /// <param name="length"></param>
     /// <returns></returns>
-    private static uint Get4BytesBoundry(uint length)
+    private static uint Get4BytesBoundary(uint length)
     {
         if (length == 0) return 4;
 

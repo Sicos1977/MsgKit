@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com> and Travis Semple
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MsgKit.Enums;
-using OpenMcdf;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -63,7 +62,7 @@ public class Contact : Email
     public bool Private { get; set; }
 
     /// <summary>
-    ///     The birth day
+    ///     The birthday
     /// </summary>
     public DateTime? BirthDay { get; set; }
 
@@ -108,7 +107,7 @@ public class Contact : Email
     public string Generation { get; set; }
 
     /// <summary>
-    ///     ontains the first or given name of the recipient
+    ///     Contains the first or given name of the recipient
     /// </summary>
     public string GivenName { get; set; }
 
@@ -322,8 +321,8 @@ public class Contact : Email
 
     #region WriteToStorage
     /// <summary>
-    ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="CFStorage"/>'s
-    ///     or <see cref="CFStream"/>'s to the <see cref="CompoundFile.RootStorage"/>
+    ///     Writes all the properties that are part of the <see cref="Appointment"/> object either as <see cref="OpenMcdf.Storage"/>'s
+    ///     or <see cref="OpenMcdf.CfbStream"/>'s to the <see cref="OpenMcdf.RootStorage"/>
     /// </summary>
     private new void WriteToStorage()
     {

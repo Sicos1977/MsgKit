@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2015-2023 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2015-2025 Kees van Spelde (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,23 +45,20 @@ internal sealed class AttachmentProperties : Properties
 
     /// <summary>
     ///     Creates this object and reads all the <see cref="Property">properties</see> from 
-    ///     the given <see cref="CFStream"/>
+    ///     the given <see cref="CfbStream"/>
     /// </summary>
-    /// <param name="stream">The <see cref="CFStream"/></param>
-    internal AttachmentProperties(CFStream stream)
+    /// <param name="stream">The <see cref="CfbStream"/></param>
+    internal AttachmentProperties(CfbStream stream)
     {
-        using (var memoryStream = new MemoryStream(stream.GetData()))
-        using (var binaryReader = new BinaryReader(memoryStream))
-        {
-            binaryReader.ReadBytes(8);
-            ReadProperties(binaryReader);
-        }
+        using var binaryReader = new BinaryReader(stream);
+        binaryReader.ReadBytes(8);
+        ReadProperties(binaryReader);
     }
     #endregion
 
     #region WriteProperties
     /// <summary>
-    ///     Writes all <see cref="Property">properties</see> either as a <see cref="CFStream"/> or as a collection in
+    ///     Writes all <see cref="Property">properties</see> either as a <see cref="CfbStream"/> or as a collection in
     ///     a <see cref="PropertyTags.PropertiesStreamName"/> stream to the given storage, this depends 
     ///     on the <see cref="Enums.PropertyType"/>
     /// </summary>
@@ -69,19 +66,17 @@ internal sealed class AttachmentProperties : Properties
     ///     See the <see cref="Properties"/> class it's <see cref="Properties.WriteProperties"/> method for the logic
     ///     that is used to determine this
     /// </remarks>
-    /// <param name="storage">The <see cref="CFStorage"/></param>
+    /// <param name="storage">The <see cref="OpenMcdf.Storage"/></param>
     /// <returns>
     ///     Total size of the written <see cref="Properties"/>
     /// </returns>
-    internal long WriteProperties(CFStorage storage)
+    internal long WriteProperties(Storage storage)
     {
-        using (var memoryStream = new MemoryStream())
-        using (var binaryWriter = new BinaryWriter(memoryStream))
-        {
-            // Reserved (8 bytes): This field MUST be set to zero when writing a .msg file and MUST be ignored when reading a .msg file.
-            binaryWriter.Write(new byte[8]);
-            return WriteProperties(storage, binaryWriter);
-        }
+        using var memoryStream = new MemoryStream();
+        using var binaryWriter = new BinaryWriter(memoryStream);
+        // Reserved (8 bytes): This field MUST be set to zero when writing a .msg file and MUST be ignored when reading a .msg file.
+        binaryWriter.Write(new byte[8]);
+        return WriteProperties(storage, binaryWriter);
     }
     #endregion
 }

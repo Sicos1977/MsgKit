@@ -97,8 +97,8 @@
     <member name="M:MsgKit.Appointment.WriteToStorage">
       <summary>
         Writes all the properties that are part of the <see cref="T:MsgKit.Appointment" /> object either as
-        <see cref="T:OpenMcdf.CFStorage" />'s
-        or <see cref="T:OpenMcdf.CFStream" />'s to the <see cref="P:OpenMcdf.CompoundFile.RootStorage" />
+        <see cref="T:OpenMcdf.OpenMcdf.Storage" />'s
+        or <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />'s to the <see cref="P:OpenMcdf.OpenMcdf.RootStorage" />
       </summary>
     </member>
     <member name="M:MsgKit.Appointment.Save(System.IO.Stream)">
@@ -129,12 +129,12 @@
       <param name="fileName"></param>
       <param name="contentId"></param>
     </member>
-    <member name="M:MsgKit.Attachments.WriteToStorage(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Attachments.WriteToStorage(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Writes the <see cref="T:MsgKit.Attachment" /> objects to the given <paramref name="rootStorage" />
         and it will set all the needed properties
       </summary>
-      <param name="rootStorage">The root <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="rootStorage">The root <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Attachment" /> objects and it's
         <see cref="T:MsgKit.Structures.Properties" />
@@ -292,13 +292,13 @@
       <param name="fileName">The long filename</param>
       <returns></returns>
     </member>
-    <member name="M:MsgKit.Attachment.WriteProperties(OpenMcdf.CFStorage,System.Int32)">
+    <member name="M:MsgKit.Attachment.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.Int32)">
       <summary>
         Writes all the string and binary <see cref="T:MsgKit.Structures.Property">properties</see> as a
-        <see cref="T:OpenMcdf.CFStream" /> to the
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> to the
         given <paramref name="storage" />
       </summary>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <param name="index">The <see cref="T:MsgKit.Attachment" /> index</param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Attachment" /> object and it's
@@ -584,8 +584,8 @@
     <member name="M:MsgKit.Email.WriteToStorage">
       <summary>
         Writes all the properties that are part of the <see cref="T:MsgKit.Email" /> object either as
-        <see cref="T:OpenMcdf.CFStorage" />'s
-        or <see cref="T:OpenMcdf.CFStream" />'s to the <see cref="P:OpenMcdf.CompoundFile.RootStorage" />
+        <see cref="T:OpenMcdf.OpenMcdf.Storage" />'s
+        or <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />'s to the <see cref="P:OpenMcdf.OpenMcdf.RootStorage" />
       </summary>
     </member>
     <member name="M:MsgKit.Email.Save(System.IO.Stream)">
@@ -2913,7 +2913,7 @@
       <param name="data">Byte array containing data to be compressed.</param>
       <returns>Byte array containing the data that is compressed.</returns>
     </member>
-    <member name="M:MsgKit.Helpers.Storage.Copy(OpenMcdf.CFStorage,OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Helpers.Storage.Copy(OpenMcdf.OpenMcdf.Storage,OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Copies the given <paramref name="source" /> to the given <paramref name="destination" />
       </summary>
@@ -6651,17 +6651,17 @@
     </member>
     <member name="F:MsgKit.PropertyTags.RecipientStoragePrefix">
       <summary>
-        The prefix for an <see cref="T:MsgKit.Recipient" /> <see cref="T:OpenMcdf.CFStorage" />
+        The prefix for an <see cref="T:MsgKit.Recipient" /> <see cref="T:OpenMcdf.OpenMcdf.Storage" />
       </summary>
     </member>
     <member name="F:MsgKit.PropertyTags.AttachmentStoragePrefix">
       <summary>
-        The prefix for an <see cref="T:MsgKit.Attachment" /> <see cref="T:OpenMcdf.CFStorage" />
+        The prefix for an <see cref="T:MsgKit.Attachment" /> <see cref="T:OpenMcdf.OpenMcdf.Storage" />
       </summary>
     </member>
     <member name="F:MsgKit.PropertyTags.SubStorageStreamPrefix">
       <summary>
-        The prefix for a <see cref="T:MsgKit.PropertyTag" /> <see cref="T:OpenMcdf.CFStream" />
+        The prefix for a <see cref="T:MsgKit.PropertyTag" /> <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />
       </summary>
     </member>
     <member name="F:MsgKit.PropertyTags.PropertiesStreamName">
@@ -9612,14 +9612,14 @@
     <member name="M:MsgKit.Receiving.WriteProperties(MsgKit.Streams.TopLevelProperties)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream, this depends on the
         <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
@@ -9647,14 +9647,14 @@
     <member name="M:MsgKit.ReceivingRepresenting.WriteProperties(MsgKit.Streams.TopLevelProperties)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream, this depends on the
         <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
@@ -9727,12 +9727,12 @@
         <see cref="T:MsgKit.Enums.RecipientRowDisplayType" />
       </param>
     </member>
-    <member name="M:MsgKit.Recipients.WriteToStorage(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Recipients.WriteToStorage(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Writes the <see cref="T:MsgKit.Recipient" /> objects to the given <paramref name="rootStorage" />
         and it will set all the needed properties
       </summary>
-      <param name="rootStorage">The root <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="rootStorage">The root <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Recipient" /> objects and it's
         <see cref="T:MsgKit.Structures.Properties" />
@@ -9785,21 +9785,21 @@
         <see cref="T:MsgKit.Enums.RecipientRowDisplayType" />
       </param>
     </member>
-    <member name="M:MsgKit.Recipient.WriteProperties(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Recipient.WriteProperties(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream to the given <paramref name="storage" />, this depends
         on the <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Recipient" /> object and it's
         <see cref="T:MsgKit.Structures.Properties" />
@@ -9828,14 +9828,14 @@
     <member name="M:MsgKit.Representing.WriteProperties(MsgKit.Streams.TopLevelProperties)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream, this depends on the
         <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
@@ -9889,14 +9889,14 @@
     <member name="M:MsgKit.Sender.WriteProperties(MsgKit.Streams.TopLevelProperties)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream, this depends on the
         <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
@@ -9912,28 +9912,28 @@
         Creates this object
       </summary>
     </member>
-    <member name="M:MsgKit.Streams.AttachmentProperties.#ctor(OpenMcdf.CFStream)">
+    <member name="M:MsgKit.Streams.AttachmentProperties.#ctor(OpenMcdf.OpenMcdf.CfbStream)">
       <summary>
         Creates this object and reads all the <see cref="T:MsgKit.Structures.Property">properties</see> from
-        the given <see cref="T:OpenMcdf.CFStream" />
+        the given <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />
       </summary>
-      <param name="stream">The <see cref="T:OpenMcdf.CFStream" /></param>
+      <param name="stream">The <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /></param>
     </member>
-    <member name="M:MsgKit.Streams.AttachmentProperties.WriteProperties(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.AttachmentProperties.WriteProperties(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream to the given storage, this depends
         on the <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Structures.Properties" />
       </returns>
@@ -9979,28 +9979,28 @@
       <param name="recipientCount">The number of Recipient objects</param>
       <param name="attachmentCount">The number of Attachment objects</param>
     </member>
-    <member name="M:MsgKit.Streams.EmbeddedMessageProperties.#ctor(OpenMcdf.CFStream)">
+    <member name="M:MsgKit.Streams.EmbeddedMessageProperties.#ctor(OpenMcdf.OpenMcdf.CfbStream)">
       <summary>
         Create this object and reads all the <see cref="T:MsgKit.Structures.Property">properties</see> from
-        the given <see cref="T:OpenMcdf.CFStream" />
+        the given <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />
       </summary>
-      <param name="stream">The <see cref="T:OpenMcdf.CFStream" /></param>
+      <param name="stream">The <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /></param>
     </member>
-    <member name="M:MsgKit.Streams.EmbeddedMessageProperties.WriteProperties(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.EmbeddedMessageProperties.WriteProperties(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream to the given <paramref name="storage" />, this depends
         on the <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Structures.Properties" />
       </returns>
@@ -10025,22 +10025,22 @@
         Creates this object
       </summary>
     </member>
-    <member name="M:MsgKit.Streams.EntryStream.#ctor(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.EntryStream.#ctor(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Creates this object and reads all the <see cref="T:MsgKit.Streams.EntryStreamItem" /> objects from
         the given <paramref name="storage" />
       </summary>
       <param name="storage">
-        The <see cref="T:OpenMcdf.CFStorage" /> that containts the
+        The <see cref="T:OpenMcdf.OpenMcdf.Storage" /> that containts the
         <see cref="F:MsgKit.PropertyTags.EntryStream" />
       </param>
     </member>
-    <member name="M:MsgKit.Streams.EntryStream.Write(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.EntryStream.Write(OpenMcdf.OpenMcdf.Storage)">
       <summary>
-        Writes all the <see cref="T:MsgKit.Streams.EntryStreamItem" />'s as a <see cref="T:OpenMcdf.CFStream" /> to the
+        Writes all the <see cref="T:MsgKit.Streams.EntryStreamItem" />'s as a <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> to the
         given <paramref name="storage" />
       </summary>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
     </member>
     <member name="T:MsgKit.Streams.EntryStreamItem">
       <summary>
@@ -10175,22 +10175,22 @@
         Creates this object
       </summary>
     </member>
-    <member name="M:MsgKit.Streams.GuidStream.#ctor(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.GuidStream.#ctor(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Creates this object and reads all the <see cref="T:System.Guid" /> objects from
         the given <paramref name="storage" />
       </summary>
       <param name="storage">
-        The <see cref="T:OpenMcdf.CFStorage" /> that containts the
+        The <see cref="T:OpenMcdf.OpenMcdf.Storage" /> that containts the
         <see cref="F:MsgKit.PropertyTags.GuidStream" />
       </param>
     </member>
-    <member name="M:MsgKit.Streams.GuidStream.Write(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.GuidStream.Write(OpenMcdf.OpenMcdf.Storage)">
       <summary>
-        Writes all the <see cref="T:System.Guid" />'s as a <see cref="T:OpenMcdf.CFStream" /> to the
+        Writes all the <see cref="T:System.Guid" />'s as a <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> to the
         given <paramref name="storage" />
       </summary>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
     </member>
     <member name="F:MsgKit.Streams.NamedProperties._topLevelProperties">
       <summary>
@@ -10220,9 +10220,9 @@
       <param name="mapiTag"></param>
       <param name="obj"></param>
     </member>
-    <member name="M:MsgKit.Streams.NamedProperties.WriteProperties(OpenMcdf.CFStorage,System.Int64)">
+    <member name="M:MsgKit.Streams.NamedProperties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.Int64)">
       <summary>
-        Writes the properties to the <see cref="T:OpenMcdf.CFStorage" />
+        Writes the properties to the <see cref="T:OpenMcdf.OpenMcdf.Storage" />
       </summary>
       <param name="storage"></param>
       <param name="messageSize"></param>
@@ -10250,28 +10250,28 @@
         Creates this object
       </summary>
     </member>
-    <member name="M:MsgKit.Streams.RecipientProperties.#ctor(OpenMcdf.CFStream)">
+    <member name="M:MsgKit.Streams.RecipientProperties.#ctor(OpenMcdf.OpenMcdf.CfbStream)">
       <summary>
         Creates this object and reads all the <see cref="T:MsgKit.Structures.Property">properties</see>
-        from the given <see cref="T:OpenMcdf.CFStream" />
+        from the given <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />
       </summary>
-      <param name="stream">The <see cref="T:OpenMcdf.CFStream" /></param>
+      <param name="stream">The <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /></param>
     </member>
-    <member name="M:MsgKit.Streams.RecipientProperties.WriteProperties(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.RecipientProperties.WriteProperties(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream to the given storage, this depends
         on the <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Structures.Properties" />
       </returns>
@@ -10294,22 +10294,22 @@
         Creates this object
       </summary>
     </member>
-    <member name="M:MsgKit.Streams.StringStream.#ctor(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.StringStream.#ctor(OpenMcdf.OpenMcdf.Storage)">
       <summary>
         Creates this object and reads all the <see cref="T:MsgKit.Streams.StringStreamItem" /> objects
         from the given <paramref name="storage" />
       </summary>
       <param name="storage">
-        The <see cref="T:OpenMcdf.CFStorage" /> that contains the
+        The <see cref="T:OpenMcdf.OpenMcdf.Storage" /> that contains the
         <see cref="F:MsgKit.PropertyTags.EntryStream" />
       </param>
     </member>
-    <member name="M:MsgKit.Streams.StringStream.Write(OpenMcdf.CFStorage)">
+    <member name="M:MsgKit.Streams.StringStream.Write(OpenMcdf.OpenMcdf.Storage)">
       <summary>
-        Writes all the <see cref="T:MsgKit.Streams.StringStream" />'s as a <see cref="T:OpenMcdf.CFStream" /> to the
+        Writes all the <see cref="T:MsgKit.Streams.StringStream" />'s as a <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> to the
         given <paramref name="storage" />
       </summary>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
     </member>
     <member name="T:MsgKit.Streams.StringStreamItem">
       <summary>
@@ -10383,12 +10383,12 @@
         The number of Attachment objects
       </summary>
     </member>
-    <member name="M:MsgKit.Streams.TopLevelProperties.#ctor(OpenMcdf.CFStream)">
+    <member name="M:MsgKit.Streams.TopLevelProperties.#ctor(OpenMcdf.OpenMcdf.CfbStream)">
       <summary>
         Create this object and reads all the <see cref="T:MsgKit.Structures.Property">properties</see> from
-        the given <see cref="T:OpenMcdf.CFStream" />
+        the given <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />
       </summary>
-      <param name="stream">The <see cref="T:OpenMcdf.CFStream" /></param>
+      <param name="stream">The <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /></param>
     </member>
     <member name="M:MsgKit.Streams.TopLevelProperties.#ctor">
       <summary>
@@ -10396,21 +10396,21 @@
       </summary>
     </member>
     <member
-      name="M:MsgKit.Streams.TopLevelProperties.WriteProperties(OpenMcdf.CFStorage,System.Nullable{System.Int64})">
+      name="M:MsgKit.Streams.TopLevelProperties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.Nullable{System.Int64})">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream to the given <paramref name="storage" />, this depends
         on the <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
       <remarks>
         See the <see cref="T:MsgKit.Structures.Properties" /> class it's
         <see
-          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
+          cref="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})" />
         method for the logic
         that is used to determine this
       </remarks>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <param name="messageSize">Used to calculate the exact size of the <see cref="T:MsgKit.Message" /></param>
       <returns>
         Total size of the written <see cref="T:MsgKit.Structures.Properties" />
@@ -10576,14 +10576,14 @@
       <param name="binaryReader"></param>
     </member>
     <member
-      name="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.CFStorage,System.IO.BinaryWriter,System.Nullable{System.Int64})">
+      name="M:MsgKit.Structures.Properties.WriteProperties(OpenMcdf.OpenMcdf.Storage,System.IO.BinaryWriter,System.Nullable{System.Int64})">
       <summary>
         Writes all <see cref="T:MsgKit.Structures.Property">properties</see> either as a
-        <see cref="T:OpenMcdf.CFStream" /> or as a collection in
+        <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /> or as a collection in
         a <see cref="F:MsgKit.PropertyTags.PropertiesStreamName" /> stream to the given <paramref name="storage" />, this depends
         on the <see cref="T:MsgKit.Enums.PropertyType" />
       </summary>
-      <param name="storage">The <see cref="T:OpenMcdf.CFStorage" /></param>
+      <param name="storage">The <see cref="T:OpenMcdf.OpenMcdf.Storage" /></param>
       <param name="binaryWriter">The <see cref="T:System.IO.BinaryWriter" /></param>
       <param name="messageSize">Used to calculate the exact size of the <see cref="T:MsgKit.Message" /></param>
       <returns>
@@ -10617,11 +10617,11 @@
       </param>
       <exception cref="T:System.ArgumentOutOfRangeException">Raised when <paramref name="data" /> is not 8 bytes</exception>
     </member>
-    <member name="M:MsgKit.Structures.Properties.AddProperty(OpenMcdf.CFStream)">
+    <member name="M:MsgKit.Structures.Properties.AddProperty(OpenMcdf.OpenMcdf.CfbStream)">
       <summary>
-        Adds a CFStream and converts it into a property
+        Adds a OpenMcdf.CfbStream and converts it into a property
       </summary>
-      <param name="stream">The <see cref="T:OpenMcdf.CFStream" /></param>
+      <param name="stream">The <see cref="T:OpenMcdf.OpenMcdf.CfbStream" /></param>
       <exception cref="T:System.ArgumentOutOfRangeException">
         Raised when the <paramref name="stream" /> does not start with
         "__substg1.0_"
@@ -11470,8 +11470,8 @@
     <member name="M:MsgKit.Task.WriteToStorage">
       <summary>
         Writes all the properties that are part of the <see cref="T:MsgKit.Appointment" /> object either as
-        <see cref="T:OpenMcdf.CFStorage" />'s
-        or <see cref="T:OpenMcdf.CFStream" />'s to the <see cref="P:OpenMcdf.CompoundFile.RootStorage" />
+        <see cref="T:OpenMcdf.OpenMcdf.Storage" />'s
+        or <see cref="T:OpenMcdf.OpenMcdf.CfbStream" />'s to the <see cref="P:OpenMcdf.OpenMcdf.RootStorage" />
       </summary>
     </member>
     <member name="M:MsgKit.Task.Save(System.IO.Stream)">
