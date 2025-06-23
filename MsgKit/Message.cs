@@ -207,7 +207,9 @@ public class Message : IDisposable
     {
         Save();
         CompoundFile.Commit();
-        CompoundFile.SwitchTo(stream);
+
+        CompoundFile.BaseStream.Position = 0;
+        CompoundFile.BaseStream.CopyTo(stream);
     }
     #endregion
 
