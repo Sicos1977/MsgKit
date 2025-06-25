@@ -5362,7 +5362,7 @@ public class NamedPropertyTag
     /// <param name="name">The name of the property</param>
     /// <param name="guid">The property <see cref="Guid" /></param>
     /// <param name="type">The <see cref="PropertyType" /></param>
-    internal NamedPropertyTag(ushort id, string name, Guid guid, PropertyType type)
+    public NamedPropertyTag(ushort id, string name, Guid guid, PropertyType type)
     {
         Id = id;
         Name = name;
