@@ -208,8 +208,10 @@ public class Message : IDisposable
         Save();
         CompoundFile.Commit();
 
+        var baseStreamPosition = CompoundFile.BaseStream.Position;
         CompoundFile.BaseStream.Position = 0;
         CompoundFile.BaseStream.CopyTo(stream);
+        CompoundFile.BaseStream.Position = baseStreamPosition;
     }
     #endregion
 
