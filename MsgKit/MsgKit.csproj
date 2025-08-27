@@ -47,8 +47,8 @@ Warning: OpenMcdf has breaking changes so make sure you dont have any other depe
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="4.12.0" />
-    <PackageReference Include="OpenMcdf" Version="3.0.1" />
+    <PackageReference Include="MimeKit" Version="4.13.0" />
+    <PackageReference Include="OpenMcdf" Version="3.0.2" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
   </ItemGroup>
 
