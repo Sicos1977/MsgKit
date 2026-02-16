@@ -25,6 +25,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -60,15 +61,15 @@ internal class CLSID
 
     #region Constructor
     /// <summary>
-    ///     Creatis this object and sets all it properties
+    ///     Creates this object and sets all it properties
     /// </summary>
     /// <param name="binaryReader"></param>
     internal CLSID(BinaryReader binaryReader)
     {
-        Data1 = binaryReader.ReadBytes(4).Reverse().ToArray();
-        Data2 = binaryReader.ReadBytes(2).Reverse().ToArray();
-        Data3 = binaryReader.ReadBytes(2).Reverse().ToArray();
-        Data4 = binaryReader.ReadBytes(8).Reverse().ToArray();
+        Data1 = ((IEnumerable<byte>)binaryReader.ReadBytes(4)).Reverse().ToArray();
+        Data2 = ((IEnumerable<byte>)binaryReader.ReadBytes(2)).Reverse().ToArray();
+        Data3 = ((IEnumerable<byte>)binaryReader.ReadBytes(2)).Reverse().ToArray();
+        Data4 = ((IEnumerable<byte>)binaryReader.ReadBytes(8)).Reverse().ToArray();
     }
     #endregion
 
