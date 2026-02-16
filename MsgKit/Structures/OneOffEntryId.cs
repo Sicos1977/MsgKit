@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MsgKit.Enums;
@@ -176,7 +177,7 @@ internal class OneOffEntryId : Address
 
             if (BitConverter.IsLittleEndian)
             {
-                bits = bits.Reverse().ToArray();
+                bits = ((IEnumerable<byte>)bits).Reverse().ToArray();
                 binaryWriter.Write(bits);
             }
             else
