@@ -2,11 +2,11 @@
 
   <PropertyGroup>
 	<TargetFrameworks>net462;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Description>MsgKit is a 100% managed C# .NET library (no PINVOKE or whatsoever) which may be used for the creation of messages (E-Mail, Appointments, Journals and Stickey Notes) that are Outlook compatible</Description>
     <Authors>Kees van Spelde</Authors>
     <Company>Kees van Spelde</Company>
-    <Copyright>(C) 2015-2025 Magic-Sessions</Copyright>
+    <Copyright>(C) 2015-2026 Magic-Sessions</Copyright>
 	<PackageProjectUrl>https://github.com/Sicos1977/MsgKit</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
@@ -18,8 +18,8 @@
 </PackageReleaseNotes>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>MsgKit.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>3.0.2.0</AssemblyVersion>
-    <FileVersion>3.0.2.0</FileVersion>
+    <AssemblyVersion>3.0.3.0</AssemblyVersion>
+    <FileVersion>3.0.3.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Outlook-icon.png</PackageIcon>
     <LangVersion>latest</LangVersion>
@@ -44,8 +44,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="4.13.0" />
-    <PackageReference Include="OpenMcdf" Version="3.0.2" />
+    <PackageReference Include="MimeKit" Version="4.15.0" />
+    <PackageReference Include="OpenMcdf" Version="3.1.0" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
   </ItemGroup>
 
