@@ -26,10 +26,13 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using MimeKit;
 using MsgKit.Exceptions;
 using MsgKit.Helpers;
+using MsgKit.Streams;
+using OpenMcdf;
 
 // ReSharper disable UnusedMember.Global
 
@@ -247,8 +250,185 @@ public static class Converter
     /// <param name="emlFileName">The EML (MIME) file</param>
     public static void ConvertMsgToEml(string msgFileName, string emlFileName)
     {
-        //var eml = MimeKit.MimeMessage.CreateFromMailMessage()
-        throw new NotImplementedException("Not yet done");
+        using var msgFile = new FileStream(msgFileName, FileMode.Open, FileAccess.Read);
+        using var emlFile = new FileStream(emlFileName, FileMode.CreateNew);
+        ConvertMsgToEml(msgFile, emlFile);
+    }
+
+    /// <summary>
+    ///     Converts an MSG file to EML format
+    /// </summary>
+    /// <param name="msgFile">The MSG file input stream</param>
+    /// <param name="emlFile">The EML (MIME) output stream</param>
+    public static void ConvertMsgToEml(Stream msgFile, Stream emlFile)
+    {
+        using var rootStorage = RootStorage.Open(msgFile, StorageModeFlags.LeaveOpen);
+
+        // Read top-level properties
+        var propsStream = rootStorage.OpenStream(PropertyTags.PropertiesStreamName);
+        var topLevelProps = new TopLevelProperties(propsStream);
+
+        // Read variable-size properties from substg streams
+        var subject = ReadUnicodeString(rootStorage, PropertyTags.PR_SUBJECT_W);
+        var bodyText = ReadUnicodeString(rootStorage, PropertyTags.PR_BODY_W);
+        var htmlBytes = ReadBinaryProperty(rootStorage, PropertyTags.PR_HTML);
+        var senderName = ReadUnicodeString(rootStorage, PropertyTags.PR_SENDER_NAME_W);
+        var senderEmail = ReadUnicodeString(rootStorage, PropertyTags.PR_SENDER_EMAIL_ADDRESS_W);
+        var senderSmtp = ReadUnicodeString(rootStorage, PropertyTags.PR_SMTP_ADDRESS_W);
+        var messageId = ReadUnicodeString(rootStorage, PropertyTags.PR_INTERNET_MESSAGE_ID_W);
+
+        // Determine sender SMTP address (prefer SMTP over email, discard Exchange DNs)
+        var senderAddress = senderSmtp ?? senderEmail ?? string.Empty;
+        if (senderAddress.StartsWith("/O=", StringComparison.OrdinalIgnoreCase))
+            senderAddress = string.Empty;
+
+        // Read fixed properties
+        var clientSubmitTime = topLevelProps.FirstOrDefault(p => p.Id == PropertyTags.PR_CLIENT_SUBMIT_TIME.Id);
+        var importance = topLevelProps.FirstOrDefault(p => p.Id == PropertyTags.PR_IMPORTANCE.Id);
+        var priority = topLevelProps.FirstOrDefault(p => p.Id == PropertyTags.PR_PRIORITY.Id);
+
+        // Build MimeMessage
+        var message = new MimeMessage();
+
+        if (!string.IsNullOrEmpty(senderAddress))
+            message.From.Add(new MailboxAddress(senderName ?? string.Empty, senderAddress));
+
+        if (!string.IsNullOrEmpty(subject))
+            message.Subject = subject;
+
+        if (!string.IsNullOrEmpty(messageId))
+            message.MessageId = messageId;
+
+        if (clientSubmitTime != null)
+            message.Date = new DateTimeOffset(clientSubmitTime.ToDateTime);
+
+        if (importance != null)
+        {
+            message.Importance = importance.ToInt switch
+            {
+                0 => MessageImportance.Low,
+                2 => MessageImportance.High,
+                _ => MessageImportance.Normal
+            };
+        }
+
+        if (priority != null)
+        {
+            message.Priority = priority.ToInt switch
+            {
+                -1 => MessagePriority.NonUrgent,
+                1 => MessagePriority.Urgent,
+                _ => MessagePriority.Normal
+            };
+        }
+
+        // Read recipients
+        for (var i = 0; i < topLevelProps.RecipientCount; i++)
+        {
+            var storageName = PropertyTags.RecipientStoragePrefix + i.ToString("X8");
+            if (!rootStorage.TryOpenStorage(storageName, out var recipStorage))
+                continue;
+
+            var recipPropsStream = recipStorage.OpenStream(PropertyTags.PropertiesStreamName);
+            var recipProps = new RecipientProperties(recipPropsStream);
+
+            var displayName = ReadUnicodeString(recipStorage, PropertyTags.PR_DISPLAY_NAME_W);
+            var emailAddress = ReadUnicodeString(recipStorage, PropertyTags.PR_EMAIL_ADDRESS_W);
+            var smtpAddress = ReadUnicodeString(recipStorage, PropertyTags.PR_SMTP_ADDRESS_W);
+
+            var address = smtpAddress ?? emailAddress ?? string.Empty;
+            if (address.StartsWith("/O=", StringComparison.OrdinalIgnoreCase))
+                address = string.Empty;
+
+            if (string.IsNullOrEmpty(address))
+                continue;
+
+            var recipientType = recipProps.FirstOrDefault(p => p.Id == PropertyTags.PR_RECIPIENT_TYPE.Id);
+            var type = recipientType?.ToInt ?? 1;
+
+            var mailbox = new MailboxAddress(displayName ?? string.Empty, address);
+
+            switch (type)
+            {
+                case 1: message.To.Add(mailbox); break;
+                case 2: message.Cc.Add(mailbox); break;
+                case 3: message.Bcc.Add(mailbox); break;
+            }
+        }
+
+        // Build body and read attachments
+        var builder = new BodyBuilder();
+        builder.TextBody = bodyText;
+
+        if (htmlBytes != null)
+            builder.HtmlBody = Encoding.UTF8.GetString(htmlBytes);
+
+        for (var i = 0; i < topLevelProps.AttachmentCount; i++)
+        {
+            var storageName = PropertyTags.AttachmentStoragePrefix + i.ToString("X8");
+            if (!rootStorage.TryOpenStorage(storageName, out var attachStorage))
+                continue;
+
+            var fileName = ReadUnicodeString(attachStorage, PropertyTags.PR_ATTACH_LONG_FILENAME_W)
+                        ?? ReadUnicodeString(attachStorage, PropertyTags.PR_ATTACH_FILENAME_W);
+            var mimeTag = ReadUnicodeString(attachStorage, PropertyTags.PR_ATTACH_MIME_TAG_W);
+            var contentId = ReadUnicodeString(attachStorage, PropertyTags.PR_ATTACH_CONTENT_ID_W);
+            var attachData = ReadBinaryProperty(attachStorage, PropertyTags.PR_ATTACH_DATA_BIN);
+
+            if (attachData == null) continue;
+
+            var contentType = !string.IsNullOrEmpty(mimeTag)
+                ? ContentType.Parse(mimeTag)
+                : new ContentType("application", "octet-stream");
+
+            if (!string.IsNullOrEmpty(contentId))
+            {
+                var attachment = builder.LinkedResources.Add(fileName ?? "inline", attachData, contentType);
+                attachment.ContentId = contentId;
+            }
+            else
+            {
+                builder.Attachments.Add(fileName ?? "attachment", attachData, contentType);
+            }
+        }
+
+        message.Body = builder.ToMessageBody();
+        message.WriteTo(emlFile);
+    }
+    #endregion
+
+    #region ReadUnicodeString
+    /// <summary>
+    ///     Reads a unicode string property from a substg stream in the given storage
+    /// </summary>
+    private static string ReadUnicodeString(Storage storage, PropertyTags.PropertyTag tag)
+    {
+        if (!storage.TryOpenStream(tag.Name, out var stream))
+            return null;
+
+        using (stream)
+        using (var reader = new BinaryReader(stream))
+        {
+            var bytes = reader.ReadBytes((int)stream.Length);
+            return Encoding.Unicode.GetString(bytes).TrimEnd('\0');
+        }
+    }
+    #endregion
+
+    #region ReadBinaryProperty
+    /// <summary>
+    ///     Reads a binary property from a substg stream in the given storage
+    /// </summary>
+    private static byte[] ReadBinaryProperty(Storage storage, PropertyTags.PropertyTag tag)
+    {
+        if (!storage.TryOpenStream(tag.Name, out var stream))
+            return null;
+
+        using (stream)
+        using (var reader = new BinaryReader(stream))
+        {
+            return reader.ReadBytes((int)stream.Length);
+        }
     }
     #endregion
 }

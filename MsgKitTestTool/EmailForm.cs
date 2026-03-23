@@ -107,9 +107,24 @@ namespace MsgKitTestTool
 
         private void ReadMsgFileButton_Click(object sender, EventArgs e)
         {
-            //var msg = new CompoundFile(@"d:\naamloos.msg");
-            //var storage = msg.RootStorage.GetStorage("__nameid_version1.0");
-            //var namedProperties = new NamedProperties(storage);
+            var openFileDialog1 = new OpenFileDialog
+            {
+                // ReSharper disable once LocalizableElement
+                Filter = "Outlook message|*.msg",
+                FilterIndex = 1,
+                Multiselect = false
+            };
+
+            if (Directory.Exists(Settings.Default.InitialDirectory))
+                openFileDialog1.InitialDirectory = Settings.Default.InitialDirectory;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Settings.Default.InitialDirectory = Path.GetDirectoryName(openFileDialog1.FileName);
+                var msgFileName = openFileDialog1.FileName;
+                var emlFileName = Path.ChangeExtension(msgFileName, ".eml");
+                Converter.ConvertMsgToEml(msgFileName, emlFileName);
+            }
         }
 
         private void ContactButton_Click(object sender, EventArgs e)
