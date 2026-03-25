@@ -208,9 +208,9 @@
             this.ReadMsgFileButton.Name = "ReadMsgFileButton";
             this.ReadMsgFileButton.Size = new System.Drawing.Size(91, 33);
             this.ReadMsgFileButton.TabIndex = 21;
-            this.ReadMsgFileButton.Text = "Read MSG";
+            this.ReadMsgFileButton.Text = "MSG -> EML";
             this.ReadMsgFileButton.UseVisualStyleBackColor = true;
-            this.ReadMsgFileButton.Visible = false;
+            this.ReadMsgFileButton.Visible = true;
             this.ReadMsgFileButton.Click += new System.EventHandler(this.ReadMsgFileButton_Click);
             // 
             // ReadReceiptCheckBox
