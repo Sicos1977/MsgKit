@@ -50,8 +50,9 @@
       <HintPath>..\packages\Microsoft.Bcl.Memory.10.0.4\lib\net462\Microsoft.Bcl.Memory.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MimeKit, Version=4.15.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.4.15.0\lib\net48\MimeKit.dll</HintPath>
+    <Reference Include="MimeKit, Version=4.15.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814">
+      <HintPath>..\packages\MimeKit.4.15.1\lib\net48\MimeKit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OpenMcdf, Version=3.1.0.0, Culture=neutral, PublicKeyToken=fdbb1629d7c00800, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenMcdf.3.1.0\lib\netstandard2.0\OpenMcdf.dll</HintPath>
