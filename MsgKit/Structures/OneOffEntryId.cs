@@ -164,7 +164,7 @@ internal class OneOffEntryId : Address
             // L (1 bit): (mask 0x0010) A flag that indicates whether the server can look up an address in the address 
             // book. If b'1', server cannot look up this user's email address in the address book. If b'0', server can 
             // look up this user's email address in the address book.
-            bitArray.Set(11, _canLookupEmailAddress);
+            bitArray.Set(11, !_canLookupEmailAddress);
 
             // Pad (4 bits): (mask 0x000F) Reserved. This value is set to b'0000'.
             bitArray.Set(12, false);
