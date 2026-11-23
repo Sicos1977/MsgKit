@@ -45,7 +45,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MimeKit" Version="4.18.1" />
+    <PackageReference Include="MimeKit.Core" Version="5.0.0" />
     <PackageReference Include="OpenMcdf" Version="3.3.0" />
     <PackageReference Include="System.Memory" Version="4.6.3" />
   </ItemGroup>
